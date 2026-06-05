@@ -1,0 +1,289 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
+
+smc-bg * {
+  font-family: "Quicksand", serif;
+}
+smc-bg {
+  background-color: rgb(210 210 210 / 60%);
+  backdrop-filter: blur(3px);
+}
+smc-overlay-inner {
+  --smc-mainBkg: #fff;
+  --smc-bkg1: #fff;
+  --smc-bkg2: #f8f7ef;
+  --smc-textColour: #121212;
+  --smc-textColour2: #222;
+  --smc-font2: "Playfair", serif;
+  --smc-btnBkg: #73378b;
+  --smc-btnText: #222;
+  --smc-btnBkgHover: #ffb300cb;
+  --smc-btnBorder: 1px solid #ffb300cb;
+  --smc-btnBorderRadius: 5px;
+  --smc-btnPadding: 12px;
+  --smc-frameBorder: 2px;
+}
+
+smc-overlay-inner {
+  background: linear-gradient(180deg, var(--smc-bkg1) 80%, var(--smc-bkg2) 80%);
+  width: 700px;
+  min-height: 400px;
+  padding-bottom: 0;
+  overflow: hidden;
+  margin-bottom: 0;
+  border-radius: var(--smc-frameBorder);
+}
+
+/* Align the content Left */
+smc-img-outer,
+smc-text-outer,
+smc-option,
+smc-long-close {
+  width: 45%;
+  margin: 0 0 0 45px;
+}
+
+.smc-text1,
+.smc-text2 {
+  font-size: 15px;
+  font-weight: 400;
+  text-align: left;
+  line-height: 1.2;
+  margin: 15px auto;
+  color: var(--smc-textColour);
+}
+
+.smc-text1 {
+  font-size: 36px;
+  font-weight: bold;
+  margin: 45px auto auto auto;
+}
+
+.smc-text2 {
+  line-height: 1.4;
+}
+
+.smc-button {
+  max-width: 130px;
+  margin: 20px auto auto 0;
+  background-color: var(--smc-btnBkg);
+  color: var(--smc-btnText);
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: var(--smc-btnBorderRadius);
+  padding: var(--smc-btnPadding);
+}
+.smc-button:hover {
+  background-color: var(--smc-btnBkgHover);
+}
+
+smc-close {
+  font-size: 12px;
+  top: 2px;
+  right: 2px;
+}
+
+smc-close a.smc-link {
+  color: #000;
+}
+
+smc-cart {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 280px;
+  height: 100%;
+  padding: 20px;
+  background-color: #fff0;
+}
+
+smc-product {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 320px;
+  height: 100%;
+  background-color: #fff;
+  border-radius: var(--smc-frameBorder);
+  overflow: hidden;
+  box-shadow: 0 0rem 3.2rem rgb(0 0 0 / 8%);
+}
+
+smc-product-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 10px;
+  margin: 0 auto 0 auto;
+  border-radius: 3px;
+}
+
+smc-product-img img {
+  max-width: 190px;
+  margin: 0;
+  border-radius: 3px;
+}
+
+smc-details {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 5px 25px;
+}
+
+smc-product-name,
+smc-product-desc,
+smc-prices,
+smc-product-link {
+  display: flex;
+  font-size: 14px;
+  font-weight: 400;
+  margin: 5px auto 0 auto;
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+  color: var(--smc-textColour);
+}
+
+smc-product-name {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-height: 1.2;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0 auto;
+}
+
+smc-product-desc {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box !important;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-height: 1.2;
+  opacity: 0.4;
+  font-size: 12px;
+}
+
+smc-prices {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+smc-product-price {
+  color: var(--smc-textColour);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+smc-old-price {
+  text-decoration: line-through;
+  line-height: 1.3;
+  padding: 0 10px 0 0;
+  color: #949494;
+}
+smc-old-price:empty {
+  padding: 0;
+}
+smc-rating {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 20px;
+  width: 330px;
+  position: absolute;
+  bottom: 35px;
+  left: 52px;
+}
+
+smc-rating img {
+  max-width: 75px;
+  filter: hue-rotate(65deg) brightness(200%);
+}
+
+smc-rating:after {
+  content: "Join 1000's of Happy Customers!";
+  font-size: 13px;
+  color: var(--smc-textColour);
+  font-weight: 400;
+  animation: smc-changewords 4s infinite;
+}
+@keyframes smc-changewords {
+  0% {
+    content: "Join 1000's of Happy Customers!";
+  }
+  33% {
+    content: "USP number 2 here";
+  }
+  66% {
+    content: "Third USP here";
+  }
+}
+
+/* MOBILE STYLES 
+
+smc-overlay-inner{
+  width: 320px;
+  min-height: 500px;  
+  background: linear-gradient(180deg, var(--smc-bkg1) 85%, var(--smc-bkg2) 85%);
+
+}
+smc-img-outer,
+smc-text-outer,
+smc-option,
+smc-long-close {
+  width: 90%;
+  margin: 0 0 0 15px;
+}
+.smc-text1{
+  margin: 180px auto 5px auto;
+  font-size: 32px;
+}
+.smc-text2{
+  margin: 5px auto 5px 0;
+}
+smc-cart{
+  left: 0;
+  width: 320px;
+  height: auto;
+}
+smc-product{
+  flex-direction: row;
+}
+smc-product-img, smc-product-details{
+  width: 50%;
+}
+smc-product-img img{
+  max-width: 100px;
+}
+smc-product-name,
+smc-product-desc,
+smc-prices,
+smc-product-link {
+  text-align: left;
+  justify-content: flex-start;
+}
+smc-product-name {
+  -webkit-line-clamp: 3;
+  font-size: 14px;
+}
+smc-product-desc {
+  -webkit-line-clamp: 2;
+  font-size: 11px;
+}
+smc-rating {
+  gap:10px;
+  width: 290px;
+  padding: 30px;
+  bottom:0;
+  left: 0;
+}*/

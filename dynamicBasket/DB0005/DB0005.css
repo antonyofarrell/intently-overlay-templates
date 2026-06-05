@@ -1,0 +1,240 @@
+@import url("https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,700");
+smc-bg * {
+  font-family: "Nunito Sans", sans-serif;
+}
+
+smc-overlay-inner {
+  --smc-bg: #ffd814;
+  --smc-text: #000;
+  --smc-btn: #000;
+  --smc-btnHover: #000;
+  --smc-border: 2px;
+}
+smc-bg {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: auto;
+  top: auto;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0);
+  pointer-events: none;
+}
+
+smc-overlay-outer {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  right: auto;
+}
+
+smc-overlay-inner {
+  background-color: #f9f9f9;
+  width: 580px;
+  min-height: 175px;
+  padding-bottom: 0;
+  border-radius: 4px;
+  border: 1px solid #d9d9d973;
+  box-shadow: 0 0 20px #00000014;
+  position: relative;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  pointer-events: all;
+}
+
+/* Align the content Left */
+smc-img-outer,
+smc-text-outer,
+smc-option,
+smc-long-close {
+  width: 240px;
+  min-width: auto;
+  margin: 0 0 0 290px;
+}
+
+.smc-text1,
+.smc-text2,
+.smc-text3 {
+  font-size: 11px;
+  font-weight: 400;
+  margin: 10px auto 0 auto;
+  color: var(--smc-text);
+  text-align: left;
+  line-height: 130%;
+}
+
+.smc-text1 {
+  margin: 15px auto auto auto;
+}
+.smc-text2 {
+  font-size: 22px;
+  font-weight: 600;
+  margin: 5px auto 0 auto;
+}
+.smc-text3 {
+  font-size: 13px;
+  font-weight: 400;
+  margin: 2px auto auto auto;
+}
+
+.smc-button {
+  max-width: 160px;
+  margin: 15px auto auto 0;
+  background-color: var(--smc-btn);
+  color: #fff;
+  padding: 10px;
+  font-size: 11px;
+  font-weight: bold;
+  border-radius: 40px;
+}
+.smc-button:hover {
+  background-color: var(--smc-btnHover);
+}
+smc-close {
+  top: -5px;
+  right: -5px;
+  background: #fff;
+}
+smc-close:hover {
+  background: #fff;
+}
+smc-close a.smc-link {
+  color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+}
+
+smc-cart {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background-color: #fff;
+  width: 260px;
+  height: 135px;
+  padding: 2px;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 5px;
+  align-items: flex-start;
+  border: 1px solid #e7e7e7;
+}
+
+smc-product {
+  align-self: center;
+  height: 100%;
+  display: flex !important;
+  flex-direction: row;
+}
+smc-left,
+smc-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40%;
+  flex-direction: column;
+  padding: 10px;
+}
+smc-right {
+  width: 60%;
+}
+
+smc-product-img,
+smc-product-name,
+smc-product-rating,
+smc-prices,
+smc-product-desc {
+  display: block;
+  margin: 5px auto;
+  font-weight: 300;
+  font-size: 14px;
+  color: #19124f;
+  width: 100%;
+  text-align: left;
+}
+
+smc-product-img {
+  max-width: 95px;
+  max-height: 160px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  margin: auto;
+}
+smc-product-img img {
+  width: 100%;
+  height: auto;
+}
+smc-product-name {
+  font-size: 13px;
+  text-overflow: ellipsis;
+  color: #000;
+  overflow: hidden;
+  display: -webkit-box;
+  margin: 5px auto;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  font-weight: 600;
+  line-height: 1.2;
+}
+smc-product-desc {
+  font-size: 10px;
+  text-overflow: ellipsis;
+  color: #707070;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-height: 1.1;
+}
+smc-prices {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+smc-product-price {
+  font-weight: 600;
+  font-size: 12px;
+  color: #000;
+}
+smc-old-price {
+  font-weight: 400;
+  font-size: 12px;
+  color: #000;
+  text-decoration: line-through;
+}
+smc-old-price:empty {
+  display: none;
+}
+
+/* Mobile styles */
+/* smc-overlay-outer{
+  width: 100%;
+}
+smc-overlay-inner{
+  width: 320px;
+  min-height: 330px;
+}
+smc-img-outer,smc-text-outer,smc-option,smc-long-close {
+  width: 100%;
+  min-width: auto;
+  margin: auto;
+}
+.smc-text1,
+.smc-text2,
+.smc-text3 {
+  text-align: center;
+}
+.smc-button{
+  margin: 15px auto;
+  max-width: 180px;
+}
+smc-cart{
+  left:30px;
+} */

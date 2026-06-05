@@ -1,0 +1,1343 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Overlay Design Templates</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Segoe UI", system-ui, sans-serif;
+        background: #f0f2f5;
+        color: #1a1a2e;
+      }
+      header {
+        background: linear-gradient(135deg, #1a1a2e, #0f3460);
+        color: white;
+        padding: 32px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      }
+      h1 {
+        font-size: 26px;
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+      header p {
+        opacity: 0.7;
+        font-size: 13px;
+        margin-bottom: 18px;
+      }
+      #si {
+        width: 100%;
+        max-width: 500px;
+        padding: 10px 16px;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        background: rgba(255, 255, 255, 0.15);
+        color: white;
+        outline: none;
+      }
+      #si::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+      }
+      #si:focus {
+        background: rgba(255, 255, 255, 0.25);
+      }
+      .filters {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-top: 14px;
+      }
+      .ftab {
+        padding: 6px 16px;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        background: transparent;
+        color: rgba(255, 255, 255, 0.75);
+        font-size: 12px;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .ftab:hover {
+        background: rgba(255, 255, 255, 0.15);
+        color: white;
+      }
+      .ftab.active {
+        background: white;
+        color: #1a1a2e;
+        font-weight: 700;
+      }
+      .count {
+        background: white;
+        border-bottom: 1px solid #e8ecf0;
+        padding: 10px 32px;
+        font-size: 13px;
+        color: #666;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      #cnt {
+        font-weight: 700;
+        color: #333;
+      }
+      .data-badge {
+        font-size: 11px;
+        background: #e8f5e9;
+        color: #2e7d32;
+        padding: 3px 10px;
+        border-radius: 12px;
+        font-weight: 600;
+      }
+      .wrap {
+        padding: 24px 32px;
+      }
+      .sh {
+        font-size: 18px;
+        font-weight: 700;
+        margin: 20px 0 14px;
+        padding-bottom: 8px;
+        border-bottom: 3px solid #e94560;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .sh .b {
+        background: #e94560;
+        color: white;
+        font-size: 11px;
+        padding: 2px 8px;
+        border-radius: 12px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 16px;
+        margin-bottom: 8px;
+      }
+      .card {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+        border: 1px solid #eef0f3;
+        display: flex;
+        flex-direction: column;
+      }
+      .card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      }
+      .ch {
+        background: #f7f9fc;
+        padding: 12px 14px;
+        border-bottom: 1px solid #eef0f3;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .ref {
+        background: #1a1a2e;
+        color: white;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 3px 8px;
+        border-radius: 5px;
+        font-family: monospace;
+      }
+      .cat {
+        font-size: 11px;
+        font-weight: 600;
+        padding: 3px 8px;
+        border-radius: 5px;
+      }
+      .db {
+        background: #e3f2fd;
+        color: #1565c0;
+      }
+      .pr {
+        background: #f3e5f5;
+        color: #6a1b9a;
+      }
+      .rd {
+        background: #e8f5e9;
+        color: #2e7d32;
+      }
+      .rv {
+        background: #fff3e0;
+        color: #e65100;
+      }
+      .ms {
+        background: #fce4ec;
+        color: #880e4f;
+      }
+      .cb {
+        padding: 14px;
+        flex: 1;
+      }
+      .cb h3 {
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 1.5;
+        color: #1a1a2e;
+        margin-bottom: 10px;
+      }
+      .note {
+        font-size: 11px;
+        color: #888;
+        background: #f9f9f9;
+        padding: 7px 9px;
+        border-radius: 5px;
+        border-left: 3px solid #e94560;
+        margin-top: 8px;
+        margin-bottom: 8px;
+      }
+
+      /* SCORES */
+      .scores {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-top: 8px;
+      }
+      .score-item {
+        flex: 1;
+        min-width: 100px;
+        background: #f7f9fc;
+        border-radius: 8px;
+        padding: 8px 10px;
+        border: 1px solid #eef0f3;
+      }
+      .score-label {
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #888;
+        margin-bottom: 4px;
+      }
+      .score-val {
+        font-size: 16px;
+        font-weight: 800;
+        color: #1a1a2e;
+      }
+      .score-bar-wrap {
+        height: 4px;
+        background: #e8ecf0;
+        border-radius: 2px;
+        margin-top: 4px;
+        overflow: hidden;
+      }
+      .score-bar {
+        height: 100%;
+        border-radius: 2px;
+        transition: width 0.5s ease;
+      }
+      .bar-eng {
+        background: linear-gradient(90deg, #4facfe, #00f2fe);
+      }
+      .bar-conv {
+        background: linear-gradient(90deg, #43e97b, #38f9d7);
+      }
+      .no-data {
+        font-size: 11px;
+        color: #bbb;
+        font-style: italic;
+        margin-top: 8px;
+      }
+
+      .cf {
+        padding: 10px 14px;
+        border-top: 1px solid #eef0f3;
+        background: #fafbfc;
+      }
+      .cf a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        color: #0f3460;
+        font-size: 12px;
+        font-weight: 600;
+        text-decoration: none;
+        padding: 7px 12px;
+        border-radius: 6px;
+        border: 1px solid #0f3460;
+        transition: all 0.2s;
+      }
+      .cf a:hover {
+        background: #0f3460;
+        color: white;
+      }
+      .hidden {
+        display: none !important;
+      }
+      .nores {
+        text-align: center;
+        padding: 60px;
+        color: #999;
+        display: none;
+      }
+
+      /* Live data banner */
+      .live-banner {
+        background: #fff8e1;
+        border-left: 4px solid #ffc107;
+        padding: 10px 32px;
+        font-size: 12px;
+        color: #795548;
+        display: none;
+      }
+      .live-banner.show {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>&#127912; Overlay Design Templates</h1>
+      <p>Browse templates and request via HubSpot using the reference codes</p>
+      <input
+        type="text"
+        id="si"
+        placeholder="Search templates..."
+        oninput="go()"
+      />
+      <div class="filters">
+        <button class="ftab active" onclick="sf('all', this)">
+          All Templates
+        </button>
+        <button class="ftab" onclick="sf('db', this)">Dynamic Basket</button>
+        <button class="ftab" onclick="sf('pr', this)">Recomminder</button>
+        <button class="ftab" onclick="sf('rd', this)">Redirect</button>
+        <button class="ftab" onclick="sf('rv', this)">Click to Reveal</button>
+        <button class="ftab" onclick="sf('ms', this)">Miscellaneous</button>
+      </div>
+    </header>
+
+    <div id="live-banner" class="live-banner">
+      &#9888;&#65039; Scores shown are from the last manual data update. See
+      instructions in the HTML comments to enable live auto-refresh.
+    </div>
+
+    <div class="count">
+      Showing <span id="cnt">0</span> templates &nbsp;
+      <span class="data-badge" id="data-source-badge"
+        >&#128200; Data: Last 3 months (as at last update)</span
+      >
+    </div>
+
+    <div class="wrap">
+      <!-- DYNAMIC BASKET -->
+      <div class="section" id="s-db">
+        <div class="sh">Dynamic Basket <span class="b">DB</span></div>
+        <div class="grid">
+          <div
+            class="card"
+            data-c="db"
+            data-t="simple dynamic basket overlay db0001"
+          >
+            <div class="ch">
+              <span class="ref">DB0001</span
+              ><span class="cat db">Dynamic Basket</span>
+            </div>
+            <div class="cb">
+              <h3>Simple Dynamic basket overlay</h3>
+              <div class="scores" id="sc-DB0001"></div>
+            </div>
+            <div class="cf">
+              <a
+                href="https://admin.intent.ly/my-account/overlay-manager/#129190"
+                target="_blank"
+                >&#128279; View in Intent.ly</a
+              >
+            </div>
+          </div>
+
+          <div
+            class="card"
+            data-c="db"
+            data-t="dynamic basket overlay animated icon attention db0002"
+          >
+            <div class="ch">
+              <span class="ref">DB0002</span
+              ><span class="cat db">Dynamic Basket</span>
+            </div>
+            <div class="cb">
+              <h3>Dynamic basket overlay with animated icon for attention</h3>
+              <div class="scores" id="sc-DB0002"></div>
+            </div>
+            <div class="cf">
+              <a
+                href="https://admin.intent.ly/my-account/overlay-manager/#139425"
+                target="_blank"
+                >&#128279; View in Intent.ly</a
+              >
+            </div>
+          </div>
+
+          <div
+            class="card"
+            data-c="db"
+            data-t="small format dynamic basket overlay minimal design copy db0003"
+          >
+            <div class="ch">
+              <span class="ref">DB0003</span
+              ><span class="cat db">Dynamic Basket</span>
+            </div>
+            <div class="cb">
+              <h3>
+                Small format dynamic basket overlay, minimal design for when
+                very little copy is required or supplied
+              </h3>
+              <div class="scores" id="sc-DB0003"></div>
+            </div>
+            <div class="cf">
+              <a
+                href="https://admin.intent.ly/my-account/overlay-manager/#142876"
+                target="_blank"
+                >&#128279; View in Intent.ly</a
+              >
+            </div>
+          </div>
+
+          <div
+            class="card"
+            data-c="db"
+            data-t="dynamic basket 50 50 layout messaging db0004"
+          >
+            <div class="ch">
+              <span class="ref">DB0004</span
+              ><span class="cat db">Dynamic Basket</span>
+            </div>
+            <div class="cb">
+              <h3>
+                Dynamic basket with a 50/50 layout of messaging and basket
+                section
+              </h3>
+              <div class="scores" id="sc-DB0004"></div>
+            </div>
+            <div class="cf">
+              <a
+                href="https://admin.intent.ly/my-account/overlay-manager/#149571"
+                target="_blank"
+                >&#128279; View in Intent.ly</a
+              >
+            </div>
+          </div>
+
+          <div
+            class="card"
+            data-c="db"
+            data-t="bottom left unobtrusive design position db0005"
+          >
+            <div class="ch">
+              <span class="ref">DB0005</span
+              ><span class="cat db">Dynamic Basket</span>
+            </div>
+            <div class="cb">
+              <h3>Bottom left unobtrusive design</h3>
+              <div class="note">
+                Can be positioned bottom left, bottom right, top left, top right
+                &mdash; specify when adding ticket in HubSpot
+              </div>
+              <div class="scores" id="sc-DB0005"></div>
+            </div>
+            <div class="cf">
+              <a
+                href="https://admin.intent.ly/my-account/overlay-manager/#149581"
+                target="_blank"
+                >&#128279; View in Intent.ly</a
+              >
+            </div>
+          </div>
+
+          <div
+            class="card"
+            data-c="db"
+            data-t="corner overlay product details hover effect db0006"
+          >
+            <div class="ch">
+              <span class="ref">DB0006</span
+              ><span class="cat db">Dynamic Basket</span>
+            </div>
+            <div class="cb">
+              <h3>
+                Corner overlay with just the product details and a hover effect
+              </h3>
+              <div class="note">
+                Can be positioned bottom left, bottom right, top left, top right
+                &mdash; specify when adding ticket in HubSpot
+              </div>
+              <div class="scores" id="sc-DB0006"></div>
+            </div>
+            <div class="cf">
+              <a
+                href="https://admin.intent.ly/my-account/overlay-manager/#121004"
+                target="_blank"
+                >&#128279; View in Intent.ly</a
+              >
+            </div>
+          </div>
+
+          <div
+            class="card"
+            data-c="db"
+            data-t="dynamic basket usps rotate db0007"
+          >
+            <div class="ch">
+              <span class="ref">DB0007</span
+              ><span class="cat db">Dynamic Basket</span>
+            </div>
+            <div class="cb">
+              <h3>Dynamic basket with space for USPs that rotate</h3>
+              <div class="scores" id="sc-DB0007"></div>
+            </div>
+            <div class="cf">
+              <a
+                href="https://admin.intent.ly/my-account/overlay-manager/#151335"
+                target="_blank"
+                >&#128279; View in Intent.ly</a
+              >
+            </div>
+          </div>
+
+          <div
+            class="card"
+            data-c="db"
+            data-t="dynamic basket date based reservations hotels events db0008"
+          >
+            <div class="ch">
+              <span class="ref">DB0008</span
+              ><span class="cat db">Dynamic Basket</span>
+            </div>
+            <div class="cb">
+              <h3>
+                Dynamic basket with layout specific to
+                <strong>date based reservations</strong> like hotels or events
+              </h3>
+              <div class="scores" id="sc-DB0008"></div>
+            </div>
+            <div class="cf">
+              <a
+                href="https://admin.intent.ly/my-account/overlay-manager/#154632"
+                target="_blank"
+                >&#128279; View in Intent.ly</a
+              >
+            </div>
+          </div>
+
+          <div
+            class="card"
+            data-c="db"
+            data-t="dynamic basket sidebar usp list product information db0009"
+          >
+            <div class="ch">
+              <span class="ref">DB0009</span
+              ><span class="cat db">Dynamic Basket</span>
+            </div>
+            <div class="cb">
+              <h3>
+                Dynamic basket sidebar with USP list under product information
+              </h3>
+              <div class="note">
+                Can be positioned bottom left, bottom right, top left, top right
+                &mdash; specify when adding ticket in HubSpot
+              </div>
+              <div class="scores" id="sc-DB0009"></div>
+            </div>
+            <div class="cf">
+              <a
+                href="https://admin.intent.ly/my-account/overlay-manager/#159534"
+                target="_blank"
+                >&#128279; View in Intent.ly</a
+              >
+            </div>
+          </div>
+
+          <div
+            class="card"
+            data-c="db"
+            data-t="letterbox style long thin dynamic basket db0010"
+          >
+            <div class="ch">
+              <span class="ref">DB0010</span
+              ><span class="cat db">Dynamic Basket</span>
+            </div>
+            <div class="cb">
+              <h3>Letterbox style long thin dynamic basket</h3>
+              <div class="note">
+                Can be positioned bottom left, bottom right, top left, top right
+                &mdash; specify when adding ticket in HubSpot
+              </div>
+              <div class="scores" id="sc-DB0010"></div>
+            </div>
+            <div class="cf">
+              <a
+                href="https://admin.intent.ly/my-account/overlay-manager/#159810"
+                target="_blank"
+                >&#128279; View in Intent.ly</a
+              >
+            </div>
+          </div>
+
+          <div
+            class="card"
+            data-c="db"
+            data-t="birkenstock style dynamic basket left bottom db0011"
+          >
+            <div class="ch">
+              <span class="ref">DB0011</span
+              ><span class="cat db">Dynamic Basket</span>
+            </div>
+            <div class="cb">
+              <h3>
+                "Birkenstock" style dynamic basket, positioned left and towards
+                the bottom
+              </h3>
+              <div class="note">
+                Can be positioned bottom left, bottom right, top left, top right
+                &mdash; specify when adding ticket in HubSpot
+              </div>
+              <div class="scores" id="sc-DB0011"></div>
+            </div>
+            <div class="cf">
+              <a
+                href="https://admin.intent.ly/my-account/overlay-manager/#161354"
+                target="_blank"
+                >&#128279; View in Intent.ly</a
+              >
+            </div>
+          </div>
+
+          <div class="card" data-c="db" data-t="fashion simple db0012">
+            <div class="ch">
+              <span class="ref">DB0012</span
+              ><span class="cat db">Dynamic Basket</span>
+            </div>
+            <div class="cb">
+              <h3>Fashion simple</h3>
+              <div class="scores" id="sc-DB0012"></div>
+            </div>
+            <div class="cf">
+              <a
+                href="https://admin.intent.ly/my-account/overlay-manager/#161367"
+                target="_blank"
+                >&#128279; View in Intent.ly</a
+              >
+            </div>
+          </div>
+
+          <div
+            class="card"
+            data-c="db"
+            data-t="basket reminder code countdown 30 minutes db0013"
+          >
+            <div class="ch">
+              <span class="ref">DB0013</span
+              ><span class="cat db">Dynamic Basket</span>
+            </div>
+            <div class="cb">
+              <h3>Basket reminder with code and countdown to 30 minutes</h3>
+              <div class="scores" id="sc-DB0013"></div>
+            </div>
+            <div class="cf">
+              <a
+                href="https://admin.intent.ly/my-account/overlay-manager/#161587"
+                target="_blank"
+                >&#128279; View in Intent.ly</a
+              >
+            </div>
+          </div>
+
+          <div
+            class="card"
+            data-c="db"
+            data-t="bottom left compact design hover highlight product db0014"
+          >
+            <div class="ch">
+              <span class="ref">DB0014</span
+              ><span class="cat db">Dynamic Basket</span>
+            </div>
+            <div class="cb">
+              <h3>
+                Bottom left compact design with hover effect to highlight
+                product
+              </h3>
+              <div class="scores" id="sc-DB0014"></div>
+            </div>
+            <div class="cf">
+              <a
+                href="https://admin.intent.ly/my-account/overlay-manager/#162194"
+                target="_blank"
+                >&#128279; View in Intent.ly</a
+              >
+            </div>
+          </div>
+
+          <div
+            class="card"
+            data-c="db"
+            data-t="standard template products company branding db0015"
+          >
+            <div class="ch">
+              <span class="ref">DB0015</span
+              ><span class="cat db">Dynamic Basket</span>
+            </div>
+            <div class="cb">
+              <h3>Standard template for products with company branding</h3>
+              <div class="scores" id="sc-DB0015"></div>
+            </div>
+            <div class="cf">
+              <a
+                href="https://admin.intent.ly/my-account/overlay-manager/#165015"
+                target="_blank"
+                >&#128279; View in Intent.ly</a
+              >
+            </div>
+          </div>
+
+          <div
+            class="card"
+            data-c="db"
+            data-t="very non intrusive product details price button db0016"
+          >
+            <div class="ch">
+              <span class="ref">DB0016</span
+              ><span class="cat db">Dynamic Basket</span>
+            </div>
+            <div class="cb">
+              <h3>
+                VERY non intrusive &mdash; just product details and price
+                integrated into the button
+              </h3>
+              <div class="scores" id="sc-DB0016"></div>
+            </div>
+            <div class="cf">
+              <a
+                href="https://admin.intent.ly/my-account/overlay-manager/#166247"
+                target="_blank"
+                >&#128279; View in Intent.ly</a
+              >
+            </div>
+          </div>
+
+          <div
+            class="card"
+            data-c="db"
+            data-t="simple basket reminder overlay bottom left db0017"
+          >
+            <div class="ch">
+              <span class="ref">DB0017</span
+              ><span class="cat db">Dynamic Basket</span>
+            </div>
+            <div class="cb">
+              <h3>Simple basket reminder overlay bottom left</h3>
+              <div class="scores" id="sc-DB0017"></div>
+            </div>
+            <div class="cf">
+              <a
+                href="https://admin.intent.ly/my-account/overlay-manager/#166247"
+                target="_blank"
+                >&#128279; View in Intent.ly</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RECOMMINDER -->
+      <div class="section" id="s-pr">
+        <div class="sh">Recomminder <span class="b">PR</span></div>
+        <div class="grid">
+          <div
+            class="card"
+            data-c="pr"
+            data-t="simple product recomminder overlay usps scrolling bottom pr0001"
+          >
+            <div class="ch">
+              <span class="ref">PR0001</span
+              ><span class="cat pr">Recomminder</span>
+            </div>
+            <div class="cb">
+              <h3>
+                Simple product recomminder overlay with USPs scrolling along the
+                bottom
+              </h3>
+              <div class="scores" id="sc-PR0001"></div>
+            </div>
+            <div class="cf">
+              <a
+                href="https://admin.intent.ly/my-account/overlay-manager/#149609"
+                target="_blank"
+                >&#128279; View in Intent.ly</a
+              >
+            </div>
+          </div>
+
+          <div
+            class="card"
+            data-c="pr"
+            data-t="female focussed recomminder woman phone pr0002"
+          >
+            <div class="ch">
+              <span class="ref">PR0002</span
+              ><span class="cat pr">Recomminder</span>
+            </div>
+            <div class="cb">
+              <h3>Female focussed recomminder with woman looking at phone</h3>
+              <div class="scores" id="sc-PR0002"></div>
+            </div>
+            <div class="cf">
+              <a
+                href="https://admin.intent.ly/my-account/overlay-manager/#149898"
+                target="_blank"
+                >&#128279; View in Intent.ly</a
+              >
+            </div>
+          </div>
+
+          <div
+            class="card"
+            data-c="pr"
+            data-t="side by side product recomminder two products pr0003"
+          >
+            <div class="ch">
+              <span class="ref">PR0003</span
+              ><span class="cat pr">Recomminder</span>
+            </div>
+            <div class="cb">
+              <h3>Side by side product recomminder with two products</h3>
+              <div class="scores" id="sc-PR0003"></div>
+            </div>
+            <div class="cf">
+              <a
+                href="https://admin.intent.ly/my-account/overlay-manager/#149896"
+                target="_blank"
+                >&#128279; View in Intent.ly</a
+              >
+            </div>
+          </div>
+
+          <div class="card" data-c="pr" data-t="standard square design pr0004">
+            <div class="ch">
+              <span class="ref">PR0004</span
+              ><span class="cat pr">Recomminder</span>
+            </div>
+            <div class="cb">
+              <h3>Standard Square design</h3>
+              <div class="scores" id="sc-PR0004"></div>
+            </div>
+            <div class="cf">
+              <a
+                href="https://admin.intent.ly/my-account/overlay-manager/#150076"
+                target="_blank"
+                >&#128279; View in Intent.ly</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- REDIRECT -->
+      <div class="section" id="s-rd">
+        <div class="sh">Redirect <span class="b">RD</span></div>
+        <div class="grid">
+          <div
+            class="card"
+            data-c="rd"
+            data-t="simple basket recomminder health beauty clients rd0001"
+          >
+            <div class="ch">
+              <span class="ref">RD0001</span
+              ><span class="cat rd">Redirect</span>
+            </div>
+            <div class="cb">
+              <h3>
+                Simple basket recomminder overlay for health/beauty clients
+              </h3>
+              <div class="scores" id="sc-RD0001"></div>
+            </div>
+            <div class="cf">
+              <a
+                href="https://admin.intent.ly/my-account/overlay-manager/#160834"
+                target="_blank"
+                >&#128279; View in Intent.ly</a
+              >
+            </div>
+          </div>
+
+          <div
+            class="card"
+            data-c="rd"
+            data-t="multi cta categories bestsellers rd0002"
+          >
+            <div class="ch">
+              <span class="ref">RD0002</span
+              ><span class="cat rd">Redirect</span>
+            </div>
+            <div class="cb">
+              <h3>Multi CTA for different categories or bestsellers</h3>
+              <div class="scores" id="sc-RD0002"></div>
+            </div>
+            <div class="cf">
+              <a
+                href="https://admin.intent.ly/my-account/overlay-manager/#160836"
+                target="_blank"
+                >&#128279; View in Intent.ly</a
+              >
+            </div>
+          </div>
+
+          <div
+            class="card"
+            data-c="rd"
+            data-t="multi cta different images category product hover rd0003"
+          >
+            <div class="ch">
+              <span class="ref">RD0003</span
+              ><span class="cat rd">Redirect</span>
+            </div>
+            <div class="cb">
+              <h3>
+                Multi CTA with different images for each category/product option
+                on hover
+              </h3>
+              <div class="scores" id="sc-RD0003"></div>
+            </div>
+            <div class="cf">
+              <a
+                href="https://admin.intent.ly/my-account/overlay-manager/#139633"
+                target="_blank"
+                >&#128279; View in Intent.ly</a
+              >
+            </div>
+          </div>
+
+          <div
+            class="card"
+            data-c="rd"
+            data-t="product category carousel sliding images rd0004"
+          >
+            <div class="ch">
+              <span class="ref">RD0004</span
+              ><span class="cat rd">Redirect</span>
+            </div>
+            <div class="cb">
+              <h3>Product category carousel sliding images</h3>
+              <div class="scores" id="sc-RD0004"></div>
+            </div>
+            <div class="cf">
+              <a
+                href="https://admin.intent.ly/my-account/overlay-manager/#161013"
+                target="_blank"
+                >&#128279; View in Intent.ly</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CLICK TO REVEAL -->
+      <div class="section" id="s-rv">
+        <div class="sh">Click to Reveal <span class="b">RV</span></div>
+        <div class="grid">
+          <div
+            class="card"
+            data-c="rv"
+            data-t="simple code reveal template images right rv0001"
+          >
+            <div class="ch">
+              <span class="ref">RV0001</span
+              ><span class="cat rv">Click to Reveal</span>
+            </div>
+            <div class="cb">
+              <h3>
+                Simple code reveal template with space for images positioned
+                absolutely to the right
+              </h3>
+              <div class="scores" id="sc-RV0001"></div>
+            </div>
+            <div class="cf">
+              <a
+                href="https://admin.intent.ly/my-account/overlay-manager/#153895"
+                target="_blank"
+                >&#128279; View in Intent.ly</a
+              >
+            </div>
+          </div>
+
+          <div
+            class="card"
+            data-c="rv"
+            data-t="simple code reveal imagery left rv0002"
+          >
+            <div class="ch">
+              <span class="ref">RV0002</span
+              ><span class="cat rv">Click to Reveal</span>
+            </div>
+            <div class="cb">
+              <h3>Simple code reveal with imagery to the left</h3>
+              <div class="scores" id="sc-RV0002"></div>
+            </div>
+            <div class="cf">
+              <a
+                href="https://admin.intent.ly/my-account/overlay-manager/#166077"
+                target="_blank"
+                >&#128279; View in Intent.ly</a
+              >
+            </div>
+          </div>
+
+          <div class="card" data-c="rv" data-t="click to reveal variant rv0003">
+            <div class="ch">
+              <span class="ref">RV0003</span
+              ><span class="cat rv">Click to Reveal</span>
+            </div>
+            <div class="cb">
+              <h3>Click to reveal template variant</h3>
+              <div class="scores" id="sc-RV0003"></div>
+            </div>
+            <div class="cf">
+              <a
+                href="https://admin.intent.ly/my-account/overlay-manager/"
+                target="_blank"
+                >&#128279; View in Intent.ly</a
+              >
+            </div>
+          </div>
+
+          <div
+            class="card"
+            data-c="rv"
+            data-t="click to reveal new customer banner brand image rv0004"
+          >
+            <div class="ch">
+              <span class="ref">RV0004</span
+              ><span class="cat rv">Click to Reveal</span>
+            </div>
+            <div class="cb">
+              <h3>
+                Click to reveal overlay with new customer banner and brand image
+              </h3>
+              <div class="scores" id="sc-RV0004"></div>
+            </div>
+            <div class="cf">
+              <a
+                href="https://admin.intent.ly/my-account/overlay-manager/#171760"
+                target="_blank"
+                >&#128279; View in Intent.ly</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MISCELLANEOUS -->
+      <div class="section" id="s-ms">
+        <div class="sh">Miscellaneous <span class="b">MS</span></div>
+        <div class="grid">
+          <div
+            class="card"
+            data-c="ms"
+            data-t="small badge click to reveal preview full functionality ms0001"
+          >
+            <div class="ch">
+              <span class="ref">MS0001</span
+              ><span class="cat ms">Miscellaneous</span>
+            </div>
+            <div class="cb">
+              <h3>
+                Small badge opens click to reveal (preview overlay to see full
+                functionality)
+              </h3>
+              <div class="scores" id="sc-MS0001"></div>
+            </div>
+            <div class="cf">
+              <a
+                href="https://admin.intent.ly/my-account/overlay-manager/#160538"
+                target="_blank"
+                >&#128279; View in Intent.ly</a
+              >
+            </div>
+          </div>
+
+          <div
+            class="card"
+            data-c="ms"
+            data-t="bottom left click expand email voucher overlay preview ms0002"
+          >
+            <div class="ch">
+              <span class="ref">MS0002</span
+              ><span class="cat ms">Miscellaneous</span>
+            </div>
+            <div class="cb">
+              <h3>
+                Bottom left click to expand email voucher overlay (preview
+                overlay to see full functionality)
+              </h3>
+              <div class="scores" id="sc-MS0002"></div>
+            </div>
+            <div class="cf">
+              <a
+                href="https://admin.intent.ly/my-account/overlay-manager/#161370"
+                target="_blank"
+                >&#128279; View in Intent.ly</a
+              >
+            </div>
+          </div>
+
+          <div
+            class="card"
+            data-c="ms"
+            data-t="email to reveal basic layout adapted brands ms0003"
+          >
+            <div class="ch">
+              <span class="ref">MS0003</span
+              ><span class="cat ms">Miscellaneous</span>
+            </div>
+            <div class="cb">
+              <h3>
+                Email to reveal basic layout, can be adapted to most brands
+                quite easily
+              </h3>
+              <div class="scores" id="sc-MS0003"></div>
+            </div>
+            <div class="cf">
+              <a
+                href="https://admin.intent.ly/my-account/overlay-manager/#173498"
+                target="_blank"
+                >&#128279; View in Intent.ly</a
+              >
+            </div>
+          </div>
+
+          <div
+            class="card"
+            data-c="ms"
+            data-t="email voucher overlay voucher icon terms link ms0004"
+          >
+            <div class="ch">
+              <span class="ref">MS0004</span
+              ><span class="cat ms">Miscellaneous</span>
+            </div>
+            <div class="cb">
+              <h3>Email voucher overlay with voucher icon and terms link</h3>
+              <div class="scores" id="sc-MS0004"></div>
+            </div>
+            <div class="cf">
+              <a
+                href="https://admin.intent.ly/my-account/overlay-manager/#173618"
+                target="_blank"
+                >&#128279; View in Intent.ly</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nores" id="nr">
+        <h2>No templates found</h2>
+        <p>Try a different search or filter</p>
+      </div>
+    </div>
+
+    <script>
+      // ============================================================
+      // PERFORMANCE DATA — update this object weekly from the sheet
+      // Format: "REFCODE": { eng: engagementRate%, conv: conversionRate% }
+      // Use null if no data available for that template
+      // ============================================================
+      const SCORES = {
+        // Dynamic Basket (last 3 months)
+        DB0001: { eng: 10.31, conv: 15.89 },
+        DB0002: { eng: 22.33, conv: 35.82 },
+        DB0003: { eng: 12.5, conv: 27.78 },
+        DB0004: { eng: 3.41, conv: 35.33 },
+        DB0005: { eng: 4.48, conv: 20.49 },
+        DB0006: { eng: 0.0, conv: null },
+        DB0007: { eng: 6.81, conv: 21.57 },
+        DB0008: { eng: 29.04, conv: 35.57 },
+        DB0009: { eng: 1.54, conv: 21.43 },
+        DB0010: { eng: 16.07, conv: 5.26 },
+        DB0011: { eng: 0.0, conv: null },
+        DB0012: { eng: 10.91, conv: 14.15 },
+        DB0013: { eng: null, conv: null },
+        DB0014: { eng: 8.64, conv: 23.94 },
+        DB0015: { eng: 7.26, conv: 13.9 },
+        DB0016: { eng: 3.42, conv: 8.05 },
+        DB0017: { eng: 8.28, conv: 32.14 },
+        // Recomminder (last 3 months)
+        PR0001: { eng: 11.19, conv: 1.82 },
+        PR0002: { eng: 0.0, conv: null },
+        PR0003: { eng: 9.98, conv: 14.29 },
+        PR0004: { eng: 13.26, conv: 6.11 },
+        // Redirect (last 3 months)
+        RD0001: { eng: 4.01, conv: 42.25 },
+        RD0002: { eng: 14.62, conv: 1.3 },
+        RD0003: { eng: 13.79, conv: 4.03 },
+        RD0004: { eng: null, conv: null },
+        // Click to Reveal (last 3 months)
+        RV0001: { eng: null, conv: null },
+        RV0002: { eng: 3.89, conv: 10.17 },
+        RV0003: { eng: null, conv: null },
+        RV0004: { eng: 9.91, conv: 2.92 },
+        // Miscellaneous (last 3 months)
+        MS0001: { eng: null, conv: null },
+        MS0002: { eng: null, conv: null },
+        MS0003: { eng: 2.09, conv: 6.29 },
+        MS0004: { eng: 50.0, conv: 0.0 },
+      };
+
+      // ============================================================
+      // TO ENABLE LIVE AUTO-REFRESH via Google Apps Script:
+      // 1. Open your Sheet → Extensions → Apps Script
+      // 2. Paste the Apps Script code (see bottom of this file)
+      // 3. Deploy as a Web App (Execute as: Me, Access: Anyone)
+      // 4. Copy the Web App URL and replace null below:
+      const APPS_SCRIPT_URL =
+        "https://script.google.com/macros/s/AKfycbxelkLJYarWD_CE5btpJB4ULdQUhUb9HYfRD9RvRRiU7VgRVNolKb7DbOfnie9ko5fU-Q/exec"; // e.g. "https://script.google.com/macros/s/ABC.../exec"
+      // ============================================================
+
+      // Render score bars
+      function renderScores(data) {
+        document.querySelectorAll('[id^="sc-"]').forEach((el) => {
+          const ref = el.id.replace("sc-", "");
+          const d = data[ref];
+          if (!d || (d.eng === null && d.conv === null)) {
+            el.innerHTML =
+              '<span class="no-data">No performance data yet</span>';
+            return;
+          }
+          let html = "";
+          if (d.eng !== null) {
+            const barW = Math.min(d.eng * 2.5, 100); // scale: 40%+ = full bar
+            html += `<div class="score-item">
+        <div class="score-label">Engagement</div>
+        <div class="score-val">${d.eng.toFixed(1)}%</div>
+        <div class="score-bar-wrap"><div class="score-bar bar-eng" style="width:${barW}%"></div></div>
+      </div>`;
+          }
+          if (d.conv !== null) {
+            const barW2 = Math.min(d.conv * 2, 100); // scale: 50%+ = full bar
+            html += `<div class="score-item">
+        <div class="score-label">Conversion</div>
+        <div class="score-val">${d.conv.toFixed(1)}%</div>
+        <div class="score-bar-wrap"><div class="score-bar bar-conv" style="width:${barW2}%"></div></div>
+      </div>`;
+          }
+          el.innerHTML = html;
+        });
+      }
+
+      // Fetch live data from Apps Script if URL is set
+      async function loadData() {
+        if (APPS_SCRIPT_URL) {
+          try {
+            const res = await fetch(APPS_SCRIPT_URL);
+            const live = await res.json();
+            renderScores(live);
+            document.getElementById("data-source-badge").textContent =
+              "&#128200; Live data from Google Sheets";
+          } catch (e) {
+            console.warn("Live fetch failed, using embedded data:", e);
+            renderScores(SCORES);
+          }
+        } else {
+          renderScores(SCORES);
+        }
+      }
+
+      // Filtering
+      let cf = "all";
+      function sf(c, b) {
+        cf = c;
+        document
+          .querySelectorAll(".ftab")
+          .forEach((t) => t.classList.remove("active"));
+        b.classList.add("active");
+        go();
+      }
+      function go() {
+        const s = document.getElementById("si").value.toLowerCase();
+        let n = 0;
+        document.querySelectorAll(".card").forEach((card) => {
+          const mc = cf === "all" || card.dataset.c === cf;
+          const ms2 =
+            !s ||
+            card.dataset.t.includes(s) ||
+            card.querySelector("h3").textContent.toLowerCase().includes(s);
+          card.classList.toggle("hidden", !(mc && ms2));
+          if (mc && ms2) n++;
+        });
+        ["db", "pr", "rd", "rv", "ms"].forEach((c) => {
+          const sec = document.getElementById("s-" + c);
+          if (!sec) return;
+          sec.style.display =
+            sec.querySelectorAll(".card:not(.hidden)").length === 0
+              ? "none"
+              : "";
+        });
+        document.getElementById("cnt").textContent = n;
+        document.getElementById("nr").style.display =
+          n === 0 ? "block" : "none";
+      }
+
+      loadData();
+      go();
+    </script>
+
+    <!--
+=================================================================
+APPS SCRIPT CODE FOR LIVE AUTO-UPDATING
+=================================================================
+To enable live data, paste this into Apps Script (Extensions > Apps Script),
+then deploy as a Web App (Execute as: Me, Anyone can access):
+
+function doGet() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const sheet = ss.getSheetByName('Campaign Performance by type for last 3 months');
+  const types = ['Dynamic Basket','Recomminder','Click to Redirect','Click to Reveal','Miscellaneous'];
+  const result = {};
+
+  types.forEach(type => {
+    // Set the dropdown cell
+    const dropCell = sheet.getRange('B8');
+    dropCell.setValue(type);
+    SpreadsheetApp.flush();
+
+    // Read data rows (rows 11 to 50)
+    const data = sheet.getRange('B11:I50').getValues();
+    data.forEach(row => {
+      const ref = row[0];
+      if (!ref) return;
+      const eng = row[4]; // Engagement Rate (col F = index 4)
+      const conv = row[7]; // Conversion Rate (col I = index 7)
+      result[ref] = {
+        eng: eng ? parseFloat((eng * 100).toFixed(2)) : null,
+        conv: conv ? parseFloat((conv * 100).toFixed(2)) : null
+      };
+    });
+  });
+
+  return ContentService
+    .createTextOutput(JSON.stringify(result))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+=================================================================
+-->
+  </body>
+</html>

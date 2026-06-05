@@ -1,0 +1,249 @@
+@import url("https://fonts.smct.co/smc-futuraPT/smc-futuraPT.css");
+
+smc-bg * {
+  font-family: "FuturaPTBook", sans-serif;
+}
+
+smc-overlay-inner {
+  --smc-bg: #ffd814;
+  --smc-textColour: #222;
+  --smc-btn: #3f3f3f;
+  --smc-border: 2px;
+}
+smc-overlay-inner {
+  --smc-mainBkg: #5deaea;
+  --smc-textColourColour: #222;
+  --smc-textColourColour2: #222;
+  --smc-font2: "Playfair", serif;
+  --smc-btnBkg: #3f3f3f;
+  --smc-btnText: #222;
+  --smc-btnBkgHover: #ffb300cb;
+  --smc-btnBorder: 1px solid #ffb300cb;
+  --smc-btnBorderRadius: 8px;
+  --smc-btnPadding: 12px;
+  --smc-frameBorder: 2px;
+}
+
+smc-overlay-inner {
+  background-color: var(--smc-mainBkg);
+  background-size: cover;
+  width: 800px;
+  min-height: 240px;
+  border-radius: var(--smc-frameBorder);
+  padding-bottom: 0;
+  overflow: hidden;
+}
+
+/* Align the content Left */
+smc-img-outer,
+smc-text-outer,
+smc-long-close {
+  width: 35%;
+  margin: 0 0 0 20px;
+}
+
+.smc-text1,
+.smc-text2 {
+  font-size: 16px;
+  font-weight: 400;
+  margin: 10px auto;
+  text-align: left;
+  color: var(--smc-textColour);
+  line-height: 130%;
+}
+
+.smc-text1 {
+  margin: 70px auto auto 0;
+  font-size: 30px;
+}
+
+smc-option {
+  width: 100%;
+  min-width: auto;
+  margin: 0;
+}
+
+.smc-button {
+  margin: 10px auto auto 0;
+  font-size: 14px;
+  padding: 10px;
+  background-color: var(--smc-btnBkg);
+  color: var(--smc-btnText);
+  text-transform: uppercase;
+  border: 1px solid var(--smc-btnBorder);
+}
+
+.smc-button:hover {
+  background-color: var(--smc-btnBkgHover);
+}
+smc-close {
+  font-size: 14px;
+  top: 10px;
+  right: 10px;
+}
+
+smc-close a.smc-link {
+  color: #000;
+}
+
+/* ******************CART******************* */
+/* ******************CART******************* */
+/* ******************CART******************* */
+
+smc-cart {
+  position: absolute;
+  bottom: 10px;
+  background: #fff;
+  right: 10px;
+  width: 440px;
+  height: calc(100% - 20px);
+  border-radius: var(--smc-frameBorder);
+  padding: 10px;
+  border: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+smc-product {
+  align-self: center;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+}
+
+smc-left,
+smc-right {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 10px;
+  border: 1px solid #eee;
+  justify-content: space-between;
+}
+
+smc-left {
+  width: 40%;
+  border: 1px solid #eee;
+}
+
+smc-right {
+  width: 60%;
+  align-self: center;
+}
+
+smc-product-name,
+smc-product-desc {
+  display: flex;
+  margin: 5px auto;
+  text-align: left;
+  font-weight: 300;
+  font-size: 14px;
+  color: var(--smc-textColour);
+}
+
+smc-product-img {
+  max-width: 160px;
+  max-height: 160px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  margin: auto;
+}
+
+smc-product-img img {
+  width: 100%;
+  height: auto;
+}
+
+smc-product-name,
+smc-product-desc {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  text-align: left;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-height: 1.2;
+  font-size: 18px;
+  width: 100%;
+  color: var(--smc-textColour);
+}
+
+smc-product-desc {
+  font-size: 12px;
+}
+
+smc-prices {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 100%;
+  align-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+smc-product-price {
+  color: var(--smc-textColour);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+smc-old-price {
+  text-decoration: line-through;
+  line-height: 1.3;
+  padding: 0 10px 0 0;
+  color: var(--smc-textColour);
+  opacity: 0.3;
+  font-size: 14px;
+}
+
+smc-old-price:empty {
+  padding: 0;
+}
+
+/* ******************MOBILE********************
+*********************MOBILE********************
+*********************MOBILE******************** 
+
+
+smc-overlay-inner{
+    width:320px;
+    min-height: 450px;
+}
+
+smc-text-outer{
+    width: 90%;
+    margin: 0 0 0 10px;
+}
+.smc-text1{
+    margin: 10px auto 0 0;
+    font-size: 24px;
+
+}
+smc-cart{
+    width: 300px;
+    height: auto;
+}
+smc-product {
+    display: flex;
+    flex-direction: column;
+}
+smc-left {
+    width: 100%;
+}
+smc-right {
+    width: 100%;
+}
+smc-product-img {
+    max-width: 120px;
+    max-height: 120px;
+}
+smc-product-name, smc-product-desc, smc-prices{
+    text-align: center;
+    justify-content: center;
+}
+*/

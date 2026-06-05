@@ -1,0 +1,129 @@
+<!-- Overlay V4 Template -->
+<smc-bg class="smc-animated smc-fadeIn">
+  <smc-overlay-outer class="smc-animated smc-fadeIn smc-animDelay2">
+    <!--  data-animout="smc-bounceOutLeft" -->
+    <smc-overlay-inner
+      class="smc_clearfix"
+      data-bgtheme="dark"
+      data-changes="smc-overlay-inner|width,background-image,background-color"
+      data-edits="content6"
+      ><!-- If the background is dark use this option -->
+
+      <smc-img
+        class="smc-img1 smc-animated smc-bounceInRight smc-animDelay6"
+        data-changes=".smc-img1|margin-top,margin-bottom,image-upload"
+        data-edits="content1"
+        ><img src="{content1}" alt=""
+      /></smc-img>
+
+      <!-- Images - You can add as many as you like -->
+      <smc-img-outer>
+        <smc-img
+          class="smc-img2 smc-animated smc-bounceInRight smc-animDelay8"
+          data-changes=".smc-img2|margin-top,margin-bottom,image-upload"
+          data-edits="content2"
+          ><img src="{content2}" alt=""
+        /></smc-img>
+        <smc-img
+          class="smc-img3 smc-animated smc-bounceInRight smc-animDelay10"
+          data-changes=".smc-img3|margin-top,margin-bottom,image-upload"
+          data-edits="content3"
+          ><img src="{content3}" alt=""
+        /></smc-img>
+        <smc-img
+          class="smc-img4 smc-animated smc-bounceInRight smc-animDelay12"
+          data-changes=".smc-img4|margin-top,margin-bottom,image-upload"
+          data-edits="content4"
+          ><img src="{content4}" alt=""
+        /></smc-img>
+      </smc-img-outer>
+
+      <!-- Text Boxes - You can add as many as you like -->
+      <smc-text-outer>
+        <smc-text
+          class="smc-text1 smc-animated smc-bounceInRight smc-animDelay8"
+          data-edits="text1"
+          data-changes=".smc-text1|font-size,color,margin-top,margin-bottom"
+          >{text1}</smc-text
+        >
+        <smc-text
+          class="smc-text2 smc-animated smc-bounceInRight smc-animDelay10"
+          data-edits="text2"
+          data-changes=".smc-text2|font-size,color,margin-top,margin-bottom"
+          >{text2}</smc-text
+        >
+        <smc-text
+          class="smc-text3 smc-animated smc-bounceInLeft smc-animDelay8"
+          data-edits="text3"
+          data-changes=".smc-text3|font-size,color,margin-top,margin-bottom"
+          >{text3}</smc-text
+        >
+        <smc-text
+          class="smc-text4 smc-animated smc-bounceInRight smc-animDelay10"
+          data-edits="text4"
+          data-changes=".smc-text4|font-size,color,margin-top,margin-bottom"
+          >{text4}</smc-text
+        >
+      </smc-text-outer>
+
+      <smc-cart>
+        <smc-product>
+          <smc-left>
+            <smc-product-img
+              ><img src="https://picsum.photos/200/260"
+            /></smc-product-img> </smc-left
+          ><smc-right>
+            <smc-product-name>PRODUCTNAME</smc-product-name>
+            <smc-product-desc>DESCRIPTION</smc-product-desc>
+            <smc-prices>
+              <smc-old-price>oldprice</smc-old-price
+              ><smc-product-price>£329</smc-product-price>
+            </smc-prices>
+          </smc-right>
+        </smc-product>
+      </smc-cart>
+
+      <!-- Click To Redirect Option -->
+      <smc-option class="smc-clickRedirect">
+        <smc-input-group>
+          <span
+            class="smc-button smc-animated smc-bounceInRight smc-animDelay12"
+            data-edits="text10"
+            data-changes=".smc-button|font-size,background-color,color"
+            >{text10}</span
+          >
+        </smc-input-group>
+      </smc-option>
+
+      <!-- Closers -->
+      <smc-close
+        class="smc-animated smc-bounceInRight smc-animDelay4 smc-closer"
+      >
+        <a data-close-type="x_close" class="smc-link" href="#rdl">✕</a
+        ><!-- Note - Redirect Link gets automatically rewritten -->
+      </smc-close>
+
+      <smc-long-close
+        class="smc-animated smc-fadeInUp smc-animDelay14"
+        data-engage-class="smc-engaged"
+      >
+        <a
+          href="#rdl"
+          data-close-type="long_close"
+          class="smc-link smc-closer"
+          data-engage-text="{text11}"
+          data-edits="text7,text11"
+          data-changes="smc-long-close a.smc-link|font-size,color,margin-top,margin-bottom"
+          >{text7}</a
+        >
+        <!-- Note - Redirect Link gets automatically rewritten, once clicked on the data-engage text and classes are applied -->
+      </smc-long-close>
+    </smc-overlay-inner>
+  </smc-overlay-outer>
+
+  <!-- Safe close - Used when Autoscaling is turned on -->
+  <smc-close-safe class="smc-closer">
+    <a data-close-type="x_close" class="smc-link" href="#rdl">[close]</a
+    ><!-- Note - Redirect Link gets automatically rewritten -->
+  </smc-close-safe>
+</smc-bg>
