@@ -1,0 +1,54 @@
+.container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.line {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.2); /* adjust color as needed */
+}
+
+.line.vertical {
+  width: 1px;
+  height: 100%;
+  top: 0;
+}
+
+.line.horizontal {
+  height: 1px;
+  width: 100%;
+  left: 0;
+}
+
+.number-right,
+.number-bottom {
+  position: absolute;
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  font-family: monospace;
+  color: #ffffff98;
+  white-space: nowrap;
+  /* border: 1px solid rgba(255, 255, 255, 0.5); */
+  transition: transform 0.3s cubic-bezier(0.2, 0.72, 0.38, 1.58);
+}
+
+.number-right {
+  transition: transform 0.2s cubic-bezier(0.2, 0.72, 0.38, 1.58);
+}
+
+.number-bottom {
+  transform: translateY(8px);
+}
+*/ .cross-point {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #fff;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}

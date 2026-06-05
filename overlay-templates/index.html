@@ -6,6 +6,7 @@
 
     <title>Overlay Design Templates</title>
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="crosshair.css" />
     <link rel="icon" type="image/svg+xml" href="favicon.ico" />
   </head>
   <body>
@@ -186,6 +187,14 @@
       </div>
     </div>
 
+    <div class="container">
+      <div class="line vertical"></div>
+      <div class="line horizontal"></div>
+      <div class="number-right"></div>
+      <div class="number-bottom"></div>
+      <div class="cross-point"></div>
+    </div>
+
     <!-- ===== SCRIPTS ===== -->
     <script src="data.js"></script>
     <script>
@@ -255,8 +264,8 @@
       }
 
       /*
-      LIVE SCORE FETCH
-      ─────────────────
+      LIVE SCORE FETCH WITH CACHING
+      ─────────────────────────────
       Your deployed Google Apps Script Web App should return JSON like:
       {
         "DB0001": { "eng": 10.31, "conv": 15.89 },
@@ -266,20 +275,71 @@
       Deploy via: Extensions > Apps Script > Deploy > New Deployment
                   Type: Web App | Execute as: Me | Access: Anyone
       Then paste the URL into APPS_SCRIPT_URL in data.js.
+      
+      CACHING:
+      Only fetches new data if cache is older than CACHE_AGE_DAYS.
+      Use localStorage to persist scores and timestamp.
     */
+      const CACHE_AGE_DAYS = 3; // Only fetch new data if cache is > 3 days old
+
+      function getCachedScores() {
+        const cached = localStorage.getItem("ot_scores_cache");
+        const timestamp = localStorage.getItem("ot_scores_timestamp");
+
+        if (!cached || !timestamp) return null;
+
+        const ageMs = Date.now() - parseInt(timestamp);
+        const ageHours = ageMs / (1000 * 60 * 60);
+        const ageDays = ageHours / 24;
+
+        console.log(`Cached scores age: ${ageDays.toFixed(1)} days`);
+
+        // If cache is fresh enough, return it
+        if (ageDays < CACHE_AGE_DAYS) {
+          console.log("Using cached scores (fresh)");
+          return JSON.parse(cached);
+        }
+
+        return null; // Cache is stale
+      }
+
+      function cacheScores(scores) {
+        localStorage.setItem("ot_scores_cache", JSON.stringify(scores));
+        localStorage.setItem("ot_scores_timestamp", Date.now().toString());
+      }
+
       function fetchLiveScores() {
+        // Check if we have fresh cached data
+        const cached = getCachedScores();
+        if (cached) {
+          Object.assign(SCORES, cached);
+          renderAll();
+          return;
+        }
+
+        // Fetch fresh data from Apps Script
+        console.log("Fetching fresh scores from Apps Script...");
         fetch(APPS_SCRIPT_URL)
           .then((r) => r.json())
           .then((freshScores) => {
+            // Cache the scores
+            cacheScores(freshScores);
             // Merge fresh scores into the SCORES object
             Object.assign(SCORES, freshScores);
+            console.log("Scores updated and cached");
             renderAll();
           })
           .catch((err) => {
             console.warn(
-              "Could not fetch live scores, using static data.js scores.",
+              "Could not fetch live scores, using cached or static data.js scores.",
               err,
             );
+            // Try to use cached scores even if stale
+            const staleCache = localStorage.getItem("ot_scores_cache");
+            if (staleCache) {
+              console.log("Using stale cached scores as fallback");
+              Object.assign(SCORES, JSON.parse(staleCache));
+            }
             renderAll();
           });
       }
@@ -679,5 +739,6 @@
     ------------------------------------------------------- */
       init();
     </script>
+    <script src="crosshair.js"></script>
   </body>
 </html>
