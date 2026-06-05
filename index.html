@@ -1,0 +1,683 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Overlay Design Templates</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  </head>
+  <body>
+    <!-- ===== HEADER ===== -->
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="header-left">
+          <h1>Overlay Design Templates</h1>
+          <span class="header-subtitle">Intent.ly template library</span>
+        </div>
+        <div class="header-right">
+          <div class="search-wrap">
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="Search templates…"
+              oninput="filterCards()"
+              autocomplete="off"
+            />
+          </div>
+          <button class="btn-admin" id="adminBtn" onclick="toggleAdmin()">
+            ⚙ Admin
+          </button>
+        </div>
+      </div>
+
+      <!-- Filter tabs -->
+      <nav class="filter-nav">
+        <button
+          class="filter-btn active"
+          data-cat="all"
+          onclick="setFilter('all')"
+        >
+          All
+        </button>
+        <button class="filter-btn" data-cat="db" onclick="setFilter('db')">
+          Dynamic Basket
+        </button>
+        <button class="filter-btn" data-cat="pr" onclick="setFilter('pr')">
+          Recomminder
+        </button>
+        <button class="filter-btn" data-cat="rd" onclick="setFilter('rd')">
+          Redirect
+        </button>
+        <button class="filter-btn" data-cat="rv" onclick="setFilter('rv')">
+          Click to Reveal
+        </button>
+        <button class="filter-btn" data-cat="ms" onclick="setFilter('ms')">
+          Miscellaneous
+        </button>
+      </nav>
+    </header>
+
+    <!-- ===== COUNT BAR ===== -->
+    <div class="count-bar">
+      <span id="countLabel">Loading…</span>
+      <span class="score-legend">
+        <span class="legend-dot eng"></span>Engagement Rate
+        <span class="legend-dot conv"></span>Conversion Rate
+      </span>
+    </div>
+
+    <!-- ===== MAIN ===== -->
+    <main id="mainWrap" class="main-wrap"></main>
+
+    <!-- ===== LOGIN MODAL ===== -->
+    <div
+      id="loginModal"
+      class="modal-overlay"
+      style="display: none"
+      onclick="closeLoginModal(event)"
+    >
+      <div class="modal-box login-box">
+        <h2>Admin Login</h2>
+        <p>Enter the admin password to unlock editing.</p>
+        <input
+          type="password"
+          id="loginPassword"
+          placeholder="Password"
+          onkeydown="if (event.key === 'Enter') doLogin();"
+          autocomplete="current-password"
+        />
+        <p id="loginError" class="login-error" style="display: none">
+          Incorrect password.
+        </p>
+        <div class="modal-actions">
+          <button class="btn-secondary" onclick="closeLoginModal()">
+            Cancel
+          </button>
+          <button class="btn-primary" onclick="doLogin()">Login</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== ADD / EDIT MODAL ===== -->
+    <div
+      id="editModal"
+      class="modal-overlay"
+      style="display: none"
+      onclick="closeEditModal(event)"
+    >
+      <div class="modal-box edit-box">
+        <h2 id="editModalTitle">Add Template</h2>
+
+        <div class="form-row">
+          <label>Reference Code</label>
+          <input type="text" id="fRef" placeholder="e.g. DB0018" />
+        </div>
+
+        <div class="form-row">
+          <label>Category</label>
+          <select id="fCat">
+            <option value="db">Dynamic Basket</option>
+            <option value="pr">Recomminder</option>
+            <option value="rd">Redirect</option>
+            <option value="rv">Click to Reveal</option>
+            <option value="ms">Miscellaneous</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <label>Description</label>
+          <textarea
+            id="fDesc"
+            rows="3"
+            placeholder="Short description of the overlay…"
+          ></textarea>
+        </div>
+
+        <div class="form-row">
+          <label>Preview URL (Intent.ly link)</label>
+          <input
+            type="text"
+            id="fUrl"
+            placeholder="https://preview.intent.ly/…"
+          />
+        </div>
+
+        <div class="form-row">
+          <!-- 
+          IMAGE PATH NOTE:
+          - For now, paste a Google Sheet image URL here (session-authenticated, may expire).
+          - Once you have Intent.ly admin access, save screenshots to /images/ and use:
+            images/DB0018.png  (relative path)
+          - Leave blank to show the placeholder card graphic instead.
+        -->
+          <label>Image Path / URL</label>
+          <input
+            type="text"
+            id="fImg"
+            placeholder="images/DB0018.png  or paste a URL"
+          />
+          <small
+            >Leave blank to show a placeholder. Use
+            <code>images/REFCODE.png</code> for local files.</small
+          >
+        </div>
+
+        <div class="form-row">
+          <label>Notes</label>
+          <textarea
+            id="fNotes"
+            rows="2"
+            placeholder="Optional notes…"
+          ></textarea>
+        </div>
+
+        <p id="editError" class="login-error" style="display: none">
+          Reference code is required.
+        </p>
+
+        <div class="modal-actions">
+          <button class="btn-secondary" onclick="closeEditModal()">
+            Cancel
+          </button>
+          <button class="btn-primary" onclick="saveTemplate()">Save</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SCRIPTS ===== -->
+    <script src="data.js"></script>
+    <script>
+      /* -------------------------------------------------------
+       STATE
+    ------------------------------------------------------- */
+      let templates = []; // working copy (localStorage or TEMPLATES)
+      let currentFilter = "all";
+      let adminMode = false;
+      let editingRef = null; // null = adding new, string = editing existing
+
+      const CAT_LABELS = {
+        db: "Dynamic Basket",
+        pr: "Recomminder",
+        rd: "Redirect",
+        rv: "Click to Reveal",
+        ms: "Miscellaneous",
+      };
+
+      const CAT_ORDER = ["db", "pr", "rd", "rv", "ms"];
+
+      const SECTION_ICONS = {
+        db: "🛒",
+        pr: "🔁",
+        rd: "↩",
+        rv: "👁",
+        ms: "✳",
+      };
+
+      /* -------------------------------------------------------
+       INIT / DATA LOAD
+    ------------------------------------------------------- */
+      function init() {
+        loadTemplates();
+
+        // If an Apps Script URL is set, fetch fresh scores and re-render
+        if (
+          typeof APPS_SCRIPT_URL === "string" &&
+          APPS_SCRIPT_URL.startsWith("http")
+        ) {
+          fetchLiveScores();
+        } else {
+          renderAll();
+        }
+      }
+
+      function loadTemplates() {
+        // Try localStorage first (admin edits persist here)
+        const stored = localStorage.getItem("ot_templates");
+        if (stored) {
+          try {
+            templates = JSON.parse(stored);
+            return;
+          } catch (e) {
+            console.warn(
+              "Could not parse stored templates, falling back to data.js",
+              e,
+            );
+          }
+        }
+        // Fall back to the static array in data.js
+        templates = JSON.parse(JSON.stringify(TEMPLATES));
+      }
+
+      function saveTemplates() {
+        localStorage.setItem("ot_templates", JSON.stringify(templates));
+      }
+
+      /*
+      LIVE SCORE FETCH
+      ─────────────────
+      Your deployed Google Apps Script Web App should return JSON like:
+      {
+        "DB0001": { "eng": 10.31, "conv": 15.89 },
+        "DB0002": { "eng": 22.33, "conv": 35.82 },
+        ...
+      }
+      Deploy via: Extensions > Apps Script > Deploy > New Deployment
+                  Type: Web App | Execute as: Me | Access: Anyone
+      Then paste the URL into APPS_SCRIPT_URL in data.js.
+    */
+      function fetchLiveScores() {
+        fetch(APPS_SCRIPT_URL)
+          .then((r) => r.json())
+          .then((freshScores) => {
+            // Merge fresh scores into the SCORES object
+            Object.assign(SCORES, freshScores);
+            renderAll();
+          })
+          .catch((err) => {
+            console.warn(
+              "Could not fetch live scores, using static data.js scores.",
+              err,
+            );
+            renderAll();
+          });
+      }
+
+      /* -------------------------------------------------------
+       RENDER
+    ------------------------------------------------------- */
+      function renderAll() {
+        const wrap = document.getElementById("mainWrap");
+        wrap.innerHTML = "";
+
+        const query = (document.getElementById("searchInput").value || "")
+          .toLowerCase()
+          .trim();
+
+        let totalVisible = 0;
+
+        CAT_ORDER.forEach((cat) => {
+          if (currentFilter !== "all" && currentFilter !== cat) return;
+
+          // Filter templates for this category
+          const catTemplates = templates.filter((t) => {
+            if (t.cat !== cat) return false;
+            if (query) {
+              return (
+                t.ref.toLowerCase().includes(query) ||
+                t.desc.toLowerCase().includes(query) ||
+                (t.notes || "").toLowerCase().includes(query)
+              );
+            }
+            return true;
+          });
+
+          // Always render the section (so admin Add button is accessible),
+          // but hide it when there's a search query and no results
+          const section = document.createElement("section");
+          section.className = "template-section";
+          section.dataset.cat = cat;
+
+          if (query && catTemplates.length === 0) {
+            section.style.display = "none";
+          }
+
+          section.innerHTML = `
+          <div class="section-header">
+            <h2>${SECTION_ICONS[cat]} ${CAT_LABELS[cat]}</h2>
+            ${adminMode ? `<button class="btn-add-section" onclick="openAddModal('${cat}')">+ Add Template</button>` : ""}
+          </div>
+          <div class="cards-grid" id="grid-${cat}"></div>
+        `;
+
+          wrap.appendChild(section);
+
+          const grid = section.querySelector(`#grid-${cat}`);
+          catTemplates.forEach((t) => {
+            grid.appendChild(createCard(t));
+            totalVisible++;
+          });
+        });
+
+        // Update count label
+        const countLabel = document.getElementById("countLabel");
+        if (query) {
+          countLabel.textContent = `${totalVisible} result${totalVisible !== 1 ? "s" : ""} for "${query}"`;
+        } else if (currentFilter === "all") {
+          countLabel.textContent = `${totalVisible} template${totalVisible !== 1 ? "s" : ""}`;
+        } else {
+          countLabel.textContent = `${totalVisible} template${totalVisible !== 1 ? "s" : ""} — ${CAT_LABELS[currentFilter]}`;
+        }
+      }
+
+      /* -------------------------------------------------------
+       CREATE CARD
+    ------------------------------------------------------- */
+      function createCard(t) {
+        const score = SCORES[t.ref] || { eng: null, conv: null };
+
+        // ── Image / placeholder ──────────────────────────────
+        /*
+        IMAGE SWAP GUIDE:
+        ─────────────────
+        Currently: t.img is null for most templates (no local images yet).
+        To add images:
+          1. Save a screenshot as  overlay-templates/images/DB0001.png
+          2. Set t.img = 'images/DB0001.png'  in data.js (or via the admin panel)
+        
+        For Google Sheet URLs (session-authenticated, may expire):
+          Set t.img to the full sheets-images-rt URL — it will work while
+          you're logged into Google, but will break when the session expires.
+        
+        Once Intent.ly admin access is available:
+          Replace with proper preview URLs or local screenshots.
+      */
+        const hasImg = t.img && t.img.trim() !== "";
+
+        const imgHtml = hasImg
+          ? `<img
+              class="card-img"
+              src="${escHtml(t.img)}"
+              alt="${escHtml(t.ref)} preview"
+              loading="lazy"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+           />`
+          : "";
+
+        const placeholderHtml = `
+        <div class="card-img-placeholder" style="${hasImg ? "display:none" : ""}">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.5">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <polyline points="21 15 16 10 5 21"/>
+          </svg>
+          <span>No preview</span>
+        </div>`;
+
+        // ── Score bars ───────────────────────────────────────
+        const engBar = scoreBar(score.eng, "eng", "Engagement");
+        const convBar = scoreBar(score.conv, "conv", "Conversion");
+
+        // ── Admin controls ───────────────────────────────────
+        const adminControls = adminMode
+          ? `<div class="card-admin-row">
+             <button class="btn-edit"   onclick="openEditModal('${escHtml(t.ref)}')">✏ Edit</button>
+             <button class="btn-delete" onclick="deleteTemplate('${escHtml(t.ref)}')">🗑 Delete</button>
+           </div>`
+          : "";
+
+        // ── Assemble card ────────────────────────────────────
+        const card = document.createElement("article");
+        card.className = "template-card";
+        card.dataset.ref = t.ref;
+        card.dataset.cat = t.cat;
+
+        card.innerHTML = `
+        <div class="card-img-wrap">
+          ${imgHtml}
+          ${placeholderHtml}
+          <span class="card-ref-badge">${escHtml(t.ref)}</span>
+        </div>
+
+        <div class="card-body">
+          <p class="card-desc">${escHtml(t.desc)}</p>
+          ${t.notes ? `<p class="card-notes">${escHtml(t.notes)}</p>` : ""}
+
+          <div class="card-scores">
+            ${engBar}
+            ${convBar}
+          </div>
+        </div>
+
+        <div class="card-votes">
+          <button class="btn-vote upvote" onclick="addVote('${escHtml(t.ref)}', 'up')" title="Upvote this template">👍 <span class="vote-count">${t.upvotes}</span></button>
+          <button class="btn-vote downvote" onclick="addVote('${escHtml(t.ref)}', 'down')" title="Downvote this template">👎 <span class="vote-count">${t.downvotes}</span></button>
+        </div>
+
+        <div class="card-footer">
+          ${
+            t.url
+              ? `<a class="btn-view" href="${escHtml(t.url)}" target="_blank" rel="noopener">View Preview ↗</a>`
+              : `<span class="btn-view disabled">No Preview</span>`
+          }
+          ${adminControls}
+        </div>
+      `;
+
+        return card;
+      }
+
+      /* Score bar helper */
+      function scoreBar(value, type, label) {
+        if (value === null || value === undefined) {
+          return `<div class="score-row">
+          <span class="score-label">${label}</span>
+          <div class="score-track"><div class="score-fill ${type}" style="width:0%"></div></div>
+          <span class="score-value no-data">—</span>
+        </div>`;
+        }
+        // Cap bar at 100%, but show real value
+        const pct = Math.min(value, 100).toFixed(1);
+        return `<div class="score-row">
+        <span class="score-label">${label}</span>
+        <div class="score-track"><div class="score-fill ${type}" style="width:${pct}%"></div></div>
+        <span class="score-value">${value.toFixed(2)}%</span>
+      </div>`;
+      }
+
+      /* HTML escape helper */
+      function escHtml(str) {
+        if (!str) return "";
+        return String(str)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+      }
+
+      /* -------------------------------------------------------
+       FILTER & SEARCH
+    ------------------------------------------------------- */
+      function setFilter(cat) {
+        currentFilter = cat;
+
+        // Update active button
+        document.querySelectorAll(".filter-btn").forEach((btn) => {
+          btn.classList.toggle("active", btn.dataset.cat === cat);
+        });
+
+        renderAll();
+      }
+
+      function filterCards() {
+        // Just re-render — renderAll handles the search query
+        renderAll();
+      }
+
+      /* -------------------------------------------------------
+       ADMIN — LOGIN
+    ------------------------------------------------------- */
+      function toggleAdmin() {
+        if (adminMode) {
+          // Log out
+          adminMode = false;
+          document.getElementById("adminBtn").classList.remove("active");
+          renderAll();
+          return;
+        }
+        // Show login modal
+        document.getElementById("loginPassword").value = "";
+        document.getElementById("loginError").style.display = "none";
+        document.getElementById("loginModal").style.display = "flex";
+        setTimeout(() => document.getElementById("loginPassword").focus(), 50);
+      }
+
+      function doLogin() {
+        const pw = document.getElementById("loginPassword").value;
+        if (pw === ADMIN_PASSWORD) {
+          adminMode = true;
+          document.getElementById("adminBtn").classList.add("active");
+          closeLoginModal();
+          renderAll();
+        } else {
+          document.getElementById("loginError").style.display = "block";
+          document.getElementById("loginPassword").select();
+        }
+      }
+
+      function closeLoginModal(event) {
+        // Close on overlay click (not inner box click)
+        if (event && event.target !== document.getElementById("loginModal"))
+          return;
+        document.getElementById("loginModal").style.display = "none";
+      }
+
+      /* -------------------------------------------------------
+       ADMIN — ADD / EDIT TEMPLATE
+    ------------------------------------------------------- */
+      function openAddModal(defaultCat) {
+        editingRef = null;
+        document.getElementById("editModalTitle").textContent = "Add Template";
+        document.getElementById("fRef").value = "";
+        document.getElementById("fRef").disabled = false;
+        document.getElementById("fCat").value = defaultCat || "db";
+        document.getElementById("fDesc").value = "";
+        document.getElementById("fUrl").value = "";
+        document.getElementById("fImg").value = "";
+        document.getElementById("fNotes").value = "";
+        document.getElementById("editError").style.display = "none";
+        document.getElementById("editModal").style.display = "flex";
+        setTimeout(() => document.getElementById("fRef").focus(), 50);
+      }
+
+      function openEditModal(ref) {
+        const t = templates.find((x) => x.ref === ref);
+        if (!t) return;
+
+        editingRef = ref;
+        document.getElementById("editModalTitle").textContent = "Edit Template";
+        document.getElementById("fRef").value = t.ref;
+        document.getElementById("fRef").disabled = true; // ref is the key, don't change it
+        document.getElementById("fCat").value = t.cat;
+        document.getElementById("fDesc").value = t.desc || "";
+        document.getElementById("fUrl").value = t.url || "";
+        document.getElementById("fImg").value = t.img || "";
+        document.getElementById("fNotes").value = t.notes || "";
+        document.getElementById("editError").style.display = "none";
+        document.getElementById("editModal").style.display = "flex";
+        setTimeout(() => document.getElementById("fDesc").focus(), 50);
+      }
+
+      function saveTemplate() {
+        const ref = document.getElementById("fRef").value.trim().toUpperCase();
+        const cat = document.getElementById("fCat").value;
+        const desc = document.getElementById("fDesc").value.trim();
+        const url = document.getElementById("fUrl").value.trim();
+        const img = document.getElementById("fImg").value.trim();
+        const notes = document.getElementById("fNotes").value.trim();
+
+        // Validate
+        if (!ref) {
+          document.getElementById("editError").textContent =
+            "Reference code is required.";
+          document.getElementById("editError").style.display = "block";
+          return;
+        }
+
+        if (editingRef === null) {
+          // Adding new — check for duplicate ref
+          if (templates.find((x) => x.ref === ref)) {
+            document.getElementById("editError").textContent =
+              `Reference "${ref}" already exists.`;
+            document.getElementById("editError").style.display = "block";
+            return;
+          }
+          templates.push({
+            ref,
+            cat,
+            desc,
+            url: url || null,
+            img: img || null,
+            notes: notes || null,
+            upvotes: 0,
+            downvotes: 0,
+          });
+        } else {
+          // Editing existing — preserve vote counts
+          const idx = templates.findIndex((x) => x.ref === editingRef);
+          if (idx > -1) {
+            const oldTemplate = templates[idx];
+            templates[idx] = {
+              ref: editingRef,
+              cat,
+              desc,
+              url: url || null,
+              img: img || null,
+              notes: notes || null,
+              upvotes: oldTemplate.upvotes || 0,
+              downvotes: oldTemplate.downvotes || 0,
+            };
+          }
+        }
+
+        saveTemplates();
+        closeEditModal();
+        renderAll();
+      }
+
+      function closeEditModal(event) {
+        if (event && event.target !== document.getElementById("editModal"))
+          return;
+        document.getElementById("editModal").style.display = "none";
+      }
+
+      /* -------------------------------------------------------
+       ADMIN — DELETE TEMPLATE
+    ------------------------------------------------------- */
+      function deleteTemplate(ref) {
+        if (!confirm(`Delete template "${ref}"? This cannot be undone.`))
+          return;
+        templates = templates.filter((t) => t.ref !== ref);
+        saveTemplates();
+        renderAll();
+      }
+
+      /* -------------------------------------------------------
+       VOTING
+    ------------------------------------------------------- */
+      function addVote(ref, voteType) {
+        // Find template
+        const template = templates.find((t) => t.ref === ref);
+        if (!template) return;
+
+        // Update vote count
+        if (voteType === "up") {
+          template.upvotes = (template.upvotes || 0) + 1;
+        } else if (voteType === "down") {
+          template.downvotes = (template.downvotes || 0) + 1;
+        }
+
+        // Save and re-render
+        saveTemplates();
+        renderAll();
+      }
+
+      /* -------------------------------------------------------
+       KEYBOARD — close modals with Escape
+    ------------------------------------------------------- */
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          document.getElementById("loginModal").style.display = "none";
+          document.getElementById("editModal").style.display = "none";
+        }
+      });
+
+      /* -------------------------------------------------------
+       START
+    ------------------------------------------------------- */
+      init();
+    </script>
+  </body>
+</html>
