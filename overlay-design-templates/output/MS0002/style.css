@@ -1,0 +1,208 @@
+@import url('https://fonts.smct.co/smc-butler/smc-butler.css');
+
+smc-bg * {
+  font-family: "Butler", sans-serif;
+}
+
+smc-bg {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: auto;
+  top: auto;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0);
+  pointer-events: none;
+}
+
+smc-overlay-outer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+smc-overlay-inner {
+  background: #fff;
+  width: 450px;
+  min-height: auto;
+  border-radius: 1px;
+  padding: 30px;
+  position: absolute;
+  left: 10px;
+  bottom: 0;
+  margin: 0;
+  pointer-events: all;
+  transition: all 0.3s cubic-bezier(0.48, 0.59, 0.68, 1.3);
+  animation: smc-attention 2s linear infinite;
+}
+smc-overlay-inner.smc-revealed{
+  bottom: 10px!important;
+  animation: none;
+}
+
+smc-ol-reveal {
+  background: #303b43;
+  color: #fff;
+  font-size: 14px;
+  padding: 12px;
+  position: absolute;
+  top: 180px;
+  right: 20px;
+  width: 120px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  z-index:4;
+}
+smc-ol-reveal:hover{
+  background: #636c72;
+}
+smc-ol-reveal:after{
+  content:'↑';
+}
+smc-ol-reveal.smc-revealed:after{
+  content:'↓';
+}
+.smc-img1{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+}
+smc-img-outer,
+smc-text-outer,
+smc-option,
+smc-long-close {
+  width: 100%;
+  min-width: auto;
+  margin: 0 0 0 0;
+  position: relative;
+  z-index: 2;
+}
+
+
+.smc-text1,
+.smc-text2 {
+  font-size: 14px;
+  font-weight: normal;
+  color: #303b43;
+  margin: 15px auto;
+  text-align: left;
+}
+
+.smc-text1 {
+  font-size: 18px;
+  margin: 160px auto 20px auto;
+}
+
+.smc-text2 {
+  line-height: 1.2;
+  margin: 40px auto 20px auto;
+}
+
+smc-reveal {
+  margin: 25px auto auto 0;
+  max-width: 200px;
+}
+.smc-input{
+  max-width: 240px;
+  margin: 10px auto 0 0 ;
+}
+.smc-button{
+  margin: 10px auto 0 0 ;
+  max-width: 240px;
+  font-size:14px;
+  background: #303b43;
+  border-radius: 3px;
+  min-height: 40px;
+}
+
+
+/* Styling Continue Shopping Button */
+smc-long-close.smc-engaged {
+  position: relative;
+  max-width: 200px;
+  margin: 35px auto 0 230px;
+}
+
+smc-long-close.smc-engaged>a.smc-link {
+  background: #004F71;
+  color: #fff;
+  border-radius: 3px;
+  font-family: "DINCompPro-CondBold", sans-serif;
+  display: block;
+  font-size: 18px;
+  margin: auto;
+  text-transform: uppercase;
+  max-width: 200px;
+  padding: 14px;
+  font-weight: bold;
+}
+
+smc-cp {
+  position: absolute;
+  right: 5px;
+  top: 4px;
+  height: 32px;
+  width: 30px;
+  z-index: 1;
+  cursor: pointer;
+  background: center / 70% no-repeat url("https://cdn.smct.io/65845-696.png");
+  opacity: 0.5;
+  display: block;
+}
+
+smc-cp:hover {
+  opacity: 1;
+}
+
+smc-cp-msg {
+  position: absolute;
+  bottom: 0;
+  background: #0009;
+  color: #fff;
+  left: 50%;
+  width: 320px;
+  padding: 7px;
+  z-index: 10;
+  margin-left: -160px;
+  text-align: center;
+  font-size: 11px;
+  display: none;
+}
+smc-long-close{
+  display: none;
+}
+smc-close {
+  top: -5px;
+  right: -5px;
+  background: #fff;
+}
+
+smc-close:hover {
+  background: #fff;
+}
+
+smc-close a.smc-link {
+  color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+}
+
+smc-ol-reveal.smc-eng {
+  display: none;
+}
+
+
+@keyframes smc-attention{
+  0%,65%, 100%{transform: translateY(0);}
+  70%,80%, 90%{transform: translateY(-2px);}
+  75%, 85%{transform: translateY(2px);}
+}

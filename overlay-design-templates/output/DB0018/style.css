@@ -1,0 +1,209 @@
+@import url('https://fonts.smct.co/smc-gt-pressura/smc-gt-pressura2.css');
+smc-bg *{font-family: 'GT-Pressura-Mono-Light', sans-serif;}
+
+
+smc-overlay-inner {
+  --smc-bg: #ffd814;
+  --smc-text: #000;
+  --smc-btn: #d0f491;
+  --smc-border:2px;
+}
+smc-bg{background-color: #d0f491cb;}
+
+smc-overlay-inner{
+    width:650px;
+    padding-bottom:20px;
+    border-radius:var(--smc-border);
+    background-color: #fff0;
+    display: flex;
+    padding: 10px;
+    gap:10px;
+}
+smc-holder{
+    background:#F4F4F4;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    border-radius:6px;
+    justify-content: center;
+    padding: 10px;
+}
+
+smc-img-outer, smc-text-outer, smc-option, smc-long-close{
+    width:100%;
+    margin: 0;
+}
+.smc-img1{
+    margin:5px auto;
+    max-width:50px;
+    filter: invert(1);
+}
+.smc-img1:hover{
+    animation: smc-spin 1s linear;
+}
+.smc-text1, .smc-text2, .smc-text3, .smc-text4{
+    color:var(--smc-text);
+    line-height:1.2;
+    margin:10px auto;
+}
+.smc-text1 {
+    font-size: 28px;
+}
+.smc-text2 {
+	font-weight:normal;
+    font-size: 14px;
+}
+
+.smc-text4{
+    position: absolute;
+    bottom: 10px;
+    font-size: 14px;
+    width: 45%;
+    font-weight: bold;
+}
+.smc-button {
+	background:var(--smc-btn);
+    color: #222;
+    font-size: 14px;
+    padding: 18px ;
+    font-weight:400;
+    width:90%;
+    border-radius:8px;
+    text-transform:uppercase;
+    transition:all 0.3s ease;
+    margin: auto;
+}
+.smc-button:hover{
+    box-shadow:0 3px 8px #0000001a;
+	background:#000;
+    color: #fff;
+}
+smc-close{
+    top:20px;
+    right:20px;
+    background:#fff;
+}
+smc-close:hover{background:#fff;}
+smc-close a.smc-link{
+    color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+}
+smc-cart {
+    width: 50%;
+    padding:10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    border-radius:6px;
+    transition:all 0.3s ease;
+    background:#fff;
+    border:1px dashed #000;
+
+}
+
+smc-product{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    width:100%;
+    gap:10px;
+}
+smc-left, smc-right{
+    display:flex;
+    flex-direction:column;
+    width:100%;
+}
+smc-right{
+    width:100%;
+    padding:5px;
+    gap:3px;
+}
+smc-product-img, smc-product-name, smc-prices, smc-product-saving, smc-product-desc {
+    display:flex;
+    font-size:14px;
+    color:var(--smc-text);
+    line-height:1.3;
+    width:100%;
+    font-weight:400;
+    justify-content:flex-start;
+}
+smc-product-img{
+	max-width: 250px;
+	max-height: 250px;
+	display:flex;
+	align-items:center;
+	overflow:hidden;
+	margin:auto;
+}
+smc-product-img img {
+	width:100%;
+	height:auto;
+}
+smc-product-name{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    text-align:left;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    line-height: 1.2;
+    font-size:14px;
+    color:var(--smc-text);
+}
+smc-prices{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+smc-product-price{
+    font-size:14px;
+}
+smc-old-price{
+    text-decoration:line-through;
+    line-height:1.3;
+    padding:0 10px 0 0;
+    color:#949494;
+}
+smc-old-price:empty{
+    padding: 0;
+}
+
+smc-product-link{
+	background:var(--smc-btn);
+    color: #fff;
+    font-size: 14px;
+    padding: 12px ;
+    font-weight:400;
+    max-width:240px;
+    border-radius:var(--smc-border);
+    margin:10px auto ;
+    text-transform:uppercase;
+    cursor:pointer;
+    width:100%;
+    display:flex;
+    justify-content:center;
+}
+smc-product-link:hover{
+    box-shadow:0 3px 8px #0000001a;
+}
+
+@keyframes smc-spin{
+0% {
+    -webkit-transform: rotate3d(0, 1, 0, 360deg);
+    transform: rotateY(360deg);
+}
+
+50% {
+    -webkit-transform: rotate3d(0, 1, 0, 180deg);
+    transform: rotateY(180deg);
+}
+100% {
+    -webkit-transform: rotate3d(0,1,0,360);
+    transform: rotateY(360);
+}
+}

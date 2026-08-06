@@ -1,0 +1,238 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700');
+
+smc-bg * {
+  font-family: 'Montserrat', sans-serif;
+}
+
+smc-overlay-inner {
+  --smc-bg: #ffd814;
+  --smc-text: #3a3a3a;
+  --smc-btn: #dd3333;
+  --smc-btnHover: #e52e19b0;
+  --smc-border: 2px;
+}
+
+
+smc-overlay-inner {
+  background: linear-gradient(180deg, #E4F2EE 50%, #fff 100%);
+  width: 450px;
+  min-height: 350px;
+  padding-bottom: 20px;
+  border-radius: var(--smc-border);
+}
+
+smc-img-outer,
+smc-text-outer,
+smc-option,
+smc-long-close {
+  width: 90%;
+  margin: 0 0 0 20px;
+}
+
+.smc-img1 {
+  position: absolute;
+  bottom: 20px;
+  right: 30px;
+  max-width: 90px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+svg.smc-icon {
+  position: absolute;
+  top: 25px;
+  left: 30px;
+  fill: var(--smc-btn);
+  display: block;
+  max-width: 55px;
+  border: 2px solid var(--smc-btn);
+  border-radius: 5px;
+  padding: 5px;
+}
+
+smc-text-outer {
+  margin-left: 85px;
+}
+
+.smc-text1,
+.smc-text2,
+.smc-text3,
+.smc-text4 {
+  color: var(--smc-text);
+  line-height: 1.2;
+  text-align: left;
+}
+
+.smc-text1 {
+  font-size: 28px;
+  margin: 10px auto 8px 0;
+  color: var(--smc-btn);
+  font-weight: 500;
+}
+
+.smc-text2 {
+  font-weight: 300;
+  font-size: 14px;
+  margin: 5px auto 20px 0;
+
+}
+
+.smc-img3 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.smc-button {
+  background: var(--smc-btn);
+  color: #fff;
+  font-size: 15px;
+  padding: 12px;
+  font-weight: 700;
+  max-width: 220px;
+  border-radius: 3px;
+  margin: 10px auto 0 0;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
+.smc-button:hover {
+  box-shadow: 0 3px 8px #0000001a;
+  background: var(--smc-btnHover);
+  color: #fff;
+}
+
+smc-close {
+  top: -10px;
+  right: -10px;
+  background: #fff;
+}
+
+smc-close:hover {
+  background: #fff;
+}
+
+smc-close a.smc-link {
+  color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+}
+
+smc-cart {
+  width: calc(100% - 40px);
+  margin: 10px auto 20px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+  transition: all 0.3s ease;
+  border-radius: var(--smc-border);
+  border: 1px solid rgba(128, 128, 128, .16);
+  box-shadow: 0 1px 7px #8080801f;
+}
+
+smc-product {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  justify-content: space-around;
+}
+
+smc-left,
+smc-right {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  padding: 10px;
+}
+
+smc-right {
+  padding: 10px;
+}
+
+smc-product-img,
+smc-product-name,
+smc-prices,
+smc-product-saving,
+smc-product-desc {
+  display: flex;
+  margin: 3px auto;
+  font-size: 14px;
+  color: var(--smc-text);
+  line-height: 1.3;
+  width: 100%;
+  font-weight: 500;
+  justify-content: flex-start;
+}
+
+smc-product-img {
+  max-width: 185px;
+  max-height: 185px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  margin: auto auto auto 0;
+}
+
+smc-product-img img {
+  width: 100%;
+  height: auto;
+}
+
+smc-product-name {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  text-align: left;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  line-height: 1.2;
+  font-size: 17px;
+  color: var(--smc-text);
+}
+smc-prices{
+  align-items: center;
+  justify-content: flex-start;
+}
+smc-product-price {
+  color: #222c;
+  font-size: 13px;
+}
+
+smc-old-price {
+  text-decoration: line-through;
+  line-height: 1.3;
+  padding: 0 10px 0 0;
+  color: #949494;
+}
+
+smc-product-link {
+  background: var(--smc-btn);
+  color: #fff;
+  font-size: 14px;
+  padding: 12px;
+  font-weight: 400;
+  max-width: 240px;
+  border-radius: var(--smc-border);
+  margin: 10px auto;
+  text-transform: uppercase;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+smc-product-link:hover {
+  box-shadow: 0 3px 8px #0000001a;
+}

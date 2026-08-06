@@ -1,0 +1,238 @@
+@import url('https://fonts.smct.co/smc-souvenir-avant-garde/smc-souvenir-avant-garde.css');
+smc-bg *{font-family: 'ITCAvantGardeGothicPro-Md', sans-serif;}
+
+smc-bg {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: auto;
+  top: auto;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0);
+  pointer-events: none;
+}
+
+smc-overlay-outer {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  right: auto;
+}
+
+smc-overlay-inner {
+  background: #113136;
+  width: 600px;
+  min-height: 150px;
+  border-radius: 5px 300px 300px 5px;
+  padding: 10px 10px 0 10px;
+  position: relative;
+  left: -455px;
+  right: 0;
+  margin: auto;
+  pointer-events: all;
+  transition: all 0.3s cubic-bezier(0.48, 0.59, 0.68, 1.3);
+  animation: smc-attention 2s linear infinite;
+  box-shadow: 0 0 100px #9CE0D7;
+}
+smc-overlay-inner.smc-revealed{
+  left: 10px;
+  animation: none;
+}
+
+smc-ol-reveal {
+  background: #9CE0D7;
+  color: #113136;
+  font-size: 22px;
+  padding: 12px;
+  font-weight: 400;
+  position: absolute;
+  top: 10px;
+  right:10px;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+smc-ol-reveal:hover{
+  background: #636c72;
+}
+smc-ol-reveal:hover:before{
+    position: absolute;
+    content: 'Yes please';
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  border-radius: 50%;
+  background: #31dac4;
+  color: #051517;
+    z-index:0;
+}
+
+smc-img-outer,
+smc-text-outer,
+smc-option,
+smc-long-close {
+  width:70%;
+  min-width: auto;
+  margin: 0 0 0 20px;
+}
+
+
+.smc-text1,
+.smc-text2 {
+  font-size: 14px;
+  font-weight: normal;
+  color: #fff;
+  margin: 15px auto;
+  text-align: left;
+}
+
+.smc-text1 {
+  font-size: 30px;
+	font-family: 'Souvenir-Medium', serif;
+  margin: 10px auto 5px auto;
+}
+
+.smc-text2 {
+  line-height: 1.2;
+}
+
+smc-reveal {
+  margin: 5px auto 5px 0;
+  max-width: 200px;
+}
+
+smc-cover,
+smc-code {
+  font-size: 14px;
+  border: 1px solid #31dac4;
+  border-radius: 3px;
+}
+
+smc-cover {
+  background-color: #31dac4;
+  color: #051517;
+  font-weight: bold;
+  padding: 12px;
+}
+smc-cover:hover{
+  color: #31dac4;
+  background-color: #051517;
+
+}
+smc-code {
+  padding: 11px;
+  font-size: 14px;
+}
+
+/* Styling Continue Shopping Button */
+smc-long-close.smc-engaged {
+  position: relative;
+  max-width: 200px;
+  margin: 25px auto 0 230px;
+}
+
+smc-long-close.smc-engaged>a.smc-link {
+  background-color: #31dac4;
+  color: #051517;
+  border-radius: 3px;
+  display: block;
+  font-size: 14px;
+  margin: auto;
+  max-width: 200px;
+  padding: 12px;
+  font-weight: bold;
+}
+
+smc-cp {
+  position: absolute;
+  right: 5px;
+  top: 4px;
+  height: 32px;
+  width: 30px;
+  z-index: 1;
+  cursor: pointer;
+  background: center / 70% no-repeat url("https://cdn.smct.io/65845-696.png");
+  opacity: 0.5;
+  display: block;
+}
+
+smc-cp:hover {
+  opacity: 1;
+}
+
+smc-cp-msg {
+  position: absolute;
+  bottom: 0;
+  background: #0009;
+  color: #fff;
+  left: 50%;
+  width: 320px;
+  padding: 7px;
+  z-index: 10;
+  margin-left: -160px;
+  text-align: center;
+  font-size: 11px;
+  display: none;
+}
+
+smc-close {
+  top: -5px;
+  left: -5px;
+  background: #fff;
+  width: 20px;
+  height: 20px;
+}
+
+smc-close:hover {
+  background: #fff;
+}
+
+smc-close a.smc-link {
+  color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 10px;
+}
+
+smc-ol-reveal.smc-eng {
+  display: none;
+}
+
+smc-custom-cta {
+  background: #fff;
+  color: #303b43;
+  border: 1px solid #303b43;
+  font-size: 10px;
+  padding: 12px;
+  font-weight: 400;
+  position: absolute;
+  top: 190px;
+  right: 20px;
+  width: 150px;
+  border-radius: 4px;
+  font-family: "SharpGroteskBook-20", serif;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+@keyframes smc-attention{
+  0%,65%, 100%{transform: translateY(0);}
+  70%,80%, 90%{transform: translateY(-2px);}
+  75%, 85%{transform: translateY(2px);}
+}

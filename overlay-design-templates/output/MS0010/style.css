@@ -1,0 +1,221 @@
+@import url('https://fonts.googleapis.com/css?family=Manrope:400,700');
+smc-bg *{font-family: 'Manrope', sans-serif;}
+
+smc-bg{
+  --smc-accent: #feb91d;
+}
+smc-overlay-inner{
+    background-image: linear-gradient(120deg, #154D82 0%, #091f34 100%);
+    width: 750px;
+    min-height: 400px;
+    padding-bottom: 0;
+    border-radius: 4px;
+}
+
+/* Align the content Left */
+smc-img-outer, smc-text-outer, smc-option, smc-long-close{
+    width:57%;
+    margin:0 0 0 40px;
+}
+
+.smc-text1, .smc-text2, .smc-text3, .smc-text4{
+    text-align: left;
+    font-size: 16px;
+    font-weight: 300;
+    margin: 10px auto;
+    line-height:1.2;
+    color: #fff;
+}
+.smc-text1 {
+	font-size: 22px;
+  margin: 40px auto 10px 0;
+}
+.smc-text1 span{
+    color:var(--smc-accent);
+}
+.smc-text2{
+    margin: 10px auto ;
+    color:#feb91d;
+}
+.smc-text3{
+    font-size: 14px;
+}
+.smc-text3 ol {
+  padding-left: 1.2em;
+}
+
+.smc-text3 ol li {
+  padding: 5px 0 2px 0;
+}
+
+.smc-text3 ol li::marker {
+  color: var(--smc-accent);
+}
+.smc-text4{
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+smc-reveal, .smc-input{
+    max-width: 260px;
+    margin: 10px auto auto 0;
+    border-radius: 3px;
+}
+
+smc-cover, smc-code{
+    font-size: 14px;
+    border-radius: 3px;
+    padding: 12px;
+}
+
+smc-cover{
+    background:var(--smc-accent);
+    color: #000;
+    font-weight: bold;
+}
+
+smc-code{
+    padding: 11px;
+    border: 1px solid #000;
+}
+
+/* Styling Continue Shopping Button */
+smc-long-close.smc-engaged {
+    position:relative;
+    margin:20px auto auto 20px;
+    max-width: 260px;
+}
+smc-long-close.smc-engaged > a.smc-link {
+    background:var(--smc-accent);
+    color: #1e1e1e;
+    display: block;
+    font-size: 14px;
+    border-radius: 3px;
+    margin: auto;
+    max-width: 260px;
+    padding: 12px;
+    font-weight: bold;
+}
+
+/* Copy To Clipboard Button */
+smc-cp {
+    position: absolute;
+    right: 5px;
+    top: 1px;
+    height: 36px;
+    color: #333;
+    width: 34px;
+    z-index: 1;
+    line-height: 40px;
+    cursor: pointer;
+    background-image:url(https://cdn.smct.co/4110-335.png);
+    background-size:60%;
+    background-repeat:no-repeat;
+    background-position:50% 50%;
+    opacity:0.7;
+    display:block;
+}
+smc-cp:hover{
+    opacity:1;
+}
+/* The "item has been copied to clipboard message" */
+smc-cp-msg{
+    position:absolute;
+    bottom:10px;
+    background:#000;
+    color:#fff;
+    left:50%;
+    width:320px;
+    padding:7px;
+    z-index:10;
+    margin-left:-160px;
+    text-align:center;
+    font-size:14px;
+    line-height:18px;
+    display:none;
+}
+
+smc-show-terms {
+	position: absolute;
+    display: block;
+    color: #fff;
+    text-decoration: underline;
+    font-size:11px;
+    right: 20px;
+    bottom:25px;
+}
+
+smc-terms {
+	background-color: #fff;
+    border-radius: 5px;
+    bottom: 0;
+    right: 0;
+    padding: 0px;
+    position: absolute;
+    left: 54%;
+    top: 0;
+    box-shadow: none;
+    border: none;
+    z-index: 101;
+}
+
+smc-terms-para {
+	font-size: 11px;
+	width: 90%;
+	text-align: left;
+	line-height: 1.4;
+	margin: 10px auto;
+}
+
+smc-terms-header {
+    font-size: 16px;
+    margin: 26px auto auto auto;
+}  
+
+smc-terms-scroller {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 30px;
+    overflow: auto;
+}
+.smc-tick {
+    position: absolute;
+    display: flex;
+    align-items: flex-start;
+    bottom: 20px;
+    left: 50px;
+    font-size: 11px;
+    width: 50%;
+    text-align: left;
+}
+
+.smc-tick label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    color: #fff;
+    cursor: pointer;
+    text-align: left;
+    line-height: 1.3;
+}
+
+.smc-tick label input[type="checkbox"] {
+    flex-shrink: 0;
+    margin-top: 2px;
+    margin-left: 0; 
+    margin-right: 0;
+    height: 15px;
+    width: 15px;
+}
+
+.smc-tick label a {
+    color: #fff;
+    display: contents;
+}
+
+
+smc-input-group.smc-eng{
+    display:none!important;
+}

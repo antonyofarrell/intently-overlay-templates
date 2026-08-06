@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css?family=DM+Sans:300,400,500,600,700&display=swap');
+
+smc-bg * {
+    font-family: "DM Sans", sans-serif;
+}
+
+smc-bg{
+    background-color: #fff0;
+    backdrop-filter: blur(4px);
+}
+
+smc-overlay-inner {
+    background-color: #f2f2f2;
+    width: 360px;
+    min-height: 460px;
+    padding:30px;
+    overflow: hidden;
+    border-radius: 12px;
+    border: 1px solid #c5bbb6;
+}
+
+smc-text-outer,
+smc-input-group,
+smc-option {
+    width: 100%;
+    margin: auto;
+}
+
+.smc-text1, 
+.smc-text2{
+    font-size: 14px;
+    font-weight: 400;
+    margin: 0 auto;
+    text-align: left;
+    color: #181818;
+}
+
+.smc-img1{
+    max-width: 42px;
+    margin: 0;
+    border: 1px solid #81818157;
+    border-radius: 6px;
+    padding: 6px;
+}
+
+.smc-text1{
+    font-size: 26px;
+    font-weight: bold;
+    margin: 130px auto 15px auto;
+}
+
+.smc-text-img{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 0 auto 20px auto;
+}
+
+.smc-input::placeholder,
+.smc-input {
+    text-align: left
+}
+
+.smc-button {
+    background-color: #f04e2f;
+    color: #fff;
+    border-radius: 30px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    max-width: 160px;
+    margin: 15px auto 0 0;
+    padding: 15px;
+    text-transform: uppercase;
+}
+
+label.smc-email-label {
+    font-weight: normal;
+    color: #181818;
+    text-align: left;
+    width: 100%;
+    font-size: 12px;
+    display: block;
+    margin: 25px auto 17px 0;
+}
+
+input.smc-input {
+    border-radius: 999px;
+    background: #fff;
+    border: 1px solid #818181;
+    max-width: 300px;
+    padding: 14px 14px 14px 20px;
+    margin: 10px 0 15px 0;
+}
+
+label.smc-check-label {
+    color: #181818;
+    font-size:12px;
+    display: flex;
+    flex-direction: row;
+    width: 300px;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+label.smc-check-label a {
+    color: #181818;
+    text-decoration: underline;
+}
+
+label.smc-check-label input[type='checkbox'] {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+}
+
+.smc-rise-text {
+    display: block;
+    width: 100%;
+}
+
+smc-close {
+    font-size: 12px;
+    background-color: #ffffffb8;
+}
+
+smc-close a.smc-link {
+    color: #000;
+}
+
+.smc-div{
+    display: block!important;
+    position: absolute;
+    width: 100%;
+    height: 140px;
+    top: 0;
+    left: 0;
+    background-image: url('{content6}');
+    background-position: center;
+    background-size: cover;
+}

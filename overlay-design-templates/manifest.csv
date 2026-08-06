@@ -1,0 +1,70 @@
+reference,overlay_id,description
+DB0001,129190,Simple Dynamic basket overlay
+DB0002,139425,Dynamic basket overlay with animated icon for attention
+DB0003,142876,Small format dynamic basket overlay
+DB0004,149571,Dynamic basket with a 50/50 layout of mesaging and basket section
+DB0005,149581,Bottom left unobtrusive design
+DB0006,121004,Corner overlay with just the product details and a hover effect
+DB0007,151335,Dynamic basket with space for USPs that rotate
+DB0008,154632,Dynamic basket with layout that is specific to date based reservations
+DB0009,159534,Dynamic basket sidebar with USP list under product information
+DB0010,159810,Letterbox style long thin dynamic basket
+DB0011,195237,Bento box styled overlay that organises the elements automatically
+DB0012,161367,Fashion simple
+DB0013,161587,Basket reminder with code and countdown to 30 minutes
+DB0014,162194,Bottom left compact design with hover effect to highlight product
+DB0015,165015,Standard template for products with company branding
+DB0016,166247,VERY non intrusive example with just product details and price
+DB0017,167151,Simple basket reminder overlay bottom left
+DB0018,167656,Left right layout using flex CSS funcionality
+DB0019,172354,Dynamic basket and voucher reveal using flex layout
+DB0020,197996,Dynamic basket focussing on product image with minimal details
+PR0001,149609,Simple product recommender overlay with USPs scrolling along the bottom
+PR0002,149898,Female focussed recommender with woman looking at phone
+PR0003,149896,Side by side product recommender with two products
+PR0004,159036,Standard Square design
+PR0005,160463,Side by side product recommender with two products and a brand image
+PR0006,177670,Product recommender bottom left
+PR0007,161471,Birkenstock style recommender
+PR0008,165016,Standard two product recomminder
+PR0009,166248,VERY non intrusive example with minimal messaging
+PR0010,160845,Product recommender that opens once a badge/button has been clicked
+PR0011,187590,Very simple recommmender example that performed very well for fashionette
+RD0001,160834,Simple basket recommender overlay for health/beauty clients
+RD0002,160836,Multi CTA for different categories or bestsellers
+RD0003,139633,Multi CTA with different images for each category/product option on hover
+RD0004,161013,Product category carousel sliding images
+RD0005,161314,Simple multi CTA overlay with animated buttons for attention
+RD0006,123560,Carousel for category page redirect auto animates
+RD0007,161445,Roundel redirect that sits on the periphery of the site design
+RD0008,163199,Simple Click to redirect with brand image to the left
+RD0009,163200,Simple Click to redirect with brand image at the top
+RD0010,157441,Generic Static basket redirect
+RD0011,163568,Simple redirect with timer bar to add urgency
+RD0012,163927,Simple multi CTA overlay with product images and buttons with hover effects
+RD0013,166088,Multi CTA overlay with category images and a text hover effect
+RD0014,167051,Video background overlay
+RD0015,167531,Redirect overlay with dynamic shaped image and button outside of standard position
+RD0016,171989,Copy to reveal overlay - appears when user copies title on product page
+RD0016-2,178036,Traffic shaping or offer highlighting overlay with branded colours
+RD0017,181108,Frequently bought together
+RD0018,184699,Nudge Bottom Left Horizontal
+RD0019,188000,Multi CTA Simple Small business
+RD0020,193264,Classic split with Scrolling USPs
+RV0001,153895,Simple code reveal template with space for images positioned to the right
+RV0002,166077,Simple code reveal with imagery to the left
+RV0004,171740,Click to reveal overlay with new customer banner and brand image in compact form
+RV0005,183766,Copy to reveal - overlay positioned relative to an element on client's page
+RV0006,192602,Minimal click to reveal
+RV0007,192771,THG Accessibility compliant click to reveal
+RV0008,193249,Classic image text split with blurred out code section
+MS0001,160538,Small badge opens click to reveal
+MS0002,161370,Bottom left click to expand email voucher overlay
+MS0003,173498,Email to reveal basic layout
+MS0004,173512,Email voucher overlay with voucher icon and terms link
+MS0005,180672,Spin the wheel template
+MS0006,186004,Accessibility compliant click to reveal overlay for THG brands with timer
+MS0007,184767,Email collection for basket Backup
+MS0008,187784,Accessibility compliant click to redirect overlay for THG brands
+MS0009,187974,Email to reveal landscape layout
+MS0010,190539,Giftcloud template

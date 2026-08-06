@@ -221,14 +221,22 @@
       function init() {
         loadTemplates();
 
-        // If an Apps Script URL is set, fetch fresh scores and re-render
+        // Use last-fetched live scores from localStorage if we have them (instant + fresh),
+        // otherwise the static SCORES baked into data.js.
+        try {
+          const cached = JSON.parse(localStorage.getItem("ot_scores") || "null");
+          if (cached) Object.assign(SCORES, cached);
+        } catch (e) {}
+
+        // Paint immediately — never block the page on the network.
+        renderAll();
+
+        // Then refresh scores from the sheet in the background and re-render if they change.
         if (
           typeof APPS_SCRIPT_URL === "string" &&
           APPS_SCRIPT_URL.startsWith("http")
         ) {
           fetchLiveScores();
-        } else {
-          renderAll();
         }
       }
 
@@ -268,19 +276,21 @@
       Then paste the URL into APPS_SCRIPT_URL in data.js.
     */
       function fetchLiveScores() {
+        // Background refresh only — the page is already rendered by the time this resolves.
         fetch(APPS_SCRIPT_URL)
           .then((r) => r.json())
           .then((freshScores) => {
-            // Merge fresh scores into the SCORES object
             Object.assign(SCORES, freshScores);
+            try {
+              localStorage.setItem("ot_scores", JSON.stringify(freshScores));
+            } catch (e) {}
             renderAll();
           })
           .catch((err) => {
             console.warn(
-              "Could not fetch live scores, using static data.js scores.",
+              "Could not fetch live scores; using cached/static scores.",
               err,
             );
-            renderAll();
           });
       }
 
@@ -375,13 +385,19 @@
       */
         const hasImg = t.img && t.img.trim() !== "";
 
+        // Use the lightweight thumbnail for the grid; fall back to the full image, then the placeholder.
+        const thumb = hasImg
+          ? "images/thumbs/" + t.img.split("/").pop().replace(/\.(png|jpe?g)$/i, ".jpg")
+          : "";
         const imgHtml = hasImg
           ? `<img
               class="card-img"
-              src="${escHtml(t.img)}"
+              src="${escHtml(thumb)}"
+              data-full="${escHtml(t.img)}"
               alt="${escHtml(t.ref)} preview"
               loading="lazy"
-              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+              decoding="async"
+              onerror="if(this.dataset.full){this.src=this.dataset.full;this.removeAttribute('data-full');}else{this.style.display='none';this.nextElementSibling.style.display='flex';}"
            />`
           : "";
 
@@ -438,9 +454,10 @@
         <div class="card-footer">
           ${
             t.url
-              ? `<a class="btn-view" href="${escHtml(t.url)}" target="_blank" rel="noopener">View Preview ↗</a>`
-              : `<span class="btn-view disabled">No Preview</span>`
+              ? `<a class="btn-view" href="${escHtml(t.url)}" target="_blank" rel="noopener">View template ↗</a>`
+              : `<span class="btn-view disabled">No template</span>`
           }
+          <a class="btn-brand" href="brand-studio.html?ref=${encodeURIComponent(t.ref)}" title="Brand this overlay for a site URL">🎨 Brand for a site</a>
           ${adminControls}
         </div>
       `;

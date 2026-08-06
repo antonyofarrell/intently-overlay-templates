@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,700');
+@import url('https://fonts.smct.co/smc-ABC-Gravity/smc-ABC-Gravity.css');
+
+smc-bg * {
+font-family: 'Nunito Sans', sans-serif;
+}
+
+smc-bg {
+background-color: #f8f4f083;
+}
+
+smc-bg {
+width: 100%;
+height: 100%;
+position: fixed;
+bottom: 0;
+right: 0;
+left: auto;
+top: auto;
+overflow: hidden;
+background-color: rgba(0, 0, 0, 0);
+pointer-events: none;
+}
+
+smc-overlay-outer {
+position: absolute;
+bottom: 10px;
+left: 10px;
+right: auto;
+}
+
+smc-overlay-inner {
+background: radial-gradient(circle farthest-side at 10% 95%, #1D4F4F 60%, #043C3D 60%);
+width: 650px;
+min-height: auto;
+border-radius: 10px;
+padding: 30px;
+position: relative;
+bottom: 0;
+right: 0;
+margin: auto;
+pointer-events: all;
+display: flex;
+flex-direction: row;
+}
+smc-img-outer, smc-long-close{
+display: none;
+}
+smc-text-outer {
+width: 60%;
+min-width: auto;
+gap:10px;
+display: flex;
+flex-direction: column;
+}
+smc-text:empty{
+display: none;
+}
+smc-option {
+display: flex;
+width: 40%;
+min-width: auto;
+align-items: flex-end;
+margin: 0;
+justify-content: center;
+}
+
+.smc-img1 {
+max-width: 150px;
+overflow: hidden;
+position: absolute;
+top: -20px;
+right: 70px;
+}
+
+.smc-text1,
+.smc-text2,
+.smc-text3,
+.smc-text4 {
+font-weight: 300;
+font-size: 20px;
+margin: 0;
+color: #fff;
+line-height: 1.2;
+text-align: left;
+}
+
+.smc-text1 {
+font-family: 'ABCGravity-Normal', sans-serif;
+font-size: 34px;
+color: #dee965;
+}
+
+.smc-text2 {
+font-weight: 300;
+font-size: 16px;
+}
+
+.smc-text3 {
+font-size: 16px;
+font-family: 'ABCGravity-Normal', sans-serif;
+}
+
+.smc-button {
+margin: 0;
+padding: 20px 10px;
+border-radius: 50px;
+background: #dee965;
+border: 2px solid #dee965;
+color: #043b3b;
+text-align: center;
+font-size: 16px;
+transition: all .2s ease;
+font-family: 'ABCGravity-Normal', sans-serif;
+height:60px;
+}
+
+.smc-button:hover {
+background-color: #043b3b;
+color: #dee965;
+}

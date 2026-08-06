@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap');
+
+smc-bg * {
+font-family: "Montserrat", serif;
+}
+
+smc-overlay-inner {
+--smc-bg: #ffd814;
+--smc-text: #fff;
+--smc-btn: #d95d31;
+--smc-btnHover: #b64821;
+--smc-border: 2px;
+}
+
+smc-overlay-inner {
+background:#0E2545;
+width:700px;
+min-height: 300px;
+padding: 30px;
+border-radius: var(--smc-border);
+overflow: hidden;
+}
+
+smc-option {
+display: none;
+}
+
+smc-text-outer{
+width: 100%;
+}
+.smc-text1,
+.smc-text2,
+.smc-text3,
+.smc-text4 {
+font-weight: 300;
+font-size: 20px;
+color: var(--smc-text);
+line-height: 1.2;
+}
+.smc-img1{
+max-width: 180px;
+filter: invert(1);
+margin: 10px auto;
+}
+.smc-text1 {
+font-weight: 700;
+font-size: 22px;
+margin: 10px auto 10px auto;
+}
+
+.smc-text2 {
+font-weight: 300;
+font-size: 18px;
+margin: 10px auto 30px auto;
+}
+
+smc-close a.smc-link {
+color: #fff;
+}
+
+smc-multi-holder {
+bottom: 30px;
+width:100%;
+margin: auto;
+display: flex;
+flex-direction: row;
+gap: 5px;
+}
+smc-multi-cta {
+width: 25%;
+text-align: center;
+cursor: pointer;
+background-color: #fff;
+gap: 10px;
+display: flex;
+flex-direction: column;
+transition: all 0.3s ease;
+position: relative;
+border: 1px solid var(--smc-btn);
+}
+smc-multi-cta:hover{
+box-shadow: 10px 10px 10px #333;
+}
+smc-multi-cta img {
+max-width: 100%;
+position: relative;
+z-index: 1;
+}
+smc-multi-cta:before{
+position: absolute;
+content: '';
+display: block;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background:linear-gradient(0deg, #0000007c 0%, #ffffff00 100%);
+z-index:2;
+transition: all 0.5s ease;
+}
+smc-multi-cta:hover:before{
+background:linear-gradient(0deg, #000000a7 20%, #ffffff00 100%);
+}
+smc-multi-cta span {
+color: #fff;
+padding: 14px 0;
+text-align: center;
+cursor: pointer;
+border-radius: 2px;
+font-size: 14px;
+font-weight: 700;
+width: 100%;
+position: absolute;
+bottom: 20px;
+display: flex;
+align-items: center;
+justify-content: center;
+z-index: 3;
+transition: all 0.2s ease-out;
+}
+smc-multi-cta:hover span{
+bottom: 50px;
+font-size: 15px;
+}

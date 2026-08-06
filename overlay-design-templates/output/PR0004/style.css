@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200..900&display=swap');
+
+smc-bg * {
+  font-family: "Source Sans 3", sans-serif;
+}
+smc-overlay-inner {
+	--smc-brand: #fff;
+	--smc-text: #1f1f1f;
+	--smc-btn: #003870;
+  --smc-border:#eee;
+}
+smc-overlay-inner {
+  background-color: #f1f1f1;
+  width: 550px;
+  min-height: 550px;
+  padding-bottom: 0;
+  overflow: hidden;
+  border-radius: 2px;
+  border: 1px solid #eee;
+}
+
+smc-text-outer {
+  width: 100%;
+  margin: auto;
+}
+
+.smc-text1, 
+.smc-text2{
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--smc-text);
+  margin: 14px auto;
+  text-align: cener;
+  line-height: 1.1;
+}
+
+.smc-text1 {
+  font-weight: bold;
+  margin: 30px auto auto auto;
+  color:var(--smc-btn);
+  font-size: 32px;
+}
+
+smc-option {
+  display: none;
+}
+smc-close {
+  font-size: 12px;
+}
+smc-close a.smc-link {
+  color: #000;
+}
+
+smc-cart {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: auto;
+  padding: 20px;
+  gap: 20px;
+  background-color: #fff;
+  border-top: 1px solid #00387037;
+  justify-content: center;
+  align-items: center;
+}
+
+smc-product {
+  display: flex !important;
+  flex-direction: column;
+  width: 50%;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+smc-product-img{
+	max-width: 250px;
+	max-height: 250px;
+	display:flex;
+	align-items:center;
+	overflow:hidden;
+	margin:auto;
+}
+smc-product-img img {
+	width:100%;
+	height:auto;
+  border-radius: 3px;
+}
+
+smc-details {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 5px 10px;
+}
+
+smc-product-name,
+smc-product-desc,
+smc-product-price,
+smc-product-link,
+smc-product-oldprice {
+  display: flex;
+  font-size: 14px;
+  font-weight: 200;
+  margin: 10px auto 0 auto;
+  width: 100%;
+  color: #313567;
+}
+
+smc-product-desc {
+  margin: 8px 0 0 0;
+  font-size: 12px;
+  line-height: 1.2;
+  color: #313567;
+}
+
+smc-product-name {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  line-height: 1.2;
+  font-size: 16px;
+  color: #313567;
+  font-weight: 700;
+  margin: 10px auto 5px auto;
+}
+
+smc-prices {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  margin: 5px auto auto 0;
+}
+
+smc-product-price,
+smc-old-price {
+  margin: 0;
+  font-weight: 400;
+  font-size: 14px;
+  width: auto;
+}
+
+smc-old-price {
+  color: #ec453d;
+  text-decoration: line-through;
+  opacity: 0.8;
+}
+smc-old-price:empty{
+  display: none;
+}
+smc-product-link {
+  margin: 15px auto 0 0;
+  width: 55%;
+  padding: 10px;
+  font-size: 14px;
+  text-align: center;
+  font-weight: 500;
+  border-radius: 2px;
+  background-color: var(--smc-btn);
+  color: #fff;
+  display: block;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}

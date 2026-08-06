@@ -1,0 +1,203 @@
+<!-- Overlay V4 Template -->
+<smc-bg class="smc-animated smc-fadeIn">
+<smc-overlay-outer class="smc-animated smc-bounceInDown smc-animDelay2"> <!-- data-animout="smc-bounceOutLeft" -->
+<smc-overlay-inner class="smc_clearfix" data-bgtheme="dark" data-changes="smc-overlay-inner|width,background-image,background-color" data-edits="content6"><!-- If the background is dark use this option -->
+
+<smc-img class="smc-img2 smc-animated smc-bounceInRight smc-animDelay8" data-changes=".smc-img2|margin-top,margin-bottom,image-upload" data-edits="content2"><img src="{content2}" alt=""></smc-img>
+<smc-img class="smc-img3 smc-animated smc-bounceInRight smc-animDelay10" data-changes=".smc-img3|margin-top,margin-bottom,image-upload" data-edits="content3"><img src="{content3}" alt=""></smc-img>
+
+<!-- Images - You can add as many as you like -->
+<smc-img-outer>
+<smc-img class="smc-img1 smc-animated smc-bounceInDown smc-animDelay6" data-changes=".smc-img1|margin-top,margin-bottom,image-upload" data-edits="content1"><img src="{content1}" alt=""></smc-img>
+<smc-img class="smc-img4 smc-animated smc-bounceInRight smc-animDelay12" data-changes=".smc-img4|margin-top,margin-bottom,image-upload" data-edits="content4"><img src="{content4}" alt=""></smc-img>
+</smc-img-outer>
+
+<!-- Text Boxes - You can add as many as you like -->
+<smc-text-outer>
+<smc-text class="smc-text1 smc-animated smc-bounceInDown smc-animDelay4" data-edits="text1" data-changes=".smc-text1|font-size,color,margin-top,margin-bottom">{text1}</smc-text>
+<smc-text class="smc-text2 smc-animated smc-bounceInRight smc-animDelay6" data-edits="text2" data-changes=".smc-text2|font-size,color,margin-top,margin-bottom">{text2}</smc-text>
+<smc-text class="smc-text3 smc-animated smc-bounceInLeft smc-animDelay8" data-edits="text3" data-changes=".smc-text3|font-size,color,margin-top,margin-bottom">{text3}</smc-text>
+<smc-text class="smc-text4 smc-animated smc-bounceInRight smc-animDelay10" data-edits="text4" data-changes=".smc-text4|font-size,color,margin-top,margin-bottom">{text4}</smc-text>
+</smc-text-outer>
+
+<!-- Email Voucher Option -->
+<smc-option class="smc-email">
+<smc-input-group><input class="smc-input smc-animated smc-fadeInLeft smc-animDelay8" name="email" autocomplete="smc-autocomplete" data-required="true" data-verify="email" placeholder="ENTER YOUR EMAIL HERE" type="text"></smc-input-group>
+<smc-input-group><input class="smc-button smc-animated smc-fadeInRight smc-animDelay10" value="Email Voucher" type="submit"></smc-input-group>
+</smc-option>
+
+<!-- Click To Reveal Option -->
+<smc-option class="smc-clickToReveal">
+<smc-reveal class="smc-animated smc-bounceInUp smc-animDelay12">
+<smc-cover data-edits="text8" data-changes=".smc-clickToReveal smc-cover|font-size,background-color,color">{text8}</smc-cover>
+<smc-code>{vc}</smc-code>
+<smc-cp data-clipboard-text="{vc-cp}"></smc-cp>
+</smc-reveal>
+</smc-option>
+
+<!-- Email To Reveal Option -->
+<smc-option class="smc-emailToReveal">
+<smc-input-group><input class="smc-input smc-animated smc-fadeInLeft smc-animDelay8" name="email" autocomplete="smc-autocomplete" data-required="true" data-verify="email" placeholder="{text13}" type="text"></smc-input-group>
+<smc-reveal class="smc-animated smc-bounceInUp smc-animDelay12">
+<smc-cover data-edits="text9" data-changes=".smc-emailToReveal smc-cover|font-size,background-color,color">{text9}</smc-cover>
+<smc-code>{vc}</smc-code>
+<smc-cp data-clipboard-text="{vc-cp}"></smc-cp>
+</smc-reveal>
+</smc-option>
+
+<!-- Uniqodo Email To Reveal Option -->
+<smc-option class="smc-uniqodoEmailToReveal">
+<smc-input-group><input class="smc-input smc-animated smc-fadeInLeft smc-animDelay8" name="email" autocomplete="smc-autocomplete" data-required="true" data-verify="email" placeholder="{text13}" type="text"></smc-input-group>
+<smc-reveal class="smc-animated smc-bounceInUp smc-animDelay12">
+<smc-cover data-edits="text9" data-changes=".smc-emailToReveal smc-cover|font-size,background-color,color">{text9}</smc-cover>
+<smc-code>{vc}</smc-code>
+<smc-cp data-clipboard-text="{vc-cp}"></smc-cp>
+</smc-reveal>
+</smc-option>
+
+<!-- Uniqodo Click To Reveal Option -->
+<smc-option class="smc-uniqodoCodeReveal">
+<smc-reveal class="smc-animated smc-bounceInUp smc-animDelay12">
+<smc-cover data-edits="text8" data-changes=".smc-uniqodoCodeReveal smc-cover|font-size,background-color,color">{text8}</smc-cover>
+<smc-code>{vc}</smc-code>
+<smc-cp data-clipboard-text="{vc-cp}"></smc-cp>
+</smc-reveal>
+</smc-option>
+
+<!-- Click To Redirect Option -->
+<smc-option class="smc-clickRedirect">
+<smc-input-group>
+<span class="smc-button smc-animated smc-fadeInRight smc-animDelay10" data-edits="text10" data-changes=".smc-button|font-size,background-color,color">{text10}</span>
+</smc-input-group>
+</smc-option>
+
+<!-- Email to GiftCloud Option -->
+<smc-option class="smc-emailToGiftCloud">
+<smc-input-group><input class="smc-input smc-animated smc-fadeInLeft smc-animDelay8" name="email" autocomplete="smc-autocomplete" data-required="true" data-verify="email" placeholder="{text13}" type="text"></smc-input-group>
+<smc-reveal class="smc-animated smc-bounceInUp smc-animDelay12">
+<smc-cover data-edits="text12" data-changes=".smc-emailToReveal smc-cover|font-size,background-color,color">{text12}</smc-cover>
+</smc-reveal>
+</smc-option>
+
+<!-- Request Notifications -->
+<smc-option class="smc-requestNotifications">
+<smc-input-group>
+<span class="smc-button smc-animated smc-fadeInRight smc-animDelay10" data-close-timeout="2000">Enable Notifications</span>
+</smc-input-group>
+<smc-agree-yes class="smc-animated smc-fadeIn">Thanks for enabling</smc-agree-yes>
+<smc-agree-no class="smc-animated smc-fadeIn">Ok no problem</smc-agree-no>
+</smc-option>
+
+<!-- Dynamic Form Example -->
+<smc-option class="smc-dynamicForm">
+<smc-input-group><input class="smc-input smc-animated smc-fadeInLeft smc-animDelay6" data-required="true" autocomplete="smc-autocomplete" name="fullname" placeholder="ENTER YOUR NAME" type="text"></smc-input-group>
+<smc-input-group><input class="smc-input smc-animated smc-fadeInLeft smc-animDelay7" data-required="true" autocomplete="smc-autocomplete" name="address" placeholder="YOUR ADDRESS" type="text"></smc-input-group>
+<smc-input-group><input class="smc-input smc-animated smc-fadeInLeft smc-animDelay8" data-required="true" autocomplete="smc-autocomplete" data-verify="email" name="email" placeholder="YOUR EMAIL" type="text"></smc-input-group>
+<smc-input-group>
+<div class="smc-animated smc-fadeInLeft smc-animDelay9">
+<label><input type="radio" name="sex" data-required="true" value="male">Male</label>
+<label><input type="radio" name="sex" data-required="true" value="female">Female</label>
+<label><input type="radio" name="sex" data-required="true" value="other">Other</label>
+</div>
+</smc-input-group>
+
+<!-- Cool Checkboxes -->
+<smc-cool-checkboxes class="smc-animated smc-fadeInRight smc-animDelay10">
+<smc-input-group data-edits="cool-checkbox" data-eq="1">
+<label>
+<input type="checkbox" name="smc-agree1" value="yes" data-required="false">
+<smc-ccb-tick></smc-ccb-tick>
+<smc-ccb-text>I agree to the <smc-show-terms data-id="terms1"> terms </smc-show-terms></smc-ccb-text>
+</label>
+</smc-input-group>
+<smc-input-group data-edits="cool-checkbox" data-eq="2">
+<label>
+<input type="checkbox" name="smc-agree2" value="yes" data-required="false">
+<smc-ccb-tick></smc-ccb-tick>
+<smc-ccb-text>I also agree to the <smc-show-terms data-id="terms2">secondary terms</smc-show-terms> as well</smc-ccb-text>
+</label>
+</smc-input-group>
+</smc-cool-checkboxes>
+<!-- End Cool Checkboxes -->
+<input class="smc-button smc-animated smc-fadeInRight smc-animDelay10" value="SUBMIT FORM" type="submit">
+</smc-option>
+
+<!-- Data Consent Example - data-hidden-id="" - Important to copy the new hidden inputs with copied values -->
+<smc-option class="smc-dataConsent">
+<smc-input-group>
+<input class="smc-input smc-animated smc-fadeInLeft smc-animDelay8" data-required="true" data-verify="email" name="email" data-hidden-id="smc-consented-email" placeholder="ENTER YOUR EMAIL" type="text">
+</smc-input-group>
+<!-- Cool Checkboxes -->
+<smc-cool-checkboxes class="smc-animated smc-fadeInRight smc-animDelay10">
+<smc-input-group data-edits="cool-checkbox" data-eq="3">
+<label>
+<input type="checkbox" name="smc-agree1" value="yes" data-required="true">
+<smc-ccb-tick></smc-ccb-tick>
+<smc-ccb-text>I agree to the <smc-show-terms data-id="terms1"> terms </smc-show-terms></smc-ccb-text>
+</label>
+</smc-input-group>
+<smc-input-group data-edits="cool-checkbox" data-eq="4">
+<label>
+<input type="checkbox" name="smc-agree2" value="yes" data-required="true">
+<smc-ccb-tick></smc-ccb-tick>
+<smc-ccb-text>I also agree to the <smc-show-terms data-id="terms2">secondary terms</smc-show-terms> as well</smc-ccb-text>
+</label>
+</smc-input-group>
+</smc-cool-checkboxes>
+<!-- End Cool Checkboxes -->
+<input class="smc-button smc-animated smc-fadeInRight smc-animDelay10" value="Save My Basket" type="submit">
+</smc-option>
+
+<!-- Closers (Both Need) -->
+<smc-long-close class="smc-animated smc-fadeInUp smc-animDelay14" data-engage-class="smc-engaged">
+<a data-close-type="long_close" class="smc-link smc-closer" href="#rdl" data-engage-text="{text11}" data-edits="text7,text11" data-changes="smc-long-close a.smc-link|font-size,color,margin-top,margin-bottom">{text7}</a>
+<!-- Note - Redirect Link gets automatically rewritten, once clicked on the data-engage text and classes are applied -->
+</smc-long-close>
+
+<smc-close class="smc-animated smc-fadeInRight smc-animDelay4 smc-closer">
+<a data-close-type="x_close" class="smc-link" href="#rdl">✕</a><!-- Note - Redirect Link gets automatically rewritten -->
+</smc-close>
+
+<!-- Success Message -->
+<smc-success-message class="smc-animated smc-fadeIn">
+<smc-success-message-inner class="smc-animated smc-bounceInDown smc-animDelay1">
+Perfect thank you!
+<smc-success-close>X</smc-success-close>
+</smc-success-message-inner>
+</smc-success-message>
+
+<!-- CSS Loader -->
+<smc-loader-bg data-theme="white"><!-- white, black-->
+<smc-loader-single></smc-loader-single><!-- single, double, pulse -->
+</smc-loader-bg>
+
+<!-- Copy to Clipboard Success Message -->
+<smc-cp-msg>"{vc}" has been copied to the clipboard</smc-cp-msg>
+
+</smc-overlay-inner>
+<smc-shake-msg>
+<i class="fa fa-mobile" aria-hidden="true"></i><br>
+Shake To Reaveal Voucher
+</smc-shake-msg>
+</smc-overlay-outer>
+
+<!-- Safe close - Used when Autoscaling is turned on -->
+<smc-close-safe class="smc-closer">
+<a data-close-type="x_close" class="smc-link" href="#rdl">[close]</a><!-- Note - Redirect Link gets automatically rewritten -->
+</smc-close-safe>
+</smc-bg>
+
+<!-- SmarterBar -->
+<smc-bar class="smc-animated smc-fadeInDown">
+<smc-bar-close>X</smc-bar-close>
+<smc-bar-text>{smarterbar}</smc-bar-text>
+<smc-handle>
+<span class="smc-bar1"></span>
+<span class="smc-bar2"></span>
+<span class="smc-bar3"></span>
+</smc-handle>
+</smc-bar>
+
+<!-- Final Mesage Box -->
+<smc-final-message class="smc-animated smc-fadeInDown">Thanks... your code is: {vc}<smc-final-message-close>X</smc-final-message-close></smc-final-message>
+

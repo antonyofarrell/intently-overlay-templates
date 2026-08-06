@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap');
+
+smc-bg * {
+    font-family: "Figtree", sans-serif;
+}
+
+smc-overlay-inner {
+  background-image: linear-gradient(90deg, #ffffff8b 0%, #fff0 100%),
+  url('{content6}');
+  background-size: cover;
+  width: 670px;
+  min-height: 320px;
+  padding-bottom: 0;
+  border-radius: 3px;
+}
+
+smc-img-outer,
+smc-text-outer,
+smc-option,
+smc-long-close {
+  width: 44%;
+  margin: 0 0 0 40px;
+  min-width: auto;
+}
+
+.smc-text1,
+.smc-text2,
+.smc-text3 {
+  font-size: 24px;
+  font-weight: 300;
+  color: #1e1e1e;
+  margin: 5px auto;
+  line-height: 1.2;
+}
+
+.smc-text1 {
+  margin: 60px auto 10px auto;
+  font-size: 16px;
+}
+
+.smc-text2 {
+  margin: 10px auto 10px auto;
+  font-size: 28px;
+}
+.smc-text4 {
+  font-size: 14px;
+  font-weight: 400;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  top: -18px;
+  background: #fff;
+  padding: 10px;
+  width: 36%;
+  box-shadow: 2px 2px 10px #00000033;
+  border-radius: 2px;
+  color: #000;
+}
+.smc-text4 span {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.smc-button{
+  padding: 14px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #2D3D4A;
+  border: 1px solid #2D3D4A;
+  border-radius: 3px;
+  margin: 15px auto 10px auto;
+  max-width: 220px;
+}
+
+
+smc-close{
+  top: 5px;
+  right: 5px;
+  height: 24px;
+  width: 24px;
+  background-color: #ffffffb3;
+}
+smc-close a.smc-link{
+  font-size: 12px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+smc-preview-timer {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: #fff;
+  color: #000;
+  padding: 5px;
+  max-width: 200px;
+  border-radius: 3px;
+  font-size: 12px;
+  z-index: 100;
+  text-align: center;
+  cursor: pointer;
+  display: none;
+}

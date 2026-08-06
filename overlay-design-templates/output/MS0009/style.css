@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css?family=DM+Sans:300,400,500,600,700&display=swap');
+
+smc-bg * {
+    font-family: "DM Sans", sans-serif;
+}
+
+smc-bg {
+    background-color: #fff0;
+    backdrop-filter: blur(1px);
+}
+
+smc-overlay-inner {
+    background-color: #F8F8F8;
+    background-image: linear-gradient(90deg, #F8F8F8 50%, #fff0 100%),
+    url('{content6}');
+    background-size: contain;
+    background-position: 100% 50%;
+    background-repeat: no-repeat;
+    width: 650px;
+    min-height: 350px;
+    padding: 50px 50px 0 50px;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+smc-img-outer,
+smc-text-outer,
+smc-option,
+smc-long-close {
+    width: 50%;
+    min-width: auto;
+    margin: 0 0 0 0;
+}
+
+.smc-text1,
+.smc-text2 {
+    font-size: 16px;
+    font-weight: 400;
+    margin: 0 auto;
+    text-align: left;
+    color: #000;
+    line-height: 1.2;
+}
+
+.smc-text1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0 auto 10px auto;
+}
+
+input.smc-input {
+    border-radius: 999px;
+    background: #fff;
+    border: 1px solid #818181;
+    max-width: 260px;
+    padding: 14px 14px 14px 20px;
+    margin: 25px 0 5px 0;
+}
+
+
+.smc-input::placeholder,
+.smc-input {
+    text-align: left
+}
+smc-option{
+    max-width: 260px;
+}
+smc-reveal {
+    margin: 5px auto 0 0;
+    height: 40px;
+}
+smc-reveal.smc-eng{
+    margin-top: 25px;
+}
+smc-cover {
+    background-color: #f04e2f;
+    color: #fff;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 15px;
+    text-transform: uppercase;
+}
+smc-code{
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 14px;
+}
+
+label.smc-check-label {
+    color: #000;
+    font-size: 12px;
+    font-weight: normal;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 3px;
+}
+
+label.smc-check-label a {
+    color: #000;
+    text-decoration: underline;
+    font-weight: normal;
+}
+
+label.smc-check-label input[type='checkbox'] {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+label.smc-eng{
+    display: none!important;
+}
+smc-long-close.smc-engaged {
+    position:relative;
+/*    margin: 90px auto 0 150px;*/
+    margin-top: 10px;
+    bottom:auto;
+    max-width: 260px;
+}
+smc-long-close.smc-engaged > a.smc-link {
+    display: block;
+    margin: auto;
+    background-color: #f04e2f;
+    color: #fff;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 15px;
+    text-transform: uppercase;
+}
+smc-cp {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 40px;
+    z-index: 1;
+    cursor: pointer;
+    background:center / 50% no-repeat url("https://cdn.smct.io/65845-696.png");
+    opacity:0.5;
+    display:block;
+}
+smc-cp:hover{ opacity:1;}
+smc-cp-msg{
+    position: absolute;
+    bottom: 0;
+    background: #0009;
+    color: #fff;
+    left: 50%;
+    width: 320px;
+    padding: 7px;
+    z-index: 10;
+    margin-left: -160px;
+    text-align: center;
+    font-size: 11px;
+    display: none;
+}
+
+smc-close {
+    font-size: 12px;
+    background-color: #ffffffb8;
+}
+
+smc-close a.smc-link {
+    color: #000;
+}
+

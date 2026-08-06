@@ -1,0 +1,78 @@
+@import url("https://fonts.smct.co/GrandSlang-Roman/GrandSlang-Roman.css");
+@import url("https://use.typekit.net/dpt0gct.css");
+
+smc-bg * {
+  font-family: "dm-sans", sans-serif;
+}
+smc-overlay-inner {
+  --smc-bg: #ffd814;
+  --smc-text: #000;
+  --smc-btn: #fff;
+  --smc-btn-text:#2a2827;
+  --smc-border:2px;
+}
+smc-overlay-inner {
+  background-image: url('{content6}');
+  background-position: center;
+  background-size: cover;
+  width: 580px;
+  min-height: 300px;
+  padding-bottom: 0;
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+/* Align the content Left */
+smc-img-outer,
+smc-text-outer,
+smc-option,
+smc-long-close {
+  width: 40%;
+  margin: 0 0 0 30px;
+}
+
+.smc-text1,
+.smc-text2,
+.smc-text3 {
+  font-size: 16px;
+  font-weight: 400;
+  margin: 12px auto;
+  text-align: center;
+  color: var(--smc-text);
+}
+
+.smc-text1,
+.smc-text3 {
+  opacity: 0.7;
+}
+
+.smc-text1 {
+  font-size: 38px;
+  font-weight: normal;
+  font-family:"GrandSlang-Roman", cursive;
+  margin: 55px auto auto auto;
+}
+
+.smc-button{
+  max-width: 130px;
+  margin: 25px auto auto auto;
+  border: 1.5px solid var(--smc-btn-text);
+  background: var(--smc-btn);
+  color: var(--smc-btn-text);
+  font-size: 12px;
+  font-weight: normal;
+  padding: 12px;
+  border-radius: 999px;
+}
+.smc-button:hover{
+  background-color: var(--smc-btn-text);
+  color: var(--smc-btn);
+}
+
+smc-close {
+  font-size: 14px;
+}
+
+smc-close a.smc-link {
+  color: #000;
+}

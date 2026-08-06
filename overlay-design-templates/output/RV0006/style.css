@@ -1,0 +1,174 @@
+@import url('https://fonts.googleapis.com/css?family=Manrope:200,300,400,700');
+
+/* ── Brand tokens ─────────────────────────────────────────── */
+smc-bg {
+  --smc-font-sm: 11px;
+  --smc-font-rg: 16px;
+  --smc-font-lg: 32px;
+  --smc-mainBkg: #164d82;
+  --smc-accent: #e4e423;
+  --smc-textColour: #fff;
+  --smc-font2: "Playfair", serif;
+  --smc-btnBkg: #e4e423;
+  --smc-btnText: #164d82;
+  --smc-btnBorderRadius: 4px;
+  --smc-frameBorder: 6px;
+  --smc-overlayPadding: 50px;
+}
+
+/* ── Base ─────────────────────────────────────────────────── */
+smc-bg * {
+  font-family: 'Manrope', sans-serif;
+}
+
+smc-overlay-inner {
+  background: var(--smc-mainBkg);
+  width: 450px;
+  min-height: auto;
+  padding: var(--smc-overlayPadding);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow: hidden;
+  border-radius: var(--smc-frameBorder);
+}
+
+smc-img-outer,
+smc-text-outer,
+smc-option {
+  width: 100%;
+  min-width: auto;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* ── Typography ───────────────────────────────────────────── */
+.smc-text1,
+.smc-text2,
+.smc-text3 {
+  font-size: var(--smc-font-rg);
+  line-height: 120%;
+  color: var(--smc-textColour);
+}
+.smc-text2 {
+  font-size: var(--smc-font-lg);
+}
+.smc-text2 span {
+  color: var(--smc-accent);
+}
+.smc-text3 {
+  font-size: var(--smc-font-sm);
+  opacity: 0.7!important;
+}
+
+/* ── Hide empty elements ──────────────────────────────────── */
+smc-img:has(img[src=""]),
+smc-img:has(img:not([src])),
+smc-img:not(:has(img)),
+smc-img-outer:not(:has(img[src]:not([src=""]))),
+smc-text:empty {
+  display: none;
+}
+
+smc-img img {
+  max-width: 100%;
+  height: auto;
+}
+
+
+/* ── Reveal / Code / Copy ─────────────────────────────────── */
+smc-reveal {
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+
+smc-cover,
+smc-code {
+  display: grid;
+  align-items: center;
+  grid-row: 1;
+  position: static;
+  top: auto;
+  left: auto;
+  font-size: var(--smc-font-rg);
+}
+
+smc-cover {
+  grid-column: 1 / -1;
+  background-color: var(--smc-btnBkg);
+  color: var(--smc-btnText);
+  border-radius: var(--smc-btnBorderRadius);
+  font-weight: 700;
+}
+smc-cover:hover {
+  filter: brightness(110%);
+}
+
+smc-code {
+  grid-column: 1;
+  border: none;
+  border-radius: var(--smc-btnBorderRadius) 0 0 var(--smc-btnBorderRadius);
+}
+
+smc-cp {
+  grid-column: 2;
+  grid-row: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  border-radius: 0 var(--smc-btnBorderRadius) var(--smc-btnBorderRadius) 0;
+  background: #ffffffcc url(https://cdn.smct.io/65845-696.png) center / 50% no-repeat;
+}
+
+smc-cp-msg{
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-size: var(--smc-font-sm);
+  color: #fff;
+}
+/* ── Close ────────────────────────────────────────────────── */
+smc-long-close:not(.smc-engaged) {
+  display: none;
+}
+
+smc-long-close {
+  position: static;
+  margin-top: auto;
+  text-align: center;
+}
+
+smc-long-close.smc-engaged a.smc-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 40px;
+  background-color: var(--smc-btnBkg);
+  color: var(--smc-btnText);
+  border-radius: var(--smc-btnBorderRadius);
+  font-size: var(--smc-font-rg);
+  font-weight: 700;
+}
+
+smc-close{
+  top: 5px;
+  right: 5px;
+  height: 24px;
+  width: 24px;
+  background-color: #ffffffb3;
+}
+smc-close a.smc-link{
+  font-size: 12px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

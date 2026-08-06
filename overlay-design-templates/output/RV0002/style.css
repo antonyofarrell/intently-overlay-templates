@@ -1,0 +1,247 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap');
+
+smc-bg * {
+font-family: "Montserrat", sans-serif;
+}
+
+smc-overlay-inner {
+--smc-bg: #ffd814;
+--smc-text: #000;
+--smc-btn: #c8484a;
+--smc-border:2px;
+}
+
+smc-overlay-inner {
+background-color: #f2f2f2;
+width: 760px;
+min-height: 320px;
+border-radius: 3px;
+padding-bottom: 0;
+}
+
+/* Align the content Left */
+smc-img-outer,
+smc-text-outer,
+smc-option,
+smc-long-close {
+width: 290px;
+margin: 0 20px 0 auto;
+}
+
+.smc-text1,
+.smc-text2,
+.smc-text3 {
+font-size: 16px;
+font-weight: 400;
+color: var(--smc-text);
+margin: 15px auto;
+text-align: left;
+line-height: 1.2;
+}
+
+.smc-text1 {
+margin: 10px 0 20px 0;
+font-size: 32px;
+font-weight: normal;
+}
+
+.smc-text2 {
+line-height: 1.3;
+}
+
+.smc-text3 {
+margin: 0;
+position: absolute;
+font-size: 10px;
+width: 348px;
+bottom: 5px;
+line-height: 1.3;
+right: 5px;
+padding: 30px;
+}
+
+.smc-button {
+max-width: 140px;
+margin: 20px auto auto 0;
+background-color: var(--smc-btn);
+color: #fff;
+border-radius: 2px;
+padding: 12px;
+font-size: 14px;
+font-weight: bold;
+text-transform: uppercase;
+}
+
+smc-reveal {
+max-width: 140px;
+margin: 25px auto auto 0;
+}
+
+smc-cover,
+smc-code {
+font-size: 12px;
+padding: 12px;
+border: 1px solid var(--smc-btn);
+border-radius: 2px;
+}
+
+smc-cover {
+background-color: var(--smc-btn);
+color: #fff;
+font-weight: bold;
+text-transform: uppercase;
+font-size: 10px;
+padding: 14px;
+}
+
+/* Styling Continue Shopping Button */
+smc-long-close.smc-engaged {
+position: relative;
+max-width: 165px;
+top: 0;
+left: 20px;
+}
+
+smc-long-close.smc-engaged>a.smc-link {
+background: var(--smc-btn);
+color: #fff;
+display: block;
+font-size: 12px;
+margin: 0;
+border-radius: 2px;
+border: 1px solid var(--smc-btn);
+font-weight: bold;
+text-transform: uppercase;
+padding: 12px;
+}
+
+/* Copy To Clipboard Button */
+smc-cp {
+position: absolute;
+right: 5px;
+top: 5px;
+height: 26px;
+color: #333;
+width: 24px;
+z-index: 1;
+line-height: 40px;
+cursor: pointer;
+background-image: url(https://cdn.smct.co/4110-335.png);
+background-size: 60%;
+background-repeat: no-repeat;
+background-position: 50% 50%;
+opacity: 0.7;
+display: block;
+}
+
+smc-cp:hover {
+opacity: 1;
+}
+
+/* The "item has been copied to clipboard message" */
+smc-cp-msg {
+position: absolute;
+bottom: 0;
+background: #000;
+color: #fff;
+left: 50%;
+width: 320px;
+padding: 7px;
+z-index: 10;
+margin-left: -160px;
+text-align: center;
+font-size: 11px;
+line-height: 18px;
+display: none;
+border-radius: 5px 5px 0 0;
+}
+
+smc-close {
+font-size: 14px;
+top: 0;
+right: 0;
+}
+
+smc-close a.smc-link {
+color: #000;
+}
+
+.smc-div {
+display: block;
+position: absolute;
+bottom: 15px;
+left: 15px;
+height: 290px;
+width: 370px;
+border-radius: 6px;
+background-image: url('{content6}');
+background-size: cover;
+background-position: center;
+border: 1px solid #c5c5c5;
+}
+
+.smc-line {
+display: block;
+position: absolute;
+bottom: 0px;
+left: 400px;
+height: 320px;
+width: 1px;
+background-color: #c5c5c5;
+}
+
+/* **************MOBILE STYLES**********************
+
+smc-overlay-inner {
+width: 320px;
+min-height: 500px;
+}
+
+smc-img-outer,
+smc-text-outer{
+width: 100%;
+min-width: auto;
+}
+smc-option{
+width: 100%;
+}
+.smc-text1,
+.smc-text2,
+.smc-text3 {
+text-align: center;
+}
+.smc-text1{
+font-size: 24px;
+}
+.smc-text3 {
+bottom: 260px;
+left: 0;
+width: 320px;
+padding: 5px;
+}
+smc-reveal {
+max-width: 240px;
+margin: 25px auto;
+}
+smc-long-close.smc-engaged {
+width: 100%;
+position: relative;
+max-width:240px;
+top: 40px;
+left:0;
+margin: auto;
+}
+smc-long-close.smc-engaged a.smc-link{
+max-width: 240px;
+}
+.smc-div {
+height: 220px;
+width: 290px;
+}
+.smc-line {
+left: 0px;
+bottom: 240px;
+height: 1px;
+width:320px;
+}
+*/

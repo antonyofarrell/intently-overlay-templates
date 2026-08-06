@@ -1,0 +1,127 @@
+@import url('https://fonts.smct.co/smc-dm-sans/smc-dm-sans.css');
+@import url('https://fonts.smct.co/smc-DMserif-Display/smc-DMserifDisplay.css');
+smc-bg *{font-family: "smc-DMSans-Regular", sans-serif;}
+smc-overlay-inner {
+  --smc-bg: #ffd814;
+  --smc-text: #2D419A;
+  --smc-text2: #1B244B;
+  --smc-btn: #fff;
+  --smc-btn-text:#2a2827;
+  --smc-border:2px;
+}
+
+smc-overlay-inner {
+	background-color: #f5f7fc;
+	width: 680px;
+	min-height: 500px;
+	border-radius: 3px;
+	padding-bottom: 0;
+}
+smc-option{
+    display:none;
+}
+smc-text-outer, smc-option {
+	width: 100%;
+	min-width: 280px;
+	margin: auto;
+}
+.smc-img1 {
+	margin: 10px auto 10px auto;
+	max-width: 100px;
+}
+.smc-text1 {
+	margin: 10px auto 10px auto;
+	font-size: 41px;
+	font-weight: normal;
+	line-height: 1.2;
+	font-family: "DMSerifDisplay-Regular", serif;
+	color: var(--smc-text);
+}
+.smc-text2 {
+	margin: 10px auto 10px auto;
+	color: var(--smc-text2);
+	font-size: 17px;
+	font-weight: normal;
+	line-height: 1.2;
+}
+.smc-button {
+	max-width: 160px;
+	margin: 25px auto 10px auto;
+	background-color:var(--smc-text2);
+	color: #fff;
+	font-size: 16px;
+	font-weight: normal;
+	padding: 12px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	border-radius: 5px;
+}
+
+smc-close{font-size:14px;top: -10px;right: -10px;background:#fff;}
+smc-close a.smc-link{color: #000;}
+
+smc-multi-holder {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	margin: auto;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	width: 100%;
+	flex-wrap: wrap;
+}
+.smc-multi-container {
+	position: relative;
+	width: 32%;
+	height: 150px;
+	overflow: hidden;
+	margin: 5px auto;
+	background: var(--smc-text);
+	border-radius: 10px;
+	cursor: pointer;
+}
+.smc-multi-image {
+	opacity: 1;
+	display: block;
+	width: 100%;
+	height: auto;
+	transition: .1s ease;
+	backface-visibility: hidden;
+	position: relative;
+	bottom: 15px;
+}
+
+.smc-multi-middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.smc-multi-container:hover .smc-multi-image {
+  opacity: 0.3;
+}
+
+.smc-multi-container:hover .smc-multi-middle {
+  opacity: 1;
+}
+
+.smc-multi-text {
+	background-color: transparent;
+	color: #fff;
+	font-size: 13px;
+	padding: 11px 26px;
+	border: 2px solid #fff;
+	border-radius: 5px;
+	cursor: pointer;
+	width: 185px;
+}
+smc-long-close{
+    position:absolute;
+    bottom:-10px;
+}

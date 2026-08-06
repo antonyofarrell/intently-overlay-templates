@@ -1,0 +1,190 @@
+@import url('https://fonts.googleapis.com/css?family=Manrope:200,300,400,700');
+
+/* ── Brand tokens ─────────────────────────────────────────── */
+smc-bg {
+--smc-font-sm: 11px;
+--smc-font-rg: 16px;
+--smc-font-lg: 32px;
+--smc-mainBkg: #164d82;
+--smc-accent: #e4e423;
+--smc-textColour: #fff;
+--smc-font2: "Playfair", serif;
+--smc-btnBkg: #e4e423;
+--smc-btnBkgHover: #abab21;
+--smc-btnText: #164d82;
+--smc-btnBorderRadius: 4px;
+--smc-frameBorder: 6px;
+--smc-overlayPadding: 30px;
+}
+
+/* ── Base ─────────────────────────────────────────────────── */
+smc-bg * {
+font-family: 'Manrope', sans-serif;
+/* border: 1px solid #fff; */
+}
+
+smc-overlay-inner {
+background: var(--smc-mainBkg);
+width: 600px;
+min-height: auto;
+padding: var(--smc-overlayPadding);
+padding-bottom: calc(var(--smc-overlayPadding) + 45px);
+display: flex;
+flex-direction: row;
+gap: 40px;
+overflow: hidden;
+border-radius: var(--smc-frameBorder);
+}
+
+smc-wrap,
+smc-img-outer,
+smc-text-outer,
+smc-option {
+flex: 1 1 auto;
+width: auto;
+min-width: auto;
+margin: 0;
+display: flex;
+justify-content: center;
+flex-direction: column;
+gap: 15px;
+}
+
+.smc-img1 {
+width: 100px;
+}
+
+/* ── Typography ───────────────────────────────────────────── */
+.smc-text1,
+.smc-text2,
+.smc-text3 {
+font-size: var(--smc-font-rg);
+line-height: 120%;
+color: var(--smc-textColour);
+text-align: left;
+}
+
+.smc-text2 {
+font-size: var(--smc-font-lg);
+}
+
+.smc-text2 span {
+color: var(--smc-accent);
+}
+
+.smc-text3 {
+font-size: var(--smc-font-sm);
+opacity: 0.7 !important;
+}
+
+/* ── Hide empty elements ──────────────────────────────────── */
+smc-img:has(img[src=""]),
+smc-img:has(img:not([src])),
+smc-img:not(:has(img)),
+smc-img-outer:not(:has(img[src]:not([src=""]))),
+smc-text:empty {
+display: none;
+}
+
+smc-img img {
+max-width: 100%;
+height: auto;
+}
+
+.smc-button {
+background-color: var(--smc-btnBkg);
+color: var(--smc-btnText);
+border-radius: var(--smc-btnBorderRadius);
+font-weight: 700;
+font-size: var(--smc-font-rg);
+max-width: 65%;
+margin: 0;
+}
+.smc-button:hover {
+background-color: var(--smc-btnBkgHover);
+}
+
+smc-close {
+top: 5px;
+right: 5px;
+height: 24px;
+width: 24px;
+background-color: #ffffffb3;
+}
+smc-close a.smc-link {
+font-size: var(--smc-font-sm);
+color: #333;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+/* ── Scrolling Marquee ──────────────────────────────────── */
+.smc-scrolling-text-container {
+background-color: #ffffff33;
+border-radius: var(--smc-frameBorder);
+width: 100%;
+overflow: hidden;
+position: absolute;
+bottom: 0;
+left: 0;
+display: flex;
+}
+
+.smc-scrolling-text-inner {
+display: flex;
+white-space: nowrap;
+font-size: var(--smc-font-sm);
+color: var(--smc-textColour);
+font-weight: 300;
+padding: 5px 0;
+}
+
+.smc-scrolling-text {
+display: flex;
+gap: 10px;
+}
+
+.smc-scrolling-text-item {
+padding: 0 20px;
+display: flex;
+align-items: center;
+gap: 10px;
+}
+
+.smc-scrolling-text-item img {
+max-height: 30px;
+filter: invert(1);
+}
+
+.smc-scrolling-text-inner>div {
+animation: var(--direction) var(--marquee-speed) linear infinite;
+}
+
+.smc-scrolling-text-container:hover .smc-scrolling-text-inner>div {
+animation-play-state: paused;
+}
+
+@keyframes smc-scroll-left {
+0% {
+transform: translateX(0%);
+}
+
+100% {
+transform: translateX(-100%);
+}
+}
+
+@keyframes smc-scroll-right {
+0% {
+transform: translateX(-100%);
+}
+
+100% {
+transform: translateX(0%);
+}
+}
+
+smc-long-close {
+display: none;
+}

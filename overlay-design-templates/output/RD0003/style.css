@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
+smc-bg *{font-family: 'Montserrat', sans-serif;}
+
+smc-overlay-inner {
+  --smc-dark: #1c1c1c;
+  --smc-light: #fff;
+}
+
+smc-overlay-inner{
+    background:#fff;
+    background-size:cover;
+    width:650px;
+    min-height:470px;
+    padding-bottom:10px;
+}
+smc-img-outer, smc-text-outer, smc-option, smc-long-close{
+	width: 50%;
+	margin: 0 0 0 30px;
+}
+.smc-text1, .smc-text2{
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--smc-dark);
+    margin: 15px auto;
+    text-align: left;
+    padding: 0 10px;
+}
+.smc-text1{
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    margin: 20px auto auto auto;
+}
+.smc-text2{
+    font-family:"Georgia", serif;
+    font-size: 30px;
+    font-weight: normal;
+    margin: 10px auto 15px auto;
+}
+.smc-cta-container {
+	width: 50%;
+	margin: 21px 0 0 30px;
+}
+.smc-button{
+	text-transform: uppercase;
+	padding: 12px 0 12px 0;
+	background:var(--smc-light);
+    color:var(--smc-light);
+    font-size:12px;
+    letter-spacing:2px;
+    border:1px solid var(--smc-dark);
+	width:240px;
+    text-align:center;
+    transition:all 0.5s ease;
+    margin:8px auto auto 0;
+    position:relative;
+    overflow:hidden;
+    z-index:0;
+}
+.smc-button:hover{
+    color:#1c1c1c;
+}
+.smc-button:before{
+    background: var(--smc-dark);
+    width: 100%;
+    height: 100%;
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: -1;
+    transition: all 0.5s ease;
+}
+.smc-button:hover::before {
+    box-shadow: 0 3px 8px #0000001a;
+    right: -100%;
+}
+.smc-categoryimage{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 300px;
+    height: 450px;
+    background-image: url('{content6}');
+    background-size:cover;
+    transition:all 0.5s ease;
+}
+.smc-button:nth-child(1):hover ~  .smc-categoryimage{background-image: url('{content7}');}
+.smc-button:nth-child(2):hover ~  .smc-categoryimage{background-image: url('{content8}');}
+.smc-button:nth-child(3):hover ~  .smc-categoryimage{background-image: url('{content9}');}
+.smc-button:nth-child(4):hover ~  .smc-categoryimage{background-image: url('{content10}');}
+.smc-button:nth-child(5):hover ~  .smc-categoryimage{background-image: url('{content11}');}
+.smc-button:nth-child(6):hover ~  .smc-categoryimage{background-image: url('{content12}');}
+.smc-button:nth-child(7):hover ~  .smc-categoryimage{background-image: url('{content13}');}
+.smc-button:nth-child(8):hover ~  .smc-categoryimage{background-image: url('{content14}');}
+
+
+smc-long-close{
+    display:none;
+}
+smc-close{
+    background:#fff;
+    top: -10px;
+    right: -10px;
+    font-size: 16px;
+}
+smc-close:hover{
+    background:#fff;
+}
+smc-close a.smc-link{color: #111;}

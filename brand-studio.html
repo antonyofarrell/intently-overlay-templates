@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Brand Studio — intent.ly overlay</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+    <style>
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      :root {
+        --bg: #f7f6f3; --surface: #fff; --border: #e4e2dc; --border2: #d8d5cf;
+        --text: #1a1a1a; --muted: #777; --hint: #a9a49c;
+        --accent: #1a1a1a; --accent-hover: #333;
+        --green: #3b6d11; --green-bg: #eaf3de;
+        --red: #a32d2d; --red-bg: #fcebeb;
+        --radius: 10px; --radius-sm: 6px;
+      }
+      body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); font-size: 14px; min-height: 100vh; }
+      a { color: inherit; }
+
+      .top { background: var(--surface); border-bottom: 1px solid var(--border); padding: 12px 22px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; position: sticky; top: 0; z-index: 30; }
+      .back { font-size: 13px; color: var(--muted); text-decoration: none; white-space: nowrap; }
+      .back:hover { color: var(--text); }
+      .top-titles { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+      .top-ref { font-size: 15px; font-weight: 700; letter-spacing: -0.2px; }
+      .top-desc { font-size: 12px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 60ch; }
+      .top-right { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+      .cat-badge { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; background: #efece7; color: #555; white-space: nowrap; }
+      .key-pill { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; cursor: pointer; }
+      .key-pill.set { background: var(--green-bg); color: var(--green); }
+      .key-pill.unset { background: var(--red-bg); color: var(--red); }
+      .view-base { font-size: 12px; color: var(--muted); text-decoration: none; white-space: nowrap; }
+      .view-base:hover { color: var(--text); }
+
+      .wrap { display: grid; grid-template-columns: 380px 1fr; }
+      @media (max-width: 900px) { .wrap { grid-template-columns: 1fr; } }
+      .panel { padding: 20px 22px; }
+      .left { border-right: 1px solid var(--border); background: var(--surface); min-height: calc(100vh - 58px); }
+      .section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: var(--hint); margin: 22px 0 10px; }
+      .section-label:first-child { margin-top: 0; }
+
+      label { font-size: 12px; font-weight: 500; color: #555; display: block; margin-bottom: 5px; }
+      input[type="text"], input[type="url"], input[type="password"], textarea {
+        width: 100%; padding: 8px 11px; font-size: 13px; border: 1px solid var(--border2);
+        border-radius: var(--radius-sm); background: var(--surface); color: var(--text);
+        outline: none; font-family: inherit; transition: border-color 0.15s;
+      }
+      input:focus, textarea:focus { border-color: var(--accent); }
+      textarea { resize: vertical; font-family: "SF Mono", ui-monospace, monospace; font-size: 11px; min-height: 58px; line-height: 1.5; }
+      .field { margin-bottom: 12px; }
+      .hint { font-size: 11px; color: var(--hint); line-height: 1.5; margin-top: 5px; }
+
+      .btn { padding: 9px 16px; border-radius: var(--radius-sm); font-size: 13px; font-weight: 600; border: 1px solid transparent; cursor: pointer; transition: all 0.15s; display: inline-flex; align-items: center; justify-content: center; gap: 7px; font-family: inherit; }
+      .btn-primary { background: var(--accent); color: #fff; }
+      .btn-primary:hover:not(:disabled) { background: var(--accent-hover); }
+      .btn-secondary { background: #f0ede8; color: #444; border-color: #e0ddd6; }
+      .btn-secondary:hover:not(:disabled) { background: #e8e4de; }
+      .btn-full { width: 100%; }
+      .btn:disabled { opacity: 0.45; cursor: not-allowed; }
+      .btn-sm { padding: 6px 12px; font-size: 12px; }
+
+      .url-row { display: flex; gap: 8px; }
+      .url-row input { flex: 1; }
+
+      .status { font-size: 12px; margin-top: 10px; line-height: 1.5; min-height: 18px; }
+      .status.err { color: var(--red); }
+      .status.ok { color: var(--green); }
+      .status.info { color: var(--muted); }
+      .spinner { width: 13px; height: 13px; border: 2px solid #e0ddd6; border-top-color: var(--accent); border-radius: 50%; animation: spin 0.7s linear infinite; display: inline-block; vertical-align: -2px; margin-right: 6px; }
+      @keyframes spin { to { transform: rotate(360deg); } }
+
+      .var-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 14px; }
+      .var-grid .full { grid-column: 1 / -1; }
+      .swatch-row { display: flex; align-items: center; gap: 7px; }
+      .swatch-row input[type="color"] { width: 30px; height: 30px; padding: 0; border: 1px solid var(--border2); border-radius: 6px; background: none; cursor: pointer; flex-shrink: 0; }
+      .swatch-row input[type="text"] { flex: 1; font-family: "SF Mono", ui-monospace, monospace; }
+      .var-name { font-family: "SF Mono", ui-monospace, monospace; font-size: 11px; color: #555; }
+      .no-source { font-size: 12.5px; color: var(--muted); line-height: 1.6; background: #faf9f7; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 14px; }
+
+      .right { background: var(--bg); position: sticky; top: 58px; }
+      .preview-title { font-size: 13px; font-weight: 700; }
+      .stage { background: repeating-conic-gradient(#efeae2 0% 25%, #f7f4ef 0% 50%) 50% / 22px 22px; border: 1px solid var(--border); border-radius: var(--radius); min-height: 340px; display: flex; align-items: center; justify-content: center; padding: 0; overflow: hidden; }
+      #pvFrame { width: 100%; height: 440px; border: 0; border-radius: var(--radius); background: #fff; display: none; }
+      #fallbackWrap { display: none; flex-direction: column; gap: 10px; align-items: center; padding: 26px; }
+      .fb-label { font-size: 10px; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase; color: var(--hint); }
+      #pvShot { max-width: 300px; max-height: 340px; border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); }
+      .pv-note { font-size: 11px; color: var(--hint); line-height: 1.5; margin-top: 10px; }
+
+      .output-wrap { margin-top: 22px; }
+      .output-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; gap: 8px; flex-wrap: wrap; }
+      pre.output { background: #1e1c1a; color: #eae6df; border-radius: var(--radius-sm); padding: 14px 16px; font-family: "SF Mono", ui-monospace, monospace; font-size: 11.5px; line-height: 1.6; overflow-x: auto; white-space: pre; max-height: 340px; overflow-y: auto; }
+
+      .overlay-modal { position: fixed; inset: 0; background: rgba(0,0,0,.4); display: none; align-items: center; justify-content: center; z-index: 100; }
+      .overlay-modal.show { display: flex; }
+      .modal { background: var(--surface); border-radius: var(--radius); padding: 24px; width: 460px; max-width: 90vw; box-shadow: 0 8px 32px rgba(0,0,0,.2); }
+      .modal h2 { font-size: 17px; margin-bottom: 6px; }
+      .modal p { font-size: 12px; color: var(--muted); line-height: 1.5; margin-bottom: 16px; }
+      .modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 16px; }
+    </style>
+  </head>
+  <body>
+    <div class="top">
+      <a class="back" href="index.html">← Library</a>
+      <div class="top-titles">
+        <span class="top-ref" id="topRef">Brand Studio</span>
+        <span class="top-desc" id="topDesc">Loading…</span>
+      </div>
+      <div class="top-right">
+        <a class="view-base" id="viewBase" href="#" target="_blank" rel="noopener" style="display:none">View template ↗</a>
+        <span class="cat-badge" id="catBadge" style="display:none"></span>
+        <span class="key-pill unset" id="keyPill" onclick="openKeyModal()">API key: not set</span>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <div class="panel left">
+        <div class="section-label">Target site</div>
+        <div class="field">
+          <label>Brand / site URL</label>
+          <div class="url-row">
+            <input type="url" id="siteUrl" placeholder="https://example.com" onkeydown="if(event.key==='Enter')extractBrand()" />
+            <button class="btn btn-primary btn-sm" id="extractBtn" onclick="extractBrand()">Extract</button>
+          </div>
+          <p class="hint">Claude reads the site (via web search) and fills this overlay's own CSS variables below. Fine-tune anything by hand.</p>
+          <div class="status info" id="status"></div>
+        </div>
+
+        <div id="editor">
+          <div class="section-label">Fonts</div>
+          <div id="fontFields"></div>
+          <div class="section-label">Overlay variables <span id="varCount" class="var-name"></span></div>
+          <div class="var-grid" id="varFields"></div>
+          <div style="margin-top:20px;">
+            <button class="btn btn-secondary btn-full" onclick="resetVars()">Reset to overlay default</button>
+          </div>
+        </div>
+
+        <div id="noEditor" style="display:none">
+          <div class="section-label">Overlay source</div>
+          <div class="no-source" id="noSourceMsg"></div>
+        </div>
+      </div>
+
+      <div class="panel right">
+        <div class="preview-title" style="margin-bottom:14px;">Live preview</div>
+        <div class="stage" id="stage">
+          <iframe id="pvFrame" title="Overlay preview"></iframe>
+          <div id="fallbackWrap">
+            <span class="fb-label">Actual overlay</span>
+            <img id="pvShot" alt="overlay screenshot" />
+          </div>
+        </div>
+        <p class="pv-note" id="pvNote"></p>
+
+        <div class="output-wrap">
+          <div class="output-head">
+            <span class="preview-title">Overlay CSS (paste-ready)</span>
+            <div style="display:flex; gap:8px;">
+              <button class="btn btn-secondary btn-sm" onclick="copyOutput()">Copy CSS</button>
+              <button class="btn btn-secondary btn-sm" onclick="downloadOutput()">Download</button>
+            </div>
+          </div>
+          <pre class="output" id="output"></pre>
+          <p class="hint">The overlay's <strong>full CSS</strong> with your brand values applied (fonts, variables and all layout) — paste straight into a new overlay's Custom CSS.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="overlay-modal" id="keyModal">
+      <div class="modal">
+        <h2>Anthropic API key</h2>
+        <p>Stored only in this browser's localStorage — sent only to api.anthropic.com, never anywhere else. Get a key at <strong>console.anthropic.com</strong>.</p>
+        <input type="password" id="keyInput" placeholder="sk-ant-…" />
+        <div class="modal-actions">
+          <button class="btn btn-secondary" onclick="closeKeyModal()">Cancel</button>
+          <button class="btn btn-primary" onclick="saveKey()">Save key</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="templates-data.js"></script>
+    <script src="data.js"></script>
+    <script>
+      const CAT_LABELS = { db: "Dynamic Basket", pr: "Recomminder", rd: "Redirect", rv: "Click to Reveal", ms: "Miscellaneous" };
+      const KEY_STORE = "smc_brand_studio_key";
+      const MODEL = "claude-sonnet-4-20250514"; // bump when your key has access to a newer Sonnet
+
+      // Sample content so template tokens ({text1} etc.) render like a real overlay in the preview
+      const TOKENS = {
+        text1: "You left something in your basket",
+        text2: "Complete your order before it's gone",
+        text10: "Return to basket",
+        smarterbar: "Complete your order and get free delivery",
+      };
+
+      let state = {
+        ref: null, tmpl: null, apiKey: "", asset: null, hasSource: false,
+        vars: [], values: {}, fontImports: [], bodyFont: "",
+        base: null,
+      };
+      let previewMode = "none";
+      let _iframeTimer = null;
+
+      /* ───────── init ───────── */
+      function init() {
+        state.apiKey = localStorage.getItem(KEY_STORE) || "";
+        if (!state.apiKey) {
+          try { const legacy = JSON.parse(localStorage.getItem("db_studio_state") || "{}"); if (legacy.apiKey) state.apiKey = legacy.apiKey; } catch (e) {}
+        }
+        updateKeyPill();
+
+        const params = new URLSearchParams(location.search);
+        state.ref = (params.get("ref") || "").trim();
+        state.tmpl = (typeof TEMPLATES !== "undefined" ? TEMPLATES : []).find((t) => t.ref === state.ref) || null;
+        state.asset = typeof OVERLAY_ASSETS !== "undefined" ? OVERLAY_ASSETS[state.ref] : null;
+
+        if (state.tmpl) {
+          document.getElementById("topRef").textContent = state.tmpl.ref;
+          document.getElementById("topDesc").textContent = state.tmpl.desc || "";
+          const cb = document.getElementById("catBadge");
+          cb.textContent = CAT_LABELS[state.tmpl.cat] || state.tmpl.cat; cb.style.display = "";
+          if (state.tmpl.url) { const vb = document.getElementById("viewBase"); vb.href = state.tmpl.url; vb.style.display = ""; }
+          document.title = "Brand Studio — " + state.tmpl.ref;
+        } else {
+          document.getElementById("topRef").textContent = state.ref || "Brand Studio";
+          document.getElementById("topDesc").textContent = "Open this page from a template card in the library.";
+        }
+
+        state.hasSource = !!(state.asset && state.asset.css);
+        if (state.hasSource) {
+          const det = detectFromCss(state.asset.css);
+          state.vars = det.vars;
+          state.fontImports = det.fontImports;
+          state.bodyFont = det.bodyFont;
+          state.values = {};
+          det.vars.forEach((v) => (state.values[v.name] = v.value));
+          state.base = JSON.parse(JSON.stringify({ values: state.values, fontImports: state.fontImports, bodyFont: state.bodyFont }));
+          const saved = loadSaved();
+          if (saved) {
+            state.values = Object.assign({}, state.base.values, saved.values || {});
+            state.fontImports = saved.fontImports || state.fontImports;
+            state.bodyFont = saved.bodyFont || state.bodyFont;
+          }
+        }
+
+        renderEditor();
+        setupPreview();
+        applyAll();
+      }
+
+      /* ───────── detect this overlay's own variables ───────── */
+      function detectFromCss(css) {
+        const out = { vars: [], fontImports: [], bodyFont: "" };
+        out.fontImports = (css.match(/@import[^;]+;/g) || []).map((s) => s.trim());
+        const bg = css.match(/smc-bg\s*\*\s*\{[^}]*font-family:\s*([^;}]+)[;}]/i);
+        if (bg) out.bodyFont = bg[1].trim();
+        // collect custom-property DECLARATIONS anywhere (overlays declare them on
+        // smc-overlay-inner, smc-bg or :root). "--x:" only matches declarations, not var(--x) usages.
+        const seen = {}; const all = [];
+        const re = /(--[\w-]+)\s*:\s*([^;}]+?)\s*[;}]/g; let m;
+        while ((m = re.exec(css))) {
+          const name = m[1].trim(), value = m[2].trim();
+          if (seen[name] || !value) continue;
+          seen[name] = true;
+          all.push({ name: name, value: value, type: isColor(value) ? "color" : "text" });
+        }
+        const smc = all.filter((v) => v.name.indexOf("--smc-") === 0);
+        out.vars = smc.length ? smc : all; // prefer the --smc-* theme set when present
+        return out;
+      }
+      function isColor(v) { return /^#[0-9a-f]{3,8}$/i.test(v) || /^rgba?\(/i.test(v) || /^hsla?\(/i.test(v); }
+
+      /* ───────── editor ───────── */
+      function renderEditor() {
+        const editor = document.getElementById("editor");
+        const noEditor = document.getElementById("noEditor");
+        if (!state.hasSource) {
+          editor.style.display = "none";
+          noEditor.style.display = "";
+          document.getElementById("noSourceMsg").innerHTML =
+            "This overlay's source (<code>" + escHtml(state.ref) + ".css</code>) isn't stored locally yet, so there are no variables to brand.<br><br>" +
+            "Add its Custom CSS (and HTML) under a <code>" + escHtml(state.ref) + "/</code> folder and run <code>build-templates-data.js</code> to enable branding here.";
+          document.getElementById("extractBtn").disabled = true;
+          document.getElementById("siteUrl").disabled = true;
+          return;
+        }
+        editor.style.display = "";
+        noEditor.style.display = "none";
+
+        // fonts
+        const fw = document.getElementById("fontFields");
+        fw.innerHTML =
+          '<div class="field"><label>Body font (smc-bg)</label>' +
+          '<input type="text" id="f_bodyFont" value="' + escAttr(state.bodyFont) + '" oninput="onBody(this.value)" /></div>' +
+          '<div class="field"><label>Font @imports (one per line)</label>' +
+          '<textarea id="f_imports" oninput="onImports()">' + escHtml(state.fontImports.join("\n")) + "</textarea></div>";
+
+        // variables
+        document.getElementById("varCount").textContent = "(" + state.vars.length + ")";
+        const vw = document.getElementById("varFields");
+        vw.innerHTML = "";
+        if (!state.vars.length) {
+          vw.innerHTML = '<p class="no-source">This overlay declares no <code>--smc-*</code> CSS variables, so only the fonts can be rebranded here. To make it themeable, expose its colours as variables in the overlay source.</p>';
+        }
+        state.vars.forEach((v, i) => {
+          const val = state.values[v.name] != null ? state.values[v.name] : v.value;
+          const wrap = document.createElement("div");
+          wrap.className = "field" + (v.type === "color" ? "" : " full");
+          if (v.type === "color") {
+            wrap.innerHTML =
+              '<label class="var-name">' + escHtml(v.name) + "</label>" +
+              '<div class="swatch-row">' +
+              '<input type="color" id="c_' + i + '" value="' + toHex6(val) + '" oninput="onColor(' + i + ', this.value)" />' +
+              '<input type="text" id="v_' + i + '" value="' + escAttr(val) + '" oninput="onVar(' + i + ', this.value)" /></div>';
+          } else {
+            wrap.innerHTML =
+              '<label class="var-name">' + escHtml(v.name) + "</label>" +
+              '<input type="text" id="v_' + i + '" value="' + escAttr(val) + '" oninput="onVar(' + i + ', this.value)" />';
+          }
+          vw.appendChild(wrap);
+        });
+      }
+
+      function onVar(i, val) {
+        const v = state.vars[i]; state.values[v.name] = val;
+        if (v.type === "color") { const cp = document.getElementById("c_" + i); const h = toHex6(val); if (cp && h) cp.value = h; }
+        applyAll(); saveState();
+      }
+      function onColor(i, hex) {
+        const v = state.vars[i]; state.values[v.name] = hex;
+        const tf = document.getElementById("v_" + i); if (tf) tf.value = hex;
+        applyAll(); saveState();
+      }
+      function onBody(val) { state.bodyFont = val; applyAll(); saveState(); }
+      function onImports() { state.fontImports = document.getElementById("f_imports").value.split("\n").map((s) => s.trim()).filter(Boolean); applyAll(); saveState(); }
+
+      /* ───────── preview ───────── */
+      function setupPreview() {
+        const frame = document.getElementById("pvFrame");
+        const fb = document.getElementById("fallbackWrap");
+        const note = document.getElementById("pvNote");
+        const shot = document.getElementById("pvShot");
+        if (state.asset && state.asset.html) {
+          previewMode = "iframe";
+          frame.style.display = "block"; fb.style.display = "none";
+          note.textContent = "Live render of the real overlay, themed with the values on the left. Sample text is filler for the preview only.";
+        } else {
+          previewMode = "shot";
+          frame.style.display = "none"; fb.style.display = "flex";
+          if (state.tmpl && state.tmpl.img) { shot.src = state.tmpl.img; shot.style.display = ""; } else { shot.style.display = "none"; }
+          note.textContent = state.hasSource
+            ? "No HTML stored for a live layout render — showing the screenshot. Add " + state.ref + ".html to enable a live themed preview; the CSS below is still correct."
+            : "No overlay source stored locally — showing the screenshot.";
+        }
+      }
+
+      function applyAll() { if (previewMode === "iframe") updateIframe(); renderOutput(); }
+
+      function overrideCss() {
+        // set on both smc-bg and smc-overlay-inner with !important so our values win
+        // wherever the overlay declared them, and inherit down to every consumer.
+        let s = "smc-bg * { font-family: " + state.bodyFont + " !important; }\nsmc-bg, smc-overlay-inner {\n";
+        state.vars.forEach((v) => (s += "  " + v.name + ": " + (state.values[v.name] || "") + " !important;\n"));
+        s += "}";
+        return s;
+      }
+      function replaceTokens(html) { return html.replace(/\{([\w-]+)\}/g, (m, k) => (k in TOKENS ? TOKENS[k] : "")); }
+
+      function buildIframeSrcdoc() {
+        const a = state.asset;
+        const fonts = (state.fontImports || []).join("\n");
+        const preview =
+          "smc-bg,smc-overlay-outer{display:block!important}smc-option{display:none}smc-option.smc-clickRedirect{display:block}" +
+          "smc-bg{position:static!important;display:flex!important;align-items:center;justify-content:center;min-height:100vh;margin:0;background:rgba(20,20,20,.28)}" +
+          "smc-overlay-outer{position:static!important;top:auto;left:auto;transform:none!important}body{margin:0}" +
+          "smc-bar,smc-final-message,smc-shake-msg,smc-close-safe,smc-success-message,smc-loader-bg,smc-cp-msg{display:none!important}" +
+          "smc-img img[src=''],smc-img img:not([src]){display:none}";
+        return (
+          "<!doctype html><html><head><meta charset='utf-8'>" +
+          "<style>" + fonts + "</style>" +
+          "<style>" + PAGE_STYLES + "</style>" +
+          "<style>" + a.css + "</style>" +
+          "<style>" + preview + "</style>" +
+          "<style>" + overrideCss() + "</style>" +
+          "</head><body>" + replaceTokens(a.html) + "</body></html>"
+        );
+      }
+      function updateIframe() {
+        const f = document.getElementById("pvFrame");
+        clearTimeout(_iframeTimer);
+        _iframeTimer = setTimeout(() => { f.srcdoc = buildIframeSrcdoc(); }, 160);
+      }
+
+      // Full overlay CSS with the edited brand values substituted in (imports + body font + every variable),
+      // keeping all layout rules — ready to paste into a new overlay's Custom CSS.
+      function renderOutput() {
+        const out = document.getElementById("output");
+        if (!state.hasSource) { out.textContent = "/* No overlay source loaded for " + state.ref + ". */"; return; }
+        let css = state.asset.css;
+        // drop the overlay's existing @import lines (we re-add the current ones at the top)
+        css = css.replace(/@import[^;]+;[ \t]*\r?\n?/g, "");
+        // swap the smc-bg body font-family
+        css = css.replace(/(smc-bg\s*\*\s*\{[^}]*font-family:\s*)([^;}]+)/i, (m, p1) => p1 + state.bodyFont);
+        // swap each declared variable's value (declarations only — var(--x) usages are untouched)
+        state.vars.forEach((v) => {
+          const re = new RegExp("(" + v.name.replace(/[-]/g, "\\-") + "\\s*:\\s*)[^;]+;");
+          css = css.replace(re, "$1" + (state.values[v.name] || "") + ";");
+        });
+        css = css.replace(/^\s+/, "");
+        const imports = (state.fontImports || []).join("\n");
+        out.textContent = (imports ? imports + "\n" : "") + css;
+      }
+
+      /* ───────── extract via Claude ───────── */
+      async function extractBrand() {
+        if (!state.hasSource) return;
+        const url = document.getElementById("siteUrl").value.trim();
+        if (!url) return setStatus("err", "Enter a site URL first.");
+        if (!state.apiKey) { openKeyModal(); return; }
+        const btn = document.getElementById("extractBtn");
+        btn.disabled = true;
+        setStatus("info", '<span class="spinner"></span>Reading ' + shortUrl(url) + " and extracting brand styles…");
+        try {
+          const raw = await callClaude(buildPrompt(url));
+          const parsed = parseJson(raw);
+          if (!parsed) throw new Error("Could not read a valid response. Try again.");
+          if (parsed.vars && typeof parsed.vars === "object") {
+            state.vars.forEach((v) => { if (typeof parsed.vars[v.name] === "string" && parsed.vars[v.name].trim()) state.values[v.name] = parsed.vars[v.name].trim(); });
+          }
+          if (typeof parsed.bodyFont === "string" && parsed.bodyFont.trim()) state.bodyFont = parsed.bodyFont.trim();
+          if (Array.isArray(parsed.fontImports)) state.fontImports = parsed.fontImports;
+          renderEditor(); applyAll(); saveState();
+          setStatus("ok", "✓ Brand styles extracted. Fine-tune anything below.");
+        } catch (e) {
+          setStatus("err", "✗ " + (e.message || "Extraction failed."));
+        } finally { btn.disabled = false; }
+      }
+
+      function buildPrompt(url) {
+        const list = state.vars.map((v) => "  \"" + v.name + "\": \"" + v.value + "\"" + (v.type === "color" ? "   // colour" : "")).join("\n");
+        return (
+          "You are a CRO overlay brand specialist. Use web search to look at " + url + " and extract its design system, then map it onto the CSS variables of this intent.ly overlay.\n\n" +
+          "The overlay declares exactly these variables (name: current default value). Return NEW values that match the brand at " + url + ":\n{\n" + list + "\n}\n\n" +
+          "Return ONLY a JSON object, no markdown, in this shape:\n" +
+          "{\n  \"vars\": { " + state.vars.map((v) => "\"" + v.name + "\": \"...\"").join(", ") + " },\n" +
+          "  \"bodyFont\": \"'Brand Font', sans-serif\",\n" +
+          "  \"fontImports\": [\"@import url('https://fonts.googleapis.com/...');\"]\n}\n\n" +
+          "Rules:\n" +
+          "- Keep each variable's UNIT/kind: colour variables → hex (or rgba/8-hex only if transparency is needed); size/radius variables → keep px/rem etc.\n" +
+          "- Map the brand's primary button/CTA colour to the button variable(s), its main accent to accent variables, body text colour to text variables.\n" +
+          "- Use the brand's real fonts; include Google Fonts @import URLs when available, else [] and a system stack.\n" +
+          "- Ensure button text clearly contrasts the button background.\n" +
+          "Current body font: " + state.bodyFont + "\nReturn JSON only."
+        );
+      }
+
+      async function callClaude(prompt) {
+        const res = await fetch("https://api.anthropic.com/v1/messages", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "x-api-key": state.apiKey, "anthropic-version": "2023-06-01", "anthropic-dangerous-direct-browser-calls": "true" },
+          body: JSON.stringify({ model: MODEL, max_tokens: 2000, tools: [{ type: "web_search_20250305", name: "web_search" }], messages: [{ role: "user", content: prompt }] }),
+        });
+        if (!res.ok) { const err = await res.json().catch(() => ({})); throw new Error((err && err.error && err.error.message) || "HTTP " + res.status); }
+        const data = await res.json();
+        return (data.content || []).map((b) => b.text || "").filter(Boolean).join("\n");
+      }
+
+      function parseJson(raw) {
+        if (!raw) return null;
+        let s = raw.replace(/```json/gi, "").replace(/```/g, "");
+        const start = s.indexOf("{"), end = s.lastIndexOf("}");
+        if (start < 0 || end < 0) return null;
+        try { return JSON.parse(s.slice(start, end + 1)); } catch (e) { return null; }
+      }
+
+      /* ───────── output actions ───────── */
+      function copyOutput() { navigator.clipboard.writeText(document.getElementById("output").textContent).then(() => setStatus("ok", "✓ CSS copied."), () => setStatus("err", "Could not copy.")); }
+      function downloadOutput() {
+        const blob = new Blob([document.getElementById("output").textContent], { type: "text/css" });
+        const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = (state.ref || "overlay") + "-branded.css"; a.click();
+      }
+      function resetVars() {
+        if (!state.base) return;
+        state.values = JSON.parse(JSON.stringify(state.base.values));
+        state.fontImports = state.base.fontImports.slice();
+        state.bodyFont = state.base.bodyFont;
+        renderEditor(); applyAll(); saveState();
+        setStatus("info", "Reset to this overlay's default values.");
+      }
+
+      /* ───────── persistence ───────── */
+      function skey() { return "smc_brand_state_" + (state.ref || "_"); }
+      function saveState() { try { localStorage.setItem(skey(), JSON.stringify({ values: state.values, fontImports: state.fontImports, bodyFont: state.bodyFont })); } catch (e) {} }
+      function loadSaved() { try { const raw = localStorage.getItem(skey()); return raw ? JSON.parse(raw) : null; } catch (e) { return null; } }
+
+      /* ───────── api key ───────── */
+      function openKeyModal() { document.getElementById("keyInput").value = state.apiKey || ""; document.getElementById("keyModal").classList.add("show"); setTimeout(() => document.getElementById("keyInput").focus(), 50); }
+      function closeKeyModal() { document.getElementById("keyModal").classList.remove("show"); }
+      function saveKey() { const k = document.getElementById("keyInput").value.trim(); state.apiKey = k; try { localStorage.setItem(KEY_STORE, k); } catch (e) {} updateKeyPill(); closeKeyModal(); }
+      function updateKeyPill() { const p = document.getElementById("keyPill"); if (state.apiKey) { p.className = "key-pill set"; p.textContent = "API key: set"; } else { p.className = "key-pill unset"; p.textContent = "API key: not set"; } }
+
+      /* ───────── helpers ───────── */
+      function setStatus(kind, html) { const el = document.getElementById("status"); el.className = "status " + kind; el.innerHTML = html; }
+      function shortUrl(u) { return u.replace(/^https?:\/\//, "").replace(/\/$/, ""); }
+      function toHex6(val) {
+        if (!val) return "#000000";
+        let m = String(val).match(/#([0-9a-f]{6})/i); if (m) return "#" + m[1];
+        m = String(val).match(/#([0-9a-f]{3})\b/i); if (m) return "#" + m[1].split("").map((c) => c + c).join("");
+        return "#000000";
+      }
+      function escAttr(s) { return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/"/g, "&quot;"); }
+      function escHtml(s) { return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+
+      document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeKeyModal(); });
+      init();
+    </script>
+  </body>
+</html>

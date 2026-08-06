@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css?family=Inter:300,400,700');
+smc-bg *{font-family: 'Inter', sans-serif;}
+
+smc-overlay-inner {
+background-image: url('{content6}');
+background-size: cover;
+width: 750px;
+min-height: 280px;
+padding-bottom:20px;
+border-radius: 2px;
+}
+smc-option {
+display: none;
+}
+
+smc-img-outer, smc-text-outer, smc-option, smc-long-close {
+width: 75%;
+}
+
+.smc-text1,
+.smc-text2 {
+font-size: 24px;
+font-weight: 400;
+color: #1c1c1c;
+line-height: 1.2;
+margin: 16px auto;
+}
+
+.smc-text1 {
+font-size: 36px;
+margin: 20px auto auto auto;
+font-weight: bold;
+}
+
+.smc-text2 {
+line-height: 1.2;
+margin: 16px auto 12px auto;
+font-weight: bold;
+}
+
+.smc-text4{
+position: absolute;
+top: 20px;
+left: 20px;
+width: 80px;
+height:80px;
+border-radius: 50%;
+background-color: #333;
+color: #fff;
+font-size: 12px;
+display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+}
+
+smc-multi-holder {
+margin: 20px auto 0 auto;
+width: 100%;
+display: flex;
+flex-direction: row;
+justify-content: space-around;
+}
+smc-multi-cta {
+flex: 0 0 33%;
+display: flex;
+flex-direction: column;
+justify-content: center;
+cursor: pointer;
+}
+smc-multi-cta img{
+max-width: 170px;
+margin: auto;
+border-radius: 5px;
+}
+smc-multi-cta span{
+background: #e6001c;
+color: #fff;
+width: 170px;
+text-align: center;
+padding: 13px;
+margin: 7px auto;
+font-weight: 700;
+font-size: 15px;
+border-radius: 5px;
+
+}
+smc-multi-cta span:hover {
+background: #d70b08;
+transform: scale(1.03);
+transition: .2s ease;
+}
+
+smc-close {
+position: absolute;
+top: -10px;
+right: -10px;
+background-color: #fff;
+font-size: 14px;
+}
+
+smc-close a.smc-link {
+color: #1c1c1c;
+}

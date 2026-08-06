@@ -1,0 +1,84 @@
+<!-- Overlay V4 Template -->
+<smc-bg class="smc-animated smc-fadeIn">
+
+	<smc-overlay-outer class="smc-animated smc-fadeIn smc-animDelay2"> <!--  data-animout="smc-bounceOutLeft" --> 
+        <smc-overlay-inner class="smc_clearfix" data-bgtheme="dark" data-changes="smc-overlay-inner|width,background-image,background-color" data-edits="content6"><!-- If the background is dark use this option -->
+
+
+            <smc-img-outer>
+                <smc-img class="smc-img1 smc-animated smc-fadeInDown smc-animDelay6"><img src="{content1}" alt=""></smc-img>
+                <smc-img class="smc-img2 smc-animated smc-fadeInDown smc-animDelay8"><img src="{content2}" alt=""></smc-img>
+                <smc-img class="smc-img3 smc-animated smc-fadeInDown smc-animDelay10"><img src="{content3}" alt=""></smc-img>
+                <smc-img class="smc-img4 smc-animated smc-fadeInDown smc-animDelay12"><img src="{content4}" alt=""></smc-img>
+            </smc-img-outer>
+            
+
+            <smc-text-outer>
+                <smc-text class="smc-text1 smc-animated smc-fadeInDown smc-animDelay4">{text1}</smc-text>
+                <smc-text class="smc-text2 smc-animated smc-fadeInDown smc-animDelay6">{text2}</smc-text>
+                <smc-text class="smc-text3 smc-animated smc-fadeInDown smc-animDelay8">{text3}</smc-text>
+                <smc-text class="smc-text4 smc-animated smc-fadeInDown smc-animDelay10">{text4}</smc-text>
+            </smc-text-outer>
+
+
+            <smc-option class="smc-clickToReveal">
+                <smc-reveal class="smc-animated smc-bounceInUp smc-animDelay8">
+                    <smc-cover data-edits="text8" data-changes=".smc-clickToReveal smc-cover|font-size,background-color,color">{text8}</smc-cover>
+                    <smc-code>{vc}</smc-code>
+                    <smc-cp data-clipboard-text="{vc-cp}"></smc-cp>
+                </smc-reveal>
+            </smc-option>
+
+
+
+            <smc-close class="smc-animated smc-fadeInRight smc-animDelay4 smc-closer">
+                <a data-close-type="x_close" class="smc-link" href="#rdl">✕</a><!-- Note - Redirect Link gets automatically rewritten -->
+            </smc-close>
+
+            <smc-long-close class="smc-animated smc-fadeInUp smc-animDelay2" data-engage-class="smc-engaged">
+                <a href="#rdl" data-close-type="long_close" class="smc-link smc-closer" data-engage-text="{text11}" data-edits="text7,text11" data-changes="smc-long-close a.smc-link|font-size,color,margin-top,margin-bottom">{text7}</a>
+                <!-- Note - Redirect Link gets automatically rewritten, once clicked on the data-engage text and classes are applied -->
+            </smc-long-close>
+
+            <!-- Success Message -->
+            <smc-success-message class="smc-animated smc-fadeIn">
+                <smc-success-message-inner class="smc-animated smc-bounceInDown smc-animDelay1">
+                    Perfect thank you!
+                    <smc-success-close>X</smc-success-close>
+                </smc-success-message-inner>    
+            </smc-success-message>
+            
+            <!-- CSS Loader -->
+            <smc-loader-bg data-theme="white"><!-- white, black-->
+                <smc-loader-single></smc-loader-single><!-- single, double, pulse -->
+            </smc-loader-bg>
+ 
+            <!-- Copy to Clipboard Success Message -->
+            <smc-cp-msg>"{vc}" has been copied to the clipboard</smc-cp-msg>
+
+        </smc-overlay-inner>
+        <smc-shake-msg>
+            <i class="fa fa-mobile" aria-hidden="true"></i><br>
+            Shake To Reaveal Voucher
+        </smc-shake-msg>
+    </smc-overlay-outer>
+    
+    <!-- Safe close - Used when Autoscaling is turned on -->
+    <smc-close-safe class="smc-closer">
+    	<a data-close-type="x_close" class="smc-link" href="#rdl">[close]</a><!-- Note - Redirect Link gets automatically rewritten -->
+    </smc-close-safe>
+</smc-bg>
+
+<!-- SmarterBar -->
+<smc-bar class="smc-animated smc-fadeInDown">
+    <smc-bar-close>X</smc-bar-close>
+    <smc-bar-text>{smarterbar}</smc-bar-text>
+    <smc-handle>
+        <span class="smc-bar1"></span>
+        <span class="smc-bar2"></span>
+        <span class="smc-bar3"></span>
+    </smc-handle>
+</smc-bar>
+
+<!-- Final Mesage Box -->
+<smc-final-message class="smc-animated smc-fadeInDown">Thanks... your code is: {vc}<smc-final-message-close>X</smc-final-message-close></smc-final-message>

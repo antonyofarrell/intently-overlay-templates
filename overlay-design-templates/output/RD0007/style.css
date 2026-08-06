@@ -1,0 +1,185 @@
+@import url('https://fonts.smct.co/Helvetica/font.css');
+
+smc-bg * {
+  font-family: 'Helvetica W01', sans-serif;
+}
+smc-bg {
+  --smc-text: #fff;
+  --smc-btn: #84f45c;
+  --smc-btnHover: #38851c;
+  --smc-border: 5px;
+  --smc-bkg1: #436fff;
+  --smc-bkg2: #142f55;
+}
+smc-bg {
+  height: 100%;
+  bottom: auto;
+  right: 0;
+  top: 0;
+  left: auto;
+  overflow: hidden;
+  background: #fff0;
+  align-items: center;
+}
+
+smc-overlay-outer {
+  width: 330px;
+  right: 20px;
+  top: 20px;
+  left: auto;
+  position: absolute;
+}
+
+smc-overlay-inner {
+  background: #fff0;
+  background: linear-gradient(135deg, var(--smc-bkg1) 0%, var(--smc-bkg2) 100%);
+  transform-origin: center;
+  min-height: 330px;
+  width: 330px;
+  min-width: auto;
+  margin: auto;
+  padding: 0;
+  animation: smc-enter 0.2s ease-in;
+  clip-path: polygon(60.231% 96.562%, 60.231% 96.562%, 63.84% 92.948%, 67.469% 89.32%, 71.113% 85.683%, 74.764% 82.042%, 78.419% 78.403%, 82.071% 74.771%, 85.714% 71.15%, 89.343% 67.547%, 92.951% 63.965%, 96.535% 60.41%, 96.535% 60.41%, 97.26% 59.598%, 97.882% 58.72%, 98.407% 57.799%, 98.843% 56.856%, 99.196% 55.915%, 99.472% 54.997%, 99.68% 54.125%, 99.826% 53.321%, 99.916% 52.608%, 99.959% 52.008%, 99.959% 52.008%, 99.958% 47.971%, 99.632% 43.944%, 98.982% 39.948%, 98.008% 36.005%, 96.71% 32.135%, 95.087% 28.361%, 93.141% 24.704%, 90.87% 21.184%, 88.274% 17.824%, 85.355% 14.645%, 85.355% 14.645%, 79.157% 9.373%, 72.377% 5.272%, 65.161% 2.343%, 57.653% 0.586%, 50% 0%, 42.347% 0.586%, 34.839% 2.343%, 27.623% 5.272%, 20.843% 9.373%, 14.645% 14.645%, 14.645% 14.645%, 9.373% 20.843%, 5.272% 27.623%, 2.343% 34.839%, 0.586% 42.347%, -0% 50%, 0.586% 57.653%, 2.343% 65.161%, 5.272% 72.377%, 9.373% 79.157%, 14.645% 85.355%, 14.645% 85.355%, 17.781% 88.238%, 21.093% 90.805%, 24.561% 93.057%, 28.165% 94.993%, 31.884% 96.614%, 35.698% 97.918%, 39.585% 98.906%, 43.526% 99.578%, 47.499% 99.934%, 51.485% 99.972%, 51.485% 99.972%, 52.093% 99.949%, 52.8% 99.899%, 53.592% 99.807%, 54.453% 99.655%, 55.368% 99.428%, 56.323% 99.107%, 57.301% 98.677%, 58.289% 98.121%, 59.271% 97.421%, 60.231% 96.562%);
+}
+
+.smc-img2 {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  width: 140px;
+  z-index: 3;
+  user-select: none;
+  pointer-events: none;
+}
+
+.smc-img2 img {
+  animation: smc-flick 1s cubic-bezier(0.35, 1.19, 0.7, 1.52) both;
+  animation-delay: 0.3s;
+}
+.smc-text1, .smc-text2, .smc-text3, .smc-text4{
+    font-weight:300;
+    font-size:20px;
+    margin:10px auto 10px auto;
+    color:var(--smc-text);
+    line-height:1.2;
+}
+.smc-text1{
+    font-weight:700;
+    font-size:32px;
+    margin:100px auto 10px auto;
+}
+.smc-text2{
+    font-weight:300;
+    font-size:16px;
+    margin:10px auto 10px auto;
+}
+.smc-button {
+  background-color: var(--smc-btn);
+  color: #333;
+  font-size: 16px;
+  border-radius: 5px;
+  padding: 10px 0;
+  max-width: 180px;
+  font-weight: 300;
+  box-shadow: 3px 3px 3px #333;
+  animation: smc-heartbeat 1.5s ease-in-out both;
+  z-index: 4;
+}
+
+.smc-button:hover {
+  background-color: var(--smc-btnHover);
+  color: #fff;
+}
+
+smc-close {
+  top: 30px;
+  right: 68px;
+  background: #fff;
+  height: 20px;
+  width: 20px;
+}
+
+smc-close:hover {
+  background: #fff;
+}
+
+smc-close a.smc-link {
+  color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+}
+
+smc-text,
+smc-img,
+smc-cover,
+smc-reveal,
+smc-close,
+smc-long-close,
+.smc-input,
+smc-input-group div,
+smc-cool-checkboxes {
+  animation: none !important;
+}
+
+
+
+@keyframes smc-enter {
+  0% {
+    transform: scaleX(3) translateY(170px) translateX(50px) skew(12deg, -8deg);
+    opacity: 1;
+    background-size: 100%;
+  }
+
+  100% {
+    background-size: 100%;
+    transform: scaleX(1) skew(0deg, 0deg);
+    /* filter: blur(0px); */
+    opacity: 1;
+  }
+}
+
+@keyframes smc-flick {
+  0% {
+    transform: scale(0.4) translateY(0px) translateX(0px);
+
+  }
+
+  100% {
+    background-size: 100%;
+    transform: scale(1) translateY(0px) translateX(0px);
+
+  }
+}
+
+@keyframes smc-heartbeat {
+  from {
+    transform: scale(1);
+    transform-origin: center center;
+    animation-timing-function: ease-out;
+  }
+
+  10% {
+    transform: scale(0.91);
+    animation-timing-function: ease-in;
+    background: var(--smc-btnHover);
+  }
+
+  17% {
+    transform: scale(0.98);
+    animation-timing-function: ease-out;
+    background:var(--smc-btn);
+  }
+
+  33% {
+    transform: scale(0.87);
+    animation-timing-function: ease-in;
+  }
+
+  45% {
+    transform: scale(1);
+    animation-timing-function: ease-out;
+  }
+}

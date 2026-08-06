@@ -1,0 +1,213 @@
+@import url('https://fonts.googleapis.com/css?family=Inter:200,300,400,700,900');
+
+smc-bg * { font-family: 'Inter', sans-serif; }
+
+/* ── Brand tokens ─────────────────────────────────────────── */
+smc-bg {
+  --smc-font-sm: 10px;
+  --smc-font-rg: 16px;
+  --smc-font-lg: 36px;
+  --smc-mainBkg: #1A2235;
+  --smc-accent: #B9CDB2;
+  --smc-textColour: #fff;
+  --smc-btnBkg: #B9CDB2;
+  --smc-btnText: #000;
+  --smc-btnBorderRadius: 10px;
+  --smc-frameBorder: 6px;
+  --smc-overlayPadding: 30px;
+  --smc-revealHeight: 45px;
+  --smc-borderColor: #ffffff7a;
+  --smc-coverBkg: color-mix(in srgb, var(--smc-btnBkg) 25%, transparent);
+  --smc-coverBkgHover: color-mix(in srgb, var(--smc-btnBkg) 15%, transparent);
+
+/* --smc-mainBkg: #2C1810;
+--smc-accent: #E8956D;
+--smc-btnBkg: #E8956D;
+--smc-btnText: #2C1810; */
+
+/* --smc-mainBkg: #1E2A3A;
+--smc-accent: #D4A853;
+--smc-btnBkg: #D4A853;
+--smc-btnText: #1E2A3A; */
+
+/* --smc-mainBkg: #1A2A1E;
+--smc-accent: #7EC8A0;
+--smc-btnBkg: #7EC8A0;
+--smc-btnText: #1A2A1E; */
+
+--smc-mainBkg: #FAF5F2;
+--smc-textColour: #2C2C2C;
+--smc-accent: #C4736A;
+--smc-btnBkg: #C4736A;
+--smc-btnText: #fff;
+}
+
+/* ── Hide empty elements ──────────────────────────────────── */
+smc-img:has(img[src=""]),
+smc-img:has(img:not([src])),
+smc-img:not(:has(img)),
+smc-img-outer:not(:has(img[src]:not([src=""]))),
+smc-text:empty { display: none; }
+
+/* ── Base Dimensions ──────────────────────────────────── */
+smc-overlay-inner {
+  background: var(--smc-mainBkg);
+  width: 650px;
+  min-height: auto;
+  padding: var(--smc-overlayPadding);
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  overflow: hidden;
+  border-radius: var(--smc-frameBorder);
+}
+smc-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: space-between;
+}
+smc-img-outer,
+smc-text-outer {
+  width: auto;
+  min-width: auto;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+smc-option {
+  width: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+smc-img img { max-width: 100%; height: auto; }
+.smc-img1 {
+  max-width: 300px;
+  border-radius: calc(var(--smc-frameBorder) - 2px);
+  overflow: hidden;
+}
+
+/* ── Typography ──────────────────────────────────────────── */
+.smc-text1, .smc-text2, .smc-text3, .smc-text4 {
+  font-weight: 300;
+  font-size: var(--smc-font-rg);
+  margin: 0;
+  color: var(--smc-textColour);
+  text-align: left;
+  line-height: 1.2;
+}
+.smc-text1 {
+  font-weight: 900;
+  font-size: var(--smc-font-sm);
+  text-transform: uppercase;
+  color: var(--smc-accent);
+}
+.smc-text2 { font-weight: 300; font-size: var(--smc-font-lg); }
+.smc-text4 { font-size: var(--smc-font-sm); margin-top: auto; opacity: 0.5 !important; }
+smc-text span { color: var(--smc-accent); font-weight: bold; }
+
+/* ── Reveal / Voucher Code ───────────────────────────────── */
+smc-reveal {
+  display: flex;
+  flex: 0 0 var(--smc-revealHeight);
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--smc-btnBorderRadius);
+  border: 1px solid var(--smc-borderColor);
+}
+smc-cover {
+  background-color: var(--smc-coverBkg);
+  color: var(--smc-btnText);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 10px 0 0;
+  height: 100%;
+}
+smc-cover:hover { background-color: var(--smc-coverBkgHover); }
+smc-cover span {
+  background-color: var(--smc-btnBkg);
+  padding: 5px 15px;
+  border-radius: 30px;
+  font-size: var(--smc-font-sm);
+  font-weight: bold;
+}
+smc-reveal:hover smc-code { filter: blur(3px); }
+smc-code {
+  font-size: var(--smc-font-rg);
+  filter: blur(4px);
+  height: 100%;
+  transition: all 1s linear;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--smc-textColour);
+  background-color: var(--smc-coverBkg);
+  white-space: nowrap;
+  border: none;
+}
+smc-code.smc-eng { filter: blur(0) !important; }
+
+/* ── Copy to Clipboard ───────────────────────────────────── */
+smc-cp {
+  background-image: url(https://cdn.smct.io/118663-812.svg);
+  display: none;
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+  z-index: 3;
+  filter: invert(1);
+}
+smc-cp:hover { opacity: 0.6; }
+.smc-eng ~ smc-cp { display: block; }
+smc-cp-msg {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  width: 100%;
+  color: var(--smc-textColour);
+  font-size: var(--smc-font-sm);
+  text-align: center;
+}
+
+/* ── CTA / Long Close ────────────────────────────────────── */
+smc-long-close.smc-engaged {
+  position: relative;
+  bottom: auto;
+  width: auto;
+  flex: 1;
+}
+smc-long-close.smc-engaged a.smc-link {
+  background-color: var(--smc-btnBkg);
+  color: var(--smc-btnText);
+  border-radius: var(--smc-btnBorderRadius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  font-size: var(--smc-font-rg);
+  padding: 10px;
+}
+
+/* ── Close Button ────────────────────────────────────────── */
+smc-close {
+  top: 5px;
+  right: 5px;
+  height: 24px;
+  width: 24px;
+  background-color: #ffffffb3;
+}
+smc-close a.smc-link {
+  font-size: 12px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

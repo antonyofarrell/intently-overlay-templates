@@ -1,0 +1,154 @@
+@import url(https://fonts.smct.co/smc-HelveticaNeueLTCom/smc-HelveticaNeueLTCom.css);
+
+smc-bg * {
+    font-family: "HelveticaNeueLTCom", helvetica, sans-serif;
+}
+
+smc-overlay-inner {
+    background-color: #fff;
+    width: 600px;
+    height: 360px;
+    border-radius: 2px;
+}
+
+/* Align the content Left */
+smc-img-outer,
+smc-text-outer,
+smc-option,
+smc-long-close {
+    width: 50%;
+    margin: 0 0 0 35px;
+}
+
+.smc-text1,
+.smc-text2,
+.smc-text3 {
+    font-size: 15px;
+    font-weight: 500;
+    margin: 15px auto;
+    text-align: left;
+    color: #000;
+    line-height: 1.2;
+}
+
+.smc-text1 {
+    font-size: 45px;
+    text-transform: uppercase;
+    margin: 50px auto 35px auto;
+    font-weight: 500;
+    line-height: 39px;
+}
+
+.smc-button {
+    max-width: 200px;
+    margin: 80px auto auto 0;
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #000;
+    padding: 16px;
+    font-size: 15px;
+    text-transform: uppercase;
+    text-align: left;
+    font-weight: 500;
+}
+
+smc-close {
+    font-size: 14px;
+}
+
+smc-close a.smc-link {
+    color: #000;
+}
+
+smc-cart {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    width: 190px;
+    height: 360px;
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    border-radius: 0;
+    transition: all 0.3s ease;
+    background: #fff;
+}
+
+smc-product {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+smc-product-img,
+smc-product-name,
+smc-product-price,
+smc-product-oldprice {
+    display: block;
+    margin: 5px auto;
+    font-size: 13px;
+    color: #262626;
+    line-height: 1.3;
+    text-align: left;
+    width: 100%;
+    justify-content: center;
+}
+
+smc-product-img img {
+    max-width: 180px;
+    margin: auto;
+    border-radius: 10px;
+}
+
+smc-product-name {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    line-height: 1.2;
+    font-size: 14px;
+    margin: auto auto 10px auto;
+}
+
+smc-product-price {
+    font-size: 14px;
+}
+
+
+/* MOBILE STYLES 
+smc-overlay-inner{
+    width: 320px;
+    min-height: 500px;
+}
+smc-img-outer,
+smc-text-outer,
+smc-option,
+smc-long-close {
+    width: 90%;
+    margin: 0 0 0 10px;
+}
+.smc-text1 {
+    font-size: 35px;
+    margin: 20px auto 5px auto;
+    line-height:1.3;
+}
+smc-cart {
+    top: 155px;
+    right: 10px;
+    width: 300px;
+    height: 250px;
+}
+smc-product-img img {
+    max-width: 110px;
+    margin: auto;
+    border-radius: 10px;
+}
+.smc-button {
+    max-width: 280px;
+    margin: 280px auto auto 0;
+}*/

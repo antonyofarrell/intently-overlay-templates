@@ -1,0 +1,140 @@
+@import url("https://use.typekit.net/sld6oio.css");
+
+smc-bg * {
+  font-family: 'gill-sans-nova', sans-serif;
+}
+
+smc-bg {
+  background-color: #3f4c3575;
+}
+
+smc-overlay-inner {
+  --smc-brand: #327edb;
+  --smc-text: #000;
+  --smc-btn: #fff;
+  --smc-border: 20px;
+}
+
+
+smc-overlay-inner {
+  background: var(--smc-brand);
+  width: 400px;
+  min-height: 400px;
+  padding-bottom: 30px;
+  border-radius: var(--smc-border);
+  overflow: hidden;
+}
+
+svg.smc-icon {
+  position: absolute;
+  top: 25px;
+  left: 30px;
+  fill: var(--smc-brand);
+  display: block;
+  max-width: 100px;
+  z-index: 2;
+}
+
+.smc-img2 {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  max-width: 170px;
+}
+
+.smc-img3 {
+  position: absolute;
+  top: 0;
+  right: 0;
+  max-width: 450px;
+}
+
+smc-img-outer,
+smc-text-outer,
+smc-option {
+  width: 90%;
+  min-width: auto;
+  margin: 0 0 0 30px;
+}
+
+.smc-text1,
+.smc-text2,
+.smc-text3,
+.smc-text4 {
+  font-weight: 300;
+  font-size: 20px;
+  margin: 10px auto 10px 0;
+  color: var(--smc-text);
+  text-align: left;
+  line-height: 1.2;
+}
+
+.smc-text1 {
+  font-weight: 300;
+  font-size: 18px;
+  margin: 220px auto 10px auto;
+  color: #fff;
+
+}
+
+.smc-text2 {
+  font-weight: 700;
+  font-size: 26px;
+  margin: 10px auto 20px auto;
+  color: #fff;
+
+}
+
+.smc-button {
+  background-color: var(--smc-btn);
+  border-radius: 5px;
+  font-size: 14px;
+  max-width: 220px;
+  padding: 15px;
+  margin: 10px auto 0 0;
+  color: #000;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+
+}
+
+
+smc-close a.smc-link {
+  color: #333;
+}
+
+
+@media only screen and (max-width: 600px) {
+
+  smc-overlay-inner {
+    width: 320px;
+    min-height: 320px;
+  }
+
+  svg.smc-icon {
+    top: 25px;
+    left: 30px;
+    max-width: 80px;
+  }
+
+  smc-img-outer,
+  smc-text-outer,
+  smc-option {
+    margin: 0 0 0 20px;
+  }
+
+  .smc-img2 {
+    top: 15px;
+    right: 25px;
+    max-width: 130px;
+  }
+
+  .smc-text1 {
+    margin: 170px auto 10px auto;
+  }
+
+  .smc-text2 {
+    font-size: 20px;
+  }
+}

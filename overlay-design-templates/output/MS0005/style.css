@@ -1,0 +1,338 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,700');
+
+smc-bg * {
+  font-family: 'Montserrat', sans-serif;
+}
+
+smc-overlay-inner {
+  --smc-bkg1: #626bec;
+  --smc-bkg2: rgb(18, 0, 99);
+  --smc-button: #e2ed12;
+  --smc-buttonHover: #bac316;
+}
+
+smc-overlay-inner {
+  background-color: var(--smc-bkg1);
+  background: linear-gradient(180deg, var(--smc-bkg1) 0%, var(--smc-bkg2) 100%);
+  width: 440px;
+  min-height: auto;
+  border-radius: 8px;
+  padding: 30px;
+  transition: all 2.3s ease;
+}
+
+smc-bkg-img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+smc-bkg-img img {
+  width: 100%;
+  height: 100%;
+  transform-origin: center center;
+  transform: scale(105%);
+  filter: blur(1px);
+  overflow: hidden;
+  opacity: 0.5;
+}
+
+smc-img-outer,
+smc-text-outer,
+smc-option,
+smc-long-close {
+  width: 100%;
+  min-width: auto;
+}
+
+.smc-text1,
+.smc-text2,
+.smc-text3 {
+  font-size: 16px;
+  font-weight: 400;
+  color: #fff;
+  margin: 15px auto;
+  line-height: 1.2;
+}
+
+.smc-text1 {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 10px auto 10px auto;
+}
+
+.smc-text1eng {
+  font-size: 32px;
+}
+
+smc-reveal {
+  max-width: 200px;
+  margin: 10px auto;
+  height: 40px;
+  display: none;
+}
+
+smc-reveal.smc-eng {
+  display: block;
+}
+
+smc-cover {
+  background: var(--smc-button);
+  color: #333;
+  padding: 11px;
+  font-size: 15px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+smc-cover:hover {
+  background: var(--smc-buttonHover);
+}
+
+smc-code {
+  padding: 10px;
+  font-size: 15px;
+  border-radius: 4px;
+  font-weight: 400;
+}
+
+smc-long-close.smc-engaged {
+  position: relative;
+  margin-top: 0;
+  bottom: auto;
+}
+
+smc-long-close.smc-engaged>a.smc-link {
+  background: var(--smc-button);
+  color: #333;
+  display: block;
+  font-size: 14px;
+  margin: auto;
+  max-width: 200px;
+  font-weight: 400;
+  border-radius: 5px;
+  padding: 12px;
+}
+
+smc-long-close.smc-engaged>a.smc-link:hover {
+  background: var(--smc-buttonHover);
+}
+
+smc-cp {
+  position: absolute;
+  right: 0;
+  height: 100%;
+  color: #333;
+  width: 30px;
+  z-index: 1;
+  cursor: pointer;
+  background-image: url(https://cdn.smct.io/65845-696.png);
+  background-size: 60%;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  opacity: 0.5;
+  display: block;
+}
+
+smc-cp:hover {
+  opacity: 1;
+}
+
+smc-cp-msg {
+  position: absolute;
+  bottom: -32px;
+  background: #000;
+  color: #fff;
+  left: 50%;
+  width: 320px;
+  padding: 7px;
+  z-index: 10;
+  margin-left: -160px;
+  text-align: center;
+  font-size: 12px;
+  display: none;
+}
+
+smc-close {
+  font-size: 14px;
+}
+
+smc-close a.smc-link {
+  color: #fff;
+}
+
+/* *******************WHEEL******************** */
+/* *******************WHEEL******************** */
+/* *******************WHEEL******************** */
+smc-overlay-inner {
+  --color1: #26e763;
+  --color2: #5bf28b;
+  --color3: #1bc350;
+  --color4: #4bca73;
+  --color5: #14b146;
+  --color6: #26e763;
+  --color7: #26e763;
+}
+
+.smc-wheel-wrapper {
+  position: relative;
+  margin: -40px auto 10px auto;
+  width: 360px;
+  height: 360px;
+  z-index: 2;
+}
+
+.smc-wheel-wrapper::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 5px solid #fff;
+  box-sizing: border-box;
+  border-radius: 50%;
+  filter: drop-shadow(0 0 10px #333);
+}
+
+.smc-spin-button {
+  position: absolute;
+  top: calc(50% - 40px);
+  left: calc(50% - 40px);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--smc-button);
+  background-image: radial-gradient(circle at center 15%, #ffffff16 0%, #000000c4 100%);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 14px;
+  border: 1px solid #fff;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+  cursor: pointer;
+  z-index: 2;
+  transform-origin: center center;
+  transition: all .5s ease;
+  animation: smc-pulse 2s ease infinite;
+  user-select: none;
+}
+
+.smc-spin-button:hover {
+  transform: scale(120%);
+  animation-play-state: paused;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
+  background-image: radial-gradient(circle at center 0%, #ffffff16 0%, #00000094 100%);
+}
+
+.smc-pressed {
+  pointer-events: none;
+  animation: none;
+}
+
+.smc-wheel-pointer {
+  position: absolute;
+  top: 13%;
+  left: -2%;
+  width: 58px;
+  height: 40px;
+  z-index: 3;
+}
+
+.smc-wheel-text {
+  font-size: 12px;
+  font-weight: bold;
+  fill: white;
+  user-select: none;
+  pointer-events: none;
+    transform-box: view-box;
+  transform-origin: 0 0;
+  transform: rotate(25.714deg) translateX(132px) rotate(180deg);
+
+}
+
+.smc-ticking {
+  animation: smc-tick 0.2s ease infinite;
+}
+
+.smc-pre-spin {
+  animation: smc-prespin 2s linear(0 0%, 0.22 2.1%, 0.86 6.5%, 1.11 8.6%, 1.3 10.7%, 1.35 11.8%, 1.37 12.9%, 1.37 13.7%, 1.36 14.5%, 1.32 16.2%, 1.03 21.8%, 0.94 24%, 0.89 25.9%, 0.88 26.85%, 0.87 27.8%, 0.87 29.25%, 0.88 30.7%, 0.91 32.4%, 0.98 36.4%, 1.01 38.3%, 1.04 40.5%, 1.05 42.7%, 1.05 44.1%, 1.04 45.7%, 1 53.3%, 0.99 55.4%, 0.98 57.5%, 0.99 60.7%, 1 68.1%, 1.01 72.2%, 1 86.7%, 1 100%) infinite;
+}
+
+
+.smc-wheel-pointer img {
+  width: 58px;
+  height: 40px;
+  transform: rotate(30deg);
+}
+
+.smc-spun {
+  animation: smc-spun 3s ease-out forwards;
+}
+
+
+
+@keyframes smc-pulse {
+  0%,
+  50%,
+  100% {
+    transform: scale(100%);
+  }
+  25%,
+  75% {
+    transform: scale(120%);
+  }
+}
+
+@keyframes smc-tick {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  30% {
+    transform: rotate(-15deg);
+  }
+
+  60% {
+    transform: rotate(10deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes smc-prespin {
+
+  0%,
+  50%,
+  100% {
+    transform: rotate(0);
+  }
+
+  25% {
+    transform: rotate(-5deg);
+  }
+
+  75% {
+    transform: rotate(5deg);
+  }
+}
+
+@keyframes smc-spun {
+  from {
+    transform: rotate(0);
+  }
+
+  to {
+    transform: rotate(540deg);
+  }
+}

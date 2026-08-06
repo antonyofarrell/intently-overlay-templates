@@ -1,0 +1,99 @@
+@import url("https://fonts.smct.co/greed/font.css");
+
+
+smc-bg * {
+  font-family: "Greed-Regular";
+  font-feature-settings: 'lnum' 1;
+}
+smc-bg {
+  background-color: rgb(210 210 210 / 60%);
+  backdrop-filter: blur(3px);
+}
+smc-overlay-inner {
+    background-color: #fff;
+    width: 750px;
+    min-height: 270px;
+    border-radius: 12px;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    overflow: hidden;
+    padding: 0;
+}
+/* Align the content Left */
+smc-img-outer, smc-text-outer, smc-option, smc-long-close {
+    width: 50%;
+    margin: 0;
+}
+.smc-text1,
+.smc-text2,
+.smc-text3 {
+  font-size: 18px;
+  font-weight: 400;
+  text-align: center;
+  line-height: 1.2;
+  margin: 15px auto;
+  color: #332d28;
+  padding: 0px 10px;
+}
+.smc-text1 {
+    font-size: 40px;
+    margin: 60px auto auto auto;
+    font-weight: normal;
+    font-family: "Greed-Medium";
+}
+.smc-text2 {
+    margin: 10px auto 20px auto;
+    font-size: 19px;
+}
+.smc-button {
+    max-width: 150px;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    width: 100%;
+    border: 1px solid #332d28;
+    line-height: normal;
+    letter-spacing: 0.04em;
+    color: #fff;
+    transition: .3s all;
+    position: relative;
+    z-index: 1;
+    background-color: #332d28;
+}
+.smc-button::before {
+    background-color: #fff;
+    width: 0;
+    height: 100%;
+    content: "";
+    left: 0;
+    top: 0;
+    position: absolute;
+    transition: .3s all;
+    z-index: -1;
+}
+.smc-button:hover::before {
+    width: 100%;
+}
+smc-close {
+  font-size: 14px;
+  top: 10px;
+  right: 10px;
+}
+.smc-button:hover {
+    color: #332d28;
+    box-shadow: none;
+}
+smc-close a.smc-link {
+  color: #000;
+}
+.smc-image {
+    display: block;
+    width: 50%;
+    background-image: url('https://cdn.smct.co/118295-904.jpg');
+    background-size: cover;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-position: center;
+}

@@ -1,0 +1,100 @@
+@import url("https://fonts.smct.co/smc-futuraPT/smc-futuraPT.css");
+
+smc-bg * {
+font-family: "FuturaPTBook", sans-serif;
+}
+
+smc-overlay-inner {
+--smc-bg: #ffd814;
+--smc-text: #000;
+--smc-btn: #1c1c1c;
+--smc-btnHover: #4d4d4d;
+--smc-border: 2px;
+}
+
+smc-overlay-inner {
+background: url('{content6}');
+background-size: cover;
+width:700px;
+min-height: 300px;
+padding: 30px;
+border-radius: var(--smc-border);
+overflow: hidden;
+}
+
+smc-option {
+display: none;
+}
+
+smc-text-outer{
+width: 100%;
+}
+.smc-text1,
+.smc-text2,
+.smc-text3,
+.smc-text4 {
+font-weight: 300;
+font-size: 20px;
+color: var(--smc-text);
+line-height: 1.2;
+text-align: left;
+}
+
+.smc-text1 {
+font-weight: 700;
+font-size: 27px;
+margin: 10px auto 10px auto;
+}
+
+.smc-text2 {
+font-weight: 300;
+font-size: 18px;
+margin: 10px auto 30px auto;
+}
+
+smc-close a.smc-link {
+color: #fff;
+}
+
+smc-multi-holder {
+bottom: 30px;
+width:100%;
+margin: auto;
+display: flex;
+flex-direction: row;
+gap: 5px;
+}
+smc-multi-cta {
+width: 25%;
+text-align: center;
+cursor: pointer;
+background-color: #fff;
+padding:10px;
+gap: 10px;
+display: flex;
+flex-direction: column;
+transition: all 0.3s ease;
+}
+smc-multi-cta:hover{
+box-shadow: 10px 10px 10px #333;
+}
+smc-multi-cta img {
+max-width: 100%;
+}
+smc-multi-cta span {
+background-color: var(--smc-btn);
+margin: 0 ;
+color: #fff;
+padding: 14px 0;
+text-align: center;
+cursor: pointer;
+border-radius: 2px;
+font-size: 14px;
+width: 100%;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+smc-multi-cta span:hover{
+background-color: var(--smc-btnHover);
+}

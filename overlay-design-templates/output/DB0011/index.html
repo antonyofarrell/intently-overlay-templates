@@ -1,0 +1,80 @@
+<!-- Overlay V4 Template -->
+<smc-bg class="smc-animated smc-fadeIn">
+	<smc-overlay-outer class="smc-animated smc-bounceInDown smc-animDelay2"> <!--  data-animout="smc-bounceOutLeft" --> 
+        <smc-overlay-inner class="smc_clearfix" data-bgtheme="dark" data-changes="smc-overlay-inner|width,background-image,background-color" data-edits="content6"><!-- If the background is dark use this option -->
+
+ <smc-wrap>
+
+            <smc-text-outer class=" smc-animated smc-bounceInDown smc-animDelay4">
+                <smc-text class="smc-text1">{text1}</smc-text>
+                <smc-text class="smc-text2">{text2}</smc-text>
+                <smc-text class="smc-text3"></smc-text>
+                <smc-text class="smc-text4"></smc-text>
+            </smc-text-outer>
+
+
+            <smc-img-outer>
+                <smc-img class="smc-img1 smc-animated smc-bounceInUp smc-animDelay6"><img src="https://picsum.photos/560/175" alt=""></smc-img>
+            </smc-img-outer>
+
+            </smc-wrap>
+
+            <smc-wrap>
+
+            <smc-cart class="smc-animated smc-bounceInDown smc-animDelay8">
+                <smc-product>
+                    <smc-left>
+                        <smc-product-img><img src="https://efem.es/cursos/wp-content/uploads/2026/04/ia-para-ong.jpg"></smc-product-img> </smc-left><smc-right>
+                        <smc-product-name> AI course online for business owners who want to leverage AI in their operations</smc-product-name>
+                        <smc-product-desc></smc-product-desc>
+                        <smc-prices>
+                            <smc-old-price>399.00 €</smc-old-price><smc-product-price>$69.00 €</smc-product-price>
+                        </smc-prices>
+                    </smc-right>
+                </smc-product>
+            </smc-cart>
+
+
+                        <!-- Click To Redirect Option -->
+            <smc-option class="smc-clickRedirect">
+                <smc-input-group>
+                    <span class="smc-button smc-animated smc-bounceInUp smc-animDelay10">Return to cart</span>
+                </smc-input-group>
+            </smc-option>
+
+            </smc-wrap>
+
+
+
+            <!-- Closers (Both Need) -->
+            <smc-long-close class="smc-animated smc-fadeInUp smc-animDelay14" data-engage-class="smc-engaged">
+                <a data-close-type="long_close" class="smc-link smc-closer" href="#rdl" data-engage-text="{text11}" data-edits="text7,text11" data-changes="smc-long-close a.smc-link|font-size,color,margin-top,margin-bottom">{text7}</a>
+                <!-- Note - Redirect Link gets automatically rewritten, once clicked on the data-engage text and classes are applied -->
+            </smc-long-close>
+
+            <smc-close class="smc-animated smc-fadeInRight smc-animDelay4 smc-closer">
+                <a data-close-type="x_close" class="smc-link" href="#rdl">✕</a><!-- Note - Redirect Link gets automatically rewritten -->
+            </smc-close>
+
+    </smc-overlay-inner></smc-overlay-outer>
+    
+    <!-- Safe close - Used when Autoscaling is turned on -->
+    <smc-close-safe class="smc-closer">
+    	<a data-close-type="x_close" class="smc-link" href="#rdl">[close]</a><!-- Note - Redirect Link gets automatically rewritten -->
+    </smc-close-safe>
+</smc-bg>
+
+<!-- SmarterBar -->
+<smc-bar class="smc-animated smc-fadeInDown">
+    <smc-bar-close>X</smc-bar-close>
+    <smc-bar-text>{smarterbar}</smc-bar-text>
+    <smc-handle>
+        <span class="smc-bar1"></span>
+        <span class="smc-bar2"></span>
+        <span class="smc-bar3"></span>
+    </smc-handle>
+</smc-bar>
+
+<!-- Final Mesage Box -->
+<smc-final-message class="smc-animated smc-fadeInDown">Thanks... your code is: {vc}<smc-final-message-close>X</smc-final-message-close></smc-final-message>
+

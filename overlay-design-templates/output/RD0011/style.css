@@ -1,0 +1,139 @@
+@import url('https://fonts.smct.co/smc-basetica-windsor/smc-windsor-basetica.css');
+
+smc-bg * {
+font-family: 'BaseticaTrial-Bold.otf', sans-serif;
+}
+
+smc-bg {
+background-color: rgb(210 210 210 / 60%);
+backdrop-filter: blur(3px);
+}
+
+smc-overlay-inner {
+background-color: #000;
+width: 420px;
+min-height: auto;
+border-radius: 10px;
+padding-bottom: 20px;
+}
+
+smc-text-outer {
+width: 90%;
+}
+
+.smc-text1,
+.smc-text2,
+.smc-text3 {
+font-size: 18px;
+font-weight: 400;
+text-align: center;
+line-height: 1.2;
+margin: 15px auto;
+color: #fff;
+}
+
+.smc-text1 {
+font-size: 26px;
+margin: 250px auto auto auto;
+font-weight: normal;
+font-family: "Basetica Bulb Yellow-COLR", serif;
+text-transform: uppercase;
+}
+
+.smc-text2 {
+margin: 15px auto 15px auto;
+font-size: 14px;
+}
+
+.smc-button {
+max-width: 180px;
+margin: 15px auto 0 auto;
+background-color: #efc400;
+color: #000;
+border: 1px solid #efc400;
+font-size: 14px;
+font-weight: 500;
+border-radius: 28px;
+font-family: "BaseticaTrial-Black", sans-serif;
+padding: 12px;
+/* text-transform: uppercase; */
+}
+
+.smc-button:hover {
+background-color: #000;
+color: #efc400;
+}
+
+smc-close{
+top:-5px;
+right:-5px;
+background: #fff;
+}
+smc-close:hover{background: #fff;}
+smc-close a.smc-link{
+color: #000;
+display: flex;
+justify-content: center;
+align-items: center;
+font-size: 16px;
+}
+
+.smc-image {
+display: block;
+position: absolute;
+top: 0;
+right: 0;
+width: 100%;
+height: 250px;
+background-image: url('{content6}');
+background-size: cover;
+border-radius: 10px 10px 0 0;
+}
+
+.smc-timer {
+position: absolute;
+top: 20px;
+left: 10%;
+width: 80%;
+padding-right: 30px;
+display: flex;
+align-items: center;
+}
+
+.smc-timer-bar,
+.smc-timer-bkg,
+.smc-timer-icon {
+position: absolute;
+top: 0;
+left: 0;
+}
+.smc-timer-bar,
+.smc-timer-bkg {
+background-color: #b2b2b2;
+border-radius: 30px;
+width: 95%;
+height: 10px;
+}
+.smc-timer-bar {
+background-color: #efc400;
+animation: smc-sixty 60s linear forwards;
+transform-origin: left center;
+border-radius: 30px 0 0 30px;
+}
+@keyframes smc-sixty {
+0% { width: 95%; }
+100% { width: 0%; }
+}
+.smc-timer-icon {
+right: -5px;
+top: -5px;
+left: auto;
+width: 20px;
+height: 20px;
+}
+
+.smc-timer-icon img {
+width: 20px;
+height: 20px;
+filter: invert(1);
+}
