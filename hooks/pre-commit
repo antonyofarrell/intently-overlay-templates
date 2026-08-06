@@ -1,0 +1,12 @@
+#!/bin/sh
+# Auto-regenerate templates-data.js from the overlay source before committing,
+# so it never drifts out of sync with overlay-design-templates/output.
+# Enable once per clone with:  npm run setup   (sets core.hooksPath=hooks)
+
+changed=$(git diff --cached --name-only)
+if echo "$changed" | grep -qE '^(overlay-design-templates/|reference/page-styles\.css|build-templates-data\.js)'; then
+  echo "pre-commit: rebuilding templates-data.js…"
+  node build-templates-data.js || { echo "pre-commit: build FAILED — commit aborted"; exit 1; }
+  git add templates-data.js
+fi
+exit 0

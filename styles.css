@@ -782,3 +782,33 @@ select {
     display: none;
   }
 }
+
+/* ── Admin action bar ─────────────────────────────── */
+.admin-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.7rem 1.5rem;
+  background: var(--bg-section);
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+.btn-rebuild {
+  padding: 0.45rem 0.9rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+  transition: filter 0.15s;
+}
+.btn-rebuild:hover {
+  filter: brightness(1.12);
+}
+.rebuild-msg {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}

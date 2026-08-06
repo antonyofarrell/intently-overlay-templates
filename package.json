@@ -1,0 +1,11 @@
+{
+  "name": "intently-overlay-templates",
+  "version": "1.0.0",
+  "private": true,
+  "description": "intent.ly overlay template library + Brand Studio (static site).",
+  "scripts": {
+    "build": "node build-templates-data.js",
+    "serve": "python3 -m http.server 8000",
+    "setup": "git config core.hooksPath hooks"
+  }
+}

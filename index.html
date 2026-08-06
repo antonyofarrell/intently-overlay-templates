@@ -68,6 +68,14 @@
       </span>
     </div>
 
+    <!-- ===== ADMIN ACTION BAR ===== -->
+    <div id="adminBar" class="admin-bar" style="display: none">
+      <button class="btn-rebuild" onclick="rebuildData()">
+        ⤓ Rebuild templates-data.js
+      </button>
+      <span id="rebuildMsg" class="rebuild-msg"></span>
+    </div>
+
     <!-- ===== MAIN ===== -->
     <main id="mainWrap" class="main-wrap"></main>
 
@@ -359,6 +367,10 @@
         } else {
           countLabel.textContent = `${totalVisible} template${totalVisible !== 1 ? "s" : ""} — ${CAT_LABELS[currentFilter]}`;
         }
+
+        // Show the admin action bar only in admin mode
+        const ab = document.getElementById("adminBar");
+        if (ab) ab.style.display = adminMode ? "flex" : "none";
       }
 
       /* -------------------------------------------------------
@@ -690,6 +702,84 @@
           document.getElementById("editModal").style.display = "none";
         }
       });
+
+      /* -------------------------------------------------------
+       ADMIN — REBUILD templates-data.js (client-side)
+
+       Mirrors build-templates-data.js in the browser: fetches each
+       overlay's source, builds the OVERLAY_ASSETS object and downloads
+       a fresh templates-data.js to commit. Requires the page to be
+       served over http (npm run serve / Vercel), not opened as file://.
+    ------------------------------------------------------- */
+      function cleanBodyBrowser(html) {
+        if (!html) return null;
+        const m = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
+        let body = m ? m[1] : html;
+        body = body
+          .replace(/<div class="smc-theme-switcher"[\s\S]*?<\/div>\s*(?=<!--|<smc-bg)/i, "")
+          .replace(/<div class="smc-theme-switcher"[\s\S]*?<\/div>/i, "")
+          .replace(/<script[\s\S]*?<\/script>/gi, "");
+        return body.trim();
+      }
+
+      // ref -> export folder name (RD0016b lives in folder RD0016-2)
+      function folderForRef(ref) {
+        return ref.replace(/([A-Za-z]+\d+)b$/, "$1-2");
+      }
+
+      async function rebuildData() {
+        const msg = document.getElementById("rebuildMsg");
+        const setMsg = (t) => (msg.textContent = t);
+        setMsg("Fetching page-styles…");
+        try {
+          const pageStyles = await (await fetch("reference/page-styles.css")).text();
+          const assets = {};
+          const skipped = [];
+          let done = 0;
+          for (const t of templates) {
+            done++;
+            setMsg(`Fetching source… ${done}/${templates.length}`);
+            const folder = folderForRef(t.ref);
+            let css = "", html = "";
+            try {
+              const cr = await fetch(`overlay-design-templates/output/${folder}/style.css`);
+              const hr = await fetch(`overlay-design-templates/output/${folder}/index.html`);
+              if (!cr.ok) { skipped.push(t.ref); continue; }
+              css = await cr.text();
+              html = hr.ok ? await hr.text() : "";
+            } catch (e) {
+              skipped.push(t.ref);
+              continue;
+            }
+            if (!css || !css.trim()) { skipped.push(t.ref); continue; }
+            const complete = /<\/smc-bg>/i.test(html || "");
+            assets[t.ref] = { css: css, html: complete ? cleanBodyBrowser(html) : null };
+          }
+
+          const out =
+            "/* AUTO-GENERATED (admin rebuild) — do not edit by hand.\n" +
+            "   PAGE_STYLES = reference/page-styles.css ; OVERLAY_ASSETS[ref] = {css, html|null}. */\n" +
+            "const PAGE_STYLES = " + JSON.stringify(pageStyles) + ";\n" +
+            "const OVERLAY_ASSETS = " + JSON.stringify(assets) + ";\n";
+
+          const blob = new Blob([out], { type: "text/javascript" });
+          const a = document.createElement("a");
+          a.href = URL.createObjectURL(blob);
+          a.download = "templates-data.js";
+          a.click();
+
+          setMsg(
+            `Built ${Object.keys(assets).length} overlays` +
+              (skipped.length ? ` (skipped ${skipped.length}: ${skipped.join(", ")})` : "") +
+              ". Downloaded templates-data.js — commit it to the repo.",
+          );
+        } catch (e) {
+          setMsg(
+            "Rebuild needs the page served over http (npm run serve / the Vercel URL), not opened as file://. " +
+              "Or just run `npm run build` in a terminal. (" + (e.message || e) + ")",
+          );
+        }
+      }
 
       /* -------------------------------------------------------
        START
