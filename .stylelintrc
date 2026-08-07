@@ -1,0 +1,15 @@
+{
+  "extends": "stylelint-config-standard",
+  "rules": {
+    "property-no-vendor-prefix": null,
+    "value-no-vendor-prefix": null,
+    "selector-no-vendor-prefix": null,
+    "at-rule-no-vendor-prefix": null,
+    "property-no-unknown": [
+      true,
+      {
+        "ignoreProperties": ["line-clamp", "-webkit-line-clamp"]
+      }
+    ]
+  }
+}

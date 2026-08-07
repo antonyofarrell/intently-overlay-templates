@@ -6,6 +6,7 @@
   "scripts": {
     "build": "node build-templates-data.js",
     "serve": "python3 -m http.server 8000",
+    "dev": "python3 -m http.server 8000",
     "setup": "git config core.hooksPath hooks"
   }
 }
