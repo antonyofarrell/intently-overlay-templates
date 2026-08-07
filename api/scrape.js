@@ -150,15 +150,19 @@ module.exports = async (req, res) => {
       "ui-monospace", "segoe ui", "roboto", "helvetica", "arial", "helvetica neue",
     ]);
     const famCount = {};
+    const famLabel = {}; // first-seen original casing per normalised key
     for (const m of css.matchAll(/font-family\s*:\s*([^;{}]+)[;}]/gi)) {
-      const first = m[1].split(",")[0].replace(/["']/g, "").trim();
-      if (!first || first.toLowerCase().startsWith("var(")) continue;
+      let first = m[1].split(",")[0].replace(/!important/i, "").replace(/["']/g, "").trim();
+      if (!first) continue;
+      if (first.includes(":") || first.includes("(")) continue; // spurious matches (e.g. "object-fit: cover", var(...))
       const key = first.toLowerCase();
+      if (key.startsWith("var")) continue;
       if (GENERIC.has(key)) continue;
       if (/icon|swiper|material|fontawesome|glyph/i.test(first)) continue; // skip icon fonts
-      famCount[first] = (famCount[first] || 0) + 1;
+      if (!famLabel[key]) famLabel[key] = first;
+      famCount[key] = (famCount[key] || 0) + 1;
     }
-    const fontFamilies = Object.keys(famCount).sort((a, b) => famCount[b] - famCount[a]).slice(0, 8);
+    const fontFamilies = Object.keys(famCount).sort((a, b) => famCount[b] - famCount[a]).map((k) => famLabel[k]).slice(0, 8);
 
     res.status(200).json({
       finalUrl: base,
