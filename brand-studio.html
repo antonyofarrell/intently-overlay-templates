@@ -522,7 +522,13 @@
           });
           if (!res.ok) return null;
           const data = await res.json();
-          return data && (data.cssVars || data.fontFaces || data.themeColor) ? data : null;
+          const has = data && (
+            (data.cssVars && Object.keys(data.cssVars).length) ||
+            (data.fontFaces && data.fontFaces.length) ||
+            (data.fontFamilies && data.fontFamilies.length) ||
+            data.themeColor
+          );
+          return has ? data : null;
         } catch (e) { return null; }
       }
 
@@ -534,14 +540,16 @@
             themeColor: scraped.themeColor || null,
             cssVars: scraped.cssVars || {},
             fontFaces: scraped.fontFaces || [],
+            fontFamilies: scraped.fontFamilies || [],
             fontImports: scraped.fontImports || [],
           };
           scrapedBlock =
             "GROUND-TRUTH TOKENS already extracted server-side from " + url + "'s HTML and its linked stylesheets " +
-            "(CSS custom properties, @font-face families, font imports, theme-color). PREFER THESE over anything else — " +
+            "(CSS custom properties, @font-face families, the font-family names actually used, font imports, theme-color). PREFER THESE over anything else — " +
             "they are the real values from the site's own CSS:\n" + JSON.stringify(compact) + "\n\n" +
             "Interpret them: custom properties named like --color*Btn*/--*accent*/--*primary* are usually the CTA/button colour; " +
-            "--color*Text*/--*body* the text colour; --color*Bg*/--*background*/--colorBody the background; a real @font-face family or a Google-Fonts import is the brand font. " +
+            "--color*Text*/--*body* the text colour; --color*Bg*/--*background*/--colorBody the background. " +
+            "For the font, use fontFamilies[0] (the most-used real typeface on the site) or a fontFaces family — that IS the brand font even if it's a common name like Montserrat; only fall back to a system stack if fontFamilies and fontFaces are both empty. " +
             "You may still use web_fetch/web_search to disambiguate the PRIMARY CTA colour or check a product page, but do not override these tokens with guesses.\n\n";
         } else {
           scrapedBlock =

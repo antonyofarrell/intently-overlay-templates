@@ -142,14 +142,33 @@ module.exports = async (req, res) => {
       if (/fonts\.googleapis\.com|fonts\.bunny\.net/i.test(u) && !fontImports.includes(u)) fontImports.push(u);
     }
 
+    // font-family declarations actually used (catches the brand font even when its
+    // @font-face lives in a sheet we didn't fetch). Ranked by how often each is referenced.
+    const GENERIC = new Set([
+      "inherit", "initial", "unset", "revert", "sans-serif", "serif", "monospace", "cursive",
+      "fantasy", "system-ui", "-apple-system", "blinkmacsystemfont", "ui-sans-serif", "ui-serif",
+      "ui-monospace", "segoe ui", "roboto", "helvetica", "arial", "helvetica neue",
+    ]);
+    const famCount = {};
+    for (const m of css.matchAll(/font-family\s*:\s*([^;{}]+)[;}]/gi)) {
+      const first = m[1].split(",")[0].replace(/["']/g, "").trim();
+      if (!first || first.toLowerCase().startsWith("var(")) continue;
+      const key = first.toLowerCase();
+      if (GENERIC.has(key)) continue;
+      if (/icon|swiper|material|fontawesome|glyph/i.test(first)) continue; // skip icon fonts
+      famCount[first] = (famCount[first] || 0) + 1;
+    }
+    const fontFamilies = Object.keys(famCount).sort((a, b) => famCount[b] - famCount[a]).slice(0, 8);
+
     res.status(200).json({
       finalUrl: base,
       themeColor,
       cssVars,
       fontFaces,
+      fontFamilies,
       fontImports,
       stylesheetsFetched: fetched,
-      counts: { vars: Object.keys(cssVars).length, fontFaces: fontFaces.length, sheets: fetched.length },
+      counts: { vars: Object.keys(cssVars).length, fontFaces: fontFaces.length, fontFamilies: fontFamilies.length, sheets: fetched.length },
     });
   } catch (e) {
     res.status(502).json({ error: { message: "Scrape failed: " + String(e && e.message ? e.message : e) } });
