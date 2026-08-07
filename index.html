@@ -71,8 +71,12 @@
     <!-- ===== ADMIN ACTION BAR ===== -->
     <div id="adminBar" class="admin-bar" style="display: none">
       <button class="btn-rebuild" onclick="rebuildData()">
-        ⤓ Rebuild templates-data.js
+        ⤓ Download rebuilt templates-data.js
       </button>
+      <span class="rebuild-note">
+        No-terminal option — downloads the file for you to commit. Editing locally?
+        Just run <code>npm run build</code> (or commit; the hook rebuilds).
+      </span>
       <span id="rebuildMsg" class="rebuild-msg"></span>
     </div>
 

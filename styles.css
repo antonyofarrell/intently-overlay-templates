@@ -812,3 +812,9 @@ select {
   color: var(--text-muted);
   line-height: 1.4;
 }
+.rebuild-note {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  line-height: 1.4;
+  max-width: 46ch;
+}
