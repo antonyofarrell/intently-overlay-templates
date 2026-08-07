@@ -86,6 +86,12 @@
       #pvShot { max-width: 300px; max-height: 340px; border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); }
       .pv-note { font-size: 11px; color: var(--hint); line-height: 1.5; margin-top: 10px; }
 
+      .outputs-bar { display: flex; align-items: center; justify-content: flex-end; margin-top: 22px; }
+      .layout-toggle { cursor: pointer; user-select: none; }
+      .outputs { margin-top: 12px; display: flex; flex-direction: column; gap: 22px; }
+      .outputs .output-wrap { margin-top: 0; min-width: 0; }
+      .outputs.side-by-side { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: start; }
+      @media (max-width: 1100px) { .outputs.side-by-side { grid-template-columns: 1fr; } }
       .output-wrap { margin-top: 22px; }
       .output-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; gap: 8px; flex-wrap: wrap; }
       pre.output { background: #1e1c1a; color: #eae6df; border-radius: var(--radius-sm); padding: 14px 16px; font-family: "SF Mono", ui-monospace, monospace; font-size: 11.5px; line-height: 1.6; overflow-x: auto; white-space: pre; max-height: 340px; overflow-y: auto; }
@@ -170,6 +176,10 @@
         </div>
         <p class="pv-note" id="pvNote"></p>
 
+        <div class="outputs-bar">
+          <button class="btn btn-secondary btn-sm layout-toggle" id="layoutToggle" onclick="toggleLayout()">⬌ Side by side</button>
+        </div>
+        <div class="outputs" id="outputs">
         <div class="output-wrap">
           <div class="output-head">
             <span class="preview-title">Overlay CSS (paste-ready)</span>
@@ -194,6 +204,7 @@
           <pre class="output" id="htmlOutput"></pre>
           <div class="editor-host" id="htmlHost" style="display: none"></div>
           <p class="hint">The overlay's markup with template tokens (<code>{text1}</code>, <code>{content1}</code>…) intact — paste into the overlay's Custom HTML in the admin site. Branding doesn't change the HTML, so this is the same for every brand.</p>
+        </div>
         </div>
       </div>
     </div>
@@ -235,6 +246,7 @@
       let _iframeTimer = null;
       let cssEditor = null, htmlEditor = null, monacoReady = false;
       let aiEnabled = false;
+      let layoutSide = false; // false = stacked, true = CSS/HTML side by side
 
       // read current text from the Monaco editor if it's mounted, else the fallback <pre>
       function cssText() { return monacoReady && cssEditor ? cssEditor.getValue() : document.getElementById("output").textContent; }
@@ -249,6 +261,10 @@
         const savedAi = localStorage.getItem("smc_ai_complete");
         aiEnabled = savedAi === null ? !!state.pass : savedAi === "1";
         updateAiPill();
+
+        // Output layout — remember stacked vs side-by-side
+        layoutSide = localStorage.getItem("smc_outputs_layout") === "side";
+        applyLayout();
 
         const params = new URLSearchParams(location.search);
         state.ref = (params.get("ref") || "").trim();
@@ -559,6 +575,21 @@
       function closeKeyModal() { document.getElementById("keyModal").classList.remove("show"); }
       function saveKey() { const k = document.getElementById("keyInput").value.trim(); state.pass = k; try { localStorage.setItem(PASS_STORE, k); } catch (e) {} updateKeyPill(); updateAiPill(); closeKeyModal(); }
       function updateKeyPill() { const p = document.getElementById("keyPill"); if (state.pass) { p.className = "key-pill set"; p.textContent = "Access: unlocked"; } else { p.className = "key-pill unset"; p.textContent = "Access: locked"; } }
+
+      /* ───────── output layout (stacked ↔ side by side) ───────── */
+      function applyLayout() {
+        const outputs = document.getElementById("outputs");
+        if (outputs) outputs.classList.toggle("side-by-side", layoutSide);
+        const btn = document.getElementById("layoutToggle");
+        if (btn) btn.textContent = layoutSide ? "⬍ Stack" : "⬌ Side by side";
+        // Monaco reads its container size once; force a relayout after the width changes
+        requestAnimationFrame(() => { if (cssEditor) cssEditor.layout(); if (htmlEditor) htmlEditor.layout(); });
+      }
+      function toggleLayout() {
+        layoutSide = !layoutSide;
+        try { localStorage.setItem("smc_outputs_layout", layoutSide ? "side" : "stack"); } catch (e) {}
+        applyLayout();
+      }
 
       /* ───────── AI (Copilot-style) inline autocomplete ───────── */
       function toggleAi() {
