@@ -492,9 +492,11 @@
         if (!state.pass) { openKeyModal(); return; }
         const btn = document.getElementById("extractBtn");
         btn.disabled = true;
-        setStatus("info", '<span class="spinner"></span>Reading ' + shortUrl(url) + " and extracting brand styles…");
+        setStatus("info", '<span class="spinner"></span>Reading ' + shortUrl(url) + "'s stylesheets…");
         try {
-          const raw = await callClaude(buildPrompt(url));
+          const scraped = await scrapeSite(url); // server-side: real HTML + linked CSS tokens
+          setStatus("info", '<span class="spinner"></span>Mapping ' + shortUrl(url) + " to the overlay…");
+          const raw = await callClaude(buildPrompt(url, scraped));
           const parsed = parseJson(raw);
           if (!parsed) throw new Error("Could not read a valid response. Try again.");
           if (parsed.vars && typeof parsed.vars === "object") {
@@ -511,10 +513,44 @@
         } finally { btn.disabled = false; }
       }
 
-      function buildPrompt(url) {
+      // Server-side scrape: pulls real design tokens from the page + its linked stylesheets
+      // (what web_fetch can't reach). Returns null on failure so Extract can fall back to web tools.
+      async function scrapeSite(url) {
+        try {
+          const res = await fetch("/api/scrape?url=" + encodeURIComponent(url), {
+            headers: { "x-brand-passphrase": state.pass },
+          });
+          if (!res.ok) return null;
+          const data = await res.json();
+          return data && (data.cssVars || data.fontFaces || data.themeColor) ? data : null;
+        } catch (e) { return null; }
+      }
+
+      function buildPrompt(url, scraped) {
         const list = state.vars.map((v) => "  \"" + v.name + "\": \"" + v.value + "\"" + (v.type === "color" ? "   // colour" : "")).join("\n");
+        let scrapedBlock = "";
+        if (scraped) {
+          const compact = {
+            themeColor: scraped.themeColor || null,
+            cssVars: scraped.cssVars || {},
+            fontFaces: scraped.fontFaces || [],
+            fontImports: scraped.fontImports || [],
+          };
+          scrapedBlock =
+            "GROUND-TRUTH TOKENS already extracted server-side from " + url + "'s HTML and its linked stylesheets " +
+            "(CSS custom properties, @font-face families, font imports, theme-color). PREFER THESE over anything else — " +
+            "they are the real values from the site's own CSS:\n" + JSON.stringify(compact) + "\n\n" +
+            "Interpret them: custom properties named like --color*Btn*/--*accent*/--*primary* are usually the CTA/button colour; " +
+            "--color*Text*/--*body* the text colour; --color*Bg*/--*background*/--colorBody the background; a real @font-face family or a Google-Fonts import is the brand font. " +
+            "You may still use web_fetch/web_search to disambiguate the PRIMARY CTA colour or check a product page, but do not override these tokens with guesses.\n\n";
+        } else {
+          scrapedBlock =
+            "No tokens could be scraped server-side for " + url + " (the site may block bots or render CSS at runtime). " +
+            "FETCH the page and its stylesheets with web_fetch and read the real markup/CSS yourself.\n\n";
+        }
         return (
-          "You are a CRO overlay brand specialist. FETCH the real page and its stylesheets at " + url + " using the web_fetch tool, read the ACTUAL markup and CSS, and map the brand's real design system onto this intent.ly overlay's CSS variables. Fetch the homepage first; if the fonts/colours live in a linked stylesheet or Google Fonts <link>, fetch that too. Use web_search only if you need to locate the site.\n\n" +
+          "You are a CRO overlay brand specialist. Map the brand's real design system at " + url + " onto this intent.ly overlay's CSS variables.\n\n" +
+          scrapedBlock +
           "The overlay declares exactly these variables (name: current default value). Return NEW values that match the brand at " + url + ":\n{\n" + list + "\n}\n\n" +
           "Return ONLY a JSON object, no markdown, in this shape:\n" +
           "{\n  \"vars\": { " + state.vars.map((v) => "\"" + v.name + "\": \"...\"").join(", ") + " },\n" +
@@ -522,9 +558,9 @@
           "  \"fontImports\": [\"@import url('https://fonts.googleapis.com/...');\"],\n" +
           "  \"evidence\": \"one short, honest sentence: the font you used and where you found it (or 'no font in source — used system stack'), plus where the key colours came from\"\n}\n\n" +
           "Rules:\n" +
-          "- EVIDENCE ONLY. Base every value on what you actually see in the fetched HTML/CSS — never guess from memory or from what a brand 'like this' usually uses.\n" +
-          "- Fill \"evidence\" truthfully with what you actually found: the real font name and its source (Google Fonts link, @font-face, font-family), and where the colours came from. If you could not find the font and fell back to a system stack, say exactly that.\n" +
-          "- Fonts: read the real typeface from @font-face rules, font-family declarations, or Google Fonts <link>/@import in the fetched markup/CSS. If you genuinely cannot find the site's font, DO NOT substitute a trendy default (never invent Poppins, Inter, Montserrat, Roboto, Lato, etc.) — use a neutral system stack (\"system-ui, -apple-system, sans-serif\") and return an empty fontImports array.\n" +
+          "- EVIDENCE ONLY. Base every value on the ground-truth tokens above, or on markup/CSS you fetch — never guess from memory or from what a brand 'like this' usually uses.\n" +
+          "- Fill \"evidence\" truthfully with what you actually found: the real font name and its source (scraped @font-face / font import, Google Fonts link, or fetched CSS), and where the colours came from. If you could not find the font and fell back to a system stack, say exactly that.\n" +
+          "- Fonts: use a real font only if it appears in the scraped fontFaces/fontImports or in CSS you fetch — a common name like Montserrat IS correct when it's actually there. If NO real font can be found anywhere, do NOT substitute a trendy default from memory — use a neutral system stack (\"system-ui, -apple-system, sans-serif\") and return an empty fontImports array. If a found @font-face family is also on Google Fonts, include its Google Fonts @import.\n" +
           "- Only include a Google Fonts @import if that exact font is actually loaded by the site.\n" +
           "- Colours: take the real brand colours from the fetched CSS/markup. Map the primary button/CTA colour to the button variable(s), the main accent to accent variables, body text colour to text variables.\n" +
           "- Keep each variable's UNIT/kind: colour variables → hex (rgba/8-hex only if transparency is needed); size/radius variables → keep px/rem etc.\n" +
