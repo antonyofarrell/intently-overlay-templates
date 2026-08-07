@@ -9,12 +9,14 @@ module.exports = async (req, res) => {
   }
 
   // Real key: prefer the server env var; fall back to a caller-supplied header (local dev only).
-  const apiKey = process.env.ANTHROPIC_API_KEY || req.headers["x-api-key"];
-  const gate = process.env.BRAND_STUDIO_PASSPHRASE;
+  // .trim() guards against a stray newline/space in the pasted Vercel value — a common
+  // cause of Anthropic returning "API key is invalid".
+  const apiKey = (process.env.ANTHROPIC_API_KEY || req.headers["x-api-key"] || "").trim();
+  const gate = (process.env.BRAND_STUDIO_PASSPHRASE || "").trim();
 
   // If a passphrase is configured, require the caller to present the matching one.
   if (gate) {
-    const provided = req.headers["x-brand-passphrase"] || "";
+    const provided = (req.headers["x-brand-passphrase"] || "").trim();
     if (provided !== gate) {
       res.status(401).json({ error: { message: "Invalid or missing passphrase" } });
       return;
