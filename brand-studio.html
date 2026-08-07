@@ -66,6 +66,7 @@
       .status.err { color: var(--red); }
       .status.ok { color: var(--green); }
       .status.info { color: var(--muted); }
+      .status .evidence { display: block; margin-top: 6px; font-size: 11px; color: var(--muted); font-style: italic; }
       .spinner { width: 13px; height: 13px; border: 2px solid #e0ddd6; border-top-color: var(--accent); border-radius: 50%; animation: spin 0.7s linear infinite; display: inline-block; vertical-align: -2px; margin-right: 6px; }
       @keyframes spin { to { transform: rotate(360deg); } }
 
@@ -502,7 +503,9 @@
           if (typeof parsed.bodyFont === "string" && parsed.bodyFont.trim()) state.bodyFont = parsed.bodyFont.trim();
           if (Array.isArray(parsed.fontImports)) state.fontImports = parsed.fontImports;
           renderEditor(); applyAll(); saveState();
-          setStatus("ok", "✓ Brand styles extracted. Fine-tune anything below.");
+          const ev = (typeof parsed.evidence === "string" && parsed.evidence.trim())
+            ? "<span class='evidence'>" + escHtml(parsed.evidence.trim()) + "</span>" : "";
+          setStatus("ok", "✓ Brand styles extracted. Fine-tune anything below." + ev);
         } catch (e) {
           setStatus("err", "✗ " + (e.message || "Extraction failed."));
         } finally { btn.disabled = false; }
@@ -516,9 +519,11 @@
           "Return ONLY a JSON object, no markdown, in this shape:\n" +
           "{\n  \"vars\": { " + state.vars.map((v) => "\"" + v.name + "\": \"...\"").join(", ") + " },\n" +
           "  \"bodyFont\": \"'Brand Font', sans-serif\",\n" +
-          "  \"fontImports\": [\"@import url('https://fonts.googleapis.com/...');\"]\n}\n\n" +
+          "  \"fontImports\": [\"@import url('https://fonts.googleapis.com/...');\"],\n" +
+          "  \"evidence\": \"one short, honest sentence: the font you used and where you found it (or 'no font in source — used system stack'), plus where the key colours came from\"\n}\n\n" +
           "Rules:\n" +
           "- EVIDENCE ONLY. Base every value on what you actually see in the fetched HTML/CSS — never guess from memory or from what a brand 'like this' usually uses.\n" +
+          "- Fill \"evidence\" truthfully with what you actually found: the real font name and its source (Google Fonts link, @font-face, font-family), and where the colours came from. If you could not find the font and fell back to a system stack, say exactly that.\n" +
           "- Fonts: read the real typeface from @font-face rules, font-family declarations, or Google Fonts <link>/@import in the fetched markup/CSS. If you genuinely cannot find the site's font, DO NOT substitute a trendy default (never invent Poppins, Inter, Montserrat, Roboto, Lato, etc.) — use a neutral system stack (\"system-ui, -apple-system, sans-serif\") and return an empty fontImports array.\n" +
           "- Only include a Google Fonts @import if that exact font is actually loaded by the site.\n" +
           "- Colours: take the real brand colours from the fetched CSS/markup. Map the primary button/CTA colour to the button variable(s), the main accent to accent variables, body text colour to text variables.\n" +
