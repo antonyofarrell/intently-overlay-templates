@@ -530,7 +530,7 @@
         const res = await fetch("/api/anthropic", {
           method: "POST",
           headers: { "Content-Type": "application/json", "x-brand-passphrase": state.pass, "anthropic-version": "2023-06-01" },
-          body: JSON.stringify({ model: MODEL, max_tokens: 2000, tools: [{ type: "web_search_20260209", name: "web_search" }], messages: [{ role: "user", content: prompt }] }),
+          body: JSON.stringify({ model: MODEL, max_tokens: 8000, tools: [{ type: "web_search_20260209", name: "web_search" }], messages: [{ role: "user", content: prompt }] }),
         });
         if (!res.ok) { const err = await res.json().catch(() => ({})); throw new Error((err && err.error && err.error.message) || "HTTP " + res.status); }
         const data = await res.json();
