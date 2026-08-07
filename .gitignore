@@ -1,3 +1,6 @@
 .DS_Store
 **/.DS_Store
 overlay-design-templates.zip
+.env
+.env.*
+.vercel

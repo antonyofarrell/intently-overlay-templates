@@ -125,8 +125,8 @@
       <div class="top-right">
         <a class="view-base" id="viewBase" href="#" target="_blank" rel="noopener" style="display:none">View template ↗</a>
         <span class="cat-badge" id="catBadge" style="display:none"></span>
-        <span class="key-pill unset" id="aiPill" onclick="toggleAi()" title="AI ghost-text autocomplete in the editors (uses your Anthropic key)">✨ AI: off</span>
-        <span class="key-pill unset" id="keyPill" onclick="openKeyModal()">API key: not set</span>
+        <span class="key-pill unset" id="aiPill" onclick="toggleAi()" title="AI ghost-text autocomplete in the editors (needs the access passphrase)">✨ AI: off</span>
+        <span class="key-pill unset" id="keyPill" onclick="openKeyModal()">Access: locked</span>
       </div>
     </div>
 
@@ -200,12 +200,12 @@
 
     <div class="overlay-modal" id="keyModal">
       <div class="modal">
-        <h2>Anthropic API key</h2>
-        <p>Stored only in this browser's localStorage. It's sent to Anthropic through this site's own <code>/api</code> proxy (needed to avoid browser CORS) and nowhere else. Get a key at <strong>console.anthropic.com</strong>.</p>
-        <input type="password" id="keyInput" placeholder="sk-ant-…" />
+        <h2>Access passphrase</h2>
+        <p>Enter the shared passphrase to use Extract and AI autocomplete. It's checked by this site's own <code>/api</code> proxy — the Anthropic key stays on the server and never reaches the browser. Stored only in this browser's localStorage.</p>
+        <input type="password" id="keyInput" placeholder="passphrase" />
         <div class="modal-actions">
           <button class="btn btn-secondary" onclick="closeKeyModal()">Cancel</button>
-          <button class="btn btn-primary" onclick="saveKey()">Save key</button>
+          <button class="btn btn-primary" onclick="saveKey()">Save</button>
         </div>
       </div>
     </div>
@@ -214,7 +214,7 @@
     <script src="data.js"></script>
     <script>
       const CAT_LABELS = { db: "Dynamic Basket", pr: "Recomminder", rd: "Redirect", rv: "Click to Reveal", ms: "Miscellaneous" };
-      const KEY_STORE = "smc_brand_studio_key";
+      const PASS_STORE = "smc_brand_studio_pass";
       const MODEL = "claude-sonnet-4-20250514"; // bump when your key has access to a newer Sonnet
       const COMPLETION_MODEL = "claude-haiku-4-5-20251001"; // fast model for inline (ghost-text) autocomplete
 
@@ -227,7 +227,7 @@
       };
 
       let state = {
-        ref: null, tmpl: null, apiKey: "", asset: null, hasSource: false,
+        ref: null, tmpl: null, pass: "", asset: null, hasSource: false,
         vars: [], values: {}, fontImports: [], bodyFont: "",
         base: null,
       };
@@ -242,15 +242,12 @@
 
       /* ───────── init ───────── */
       function init() {
-        state.apiKey = localStorage.getItem(KEY_STORE) || "";
-        if (!state.apiKey) {
-          try { const legacy = JSON.parse(localStorage.getItem("db_studio_state") || "{}"); if (legacy.apiKey) state.apiKey = legacy.apiKey; } catch (e) {}
-        }
+        state.pass = localStorage.getItem(PASS_STORE) || "";
         updateKeyPill();
 
-        // AI autocomplete toggle — default on when a key is present, unless the user turned it off
+        // AI autocomplete toggle — default on when the passphrase is present, unless the user turned it off
         const savedAi = localStorage.getItem("smc_ai_complete");
-        aiEnabled = savedAi === null ? !!state.apiKey : savedAi === "1";
+        aiEnabled = savedAi === null ? !!state.pass : savedAi === "1";
         updateAiPill();
 
         const params = new URLSearchParams(location.search);
@@ -475,7 +472,7 @@
         if (!state.hasSource) return;
         const url = document.getElementById("siteUrl").value.trim();
         if (!url) return setStatus("err", "Enter a site URL first.");
-        if (!state.apiKey) { openKeyModal(); return; }
+        if (!state.pass) { openKeyModal(); return; }
         const btn = document.getElementById("extractBtn");
         btn.disabled = true;
         setStatus("info", '<span class="spinner"></span>Reading ' + shortUrl(url) + " and extracting brand styles…");
@@ -516,7 +513,7 @@
       async function callClaude(prompt) {
         const res = await fetch("/api/anthropic", {
           method: "POST",
-          headers: { "Content-Type": "application/json", "x-api-key": state.apiKey, "anthropic-version": "2023-06-01" },
+          headers: { "Content-Type": "application/json", "x-brand-passphrase": state.pass, "anthropic-version": "2023-06-01" },
           body: JSON.stringify({ model: MODEL, max_tokens: 2000, tools: [{ type: "web_search_20250305", name: "web_search" }], messages: [{ role: "user", content: prompt }] }),
         });
         if (!res.ok) { const err = await res.json().catch(() => ({})); throw new Error((err && err.error && err.error.message) || "HTTP " + res.status); }
@@ -558,14 +555,14 @@
       function loadSaved() { try { const raw = localStorage.getItem(skey()); return raw ? JSON.parse(raw) : null; } catch (e) { return null; } }
 
       /* ───────── api key ───────── */
-      function openKeyModal() { document.getElementById("keyInput").value = state.apiKey || ""; document.getElementById("keyModal").classList.add("show"); setTimeout(() => document.getElementById("keyInput").focus(), 50); }
+      function openKeyModal() { document.getElementById("keyInput").value = state.pass || ""; document.getElementById("keyModal").classList.add("show"); setTimeout(() => document.getElementById("keyInput").focus(), 50); }
       function closeKeyModal() { document.getElementById("keyModal").classList.remove("show"); }
-      function saveKey() { const k = document.getElementById("keyInput").value.trim(); state.apiKey = k; try { localStorage.setItem(KEY_STORE, k); } catch (e) {} updateKeyPill(); updateAiPill(); closeKeyModal(); }
-      function updateKeyPill() { const p = document.getElementById("keyPill"); if (state.apiKey) { p.className = "key-pill set"; p.textContent = "API key: set"; } else { p.className = "key-pill unset"; p.textContent = "API key: not set"; } }
+      function saveKey() { const k = document.getElementById("keyInput").value.trim(); state.pass = k; try { localStorage.setItem(PASS_STORE, k); } catch (e) {} updateKeyPill(); updateAiPill(); closeKeyModal(); }
+      function updateKeyPill() { const p = document.getElementById("keyPill"); if (state.pass) { p.className = "key-pill set"; p.textContent = "Access: unlocked"; } else { p.className = "key-pill unset"; p.textContent = "Access: locked"; } }
 
       /* ───────── AI (Copilot-style) inline autocomplete ───────── */
       function toggleAi() {
-        if (!state.apiKey) { openKeyModal(); return; }
+        if (!state.pass) { openKeyModal(); return; }
         aiEnabled = !aiEnabled;
         try { localStorage.setItem("smc_ai_complete", aiEnabled ? "1" : "0"); } catch (e) {}
         updateAiPill();
@@ -573,15 +570,15 @@
       function updateAiPill() {
         const p = document.getElementById("aiPill");
         if (!p) return;
-        if (!state.apiKey) { p.className = "key-pill unset"; p.textContent = "✨ AI: needs key"; return; }
+        if (!state.pass) { p.className = "key-pill unset"; p.textContent = "✨ AI: needs access"; return; }
         p.className = "key-pill " + (aiEnabled ? "set" : "unset");
         p.textContent = "✨ AI: " + (aiEnabled ? "on" : "off");
       }
 
       // Ask Claude to continue the code at the cursor (fill-in-the-middle style)
       async function claudeComplete(lang, before, after, signal) {
-        const key = state.apiKey || localStorage.getItem(KEY_STORE) || "";
-        if (!key) return "";
+        const pass = state.pass || localStorage.getItem(PASS_STORE) || "";
+        if (!pass) return "";
         const prompt =
           "You are an inline code-autocomplete engine for " + (lang || "css").toUpperCase() +
           " inside an intent.ly overlay (SMC) editor. Continue the code EXACTLY at the cursor marker <|>. " +
@@ -590,7 +587,7 @@
           "CODE:\n" + before.slice(-2000) + "<|>" + after.slice(0, 400);
         const res = await fetch("/api/anthropic", {
           method: "POST", signal,
-          headers: { "Content-Type": "application/json", "x-api-key": key, "anthropic-version": "2023-06-01" },
+          headers: { "Content-Type": "application/json", "x-brand-passphrase": pass, "anthropic-version": "2023-06-01" },
           body: JSON.stringify({ model: COMPLETION_MODEL, max_tokens: 160, messages: [{ role: "user", content: prompt }] }),
         });
         if (!res.ok) return "";
@@ -749,7 +746,7 @@
       function installAiAutocomplete(monaco) {
         monaco.languages.registerInlineCompletionsProvider(["css", "html"], {
           provideInlineCompletions: async function (model, position, context, token) {
-            if (!aiEnabled || !state.apiKey) return { items: [] };
+            if (!aiEnabled || !state.pass) return { items: [] };
             await new Promise((r) => setTimeout(r, 350)); // debounce; cancelled if the user keeps typing
             if (token.isCancellationRequested) return { items: [] };
             const before = model.getValueInRange(new monaco.Range(1, 1, position.lineNumber, position.column));
