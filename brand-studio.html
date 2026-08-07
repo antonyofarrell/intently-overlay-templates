@@ -163,6 +163,18 @@
           <pre class="output" id="output"></pre>
           <p class="hint">The overlay's <strong>full CSS</strong> with your brand values applied (fonts, variables and all layout) — paste straight into a new overlay's Custom CSS.</p>
         </div>
+
+        <div class="output-wrap">
+          <div class="output-head">
+            <span class="preview-title">Overlay HTML</span>
+            <div style="display:flex; gap:8px;">
+              <button class="btn btn-secondary btn-sm" onclick="copyHtml()">Copy HTML</button>
+              <button class="btn btn-secondary btn-sm" onclick="downloadHtml()">Download</button>
+            </div>
+          </div>
+          <pre class="output" id="htmlOutput"></pre>
+          <p class="hint">The overlay's markup with template tokens (<code>{text1}</code>, <code>{content1}</code>…) intact — paste into the overlay's Custom HTML in the admin site. Branding doesn't change the HTML, so this is the same for every brand.</p>
+        </div>
       </div>
     </div>
 
@@ -354,7 +366,16 @@
         }
       }
 
-      function applyAll() { if (previewMode === "iframe") updateIframe(); renderOutput(); }
+      function applyAll() { if (previewMode === "iframe") updateIframe(); renderOutput(); renderHtmlOutput(); }
+
+      function renderHtmlOutput() {
+        const el = document.getElementById("htmlOutput");
+        if (!el) return;
+        if (state.asset && state.asset.html) el.textContent = state.asset.html;
+        else el.textContent = state.hasSource
+          ? "<!-- No HTML stored for this overlay. -->"
+          : "<!-- No overlay source loaded for " + state.ref + ". -->";
+      }
 
       function overrideCss() {
         // set on both smc-bg and smc-overlay-inner with !important so our values win
@@ -478,6 +499,11 @@
       function downloadOutput() {
         const blob = new Blob([document.getElementById("output").textContent], { type: "text/css" });
         const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = (state.ref || "overlay") + "-branded.css"; a.click();
+      }
+      function copyHtml() { navigator.clipboard.writeText(document.getElementById("htmlOutput").textContent).then(() => setStatus("ok", "✓ HTML copied."), () => setStatus("err", "Could not copy.")); }
+      function downloadHtml() {
+        const blob = new Blob([document.getElementById("htmlOutput").textContent], { type: "text/html" });
+        const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = (state.ref || "overlay") + ".html"; a.click();
       }
       function resetVars() {
         if (!state.base) return;
