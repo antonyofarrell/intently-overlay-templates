@@ -679,7 +679,6 @@
               label: "AI: suggest here",
               keybindings: [monaco.KeyMod.Alt | monaco.KeyCode.Backslash],
               run: function (e) {
-                console.log("[AI] manual trigger");
                 e.trigger("ai", "editor.action.inlineSuggest.trigger", {});
               },
             });
@@ -750,20 +749,17 @@
       function installAiAutocomplete(monaco) {
         monaco.languages.registerInlineCompletionsProvider(["css", "html"], {
           provideInlineCompletions: async function (model, position, context, token) {
-            console.log("[AI] provider called", { aiEnabled: aiEnabled, hasKey: !!state.apiKey, lang: model.getLanguageId() });
-            if (!aiEnabled || !state.apiKey) { console.log("[AI] skipped — toggle off or no key"); return { items: [] }; }
+            if (!aiEnabled || !state.apiKey) return { items: [] };
             await new Promise((r) => setTimeout(r, 350)); // debounce; cancelled if the user keeps typing
-            if (token.isCancellationRequested) { console.log("[AI] cancelled during debounce"); return { items: [] }; }
+            if (token.isCancellationRequested) return { items: [] };
             const before = model.getValueInRange(new monaco.Range(1, 1, position.lineNumber, position.column));
             const last = model.getLineCount();
             const after = model.getValueInRange(new monaco.Range(position.lineNumber, position.column, last, model.getLineMaxColumn(last)));
             const ac = new AbortController();
             token.onCancellationRequested(() => ac.abort());
             let text = "";
-            console.log("[AI] requesting completion from Claude…");
             try { text = await claudeComplete(model.getLanguageId(), before, after, ac.signal); }
-            catch (e) { console.log("[AI] error", e); return { items: [] }; }
-            console.log("[AI] got:", text ? JSON.stringify(text.slice(0, 60)) : "(empty)");
+            catch (e) { return { items: [] }; }
             if (!text || token.isCancellationRequested) return { items: [] };
             return { items: [{ insertText: text, range: new monaco.Range(position.lineNumber, position.column, position.lineNumber, position.column) }] };
           },
