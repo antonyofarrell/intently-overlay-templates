@@ -89,6 +89,15 @@
       .output-wrap { margin-top: 22px; }
       .output-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; gap: 8px; flex-wrap: wrap; }
       pre.output { background: #1e1c1a; color: #eae6df; border-radius: var(--radius-sm); padding: 14px 16px; font-family: "SF Mono", ui-monospace, monospace; font-size: 11.5px; line-height: 1.6; overflow-x: auto; white-space: pre; max-height: 340px; overflow-y: auto; }
+      .editor-host { height: 340px; border: 1px solid #2b2b2b; border-radius: var(--radius-sm); overflow: hidden; background: #1e1c1a; }
+      /* Force the editor + its popups dark, even if the page styles bleed into Monaco's widgets */
+      .monaco-editor, .monaco-editor .overflow-guard, .monaco-editor-background, .monaco-editor .margin { background: #1e1c1a !important; }
+      .monaco-editor .suggest-widget, .monaco-editor .suggest-details, .suggest-widget, .monaco-hover, .monaco-editor-hover {
+        background: #26241f !important; color: #eae6df !important; border-color: #3a372f !important;
+      }
+      .monaco-list .monaco-list-row { color: #cfcac2 !important; }
+      .monaco-list .monaco-list-row.focused, .monaco-list .monaco-list-row:hover { background: #3a372f !important; color: #fff !important; }
+      .monaco-highlighted-label .highlight, .monaco-list .monaco-list-row .highlight { color: #e6b450 !important; background: transparent !important; }
 
       .overlay-modal { position: fixed; inset: 0; background: rgba(0,0,0,.4); display: none; align-items: center; justify-content: center; z-index: 100; }
       .overlay-modal.show { display: flex; }
@@ -108,6 +117,7 @@
       <div class="top-right">
         <a class="view-base" id="viewBase" href="#" target="_blank" rel="noopener" style="display:none">View template ↗</a>
         <span class="cat-badge" id="catBadge" style="display:none"></span>
+        <span class="key-pill unset" id="aiPill" onclick="toggleAi()" title="AI ghost-text autocomplete in the editors (uses your Anthropic key)">✨ AI: off</span>
         <span class="key-pill unset" id="keyPill" onclick="openKeyModal()">API key: not set</span>
       </div>
     </div>
@@ -161,6 +171,7 @@
             </div>
           </div>
           <pre class="output" id="output"></pre>
+          <div class="editor-host" id="cssHost" style="display: none"></div>
           <p class="hint">The overlay's <strong>full CSS</strong> with your brand values applied (fonts, variables and all layout) — paste straight into a new overlay's Custom CSS.</p>
         </div>
 
@@ -173,6 +184,7 @@
             </div>
           </div>
           <pre class="output" id="htmlOutput"></pre>
+          <div class="editor-host" id="htmlHost" style="display: none"></div>
           <p class="hint">The overlay's markup with template tokens (<code>{text1}</code>, <code>{content1}</code>…) intact — paste into the overlay's Custom HTML in the admin site. Branding doesn't change the HTML, so this is the same for every brand.</p>
         </div>
       </div>
@@ -196,6 +208,7 @@
       const CAT_LABELS = { db: "Dynamic Basket", pr: "Recomminder", rd: "Redirect", rv: "Click to Reveal", ms: "Miscellaneous" };
       const KEY_STORE = "smc_brand_studio_key";
       const MODEL = "claude-sonnet-4-20250514"; // bump when your key has access to a newer Sonnet
+      const COMPLETION_MODEL = "claude-haiku-4-5-20251001"; // fast model for inline (ghost-text) autocomplete
 
       // Sample content so template tokens ({text1} etc.) render like a real overlay in the preview
       const TOKENS = {
@@ -212,6 +225,12 @@
       };
       let previewMode = "none";
       let _iframeTimer = null;
+      let cssEditor = null, htmlEditor = null, monacoReady = false;
+      let aiEnabled = false;
+
+      // read current text from the Monaco editor if it's mounted, else the fallback <pre>
+      function cssText() { return monacoReady && cssEditor ? cssEditor.getValue() : document.getElementById("output").textContent; }
+      function htmlText() { return monacoReady && htmlEditor ? htmlEditor.getValue() : document.getElementById("htmlOutput").textContent; }
 
       /* ───────── init ───────── */
       function init() {
@@ -220,6 +239,11 @@
           try { const legacy = JSON.parse(localStorage.getItem("db_studio_state") || "{}"); if (legacy.apiKey) state.apiKey = legacy.apiKey; } catch (e) {}
         }
         updateKeyPill();
+
+        // AI autocomplete toggle — default on when a key is present, unless the user turned it off
+        const savedAi = localStorage.getItem("smc_ai_complete");
+        aiEnabled = savedAi === null ? !!state.apiKey : savedAi === "1";
+        updateAiPill();
 
         const params = new URLSearchParams(location.search);
         state.ref = (params.get("ref") || "").trim();
@@ -396,14 +420,14 @@
           "smc-overlay-outer{position:static!important;top:auto;left:auto;transform:none!important}body{margin:0}" +
           "smc-bar,smc-final-message,smc-shake-msg,smc-close-safe,smc-success-message,smc-loader-bg,smc-cp-msg{display:none!important}" +
           "smc-img img[src=''],smc-img img:not([src]){display:none}";
+        // Build from the EDITOR content so hand-edits in the CSS/HTML boxes update the preview too.
+        // cssText() already contains @imports + smc-bg font + variables + layout; htmlText() is the markup.
         return (
           "<!doctype html><html><head><meta charset='utf-8'>" +
-          "<style>" + fonts + "</style>" +
           "<style>" + PAGE_STYLES + "</style>" +
-          "<style>" + a.css + "</style>" +
+          "<style>" + cssText() + "</style>" +
           "<style>" + preview + "</style>" +
-          "<style>" + overrideCss() + "</style>" +
-          "</head><body>" + replaceTokens(a.html) + "</body></html>"
+          "</head><body>" + replaceTokens(htmlText()) + "</body></html>"
         );
       }
       function updateIframe() {
@@ -416,7 +440,11 @@
       // keeping all layout rules — ready to paste into a new overlay's Custom CSS.
       function renderOutput() {
         const out = document.getElementById("output");
-        if (!state.hasSource) { out.textContent = "/* No overlay source loaded for " + state.ref + ". */"; return; }
+        if (!state.hasSource) {
+          out.textContent = "/* No overlay source loaded for " + state.ref + ". */";
+          if (cssEditor) cssEditor.setValue(out.textContent);
+          return;
+        }
         let css = state.asset.css;
         // drop the overlay's existing @import lines (we re-add the current ones at the top)
         css = css.replace(/@import[^;]+;[ \t]*\r?\n?/g, "");
@@ -429,7 +457,9 @@
         });
         css = css.replace(/^\s+/, "");
         const imports = (state.fontImports || []).join("\n");
-        out.textContent = (imports ? imports + "\n" : "") + css;
+        const text = (imports ? imports + "\n" : "") + css;
+        out.textContent = text;
+        if (cssEditor) cssEditor.setValue(text);
       }
 
       /* ───────── extract via Claude ───────── */
@@ -495,14 +525,14 @@
       }
 
       /* ───────── output actions ───────── */
-      function copyOutput() { navigator.clipboard.writeText(document.getElementById("output").textContent).then(() => setStatus("ok", "✓ CSS copied."), () => setStatus("err", "Could not copy.")); }
+      function copyOutput() { navigator.clipboard.writeText(cssText()).then(() => setStatus("ok", "✓ CSS copied."), () => setStatus("err", "Could not copy.")); }
       function downloadOutput() {
-        const blob = new Blob([document.getElementById("output").textContent], { type: "text/css" });
+        const blob = new Blob([cssText()], { type: "text/css" });
         const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = (state.ref || "overlay") + "-branded.css"; a.click();
       }
-      function copyHtml() { navigator.clipboard.writeText(document.getElementById("htmlOutput").textContent).then(() => setStatus("ok", "✓ HTML copied."), () => setStatus("err", "Could not copy.")); }
+      function copyHtml() { navigator.clipboard.writeText(htmlText()).then(() => setStatus("ok", "✓ HTML copied."), () => setStatus("err", "Could not copy.")); }
       function downloadHtml() {
-        const blob = new Blob([document.getElementById("htmlOutput").textContent], { type: "text/html" });
+        const blob = new Blob([htmlText()], { type: "text/html" });
         const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = (state.ref || "overlay") + ".html"; a.click();
       }
       function resetVars() {
@@ -522,8 +552,44 @@
       /* ───────── api key ───────── */
       function openKeyModal() { document.getElementById("keyInput").value = state.apiKey || ""; document.getElementById("keyModal").classList.add("show"); setTimeout(() => document.getElementById("keyInput").focus(), 50); }
       function closeKeyModal() { document.getElementById("keyModal").classList.remove("show"); }
-      function saveKey() { const k = document.getElementById("keyInput").value.trim(); state.apiKey = k; try { localStorage.setItem(KEY_STORE, k); } catch (e) {} updateKeyPill(); closeKeyModal(); }
+      function saveKey() { const k = document.getElementById("keyInput").value.trim(); state.apiKey = k; try { localStorage.setItem(KEY_STORE, k); } catch (e) {} updateKeyPill(); updateAiPill(); closeKeyModal(); }
       function updateKeyPill() { const p = document.getElementById("keyPill"); if (state.apiKey) { p.className = "key-pill set"; p.textContent = "API key: set"; } else { p.className = "key-pill unset"; p.textContent = "API key: not set"; } }
+
+      /* ───────── AI (Copilot-style) inline autocomplete ───────── */
+      function toggleAi() {
+        if (!state.apiKey) { openKeyModal(); return; }
+        aiEnabled = !aiEnabled;
+        try { localStorage.setItem("smc_ai_complete", aiEnabled ? "1" : "0"); } catch (e) {}
+        updateAiPill();
+      }
+      function updateAiPill() {
+        const p = document.getElementById("aiPill");
+        if (!p) return;
+        if (!state.apiKey) { p.className = "key-pill unset"; p.textContent = "✨ AI: needs key"; return; }
+        p.className = "key-pill " + (aiEnabled ? "set" : "unset");
+        p.textContent = "✨ AI: " + (aiEnabled ? "on" : "off");
+      }
+
+      // Ask Claude to continue the code at the cursor (fill-in-the-middle style)
+      async function claudeComplete(lang, before, after, signal) {
+        const key = state.apiKey || localStorage.getItem(KEY_STORE) || "";
+        if (!key) return "";
+        const prompt =
+          "You are an inline code-autocomplete engine for " + (lang || "css").toUpperCase() +
+          " inside an intent.ly overlay (SMC) editor. Continue the code EXACTLY at the cursor marker <|>. " +
+          "Return ONLY the raw text to insert at the cursor — no markdown fences, no explanation, and do not repeat the surrounding code. " +
+          "Follow intent.ly SMC conventions (smc- custom elements, --smc-* CSS variables).\n\n" +
+          "CODE:\n" + before.slice(-2000) + "<|>" + after.slice(0, 400);
+        const res = await fetch("https://api.anthropic.com/v1/messages", {
+          method: "POST", signal,
+          headers: { "Content-Type": "application/json", "x-api-key": key, "anthropic-version": "2023-06-01", "anthropic-dangerous-direct-browser-calls": "true" },
+          body: JSON.stringify({ model: COMPLETION_MODEL, max_tokens: 160, messages: [{ role: "user", content: prompt }] }),
+        });
+        if (!res.ok) return "";
+        const data = await res.json();
+        let t = (data.content || []).map((b) => b.text || "").join("");
+        return t.replace(/^```[a-z]*\s*/i, "").replace(/```\s*$/i, "");
+      }
 
       /* ───────── helpers ───────── */
       function setStatus(kind, html) { const el = document.getElementById("status"); el.className = "status " + kind; el.innerHTML = html; }
@@ -539,6 +605,146 @@
 
       document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeKeyModal(); });
       init();
+    </script>
+
+    <!-- Monaco (the VS Code editor): syntax highlighting + IntelliSense for the CSS/HTML boxes.
+         Loaded from CDN, so full IntelliSense needs the page served over http (npm run dev / Vercel). -->
+    <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs/loader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/emmet-monaco-es@5.5.0/dist/emmet-monaco.min.js"></script>
+    <script>
+      (function () {
+        if (typeof require === "undefined") return; // loader didn't load (offline) — keep the <pre> fallback
+        const BASE = "https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/";
+        // let Monaco's language workers load cross-origin from the CDN
+        self.MonacoEnvironment = {
+          getWorkerUrl: function () {
+            return (
+              "data:text/javascript;charset=utf-8," +
+              encodeURIComponent(
+                "self.MonacoEnvironment={baseUrl:'" + BASE + "'};" +
+                "importScripts('" + BASE + "vs/base/worker/workerMain.js');",
+              )
+            );
+          },
+        };
+        require.config({ paths: { vs: BASE + "vs" } });
+        require(["vs/editor/editor.main"], function () {
+          const opts = {
+            theme: "vs-dark",
+            minimap: { enabled: false },
+            automaticLayout: true,
+            fontSize: 12,
+            scrollBeyondLastLine: false,
+            wordWrap: "on",
+            tabSize: 2,
+            padding: { top: 10, bottom: 10 },
+            snippetSuggestions: "top",
+            tabCompletion: "on",
+            quickSuggestions: { other: true, comments: false, strings: true },
+            suggestOnTriggerCharacters: true,
+            inlineSuggest: { enabled: true },
+          };
+          cssEditor = monaco.editor.create(
+            document.getElementById("cssHost"),
+            Object.assign({ language: "css", value: document.getElementById("output").textContent }, opts),
+          );
+          htmlEditor = monaco.editor.create(
+            document.getElementById("htmlHost"),
+            Object.assign({ language: "html", value: document.getElementById("htmlOutput").textContent }, opts),
+          );
+          monacoReady = true;
+          monaco.editor.setTheme("vs-dark");
+          // swap the plain <pre> boxes for the live editors
+          document.getElementById("cssHost").style.display = "block";
+          document.getElementById("output").style.display = "none";
+          document.getElementById("htmlHost").style.display = "block";
+          document.getElementById("htmlOutput").style.display = "none";
+
+          // Editing either editor updates the live preview (debounced inside updateIframe)
+          cssEditor.onDidChangeModelContent(function () { if (previewMode === "iframe") updateIframe(); });
+          htmlEditor.onDidChangeModelContent(function () { if (previewMode === "iframe") updateIframe(); });
+
+          installSmcSnippets(monaco);
+          installAiAutocomplete(monaco);
+
+          // Emmet abbreviation expansion (dib -> display:inline-block; etc.), if the plugin loaded
+          if (window.emmetMonaco) {
+            try {
+              window.emmetMonaco.emmetCSS(monaco, ["css"]);
+              window.emmetMonaco.emmetHTML(monaco, ["html"]);
+            } catch (e) {}
+          }
+        });
+      })();
+
+      // VS Code-style snippet suggestions tailored to intent.ly overlays
+      function installSmcSnippets(monaco) {
+        const R = monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet;
+        const K = monaco.languages.CompletionItemKind.Snippet;
+        const rangeAt = (model, position) => {
+          const w = model.getWordUntilPosition(position);
+          return {
+            startLineNumber: position.lineNumber, endLineNumber: position.lineNumber,
+            startColumn: w.startColumn, endColumn: w.endColumn,
+          };
+        };
+        const cssSnippets = [
+          {
+            label: "smc-vars", detail: "SMC overlay variable block",
+            insertText:
+              "smc-overlay-inner {\n  --smc-mainBkg: ${1:#ffffff};\n  --smc-textColour: ${2:#111111};\n  --smc-btnBkg: ${3:#111111};\n  --smc-btnText: ${4:#ffffff};\n  --smc-btnBkgHover: ${5:#000000};\n  --smc-border: ${6:8px};\n}",
+          },
+          {
+            label: "smc-button", detail: "Button + hover using SMC vars",
+            insertText:
+              ".smc-button {\n  background: var(--smc-btnBkg);\n  color: var(--smc-btnText);\n  border-radius: var(--smc-border);\n  padding: ${1:12px};\n  transition: all .2s ease;\n}\n.smc-button:hover {\n  background: var(--smc-btnBkgHover);\n}",
+          },
+          {
+            label: "smc-mobile", detail: "Mobile breakpoint",
+            insertText: "@media (max-width: ${1:768px}) {\n  smc-overlay-inner {\n    width: ${2:90vw};\n    $0\n  }\n}",
+          },
+        ];
+        const htmlSnippets = [
+          {
+            label: "smc-text", detail: "SMC text box",
+            insertText: '<smc-text class="smc-text${1:1} smc-animated smc-fadeIn" data-edits="text${1:1}">{text${1:1}}</smc-text>',
+          },
+          {
+            label: "smc-redirect", detail: "Click-to-redirect option",
+            insertText:
+              '<smc-option class="smc-clickRedirect">\n  <smc-input-group>\n    <span class="smc-button">{text10}</span>\n  </smc-input-group>\n</smc-option>',
+          },
+        ];
+        const make = (list) => (model, position) => ({
+          suggestions: list.map((s) => ({
+            label: s.label, kind: K, insertText: s.insertText, insertTextRules: R,
+            detail: s.detail, documentation: s.detail, range: rangeAt(model, position),
+          })),
+        });
+        monaco.languages.registerCompletionItemProvider("css", { provideCompletionItems: make(cssSnippets) });
+        monaco.languages.registerCompletionItemProvider("html", { provideCompletionItems: make(htmlSnippets) });
+      }
+
+      // Copilot-style ghost-text completions, powered by Claude
+      function installAiAutocomplete(monaco) {
+        monaco.languages.registerInlineCompletionsProvider(["css", "html"], {
+          provideInlineCompletions: async function (model, position, context, token) {
+            if (!aiEnabled || !state.apiKey) return { items: [] };
+            await new Promise((r) => setTimeout(r, 350)); // debounce; cancelled if the user keeps typing
+            if (token.isCancellationRequested) return { items: [] };
+            const before = model.getValueInRange(new monaco.Range(1, 1, position.lineNumber, position.column));
+            const last = model.getLineCount();
+            const after = model.getValueInRange(new monaco.Range(position.lineNumber, position.column, last, model.getLineMaxColumn(last)));
+            const ac = new AbortController();
+            token.onCancellationRequested(() => ac.abort());
+            let text = "";
+            try { text = await claudeComplete(model.getLanguageId(), before, after, ac.signal); } catch (e) { return { items: [] }; }
+            if (!text || token.isCancellationRequested) return { items: [] };
+            return { items: [{ insertText: text, range: new monaco.Range(position.lineNumber, position.column, position.lineNumber, position.column) }] };
+          },
+          freeInlineCompletions: function () {},
+        });
+      }
     </script>
   </body>
 </html>
