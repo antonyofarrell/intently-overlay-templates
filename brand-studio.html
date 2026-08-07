@@ -92,12 +92,20 @@
       .editor-host { height: 340px; border: 1px solid #2b2b2b; border-radius: var(--radius-sm); overflow: hidden; background: #1e1c1a; }
       /* Force the editor + its popups dark, even if the page styles bleed into Monaco's widgets */
       .monaco-editor, .monaco-editor .overflow-guard, .monaco-editor-background, .monaco-editor .margin { background: #1e1c1a !important; }
-      .monaco-editor .suggest-widget, .monaco-editor .suggest-details, .suggest-widget, .monaco-hover, .monaco-editor-hover {
-        background: #26241f !important; color: #eae6df !important; border-color: #3a372f !important;
+      /* Force the whole suggestion/hover popup subtree dark — the page styles were bleeding
+         into a child element and overriding Monaco's dark background. */
+      .suggest-widget, .suggest-widget *,
+      .monaco-hover, .monaco-hover *,
+      .suggest-details, .suggest-details * {
+        background-color: #26241f !important;
+        color: #d7d2ca !important;
+        border-color: #3a372f !important;
       }
-      .monaco-list .monaco-list-row { color: #cfcac2 !important; }
-      .monaco-list .monaco-list-row.focused, .monaco-list .monaco-list-row:hover { background: #3a372f !important; color: #fff !important; }
-      .monaco-highlighted-label .highlight, .monaco-list .monaco-list-row .highlight { color: #e6b450 !important; background: transparent !important; }
+      .suggest-widget .monaco-list-row.focused,
+      .suggest-widget .monaco-list-row.focused * { background-color: #3a372f !important; color: #ffffff !important; }
+      .suggest-widget .highlight,
+      .suggest-widget .monaco-highlighted-label .highlight { color: #e6b450 !important; }
+      .suggest-widget .codicon, .suggest-widget .suggest-icon { background-color: transparent !important; }
 
       .overlay-modal { position: fixed; inset: 0; background: rgba(0,0,0,.4); display: none; align-items: center; justify-content: center; z-index: 100; }
       .overlay-modal.show { display: flex; }
