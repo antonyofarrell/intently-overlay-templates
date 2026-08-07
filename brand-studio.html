@@ -226,7 +226,7 @@
     <script>
       const CAT_LABELS = { db: "Dynamic Basket", pr: "Recomminder", rd: "Redirect", rv: "Click to Reveal", ms: "Miscellaneous" };
       const PASS_STORE = "smc_brand_studio_pass";
-      const MODEL = "claude-sonnet-4-20250514"; // bump when your key has access to a newer Sonnet
+      const MODEL = "claude-sonnet-5"; // current Sonnet (Sonnet 4 retired 2026-06-15); change if your key lacks access
       const COMPLETION_MODEL = "claude-haiku-4-5-20251001"; // fast model for inline (ghost-text) autocomplete
 
       // Sample content so template tokens ({text1} etc.) render like a real overlay in the preview
@@ -530,7 +530,7 @@
         const res = await fetch("/api/anthropic", {
           method: "POST",
           headers: { "Content-Type": "application/json", "x-brand-passphrase": state.pass, "anthropic-version": "2023-06-01" },
-          body: JSON.stringify({ model: MODEL, max_tokens: 2000, tools: [{ type: "web_search_20250305", name: "web_search" }], messages: [{ role: "user", content: prompt }] }),
+          body: JSON.stringify({ model: MODEL, max_tokens: 2000, tools: [{ type: "web_search_20260209", name: "web_search" }], messages: [{ role: "user", content: prompt }] }),
         });
         if (!res.ok) { const err = await res.json().catch(() => ({})); throw new Error((err && err.error && err.error.message) || "HTTP " + res.status); }
         const data = await res.json();
