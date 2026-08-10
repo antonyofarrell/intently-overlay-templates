@@ -103,17 +103,17 @@ module.exports = async (req, res) => {
       }
     }
 
-    // Fetch the linked stylesheets (bounded), skipping blocked hosts
+    // Fetch the linked stylesheets concurrently (bounded), skipping blocked hosts.
+    // Parallel so total time is ~one fetch timeout, not the sum of all of them.
     const fetched = [];
-    for (const u of sheetUrls.slice(0, MAX_SHEETS)) {
-      if (css.length > MAX_CSS_BYTES) break;
-      let host;
-      try { host = new URL(u).hostname; } catch (e) { continue; }
-      if (isBlockedHost(host)) continue;
-      try {
-        const r = await fetchText(u, MAX_CSS_BYTES);
-        if (r.ok && r.text) { css += "\n" + r.text; fetched.push(u); }
-      } catch (e) {}
+    const toFetch = sheetUrls.slice(0, MAX_SHEETS).filter((u) => {
+      try { return !isBlockedHost(new URL(u).hostname); } catch (e) { return false; }
+    });
+    const results = await Promise.all(
+      toFetch.map((u) => fetchText(u, MAX_CSS_BYTES).then((r) => (r.ok && r.text ? { u, text: r.text } : null)).catch(() => null))
+    );
+    for (const r of results) {
+      if (r && css.length < MAX_CSS_BYTES) { css += "\n" + r.text; fetched.push(r.u); }
     }
     if (css.length > MAX_CSS_BYTES) css = css.slice(0, MAX_CSS_BYTES);
 

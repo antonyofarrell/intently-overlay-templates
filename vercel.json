@@ -3,5 +3,8 @@
   "buildCommand": "echo 'static site — no build step'",
   "outputDirectory": ".",
   "cleanUrls": false,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "functions": {
+    "api/*.js": { "maxDuration": 60 }
+  }
 }

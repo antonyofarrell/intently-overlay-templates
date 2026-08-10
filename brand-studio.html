@@ -497,7 +497,7 @@
         try {
           const scraped = await scrapeSite(url); // server-side: real HTML + linked CSS tokens
           setStatus("info", '<span class="spinner"></span>Mapping ' + shortUrl(url) + " to the overlay…");
-          const raw = await callClaude(buildPrompt(url, scraped));
+          const raw = await callClaude(buildPrompt(url, scraped), !scraped);
           const parsed = parseJson(raw);
           if (!parsed) throw new Error("Could not read a valid response. Try again.");
           if (parsed.vars && typeof parsed.vars === "object") {
@@ -609,11 +609,16 @@
         );
       }
 
-      async function callClaude(prompt) {
+      // useWebTools: only when the server-side scrape failed. When it succeeded we already have
+      // the real CSS tokens in the prompt, so the model just maps them — no web browsing, far
+      // faster, and avoids the serverless timeout that web_fetch/web_search can trigger.
+      async function callClaude(prompt, useWebTools) {
+        const body = { model: MODEL, max_tokens: 8000, messages: [{ role: "user", content: prompt }] };
+        if (useWebTools) body.tools = [{ type: "web_fetch_20260209", name: "web_fetch", max_uses: 8 }, { type: "web_search_20260209", name: "web_search" }];
         const res = await fetch("/api/anthropic", {
           method: "POST",
           headers: { "Content-Type": "application/json", "x-brand-passphrase": state.pass, "anthropic-version": "2023-06-01" },
-          body: JSON.stringify({ model: MODEL, max_tokens: 8000, tools: [{ type: "web_fetch_20260209", name: "web_fetch", max_uses: 8 }, { type: "web_search_20260209", name: "web_search" }], messages: [{ role: "user", content: prompt }] }),
+          body: JSON.stringify(body),
         });
         if (!res.ok) { const err = await res.json().catch(() => ({})); throw new Error((err && err.error && err.error.message) || "HTTP " + res.status); }
         const data = await res.json();
