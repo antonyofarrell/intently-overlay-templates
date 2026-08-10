@@ -572,6 +572,7 @@
           "- Only include a Google Fonts @import if that exact font is actually loaded by the site.\n" +
           "- Font weights: any font-weight value you set (e.g. --smc-btnFontWeight) MUST be one of the weights loaded by your @import — if you use a weight the import doesn't include, add that weight to the @import URL (Google Fonts css2 supports 'family=Name:wght@400;600;700'). Never set a weight that isn't loaded, or it will faux-bold or fall back.\n" +
           "- Colours: take the real brand colours from the fetched CSS/markup. Map the primary button/CTA colour to the button variable(s), the main accent to accent variables, body text colour to text variables.\n" +
+          "- Buttons are FILLED CTAs: put the brand's primary/accent colour on the button background (e.g. --smc-btnBkg), set the button text to a colour that clearly contrasts it, and set any button-border variable to match the button background — even when the template's default button is a white/outline style.\n" +
           "- Keep each variable's UNIT/kind: colour variables → hex (rgba/8-hex only if transparency is needed); size/radius variables → keep px/rem etc.\n" +
           "- Ensure button text clearly contrasts the button background.\n" +
           "Current body font: " + state.bodyFont + "\nReturn JSON only."

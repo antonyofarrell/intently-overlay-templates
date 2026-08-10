@@ -1,14 +1,25 @@
 @import url(https://fonts.smct.co/smc-HelveticaNeueLTCom/smc-HelveticaNeueLTCom.css);
 
+smc-overlay-inner {
+    --smc-mainBkg: #ffffff;
+    --smc-cardBkg: #ffffff;
+    --smc-textColour: #000000;
+    --smc-textColour2: #262626;
+    --smc-btnBkg: #ffffff;
+    --smc-btnText: #000000;
+    --smc-btnBorder: 1px solid #000000;
+    --smc-frameBorder: 2px;
+}
+
 smc-bg * {
     font-family: "HelveticaNeueLTCom", helvetica, sans-serif;
 }
 
 smc-overlay-inner {
-    background-color: #fff;
+    background-color: var(--smc-mainBkg);
     width: 600px;
     height: 360px;
-    border-radius: 2px;
+    border-radius: var(--smc-frameBorder);
 }
 
 /* Align the content Left */
@@ -27,7 +38,7 @@ smc-long-close {
     font-weight: 500;
     margin: 15px auto;
     text-align: left;
-    color: #000;
+    color: var(--smc-textColour);
     line-height: 1.2;
 }
 
@@ -42,9 +53,9 @@ smc-long-close {
 .smc-button {
     max-width: 200px;
     margin: 80px auto auto 0;
-    background-color: #fff;
-    color: #000;
-    border: 1px solid #000;
+    background-color: var(--smc-btnBkg);
+    color: var(--smc-btnText);
+    border: var(--smc-btnBorder);
     padding: 16px;
     font-size: 15px;
     text-transform: uppercase;
@@ -57,7 +68,7 @@ smc-close {
 }
 
 smc-close a.smc-link {
-    color: #000;
+    color: var(--smc-textColour);
 }
 
 smc-cart {
@@ -74,7 +85,7 @@ smc-cart {
     flex-wrap: nowrap;
     border-radius: 0;
     transition: all 0.3s ease;
-    background: #fff;
+    background: var(--smc-cardBkg);
 }
 
 smc-product {
@@ -91,7 +102,7 @@ smc-product-oldprice {
     display: block;
     margin: 5px auto;
     font-size: 13px;
-    color: #262626;
+    color: var(--smc-textColour2);
     line-height: 1.3;
     text-align: left;
     width: 100%;
@@ -120,7 +131,7 @@ smc-product-price {
 }
 
 
-/* MOBILE STYLES 
+/* MOBILE STYLES
 smc-overlay-inner{
     width: 320px;
     min-height: 500px;
