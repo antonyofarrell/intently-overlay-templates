@@ -500,13 +500,17 @@
           // @font-face, or a colour custom property). A lone font — or nothing — isn't enough, so
           // we keep web browsing on to actually find the brand's colours.
           const hasColour = (v) => /^\s*#|^\s*(rgb|hsl)/i.test(String(v));
-          const strong = !!(scraped && (
+          // We can map locally (no slow web browsing) whenever the scrape gave us usable content:
+          // colour tokens, a real font, OR the raw CSS sample to read rules from. Only browse when
+          // the scrape returned essentially nothing (bot-blocked / fully JS-rendered).
+          const canMapLocally = !!(scraped && (
             scraped.themeColor ||
             (scraped.fontFaces && scraped.fontFaces.length) ||
-            Object.values(scraped.cssVars || {}).some(hasColour)
+            Object.values(scraped.cssVars || {}).some(hasColour) ||
+            (scraped.cssSample && scraped.cssSample.length > 200)
           ));
           setStatus("info", '<span class="spinner"></span>Mapping ' + shortUrl(url) + " to the overlay…");
-          const raw = await callClaude(buildPrompt(url, scraped), !strong);
+          const raw = await callClaude(buildPrompt(url, scraped), !canMapLocally);
           const parsed = parseJson(raw);
           if (!parsed) throw new Error("Could not read a valid response. Try again.");
           if (parsed.vars && typeof parsed.vars === "object") {
@@ -536,7 +540,8 @@
             (data.cssVars && Object.keys(data.cssVars).length) ||
             (data.fontFaces && data.fontFaces.length) ||
             (data.fontFamilies && data.fontFamilies.length) ||
-            data.themeColor
+            data.themeColor ||
+            (data.cssSample && data.cssSample.length > 200)
           );
           return has ? data : null;
         } catch (e) { return null; }
@@ -583,12 +588,17 @@
             "Interpret them: custom properties named like --color*Btn*/--*accent*/--*primary* are usually the CTA/button colour; " +
             "--color*Text*/--*body* the text colour; --color*Bg*/--*background*/--colorBody the background. " +
             "For the font, use fontFamilies[0] (the most-used real typeface on the site) or a fontFaces family — that IS the brand font even if it's a common name like Montserrat; only fall back to a system stack if fontFamilies and fontFaces are both empty. " +
-            "You may still use web_fetch/web_search to disambiguate the PRIMARY CTA colour or check a product page, but do not override these tokens with guesses.\n\n";
+            "If a value is missing or ambiguous, resolve it from the RAW CSS below by reading the actual rules; do not override these tokens with guesses.\n\n";
           const hints = canonicalHints(scraped, state.vars);
           if (Object.keys(hints).length) {
             scrapedBlock +=
               "SUGGESTED MAPPING — these overlay variables were pre-matched to the site's tokens by name and are strong defaults. Use them as-is unless the tokens clearly contradict them; then just fill the remaining variables:\n" +
               JSON.stringify(hints) + "\n\n";
+          }
+          if (scraped.cssSample && scraped.cssSample.length > 200) {
+            scrapedBlock +=
+              "RAW CSS from the site's stylesheets (already fetched for you). When the token fields above are sparse, read these ACTUAL rules to find the brand's real values: the primary button/CTA colour (a prominent non-white background on a .btn/.button/[class*=cta]/add-to-cart rule), body text colour, link/accent colour, and font-family. Extract from what's here — do NOT invent values:\n```css\n" +
+              scraped.cssSample + "\n```\n\n";
           }
         } else {
           scrapedBlock =
@@ -623,7 +633,7 @@
       // faster, and avoids the serverless timeout that web_fetch/web_search can trigger.
       async function callClaude(prompt, useWebTools) {
         const body = { model: MODEL, max_tokens: 8000, messages: [{ role: "user", content: prompt }] };
-        if (useWebTools) body.tools = [{ type: "web_fetch_20260209", name: "web_fetch", max_uses: 8 }, { type: "web_search_20260209", name: "web_search" }];
+        if (useWebTools) body.tools = [{ type: "web_fetch_20260209", name: "web_fetch", max_uses: 4 }];
         const res = await fetch("/api/anthropic", {
           method: "POST",
           headers: { "Content-Type": "application/json", "x-brand-passphrase": state.pass, "anthropic-version": "2023-06-01" },

@@ -167,6 +167,10 @@ module.exports = async (req, res) => {
     }
     const fontFamilies = Object.keys(famCount).sort((a, b) => famCount[b] - famCount[a]).map((k) => famLabel[k]).slice(0, 8);
 
+    // A sample of the raw combined CSS so the model can read real rules (button/text/link
+    // colours) on sites that don't expose CSS custom properties. Comments stripped to save room.
+    const cssSample = css.replace(/\/\*[\s\S]*?\*\//g, " ").replace(/\s+/g, " ").trim().slice(0, 90000);
+
     res.status(200).json({
       finalUrl: base,
       themeColor,
@@ -174,8 +178,9 @@ module.exports = async (req, res) => {
       fontFaces,
       fontFamilies,
       fontImports,
+      cssSample,
       stylesheetsFetched: fetched,
-      counts: { vars: Object.keys(cssVars).length, fontFaces: fontFaces.length, fontFamilies: fontFamilies.length, sheets: fetched.length },
+      counts: { vars: Object.keys(cssVars).length, fontFaces: fontFaces.length, fontFamilies: fontFamilies.length, sheets: fetched.length, cssSampleChars: cssSample.length },
     });
   } catch (e) {
     res.status(502).json({ error: { message: "Scrape failed: " + String(e && e.message ? e.message : e) } });
