@@ -1,5 +1,18 @@
 @import url(https://fonts.smct.co/proxima-nova/proxima-nova.css);
 
+smc-overlay-inner {
+  --smc-mainBkg: #000000;
+  --smc-cardBkg: #ffffff;
+  --smc-textColour: #ffffff;
+  --smc-accent: #d93c08;
+  --smc-btnBkg: #d93c08;
+  --smc-btnText: #ffffff;
+  --smc-btnBorder: 1px solid #d93c08;
+  --smc-btnBkgHover: #ffffff;
+  --smc-btnBorderRadius: 40px;
+  --smc-frameBorderRadius: 2px;
+}
+
 smc-bg * {
   font-family: "proxima-nova-alt-regular", sans-serif !important;
 }
@@ -25,12 +38,12 @@ smc-overlay-outer {
 }
 
 smc-overlay-inner {
-  background-color: #000;
+  background-color: var(--smc-mainBkg);
   width: 320px;
   min-height: 460px;
   padding-bottom: 0;
   overflow: hidden;
-  border-radius: 2px;
+  border-radius: var(--smc-frameBorderRadius);
   position: relative;
   bottom: 0;
   right: 0;
@@ -54,7 +67,7 @@ smc-long-close {
   font-size: 12px;
   font-weight: 500;
   margin: 10px auto 0 auto;
-  color: #fff;
+  color: var(--smc-textColour);
   text-align: left;
   padding: 0 10px;
 }
@@ -72,17 +85,17 @@ smc-long-close {
   font-family: "proxima-nova-alt-regular", sans-serif;
   padding: 10px;
   font-size: 14px;
-  border-radius: 40px;
-  border: 1px solid #d93c08;
+  border-radius: var(--smc-btnBorderRadius);
+  border: var(--smc-btnBorder);
   font-weight: 400;
   min-height: 36px;
-  background-color: #d93c08;
-  color: #fff;
+  background-color: var(--smc-btnBkg);
+  color: var(--smc-btnText);
   transition: all 0.5s ease;
 }
 
 .smc-button:hover {
-  background-color: #fff;
+  background-color: var(--smc-btnBkgHover);
   color: #000;
 }
 
@@ -91,7 +104,7 @@ smc-close {
 }
 
 smc-close a.smc-link {
-  color: #fff;
+  color: var(--smc-textColour);
 }
 
 smc-cart {
@@ -103,7 +116,7 @@ smc-cart {
   padding: 15px;
   align-items: center;
   justify-content: center;
-  background-color: #fff;
+  background-color: var(--smc-cardBkg);
   gap: 10px;
 }
 
@@ -169,7 +182,7 @@ smc-product-name {
 
 smc-product-price {
   font-weight: bold;
-  color: #d93c08;
+  color: var(--smc-accent);
 }
 
 smc-product-oldprice {
