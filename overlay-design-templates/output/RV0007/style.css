@@ -4,6 +4,19 @@
 @import url('https://fonts.smct.co/smc-sentientExtraLightItalic/smc-sentientExtraLightItalic.css');
 
 
+smc-overlay-inner {
+  --smc-textColour: #ffffff;
+  --smc-textColour2: #000000;
+  --smc-cardBkg: #ffffff;
+  --smc-borderColour: #ffffff;
+  --smc-font2: "Sentient-Extralight", serif;
+  --smc-btnBkg: #ffffff;
+  --smc-btnText: #000000;
+  --smc-btnBkgHover: #000000;
+  --smc-btnBorder: 1px solid #ffffff;
+  --smc-frameBorderRadius: 4px;
+}
+
 smc-bg * {
   font-family: "Switzer-Light", sans-serif;
 }
@@ -14,7 +27,7 @@ smc-overlay-inner {
 	background-size: cover;
   width: 600px;
   min-height: 320px;
-  border-radius: 4px;
+  border-radius: var(--smc-frameBorderRadius);
   padding-bottom: 0;
 }
 
@@ -35,7 +48,7 @@ smc-long-close {
   font-size: 16px;
   font-weight: 400;
   margin: 10px auto;
-  color: #fff;
+  color: var(--smc-textColour);
   text-align: left;
   line-height: 1.2;
 }
@@ -46,7 +59,7 @@ smc-long-close {
 .smc-text2 {
   font-size:32px;
   margin: 10px auto auto auto;
-  font-family: "Sentient-Extralight", serif;
+  font-family: var(--smc-font2);
 }
 .smc-text2 i{
   font-family: "Sentient-ExtralightItalic", serif;
@@ -58,12 +71,12 @@ smc-long-close {
   position: absolute;
   bottom: 20px;
   right: 20px;
-  background: #fff;
+  background: var(--smc-cardBkg);
   padding: 8px;
   width: 240px;
   box-shadow: 2px 2px 10px #00000052;
   border-radius: 2px;
-  color: #000;
+  color: var(--smc-textColour2);
   text-align: center;
 }
 
@@ -80,19 +93,19 @@ smc-cover,
 smc-code {
   font-size: 14px;
   padding: 12px;
-  border: 1px solid #fff;
+  border: 1px solid var(--smc-borderColour);
   text-transform: uppercase;
 }
 
 smc-cover {
-  background-color: #fff;
-  color: #000;
+  background-color: var(--smc-btnBkg);
+  color: var(--smc-btnText);
   letter-spacing: 1px;
   font-weight: bold;
 }
 
 smc-cover:hover {
-  background: #000;
+  background: var(--smc-btnBkgHover);
   color: #fff;
 }
 
@@ -109,8 +122,8 @@ smc-long-close.smc-engaged {
 }
 
 smc-long-close.smc-engaged>a.smc-link {
-  background-color: #fff;
-  color: #000;
+  background-color: var(--smc-btnBkg);
+  color: var(--smc-btnText);
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: bold;
@@ -118,7 +131,7 @@ smc-long-close.smc-engaged>a.smc-link {
   font-size: 14px;
   margin: auto;
   padding: 12px;
-  border: 1px solid #fff;
+  border: 1px solid var(--smc-borderColour);
 }
 
 /* Copy To Clipboard Button */

@@ -1,16 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap');
 
+smc-overlay-inner {
+--smc-mainBkg: #ffffff;
+--smc-textColour: #000000;
+--smc-btnBkg: #000000;
+--smc-btnText: #ffffff;
+--smc-btnBorder: 1px solid #000000;
+--smc-btnBkgHover: #ffffff;
+--smc-btnBorderRadius: 999px;
+--smc-frameBorderRadius: 3px;
+}
+
 smc-bg * {
 font-family: 'Inter', sans-serif;
 }
 
 smc-overlay-inner {
-background-color: #fff;
+background-color: var(--smc-mainBkg);
 width: 700px;
 min-height: 350px;
 padding-bottom: 0;
 overflow: hidden;
-border-radius: 3px;
+border-radius: var(--smc-frameBorderRadius);
 }
 
 /* Align the content Left */
@@ -35,7 +46,7 @@ font-size: 16px;
 font-weight: 400;
 margin: 15px auto;
 text-align: left;
-color: #000;
+color: var(--smc-textColour);
 }
 
 .smc-text1 {
@@ -52,18 +63,18 @@ font-size: 12px;
 }
 
 .smc-button {
-background-color: #000;
-border: 1px solid #000;
-color: #fff;
+background-color: var(--smc-btnBkg);
+border: var(--smc-btnBorder);
+color: var(--smc-btnText);
 margin: 60px auto auto 405px;
 max-width: 180px;
-border-radius: 999px;
+border-radius: var(--smc-btnBorderRadius);
 font-size: 14px;
 padding: 14px;
 }
 .smc-button:hover{
-background-color: #fff;
-color: #000;
+background-color: var(--smc-btnBkgHover);
+color: var(--smc-btnBkg);
 }
 smc-close {
 font-size: 14px;

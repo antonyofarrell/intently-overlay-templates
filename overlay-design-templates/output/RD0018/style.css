@@ -1,6 +1,18 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,700');
 @import url('https://fonts.smct.co/smc-ABC-Gravity/smc-ABC-Gravity.css');
 
+smc-overlay-inner {
+--smc-textColour: #ffffff;
+--smc-accent: #dee965;
+--smc-font2: "ABCGravity-Normal", sans-serif;
+--smc-btnBkg: #dee965;
+--smc-btnText: #043b3b;
+--smc-btnBorder: 2px solid #dee965;
+--smc-btnBkgHover: #043b3b;
+--smc-btnBorderRadius: 50px;
+--smc-frameBorderRadius: 10px;
+}
+
 smc-bg * {
 font-family: 'Nunito Sans', sans-serif;
 }
@@ -33,7 +45,7 @@ smc-overlay-inner {
 background: radial-gradient(circle farthest-side at 10% 95%, #1D4F4F 60%, #043C3D 60%);
 width: 650px;
 min-height: auto;
-border-radius: 10px;
+border-radius: var(--smc-frameBorderRadius);
 padding: 30px;
 position: relative;
 bottom: 0;
@@ -80,15 +92,15 @@ right: 70px;
 font-weight: 300;
 font-size: 20px;
 margin: 0;
-color: #fff;
+color: var(--smc-textColour);
 line-height: 1.2;
 text-align: left;
 }
 
 .smc-text1 {
-font-family: 'ABCGravity-Normal', sans-serif;
+font-family: var(--smc-font2);
 font-size: 34px;
-color: #dee965;
+color: var(--smc-accent);
 }
 
 .smc-text2 {
@@ -98,16 +110,16 @@ font-size: 16px;
 
 .smc-text3 {
 font-size: 16px;
-font-family: 'ABCGravity-Normal', sans-serif;
+font-family: var(--smc-font2);
 }
 
 .smc-button {
 margin: 0;
 padding: 20px 10px;
-border-radius: 50px;
-background: #dee965;
-border: 2px solid #dee965;
-color: #043b3b;
+border-radius: var(--smc-btnBorderRadius);
+background: var(--smc-btnBkg);
+border: var(--smc-btnBorder);
+color: var(--smc-btnText);
 text-align: center;
 font-size: 16px;
 transition: all .2s ease;
@@ -116,6 +128,6 @@ height:60px;
 }
 
 .smc-button:hover {
-background-color: #043b3b;
-color: #dee965;
+background-color: var(--smc-btnBkgHover);
+color: var(--smc-btnBkg);
 }

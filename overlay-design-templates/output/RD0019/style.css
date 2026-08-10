@@ -1,10 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Rubik:wght@300..900&display=swap');
+
+smc-overlay-inner {
+--smc-mainBkg: #ffffff;
+--smc-textColour: #000000;
+--smc-font2: "Oswald", sans-serif;
+--smc-btnBkg: #01b0c8;
+--smc-btnText: #000000;
+--smc-btnBkgHover: #3d3d3d;
+}
+
 smc-bg * {
 font-family: 'Rubik', sans-serif;
 }
 
 smc-overlay-inner {
-background:#fff;
+background:var(--smc-mainBkg);
 width: 450px;
 min-height: auto;
 padding: 0;
@@ -27,14 +37,14 @@ background-image: url("{content6}");
 .smc-text2,
 .smc-text3,
 .smc-text4 {
-color: #000;
+color: var(--smc-textColour);
 line-height: 1.2;
 }
 .smc-text1 {
 margin: 0 auto;
 text-transform: uppercase;
 font-size: 26px;
-font-family: "Oswald", sans-serif;
+font-family: var(--smc-font2);
 font-weight: 500;
 }
 
@@ -50,8 +60,8 @@ padding: 10px 30px 30px 30px;
 
 }
 smc-cta {
-background:#01b0c8;
-color: #000;
+background:var(--smc-btnBkg);
+color: var(--smc-btnText);
 font-size: 15px;
 padding: 12px;
 flex: 0 0 31%;
@@ -68,7 +78,7 @@ transition: all 0.3s ease;
 }
 
 smc-cta:hover {
-background: #3d3d3d;
+background: var(--smc-btnBkgHover);
 color: #fff;
 }
 smc-long-close{
