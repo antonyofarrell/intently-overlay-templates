@@ -231,13 +231,39 @@
       const MODEL = "claude-sonnet-5"; // current Sonnet (Sonnet 4 retired 2026-06-15); change if your key lacks access
       const COMPLETION_MODEL = "claude-haiku-4-5-20251001"; // fast model for inline (ghost-text) autocomplete
 
-      // Sample content so template tokens ({text1} etc.) render like a real overlay in the preview
-      const TOKENS = {
-        text1: "You left something in your basket",
-        text2: "Complete your order before it's gone",
-        text10: "Return to basket",
-        smarterbar: "Complete your order and get free delivery",
+      // Sample copy so template tokens ({text1} etc.) render like a real overlay in the preview.
+      // Chosen per category (db / pr / rd / rv / ms) so a Redirect/Reveal overlay doesn't preview
+      // with basket wording. Edit these freely — they're preview-only and never leave the browser.
+      const COPY_BY_CAT = {
+        db: { // Dynamic Basket
+          text1: "You left something in your basket", text2: "Complete your order before it's gone",
+          text3: "Free delivery on orders over £50", text10: "Return to basket", text13: "Return to basket",
+          smarterbar: "Complete your order and get free delivery",
+        },
+        pr: { // Recomminder (recommendations)
+          text1: "You might also like", text2: "Handpicked picks, just for you",
+          text3: "Trending now", text8: "Best seller", text9: "Customer favourite",
+          text10: "Shop now", text12: "Shop now", text13: "Add to basket",
+          smarterbar: "Complete the look and save",
+        },
+        rd: { // Redirect
+          text1: "Before you go…", text2: "Don't miss what's inside",
+          text3: "Handpicked for you", text10: "Take me there", text13: "Continue",
+          smarterbar: "Limited-time offer inside",
+        },
+        rv: { // Click to Reveal
+          text1: "Here's a treat for you", text2: "Unlock your exclusive discount",
+          text3: "Use this code at checkout", text10: "Reveal my code", text13: "Copy code",
+          vc: "SAVE10", "vc-cp": "Copy", smarterbar: "Your reward is waiting",
+        },
+        ms: { // Miscellaneous
+          text1: "Welcome", text2: "Sign up for exclusive offers",
+          text3: "Be the first to know", text10: "Get started", text13: "Sign up",
+          smarterbar: "Join for offers and updates",
+        },
       };
+      // Optional per-template overrides — add "REF": { text1: "…" } entries to fine-tune one overlay.
+      const COPY_BY_REF = {};
 
       let state = {
         ref: null, tmpl: null, pass: "", asset: null, hasSource: false,
@@ -432,7 +458,11 @@
         s += "}";
         return s;
       }
-      function replaceTokens(html) { return html.replace(/\{([\w-]+)\}/g, (m, k) => (k in TOKENS ? TOKENS[k] : "")); }
+      function activeCopy() {
+        const cat = (state.tmpl && state.tmpl.cat) || (state.ref || "").slice(0, 2).toLowerCase();
+        return Object.assign({}, COPY_BY_CAT[cat] || COPY_BY_CAT.db, COPY_BY_REF[state.ref] || {});
+      }
+      function replaceTokens(html) { const c = activeCopy(); return html.replace(/\{([\w-]+)\}/g, (m, k) => (k in c ? c[k] : "")); }
 
       function buildIframeSrcdoc() {
         const a = state.asset;
