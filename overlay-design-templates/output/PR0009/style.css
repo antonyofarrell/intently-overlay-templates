@@ -1,5 +1,16 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700');
 
+smc-overlay-inner {
+	--smc-cardBkg: #ffffff;
+	--smc-textColour: #19124f;
+	--smc-textColour2: #000000;
+	--smc-accent: #000000;
+	--smc-btnBkg: #000000;
+	--smc-btnText: #ffffff;
+	--smc-btnBorderRadius: 4px;
+	--smc-frameBorderRadius: 2px;
+}
+
 smc-bg * {
 	font-family: 'Montserrat', sans-serif;
 }
@@ -20,7 +31,7 @@ smc-overlay-inner {
 	background-size: cover;
 	width: 550px;
 	min-height: 160px;
-	border-radius: 2px;
+	border-radius: var(--smc-frameBorderRadius);
 	pointer-events: all;
 	padding: 0;
 	margin: auto;
@@ -32,7 +43,7 @@ smc-overlay-inner {
 	margin: auto;
 	text-align: center;
 	top: -40px;
-	background: #000;
+	background: var(--smc-accent);
 	padding: 10px;
 	color: #fff;
 	width: 60%;
@@ -62,7 +73,7 @@ smc-product {
 	display: flex !important;
 	flex-direction: row;
 	width: 100%;
-	background-color: #fff;
+	background-color: var(--smc-cardBkg);
 	margin: 5px auto;
 }
 
@@ -92,7 +103,7 @@ smc-product-desc {
 	margin: 5px auto;
 	font-weight: 300;
 	font-size: 14px;
-	color: #19124f;
+	color: var(--smc-textColour);
 	width: 100%;
 	text-align: left;
 }
@@ -114,7 +125,7 @@ smc-product-img img {
 smc-product-name {
 	font-size: 14px;
 	text-overflow: ellipsis;
-	color: #000;
+	color: var(--smc-textColour2);
 	overflow: hidden;
 	display: -webkit-box;
 	-webkit-line-clamp: 2;
@@ -128,10 +139,10 @@ smc-product-name {
 	width: 190px;
 	margin: 0;
 	padding: 10px;
-	border-radius: 4px;
+	border-radius: var(--smc-btnBorderRadius);
 	font-size: 14px;
-	color: #fff;
-	background-color: #000;
+	color: var(--smc-btnText);
+	background-color: var(--smc-btnBkg);
 	font-weight: 500;
 	height: 70%;
 	display: flex;
@@ -163,7 +174,7 @@ smc-close {
 }
 
 smc-close a.smc-link {
-	color: #000;
+	color: var(--smc-textColour2);
 	display: flex;
 	justify-content: center;
 	align-items: center;

@@ -1,11 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Arsenal:wght@400;700&family=Poppins:wght@300;400;500&display=swap');
 
+smc-overlay-inner {
+  --smc-mainBkg: #494949;
+  --smc-cardBkg: #ffffff;
+  --smc-textColour: #ffffff;
+  --smc-textColour2: #000000;
+  --smc-borderColour: #ffffff;
+  --smc-font2: "Arsenal", sans-serif;
+  --smc-btnBkg: #be8d2d;
+  --smc-btnText: #ffffff;
+  --smc-btnBkgHover: #235a70;
+  --smc-btnBorderRadius: 999px;
+  --smc-frameBorderRadius: 2px;
+}
+
 smc-bg * {
   font-family: "Poppins", sans-serif;
 }
 
 smc-overlay-inner {
-  background-color: #494949;
+  background-color: var(--smc-mainBkg);
   /* background-image: url('{content6}'); */
   background-position: center left;
   background-size: cover;
@@ -13,8 +27,8 @@ smc-overlay-inner {
   min-height: 383px;
   padding-bottom: 0;
   overflow: hidden;
-  border-radius: 2px;
-  border: 1px solid #fff;
+  border-radius: var(--smc-frameBorderRadius);
+  border: 1px solid var(--smc-borderColour);
 }
 
 /* Align the content Left */
@@ -37,12 +51,12 @@ smc-option{
   font-weight: 400;
   margin: 10px auto;
   text-align: left;
-  color: #fff;
+  color: var(--smc-textColour);
 }
 
 .smc-text1 {
   font-size: 28px;
-  font-family: "Arsenal", sans-serif;
+  font-family: var(--smc-font2);
   font-weight: bold;
   margin: 25px auto 20px auto;
 }
@@ -70,14 +84,14 @@ smc-input-group,
   font-weight: bold;
   font-size: 12px;
   padding: 12px;
-  background-color: #be8d2d;
-  color: #fff;
-  border-radius: 999px;
+  background-color: var(--smc-btnBkg);
+  color: var(--smc-btnText);
+  border-radius: var(--smc-btnBorderRadius);
   transition: all 0.5s ease !important;
 }
 
 .smc-button:hover {
-  background-color: #235a70;
+  background-color: var(--smc-btnBkgHover);
 }
 
 smc-close {
@@ -87,7 +101,7 @@ smc-close {
 }
 
 smc-close a.smc-link {
-  color: #000;
+  color: var(--smc-textColour2);
 }
 
 smc-cart {
@@ -100,7 +114,7 @@ smc-cart {
   padding: 20px;
   align-items: center;
   justify-content: center;
-  background-color: #fff;
+  background-color: var(--smc-cardBkg);
   gap: 15px;
 }
 
@@ -158,12 +172,12 @@ smc-product-link {
   font-weight: bold;
   font-size: 12px;
   padding: 12px;
-  background-color: #be8d2d;
-  color: #fff;
-  border-radius: 999px;
+  background-color: var(--smc-btnBkg);
+  color: var(--smc-btnText);
+  border-radius: var(--smc-btnBorderRadius);
   transition: all 0.5s ease !important;
 }
 
 smc-product-link:hover {
-  background-color: #235a70;
+  background-color: var(--smc-btnBkgHover);
 }

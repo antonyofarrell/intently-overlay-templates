@@ -1,5 +1,19 @@
 @import url(https://fonts.smct.co/PANGAIA/PANGAIA.css);
 
+smc-overlay-inner {
+	--smc-mainBkg: #f8f8f8;
+	--smc-cardBkg: #ffffff;
+	--smc-textColour: #000000;
+	--smc-textColour2: #19124f;
+	--smc-borderColour: #e7e7e7;
+	--smc-font2: "PANGAIA-Grade_04", sans-serif;
+	--smc-btnBkg: #000000;
+	--smc-btnText: #ffffff;
+	--smc-btnBorderRadius: 40px;
+	--smc-frameBorderRadius: 4px;
+	--smc-cardBorderRadius: 5px;
+}
+
 smc-bg * {
 	font-family: "PANGAIA-Grade_02", sans-serif;
 }
@@ -24,12 +38,12 @@ smc-overlay-outer {
 }
 
 smc-overlay-inner {
-	background-color: #f8f8f8;
+	background-color: var(--smc-mainBkg);
 	width: 660px;
 	min-height: 240px;
 	max-height: 240px;
 	padding-bottom: 0;
-	border-radius: 4px;
+	border-radius: var(--smc-frameBorderRadius);
 	border: 1px solid #d9d9d973;
 	box-shadow: 0 0 20px #00000014;
 	position: relative;
@@ -55,7 +69,7 @@ smc-long-close {
 	font-size: 12px;
 	font-weight: 400;
 	margin: 8px auto;
-	color: #000;
+	color: var(--smc-textColour);
 	text-align: center;
 	line-height: 1.2;
 }
@@ -64,7 +78,7 @@ smc-long-close {
 	font-size: 24px;
 	font-weight: bold;
 	margin: 5px auto auto auto;
-	font-family: "PANGAIA-Grade_04", sans-serif;
+	font-family: var(--smc-font2);
 }
 
 .smc-text2 {
@@ -79,12 +93,12 @@ smc-option {
 .smc-button {
 	max-width: 100px;
 	margin: 15px auto auto 0;
-	background-color: #000;
-	color: #fff;
+	background-color: var(--smc-btnBkg);
+	color: var(--smc-btnText);
 	padding: 9px 9px 10px 9px;
 	font-size: 11px;
 	font-weight: bold;
-	border-radius: 40px;
+	border-radius: var(--smc-btnBorderRadius);
 }
 
 smc-close {
@@ -99,17 +113,17 @@ smc-cart {
 	position: absolute;
 	bottom: 20px;
 	left: 20px;
-	background-color: #fff;
+	background-color: var(--smc-cardBkg);
 	width: 620px;
 	height: 135px;
 	padding: 10px;
 	display: flex;
 	justify-content: center;
 	overflow: hidden;
-	border-radius: 5px;
+	border-radius: var(--smc-cardBorderRadius);
 	gap: 10px;
 	align-items: flex-start;
-	border: 1px solid #e7e7e7;
+	border: 1px solid var(--smc-borderColour);
 }
 
 smc-product {
@@ -130,7 +144,7 @@ smc-product-desc {
 	margin: 5px auto;
 	font-weight: 300;
 	font-size: 14px;
-	color: #19124f;
+	color: var(--smc-textColour2);
 	width: 100%;
 	text-align: left;
 }
@@ -169,7 +183,7 @@ smc-prices {
 smc-product-name {
 	font-size: 13px;
 	text-overflow: ellipsis;
-	color: #000;
+	color: var(--smc-textColour);
 	overflow: hidden;
 	padding: 0 10px;
 	display: -webkit-box;
@@ -178,20 +192,20 @@ smc-product-name {
 	-webkit-box-orient: vertical;
 	font-weight: 600;
 	line-height: 1.2;
-	font-family:"PANGAIA-Grade_04", sans-serif;
+	font-family: var(--smc-font2);
 }
 
 smc-product-price {
 	font-weight: 600;
 	font-size: 12px;
-	color: #000;
+	color: var(--smc-textColour);
 	margin: 0;
 }
 
 smc-product-oldprice {
 	font-weight: 400;
 	font-size: 12px;
-	color: #000;
+	color: var(--smc-textColour);
 	margin: 0;
 	text-decoration: line-through;
 }
@@ -203,9 +217,8 @@ smc-product-link {
 	font-size: 10px;
 	text-align: center;
 	border-radius: 9px;
-    background-color: #000;
-    color: #fff;
+	background-color: var(--smc-btnBkg);
+	color: var(--smc-btnText);
 	display: block;
 	cursor: pointer;
 }
-

@@ -1,4 +1,18 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700');
+
+smc-overlay-inner {
+  --smc-mainBkg: #ffffff;
+  --smc-cardBkg: #ffffff;
+  --smc-textColour: #000000;
+  --smc-textColour2: #525252;
+  --smc-borderColour: #e3e3e5;
+  --smc-btnBkg: #000000;
+  --smc-btnText: #ffffff;
+  --smc-btnBorderRadius: 2px;
+  --smc-frameBorderRadius: 2px;
+  --smc-cardBorderRadius: 3px;
+}
+
 smc-bg *{font-family: 'Roboto', sans-serif;}
 
 smc-bg{
@@ -22,13 +36,13 @@ smc-overlay-outer{
 
 
 smc-overlay-inner {
-  background-color: #fff;
+  background-color: var(--smc-mainBkg);
   width: 600px;
   min-height: 440px;
   padding-bottom: 0;
   overflow: hidden;
-  border-radius: 2px;
-  border: 1px solid #e3e3e5;
+  border-radius: var(--smc-frameBorderRadius);
+  border: 1px solid var(--smc-borderColour);
     position: relative;
     bottom: 0;
     right: 0;
@@ -56,7 +70,7 @@ smc-option {
 .smc-text2 {
   font-size: 14px;
   font-weight: 400;
-  color: #000;
+  color: var(--smc-textColour);
   margin: 10px auto;
   text-align: center;
   line-height: 1.2;
@@ -76,7 +90,7 @@ smc-close {
   font-size: 12px;
 }
 smc-close a.smc-link {
-  color: #000;
+  color: var(--smc-textColour);
 }
 
 smc-cart {
@@ -94,8 +108,8 @@ smc-product {
   justify-content: center;
   width: 100%;
   height: 100%;
-  background-color: #fff;
-  border-radius: 3px;
+  background-color: var(--smc-cardBkg);
+  border-radius: var(--smc-cardBorderRadius);
   padding: 10px;
 }
 
@@ -134,7 +148,7 @@ smc-product-link {
   font-size: 14px;
   font-weight: 400;
   text-align: center;
-  color: #000;
+  color: var(--smc-textColour);
   margin: 5px auto;
 }
 
@@ -154,7 +168,7 @@ smc-product-name {
 }
 
 smc-product-desc {
-  color: #525252;
+  color: var(--smc-textColour2);
   font-size: 15px;
   line-height: 1.2;
 }
@@ -186,17 +200,16 @@ smc-product-link {
   text-transform: uppercase;
   text-align: center;
   font-weight: bold;
-  border-radius: 2px;
+  border-radius: var(--smc-btnBorderRadius);
   background-color: #fff0;
-  border: 1px solid #000;
-  color: #000;
+  border: 1px solid var(--smc-btnBkg);
+  color: var(--smc-btnBkg);
   display: block;
   cursor: pointer;
   transition: all 0.3s ease !important;
 }
 
 smc-product-link:hover {
-  background-color: #000;
-  color: #fff;
+  background-color: var(--smc-btnBkg);
+  color: var(--smc-btnText);
 }
-
