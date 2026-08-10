@@ -533,6 +533,29 @@
         } catch (e) { return null; }
       }
 
+      // Pre-match scraped site tokens to canonical --smc-* slots by well-known name patterns
+      // (Shopify --colorBtnPrimary, Dawn --color-base-accent-1, theme-color, etc.). Conservative:
+      // only emits a slot the template actually declares and we found a confident colour for.
+      // These go to Claude as strong defaults to confirm — not hard overrides.
+      function canonicalHints(scraped, vars) {
+        if (!scraped) return {};
+        const cv = scraped.cssVars || {};
+        const isCol = (v) => /^\s*#([0-9a-f]{3,8})\s*$/i.test(String(v)) || /^\s*(rgb|rgba|hsl|hsla)\(/i.test(String(v));
+        const cols = Object.entries(cv).filter(([, v]) => isCol(v));
+        const find = (re) => { const h = cols.find(([k]) => re.test(k)); return h ? h[1].trim() : null; };
+        const has = (n) => vars.some((v) => v.name === n);
+        const out = {};
+        const put = (slot, val) => { if (val && has(slot) && !out[slot]) out[slot] = val; };
+        const btn = find(/btn.*(primary|bg|background|colou?r)|primary.*(btn|button|colou?r)|\bcta\b|accent[-_]?1\b|base-accent-1/i) || scraped.themeColor;
+        put("--smc-btnBkg", btn);
+        put("--smc-accent", find(/\b(accent|brand)\b|primary(?!.*text)/i) || btn);
+        put("--smc-btnBkgHover", find(/btn.*(hover|dim|dark)|primary.*(hover|dim|dark)/i));
+        put("--smc-btnText", find(/btn.*(text|label|fg|foreground)|on[-_]?primary|primary.*text/i));
+        put("--smc-textColour", find(/text.*(body|colou?r)\b|body.*text|base-text\b|(^|[-_])text$|colou?rtextbody/i));
+        put("--smc-mainBkg", find(/(^|[-_])(body|background|bg)[-_]?1?$|base-background-1|colou?rbody|page.*(bg|background)/i));
+        return out;
+      }
+
       function buildPrompt(url, scraped) {
         const list = state.vars.map((v) => "  \"" + v.name + "\": \"" + v.value + "\"" + (v.type === "color" ? "   // colour" : "")).join("\n");
         let scrapedBlock = "";
@@ -552,6 +575,12 @@
             "--color*Text*/--*body* the text colour; --color*Bg*/--*background*/--colorBody the background. " +
             "For the font, use fontFamilies[0] (the most-used real typeface on the site) or a fontFaces family — that IS the brand font even if it's a common name like Montserrat; only fall back to a system stack if fontFamilies and fontFaces are both empty. " +
             "You may still use web_fetch/web_search to disambiguate the PRIMARY CTA colour or check a product page, but do not override these tokens with guesses.\n\n";
+          const hints = canonicalHints(scraped, state.vars);
+          if (Object.keys(hints).length) {
+            scrapedBlock +=
+              "SUGGESTED MAPPING — these overlay variables were pre-matched to the site's tokens by name and are strong defaults. Use them as-is unless the tokens clearly contradict them; then just fill the remaining variables:\n" +
+              JSON.stringify(hints) + "\n\n";
+          }
         } else {
           scrapedBlock =
             "No tokens could be scraped server-side for " + url + " (the site may block bots or render CSS at runtime). " +
