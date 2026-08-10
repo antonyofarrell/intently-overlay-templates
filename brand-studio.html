@@ -604,10 +604,13 @@
               "SUGGESTED MAPPING — these overlay variables were pre-matched to the site's tokens by name and are strong defaults. Use them as-is unless the tokens clearly contradict them; then just fill the remaining variables:\n" +
               JSON.stringify(hints) + "\n\n";
           }
-          if (scraped.cssSample && scraped.cssSample.length > 200) {
+          // Only attach the bulky raw CSS when the colour tokens are sparse — otherwise the tokens
+          // already answer it, and 90k of CSS just slows the request (and can hit the 60s cap).
+          const hasColourToken = scraped.themeColor || Object.values(scraped.cssVars || {}).some((v) => /^\s*#|^\s*(rgb|hsl)/i.test(String(v)));
+          if (!hasColourToken && scraped.cssSample && scraped.cssSample.length > 200) {
             scrapedBlock +=
-              "RAW CSS from the site's stylesheets (already fetched for you). When the token fields above are sparse, read these ACTUAL rules to find the brand's real values: the primary button/CTA colour (a prominent non-white background on a .btn/.button/[class*=cta]/add-to-cart rule), body text colour, link/accent colour, and font-family. Extract from what's here — do NOT invent values:\n```css\n" +
-              scraped.cssSample + "\n```\n\n";
+              "RAW CSS from the site's stylesheets (already fetched for you). The token fields above are sparse, so read these ACTUAL rules to find the brand's real values: the primary button/CTA colour (a prominent non-white background on a .btn/.button/[class*=cta]/add-to-cart rule), body text colour, link/accent colour, and font-family. Extract from what's here — do NOT invent values:\n```css\n" +
+              scraped.cssSample.slice(0, 45000) + "\n```\n\n";
           }
         } else {
           scrapedBlock =
@@ -642,7 +645,9 @@
       // the real CSS tokens in the prompt, so the model just maps them — no web browsing, far
       // faster, and avoids the serverless timeout that web_fetch/web_search can trigger.
       async function callClaude(prompt, useWebTools) {
-        const body = { model: MODEL, max_tokens: 8000, messages: [{ role: "user", content: prompt }] };
+        // Low effort for the local-map path (extraction, not deep reasoning → much faster, avoids
+        // the 60s serverless cap); a bit more for the web-tools fallback since it must plan fetches.
+        const body = { model: MODEL, max_tokens: 8000, output_config: { effort: useWebTools ? "medium" : "low" }, messages: [{ role: "user", content: prompt }] };
         if (useWebTools) body.tools = [{ type: "web_fetch_20260209", name: "web_fetch", max_uses: 4 }];
         const res = await fetch("/api/anthropic", {
           method: "POST",
