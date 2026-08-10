@@ -7,7 +7,7 @@ smc-bg * {
 smc-bg {
   background-color: rgb(210 210 210 / 60%);
   --smc-textColour: #212529;
-  --smc-text-size: 16px;
+  --smc-fontRg: 16px;
   --smc-btnBkg: #4aaae0;
   --smc-frameBorderRadius: 4px;
   --smc-mainBkg: #fff;
@@ -37,7 +37,7 @@ smc-option {
 
 .smc-text1,
 .smc-text2 {
-  font-size: var(--smc-text-size);
+  font-size: var(--smc-fontRg);
   font-weight: 400;
   color: #fff;
   margin: 10px auto;

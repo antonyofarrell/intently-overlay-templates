@@ -39,11 +39,23 @@ A variable name should tell you its CSS property. Encode **type as a suffix** an
 | `--smc-btnFontWeight` | button font weight | number | kept within the imported font weights |
 | `--smc-frameBorder` | outer frame border | border shorthand | only if the design has one |
 | `--smc-frameBorderRadius` | outer frame corner radius | radius | site card / container radius |
+| `--smc-cardBorderRadius` | inner card / cart corner radius | radius | site card radius (pairs with `cardBkg`) |
+| `--smc-borderColour` | divider / element border colour | colour | site border / divider colour |
 | `--smc-font2` | heading / secondary font family | font family | site heading font |
 | `--smc-fontSm` / `--smc-fontRg` / `--smc-fontLg` | font-size scale | length | structural (not branded) |
 
 The overlay's **body font** is set via the `@import` line plus `smc-bg * { font-family: … }`, which
 Brand Studio updates directly — it does not need a variable.
+
+### Accepted non-core names
+
+A few templates use descriptive names that have no single-role canonical, and are left as-is:
+
+- **Two-tone palettes** — `--smc-dark` / `--smc-light` on monochrome-invert overlays, where one colour is used as text *and* background *and* border. Forcing a role name would misrepresent it.
+- **Component-specific tints** — e.g. `--smc-coverBkg` / `--smc-coverBkgHover` on reveal overlays, derived from the accent via `color-mix()`.
+- **`--smc-whiteBkg`** — a distinct white surface on templates where `--smc-cardBkg` is already taken.
+
+These follow the `Bkg` / colour conventions but aren't part of the core vocabulary the scraper maps into.
 
 ### The `Border` / `BorderRadius` rule, worked
 

@@ -31,16 +31,20 @@ const RENAME = {
   "--smc-font-sm": "--smc-fontSm",
   "--smc-font-rg": "--smc-fontRg",
   "--smc-font-lg": "--smc-fontLg",
+  "--smc-text-size": "--smc-fontRg",
+  "--smc-frameBorderInner": "--smc-cardBorderRadius",
+  "--smc-text-dark": "--smc-textColour2",
+  "--smc-borderColor": "--smc-borderColour",
 };
 
 // Names that hold a radius under the OLD scheme but should be *BorderRadius under the new one.
 // Renamed only when their value actually looks like a radius (else reported).
 const RADIUS_CANDIDATES = { "--smc-border": "--smc-frameBorderRadius", "--smc-frameBorder": "--smc-frameBorderRadius" };
 
-// Ambiguous — never auto-renamed; reported so a human decides.
+// Ambiguous — never auto-renamed; reported so a human decides. (Accepted as-is: two-tone
+// palettes and component-specific tints have no single-role canonical.)
 const AMBIGUOUS = new Set([
-  "--smc-dark", "--smc-light", "--smc-text-dark", "--smc-whiteBkg", "--smc-coverBkg",
-  "--smc-coverBkgHover", "--smc-borderColor", "--smc-frameBorderInner", "--smc-text-size",
+  "--smc-dark", "--smc-light", "--smc-whiteBkg", "--smc-coverBkg", "--smc-coverBkgHover",
 ]);
 
 // Structural / non-brand — left alone silently.
@@ -51,6 +55,7 @@ const KEEP = new Set([
 
 const isRadius = (v) => /^\s*[\d.]+\s*(px|rem|em|%|vw|vh|pt)?\s*$/.test(v);
 const isBorderShorthand = (v) => /\b(solid|dashed|dotted|double|groove|ridge|none)\b/.test(v) || /\d+\s*(px|rem|em).*#|rgb/.test(v);
+const isColour = (v) => /^\s*#([0-9a-f]{3,8})\s*$/i.test(v) || /^\s*(rgb|rgba|hsl|hsla)\(/i.test(v);
 
 // mask /* */ comments so a commented value isn't used for inspection
 function activeValue(css, name) {
@@ -103,6 +108,12 @@ for (const d of dirs) {
           declared.delete(name); declared.add("--smc-frameBorder");
           changes.push(`${name} → --smc-frameBorder  (border "${val}")`);
         }
+      } else if (val != null && isColour(val)) {
+        // a bare border COLOUR (e.g. #eee) → the border-colour slot
+        if (declared.has("--smc-borderColour")) { flags.push(`${name} → --smc-borderColour (SKIPPED: already exists)`); continue; }
+        css = renameVar(css, name, "--smc-borderColour");
+        declared.delete(name); declared.add("--smc-borderColour");
+        changes.push(`${name} → --smc-borderColour  (colour "${val}")`);
       } else {
         flags.push(`${name} = "${val}" (AMBIGUOUS radius/border — review)`);
       }

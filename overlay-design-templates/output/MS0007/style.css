@@ -8,7 +8,7 @@ smc-overlay-inner {
   --smc-mainBkg: #66a3d2;
   --smc-cardBkg: #1c6298;
   --smc-textColour: #fff;
-  --smc-text-dark: #333;
+  --smc-textColour2: #333;
   --smc-btnBkg: #27a254;
   --smc-btnBkgHover: #1a513e;
   --smc-frameBorderRadius: 8px;
@@ -65,7 +65,7 @@ smc-input-wrap {
 smc-label-h,
 smc-label-p {
   font-size: 12px;
-  color: var(--smc-text-dark);
+  color: var(--smc-textColour2);
   font-weight: 400;
   text-align: left;
   line-height: 1.2;
@@ -148,7 +148,7 @@ smc-long-close {
 
 smc-long-close span.smc-link {
   background-color: #fff;
-  color: var(--smc-text-dark);
+  color: var(--smc-textColour2);
 }
 
 smc-long-close span.smc-link:hover {

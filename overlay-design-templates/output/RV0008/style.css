@@ -16,7 +16,7 @@ smc-bg {
   --smc-frameBorderRadius: 6px;
   --smc-overlayPadding: 30px;
   --smc-revealHeight: 45px;
-  --smc-borderColor: #ffffff7a;
+  --smc-borderColour: #ffffff7a;
   --smc-coverBkg: color-mix(in srgb, var(--smc-btnBkg) 25%, transparent);
   --smc-coverBkgHover: color-mix(in srgb, var(--smc-btnBkg) 15%, transparent);
 
@@ -116,7 +116,7 @@ smc-reveal {
   margin: 0;
   overflow: hidden;
   border-radius: var(--smc-btnBorderRadius);
-  border: 1px solid var(--smc-borderColor);
+  border: 1px solid var(--smc-borderColour);
 }
 smc-cover {
   background-color: var(--smc-coverBkg);

@@ -22,7 +22,7 @@ smc-overlay-inner {
   --smc-btnBorderRadius: 8px;
   --smc-btnPadding: 12px;
   --smc-frameBorderRadius: 10px;
-  --smc-frameBorderInner: 5px;
+  --smc-cardBorderRadius: 5px;
   --smc-whiteBkg: #fff;
 }
 
@@ -63,7 +63,7 @@ smc-option{
   margin: 0;
   flex: 1;
   background: var(--smc-whiteBkg);
-  border-radius: var(--smc-frameBorderInner);
+  border-radius: var(--smc-cardBorderRadius);
   gap: 20px;
   padding: 20px;
 }
@@ -72,7 +72,7 @@ smc-img-outer, smc-option{
     background-color: #fff0;
 }
 smc-img{
-    border-radius: var(--smc-frameBorderInner);
+    border-radius: var(--smc-cardBorderRadius);
     overflow: hidden;
 }
 .smc-text1,
@@ -144,7 +144,7 @@ smc-product {
   width: 100%;
   height: 100%;
   background: var(--smc-whiteBkg);
-  border-radius: var(--smc-frameBorderInner);
+  border-radius: var(--smc-cardBorderRadius);
   justify-content: space-around;
   border: 1px solid rgba(128, 128, 128, 0.16);
   box-shadow: 0 1px 7px #8080801f;
@@ -180,7 +180,7 @@ smc-product-img {
   display: flex;
   align-items: center;
   overflow: hidden;
-  border-radius: var(--smc-frameBorderInner);
+  border-radius: var(--smc-cardBorderRadius);
   margin:0;
 }
 smc-product-img img {

@@ -7,7 +7,7 @@ smc-bg * {
 smc-bg {
     background-color: rgb(210 210 210 / 60%);
     --smc-textColour: #212529;
-    --smc-text-size:14px;
+    --smc-fontRg:14px;
     --smc-btnBkg: #4aaae0;
     --smc-frameBorderRadius: 4px;
     --smc-mainBkg: #fff;
@@ -56,7 +56,7 @@ smc-option {
 
 .smc-text1,
 .smc-text2 {
-    font-size: var(--smc-text-size);
+    font-size: var(--smc-fontRg);
     font-weight: 400;
     color: #1c1c1c;
     margin: 10px auto;
@@ -126,7 +126,7 @@ smc-product-name {
     font-weight: 400;
     color: var(--smc-textColour);
     width: 95%;
-    font-size: var(--smc-text-size);
+    font-size: var(--smc-fontRg);
     text-overflow: ellipsis;
     overflow: hidden;
     display: -webkit-box;
@@ -143,7 +143,7 @@ smc-prices{
 }
 smc-product-price{
     color:var(--smc-textColour);
-    font-size:var(--smc-text-size);
+    font-size:var(--smc-fontRg);
     font-weight:600;
 }
 smc-old-price{
@@ -164,7 +164,7 @@ smc-old-price:empty{
 }
 
 .smc-ul li {
-    font-size: var(--smc-text-size);
+    font-size: var(--smc-fontRg);
     color:var(--smc-textColour);
     margin: 6px auto;
 }

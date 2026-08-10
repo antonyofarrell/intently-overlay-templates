@@ -7,7 +7,7 @@ smc-overlay-inner {
 	--smc-accent: #fff;
 	--smc-textColour: #1f1f1f;
 	--smc-btnBkg: #003870;
-  --smc-border:#eee;
+  --smc-borderColour:#eee;
 }
 smc-overlay-inner {
   background-color: #f1f1f1;

@@ -21,7 +21,7 @@ smc-overlay-inner {
   --smc-btnBorderRadius: 40px;
   --smc-btnPadding: 15px 20px;
   --smc-frameBorderRadius: 20px;
-  --smc-frameBorderInner: 10px;
+  --smc-cardBorderRadius: 10px;
   --smc-whiteBkg: #fff;
 }
 smc-overlay-inner {
@@ -87,7 +87,7 @@ smc-text-outer{
 smc-cart{
   flex:  0 0 55%;
   background-color: #fff;
-  border-radius: var(--smc-frameBorderInner);
+  border-radius: var(--smc-cardBorderRadius);
   overflow: hidden;
   gap: 10px;
 }
