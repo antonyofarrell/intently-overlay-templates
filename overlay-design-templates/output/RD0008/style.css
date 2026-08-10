@@ -1,5 +1,15 @@
 @import url("https://fonts.smct.co/greed/font.css");
 
+smc-overlay-inner {
+  --smc-mainBkg: #ffffff;
+  --smc-textColour: #332d28;
+  --smc-font2: "Greed-Medium";
+  --smc-btnBkg: #332d28;
+  --smc-btnText: #ffffff;
+  --smc-btnBorder: 1px solid #332d28;
+  --smc-btnBkgHover: #ffffff;
+  --smc-frameBorderRadius: 12px;
+}
 
 smc-bg * {
   font-family: "Greed-Regular";
@@ -10,10 +20,10 @@ smc-bg {
   backdrop-filter: blur(3px);
 }
 smc-overlay-inner {
-    background-color: #fff;
+    background-color: var(--smc-mainBkg);
     width: 750px;
     min-height: 270px;
-    border-radius: 12px;
+    border-radius: var(--smc-frameBorderRadius);
     padding-bottom: 0;
     margin-bottom: 0;
     overflow: hidden;
@@ -32,14 +42,14 @@ smc-img-outer, smc-text-outer, smc-option, smc-long-close {
   text-align: center;
   line-height: 1.2;
   margin: 15px auto;
-  color: #332d28;
+  color: var(--smc-textColour);
   padding: 0px 10px;
 }
 .smc-text1 {
     font-size: 40px;
     margin: 60px auto auto auto;
     font-weight: normal;
-    font-family: "Greed-Medium";
+    font-family: var(--smc-font2);
 }
 .smc-text2 {
     margin: 10px auto 20px auto;
@@ -51,17 +61,17 @@ smc-img-outer, smc-text-outer, smc-option, smc-long-close {
     cursor: pointer;
     font-size: 15px;
     width: 100%;
-    border: 1px solid #332d28;
+    border: var(--smc-btnBorder);
     line-height: normal;
     letter-spacing: 0.04em;
-    color: #fff;
+    color: var(--smc-btnText);
     transition: .3s all;
     position: relative;
     z-index: 1;
-    background-color: #332d28;
+    background-color: var(--smc-btnBkg);
 }
 .smc-button::before {
-    background-color: #fff;
+    background-color: var(--smc-btnBkgHover);
     width: 0;
     height: 100%;
     content: "";
@@ -80,7 +90,7 @@ smc-close {
   right: 10px;
 }
 .smc-button:hover {
-    color: #332d28;
+    color: var(--smc-btnBkg);
     box-shadow: none;
 }
 smc-close a.smc-link {

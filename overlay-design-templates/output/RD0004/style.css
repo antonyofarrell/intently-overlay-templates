@@ -1,15 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
 
+smc-overlay-inner {
+  --smc-mainBkg: #f4f6f8;
+  --smc-textColour: #234746;
+  --smc-textColour2: #5e5a59;
+  --smc-borderColour: #dddddd;
+  --smc-btnBkg: #004448;
+  --smc-btnText: #ffffff;
+  --smc-btnBorder: 1px solid #004448;
+  --smc-btnBorderRadius: 999px;
+  --smc-frameBorderRadius: 2px;
+  --smc-cardBorderRadius: 5px;
+}
+
 smc-bg * {
   font-family: "Lato", sans-serif;
 }
 
 smc-overlay-inner {
-  background-color: #f4f6f8;
+  background-color: var(--smc-mainBkg);
   width: 540px;
   min-height:470px;
   padding-bottom: 0;
-  border-radius: 2px;
+  border-radius: var(--smc-frameBorderRadius);
   overflow: hidden;
 }
 
@@ -31,7 +44,7 @@ smc-long-close {
 .smc-text2 {
   font-size: 14px;
   font-weight: 400;
-  color: #5e5a59;
+  color: var(--smc-textColour2);
   line-height: 1.2;
   margin: 16px auto;
 }
@@ -39,7 +52,7 @@ smc-long-close {
 .smc-text1 {
   font-size: 32px;
   margin: 25px auto auto auto;
-  color: #234746;
+  color: var(--smc-textColour);
 }
 
 smc-option {
@@ -49,13 +62,13 @@ smc-option {
 .smc-button {
   max-width: 150px;
   margin: 30px auto auto auto;
-  background-color: #004448;
-  color: #fff;
-  border: 1px solid #004448;
+  background-color: var(--smc-btnBkg);
+  color: var(--smc-btnText);
+  border: var(--smc-btnBorder);
   font-size: 12px;
   font-weight: bold;
   padding: 10px 12px 12px 12px;
-  border-radius: 999px;
+  border-radius: var(--smc-btnBorderRadius);
 }
 
 smc-close {
@@ -97,7 +110,7 @@ smc-close a.smc-link {
 }
 
 .smc-horizontal-scrolling-items__item {
-  border-radius: 5px;
+  border-radius: var(--smc-cardBorderRadius);
   font-size: 14px;
   text-align: center;
   flex-direction: column;
@@ -108,7 +121,7 @@ smc-close a.smc-link {
   transform-origin: bottom center;
   display: flex;
   overflow: hidden;
-  border: 1px solid #ddd;  
+  border: 1px solid var(--smc-borderColour);
 }
 
 .smc-horizontal-scrolling-items__item:hover {
