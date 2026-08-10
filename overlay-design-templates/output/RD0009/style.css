@@ -3,6 +3,18 @@
 
 
 
+smc-overlay-inner {
+  --smc-mainBkg: #ffffff;
+  --smc-textColour: #000000;
+  --smc-font2: "Playfair Display", serif;
+  --smc-btnBkg: #000000;
+  --smc-btnText: #ffffff;
+  --smc-btnBorder: 1px solid #000000;
+  --smc-btnBkgHover: #ffffff;
+  --smc-btnBorderRadius: 1px;
+  --smc-frameBorderRadius: 2px;
+}
+
 smc-bg * {
   font-family: 'Raleway', sans-serif;
   font-feature-settings: 'lnum' 1;
@@ -14,10 +26,10 @@ smc-bg {
 }
 
 smc-overlay-inner {
-  background-color: #fff;
+  background-color: var(--smc-mainBkg);
   width: 420px;
   min-height: auto;
-  border-radius: 2px;
+  border-radius: var(--smc-frameBorderRadius);
   padding-bottom: 20px;
   overflow: hidden;
 }
@@ -33,14 +45,14 @@ smc-text-outer{
   text-align: center;
   line-height: 1.2;
   margin: 15px auto;
-  color: #000;
+  color: var(--smc-textColour);
 }
 
 .smc-text1 {
 	font-size: 26px;
 	margin: 250px auto auto auto;
 	font-weight: normal;
-	font-family: "Playfair Display", serif;
+	font-family: var(--smc-font2);
 }
 .smc-text2 {
   margin: 15px auto 15px auto;
@@ -51,18 +63,18 @@ smc-text-outer{
 .smc-button {
   max-width: 180px;
   margin: 15px auto 0 auto;
-  background-color: #000;
-  color: #fff;
-  border: 1px solid #000;
+  background-color: var(--smc-btnBkg);
+  color: var(--smc-btnText);
+  border: var(--smc-btnBorder);
   font-size: 14px;
   font-weight: 500;
-  border-radius: 1px;
+  border-radius: var(--smc-btnBorderRadius);
   padding:12px;
   /* text-transform: uppercase; */
 }
 .smc-button:hover {
-  background-color: #fff;
-  color: #000;
+  background-color: var(--smc-btnBkgHover);
+  color: var(--smc-btnBkg);
 }
 smc-close {
   font-size: 14px;

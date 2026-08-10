@@ -1,5 +1,18 @@
 @import url('https://fonts.smct.co/smc-basetica-windsor/smc-windsor-basetica.css');
 
+smc-overlay-inner {
+--smc-mainBkg: #000000;
+--smc-textColour: #ffffff;
+--smc-accent: #efc400;
+--smc-font2: "Basetica Bulb Yellow-COLR", serif;
+--smc-btnBkg: #efc400;
+--smc-btnText: #000000;
+--smc-btnBorder: 1px solid #efc400;
+--smc-btnBkgHover: #000000;
+--smc-btnBorderRadius: 28px;
+--smc-frameBorderRadius: 10px;
+}
+
 smc-bg * {
 font-family: 'BaseticaTrial-Bold.otf', sans-serif;
 }
@@ -10,10 +23,10 @@ backdrop-filter: blur(3px);
 }
 
 smc-overlay-inner {
-background-color: #000;
+background-color: var(--smc-mainBkg);
 width: 420px;
 min-height: auto;
-border-radius: 10px;
+border-radius: var(--smc-frameBorderRadius);
 padding-bottom: 20px;
 }
 
@@ -29,14 +42,14 @@ font-weight: 400;
 text-align: center;
 line-height: 1.2;
 margin: 15px auto;
-color: #fff;
+color: var(--smc-textColour);
 }
 
 .smc-text1 {
 font-size: 26px;
 margin: 250px auto auto auto;
 font-weight: normal;
-font-family: "Basetica Bulb Yellow-COLR", serif;
+font-family: var(--smc-font2);
 text-transform: uppercase;
 }
 
@@ -48,20 +61,20 @@ font-size: 14px;
 .smc-button {
 max-width: 180px;
 margin: 15px auto 0 auto;
-background-color: #efc400;
-color: #000;
-border: 1px solid #efc400;
+background-color: var(--smc-btnBkg);
+color: var(--smc-btnText);
+border: var(--smc-btnBorder);
 font-size: 14px;
 font-weight: 500;
-border-radius: 28px;
+border-radius: var(--smc-btnBorderRadius);
 font-family: "BaseticaTrial-Black", sans-serif;
 padding: 12px;
 /* text-transform: uppercase; */
 }
 
 .smc-button:hover {
-background-color: #000;
-color: #efc400;
+background-color: var(--smc-btnBkgHover);
+color: var(--smc-btnBkg);
 }
 
 smc-close{
@@ -115,7 +128,7 @@ width: 95%;
 height: 10px;
 }
 .smc-timer-bar {
-background-color: #efc400;
+background-color: var(--smc-accent);
 animation: smc-sixty 60s linear forwards;
 transform-origin: left center;
 border-radius: 30px 0 0 30px;
