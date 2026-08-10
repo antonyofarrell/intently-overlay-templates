@@ -148,6 +148,9 @@ module.exports = async (req, res) => {
       "inherit", "initial", "unset", "revert", "sans-serif", "serif", "monospace", "cursive",
       "fantasy", "system-ui", "-apple-system", "blinkmacsystemfont", "ui-sans-serif", "ui-serif",
       "ui-monospace", "segoe ui", "roboto", "helvetica", "arial", "helvetica neue",
+      // monospace / code fonts are never a brand's display font — they leak in from <pre>/<code>
+      "monaco", "consolas", "menlo", "courier", "courier new", "lucida console",
+      "sf mono", "sfmono-regular", "andale mono", "dejavu sans mono", "liberation mono", "monospace",
     ]);
     const famCount = {};
     const famLabel = {}; // first-seen original casing per normalised key

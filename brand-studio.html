@@ -496,8 +496,17 @@
         setStatus("info", '<span class="spinner"></span>Reading ' + shortUrl(url) + "'s stylesheets…");
         try {
           const scraped = await scrapeSite(url); // server-side: real HTML + linked CSS tokens
+          // Skip web tools only when the scrape has strong COLOUR signal (a theme colour, a real
+          // @font-face, or a colour custom property). A lone font — or nothing — isn't enough, so
+          // we keep web browsing on to actually find the brand's colours.
+          const hasColour = (v) => /^\s*#|^\s*(rgb|hsl)/i.test(String(v));
+          const strong = !!(scraped && (
+            scraped.themeColor ||
+            (scraped.fontFaces && scraped.fontFaces.length) ||
+            Object.values(scraped.cssVars || {}).some(hasColour)
+          ));
           setStatus("info", '<span class="spinner"></span>Mapping ' + shortUrl(url) + " to the overlay…");
-          const raw = await callClaude(buildPrompt(url, scraped), !scraped);
+          const raw = await callClaude(buildPrompt(url, scraped), !strong);
           const parsed = parseJson(raw);
           if (!parsed) throw new Error("Could not read a valid response. Try again.");
           if (parsed.vars && typeof parsed.vars === "object") {
