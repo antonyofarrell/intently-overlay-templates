@@ -2,9 +2,9 @@
 
 /* ── Brand tokens ─────────────────────────────────────────── */
 smc-bg {
-  --smc-font-sm: 11px;
-  --smc-font-rg: 16px;
-  --smc-font-lg: 32px;
+  --smc-fontSm: 11px;
+  --smc-fontRg: 16px;
+  --smc-fontLg: 32px;
   --smc-mainBkg: #164d82;
   --smc-accent: #e4e423;
   --smc-textColour: #fff;
@@ -12,7 +12,7 @@ smc-bg {
   --smc-btnBkg: #e4e423;
   --smc-btnText: #164d82;
   --smc-btnBorderRadius: 4px;
-  --smc-frameBorder: 6px;
+  --smc-frameBorderRadius: 6px;
   --smc-overlayPadding: 50px;
 }
 
@@ -30,7 +30,7 @@ smc-overlay-inner {
   flex-direction: column;
   gap: 20px;
   overflow: hidden;
-  border-radius: var(--smc-frameBorder);
+  border-radius: var(--smc-frameBorderRadius);
 }
 
 smc-img-outer,
@@ -48,18 +48,18 @@ smc-option {
 .smc-text1,
 .smc-text2,
 .smc-text3 {
-  font-size: var(--smc-font-rg);
+  font-size: var(--smc-fontRg);
   line-height: 120%;
   color: var(--smc-textColour);
 }
 .smc-text2 {
-  font-size: var(--smc-font-lg);
+  font-size: var(--smc-fontLg);
 }
 .smc-text2 span {
   color: var(--smc-accent);
 }
 .smc-text3 {
-  font-size: var(--smc-font-sm);
+  font-size: var(--smc-fontSm);
   opacity: 0.7!important;
 }
 
@@ -92,7 +92,7 @@ smc-code {
   position: static;
   top: auto;
   left: auto;
-  font-size: var(--smc-font-rg);
+  font-size: var(--smc-fontRg);
 }
 
 smc-cover {
@@ -131,7 +131,7 @@ smc-cp-msg{
   left: 0;
   width: 100%;
   text-align: center;
-  font-size: var(--smc-font-sm);
+  font-size: var(--smc-fontSm);
   color: #fff;
 }
 /* ── Close ────────────────────────────────────────────────── */
@@ -154,7 +154,7 @@ smc-long-close.smc-engaged a.smc-link {
   background-color: var(--smc-btnBkg);
   color: var(--smc-btnText);
   border-radius: var(--smc-btnBorderRadius);
-  font-size: var(--smc-font-rg);
+  font-size: var(--smc-fontRg);
   font-weight: 700;
 }
 

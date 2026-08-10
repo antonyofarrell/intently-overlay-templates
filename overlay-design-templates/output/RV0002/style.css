@@ -5,10 +5,10 @@ font-family: "Montserrat", sans-serif;
 }
 
 smc-overlay-inner {
---smc-bg: #ffd814;
---smc-text: #000;
---smc-btn: #c8484a;
---smc-border:2px;
+--smc-mainBkg: #ffd814;
+--smc-textColour: #000;
+--smc-btnBkg: #c8484a;
+--smc-frameBorderRadius:2px;
 }
 
 smc-overlay-inner {
@@ -33,7 +33,7 @@ margin: 0 20px 0 auto;
 .smc-text3 {
 font-size: 16px;
 font-weight: 400;
-color: var(--smc-text);
+color: var(--smc-textColour);
 margin: 15px auto;
 text-align: left;
 line-height: 1.2;
@@ -63,7 +63,7 @@ padding: 30px;
 .smc-button {
 max-width: 140px;
 margin: 20px auto auto 0;
-background-color: var(--smc-btn);
+background-color: var(--smc-btnBkg);
 color: #fff;
 border-radius: 2px;
 padding: 12px;
@@ -81,12 +81,12 @@ smc-cover,
 smc-code {
 font-size: 12px;
 padding: 12px;
-border: 1px solid var(--smc-btn);
+border: 1px solid var(--smc-btnBkg);
 border-radius: 2px;
 }
 
 smc-cover {
-background-color: var(--smc-btn);
+background-color: var(--smc-btnBkg);
 color: #fff;
 font-weight: bold;
 text-transform: uppercase;
@@ -103,13 +103,13 @@ left: 20px;
 }
 
 smc-long-close.smc-engaged>a.smc-link {
-background: var(--smc-btn);
+background: var(--smc-btnBkg);
 color: #fff;
 display: block;
 font-size: 12px;
 margin: 0;
 border-radius: 2px;
-border: 1px solid var(--smc-btn);
+border: 1px solid var(--smc-btnBkg);
 font-weight: bold;
 text-transform: uppercase;
 padding: 12px;

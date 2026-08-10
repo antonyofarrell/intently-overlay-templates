@@ -2,10 +2,10 @@
 smc-bg *{font-family: 'Avenir Next W01', sans-serif;}
 
 smc-overlay-inner {
-    --smc-bg: #ffd814;
-    --smc-text: #222;
-    --smc-btn: #000;
-    --smc-border: 2px;
+    --smc-mainBkg: #ffd814;
+    --smc-textColour: #222;
+    --smc-btnBkg: #000;
+    --smc-frameBorderRadius: 2px;
 }
 
 smc-overlay-inner {
@@ -105,7 +105,7 @@ smc-product-desc {
     text-align: left;
     font-weight: 300;
     font-size: 14px;
-    color: var(--smc-text);
+    color: var(--smc-textColour);
 }
 
 smc-product-img {
@@ -133,7 +133,7 @@ smc-product-desc {
     line-height: 1.2;
     font-size: 14px;
     width: 100%;
-    color: var(--smc-text);
+    color: var(--smc-textColour);
 }
 smc-product-brand {
     font-weight: 600;
@@ -162,7 +162,7 @@ smc-prices {
 }
 
 smc-product-price {
-    color: var(--smc-text);
+    color: var(--smc-textColour);
     font-size: 14px;
     font-weight: 600;
 }
@@ -171,7 +171,7 @@ smc-old-price {
     text-decoration: line-through;
     line-height: 1.3;
     padding: 0 10px 0 0;
-    color: var(--smc-text);
+    color: var(--smc-textColour);
     opacity: 0.3;
     font-size: 14px;
 }
@@ -182,7 +182,7 @@ smc-old-price:empty {
 smc-product-link{
     font-weight:400;
     max-width:240px;
-    border-radius:var(--smc-border);
+    border-radius:var(--smc-frameBorderRadius);
     cursor:pointer;
     width:100%;
     display:flex;
@@ -190,7 +190,7 @@ smc-product-link{
     margin: 10px auto 0 0;
     font-size: 14px;
     padding: 10px;
-    background-color: var(--smc-btn);
+    background-color: var(--smc-btnBkg);
     color: #fff;
     text-transform: uppercase;
 }

@@ -6,12 +6,12 @@ smc-bg * {
 
 smc-bg {
     background-color: rgb(210 210 210 / 60%);
-    --smc-text: #212529;
+    --smc-textColour: #212529;
     --smc-text-size:14px;
-    --smc-btn: #4aaae0;
-    --smc-border: 4px;
-    --smc-bkg1: #fff;
-    --smc-bkg2: #DE2283;
+    --smc-btnBkg: #4aaae0;
+    --smc-frameBorderRadius: 4px;
+    --smc-mainBkg: #fff;
+    --smc-cardBkg: #DE2283;
 }
 
 smc-bg {
@@ -72,7 +72,7 @@ smc-option {
 .smc-button {
     width: 100%;
     margin: 10px auto 0 auto;
-    background-color: var(--smc-btn);
+    background-color: var(--smc-btnBkg);
     color: #fff;
     font-size: 16px;
     padding: 16px;
@@ -124,7 +124,7 @@ smc-product-name {
     display: flex;
     margin: 5px auto;
     font-weight: 400;
-    color: var(--smc-text);
+    color: var(--smc-textColour);
     width: 95%;
     font-size: var(--smc-text-size);
     text-overflow: ellipsis;
@@ -142,7 +142,7 @@ smc-prices{
     justify-content: center;
 }
 smc-product-price{
-    color:var(--smc-text);
+    color:var(--smc-textColour);
     font-size:var(--smc-text-size);
     font-weight:600;
 }
@@ -165,6 +165,6 @@ smc-old-price:empty{
 
 .smc-ul li {
     font-size: var(--smc-text-size);
-    color:var(--smc-text);
+    color:var(--smc-textColour);
     margin: 6px auto;
 }

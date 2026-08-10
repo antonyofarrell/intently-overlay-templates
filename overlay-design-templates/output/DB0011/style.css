@@ -8,20 +8,20 @@ smc-bg * {
 
 smc-overlay-inner {
   --smc-mainBkg: #1b4868;
-  --smc-mainBkg2: #fff;
+  --smc-cardBkg: #fff;
   --smc-textColour: #222;
   --smc-textColour2: #222;
   --smc-font2: "Playfair", serif;
-  --smc-font-sm: 12px;
-  --smc-font-rg: 14px;
-  --smc-font-lg: 32px;
+  --smc-fontSm: 12px;
+  --smc-fontRg: 14px;
+  --smc-fontLg: 32px;
   --smc-btnBkg: #74c1f8;
   --smc-btnText: #333;
   --smc-btnBkgHover: #0075c9cb;
   --smc-btnBorder: 1px solid #0075c9;
   --smc-btnBorderRadius: 8px;
   --smc-btnPadding: 12px;
-  --smc-frameBorder: 10px;
+  --smc-frameBorderRadius: 10px;
   --smc-frameBorderInner: 5px;
   --smc-whiteBkg: #fff;
 }
@@ -32,7 +32,7 @@ smc-overlay-inner {
   min-height: auto;
   padding: 20px;
   gap: 20px;
-  border-radius: var(--smc-frameBorder);
+  border-radius: var(--smc-frameBorderRadius);
   display: flex;
   flex-direction: row;
 }
@@ -85,18 +85,18 @@ smc-img{
   margin: 0;
 }
 .smc-text1 {
-  font-size: var(--smc-font-lg);
+  font-size: var(--smc-fontLg);
   font-weight: bold;
 }
 .smc-text2 {
   font-weight: normal;
-  font-size: var(--smc-font-rg);
+  font-size: var(--smc-fontRg);
 }
 .smc-button {
   background: var(--smc-btnBkg);
   color: var(--smc-btnText);
   border: var(--smc-btnBorder);
-  font-size: var(--smc-font-rg);
+  font-size: var(--smc-fontRg);
   padding: 12px;
   font-weight: 400;
   max-width: 100%;
@@ -121,7 +121,7 @@ smc-close a.smc-link {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: var(--smc-font-rg);
+  font-size: var(--smc-fontRg);
 }
 smc-long-close {
   display: none;
@@ -167,7 +167,7 @@ smc-product-saving,
 smc-product-desc {
   display: flex;
   margin: 0;
-  font-size: var(--smc-font-sm);
+  font-size: var(--smc-fontSm);
   color: var(--smc-textColour);
   line-height: 1.3;
   width: 100%;
@@ -195,7 +195,7 @@ smc-product-name {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   line-height: 1.2;
-  font-size: var(--smc-font-rg);
+  font-size: var(--smc-fontRg);
   color: var(--smc-textColour);
 }
 
@@ -206,12 +206,12 @@ smc-prices {
   gap: 10px;
 }
 smc-product-price {
-  font-size: var(--smc-font-sm);
+  font-size: var(--smc-fontSm);
   font-weight: 700;
 }
 smc-old-price {
   text-decoration: line-through;
-  font-size: var(--smc-font-sm);
+  font-size: var(--smc-fontSm);
   opacity: 0.6;
 }
 smc-old-price:empty {

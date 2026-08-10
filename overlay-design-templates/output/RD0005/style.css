@@ -5,10 +5,10 @@ smc-bg * {
 }
 
 smc-overlay-inner {
-    --smc-brand: #ffb7ce;
-    --smc-text: #000;
-    --smc-btn: #000;
-    --smc-border: 20px;
+    --smc-accent: #ffb7ce;
+    --smc-textColour: #000;
+    --smc-btnBkg: #000;
+    --smc-frameBorderRadius: 20px;
 }
 
 
@@ -18,7 +18,7 @@ smc-overlay-inner {
     width: 470px;
     min-height: 300px;
     padding-bottom: 30px;
-    border-radius: var(--smc-border);
+    border-radius: var(--smc-frameBorderRadius);
     overflow: hidden;
 }
 
@@ -33,7 +33,7 @@ smc-option {
 .smc-text4 {
     font-weight: 300;
     font-size: 20px;
-    color: var(--smc-text);
+    color: var(--smc-textColour);
     line-height: 1.2;
 }
 
@@ -66,7 +66,7 @@ smc-multi-holder {
 }
 
 smc-multi-cta {
-    background-color: var(--smc-btn);
+    background-color: var(--smc-btnBkg);
     margin: 5px auto;
     color: #fff;
     padding: 14px;

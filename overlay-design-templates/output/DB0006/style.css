@@ -9,7 +9,7 @@ smc-overlay-inner {
 	--smc-btnText: #ffffff;
 	--smc-btnBkgHover: #3271b0;
 	--smc-btnBorderRadius: 4px;
-	--smc-frameBorder: 6px;
+	--smc-frameBorderRadius: 6px;
 }
 
 smc-bg * {
@@ -20,7 +20,7 @@ smc-overlay-inner {
 	background: var(--smc-mainBkg);
 	width: 320px;
 	min-height: 400px;
-	border-radius: var(--smc-frameBorder);
+	border-radius: var(--smc-frameBorderRadius);
 	margin: 0;
 }
 
@@ -42,7 +42,7 @@ smc-bg {
 	bottom: 10px;
 	left: auto;
 	top: auto;
-	border-radius: var(--smc-frameBorder);
+	border-radius: var(--smc-frameBorderRadius);
 	box-shadow: 0 7px 17px #0000002e;
 	overflow: visible;
 	transition: .3s ease-in-out;
@@ -85,7 +85,7 @@ smc-cart {
 	display: flex;
 	flex-direction: column;
 	text-align: center;
-	border-radius: var(--smc-frameBorder);
+	border-radius: var(--smc-frameBorderRadius);
 	box-shadow: 0 7px 17px #0000002e;
 	transition: .3s ease-in-out;
 }

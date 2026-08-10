@@ -7,11 +7,11 @@ smc-bg * {
 smc-bg {
   background-color: rgb(210 210 210 / 60%);
   backdrop-filter: blur(3px);
-  --smc-text: #154D82;
-  --smc-btn: #BAD584;
-  --smc-border: 5px;
-  --smc-bkg1: #e3ecf4;
-  --smc-bkg2: #87bcee;
+  --smc-textColour: #154D82;
+  --smc-btnBkg: #BAD584;
+  --smc-frameBorderRadius: 5px;
+  --smc-mainBkg: #e3ecf4;
+  --smc-cardBkg: #87bcee;
 }
 
 smc-bg{
@@ -35,13 +35,13 @@ smc-overlay-outer{
 
 
 smc-overlay-inner {
-  background: linear-gradient(180deg, var(--smc-bkg1) 80%, var(--smc-bkg2) 80%);
+  background: linear-gradient(180deg, var(--smc-mainBkg) 80%, var(--smc-cardBkg) 80%);
   width: 570px;
   min-height: 250px;
   padding-bottom: 0;
   margin-bottom: 0;
-  border-radius: var(--smc-border);
-  border: 3px solid var(--smc-bkg2);
+  border-radius: var(--smc-frameBorderRadius);
+  border: 3px solid var(--smc-cardBkg);
     position: relative;
     bottom: 0;
     right: 0;
@@ -65,7 +65,7 @@ smc-long-close {
   text-align: left;
   line-height: 1.2;
   margin: 5px auto;
-  color: var(--smc-text);
+  color: var(--smc-textColour);
 }
 
 .smc-text1 {
@@ -81,7 +81,7 @@ smc-long-close {
 .smc-button {
   max-width: 160px;
   margin: 20px auto auto 0;
-  background-color: var(--smc-btn);
+  background-color: var(--smc-btnBkg);
   color: #333;
   font-size: 14px;
   font-weight: 500;
@@ -106,7 +106,7 @@ smc-close a.smc-link {
 }
 smc-overlay-inner:hover smc-product{
   animation: smc-attn 2s ease infinite;
-  box-shadow: 5px 5px 20px var(--smc-bkg2);
+  box-shadow: 5px 5px 20px var(--smc-cardBkg);
   transform: translateY(-30px);
 }
 smc-cart {
@@ -128,7 +128,7 @@ smc-product {
   width: 320px;
   height: 100%;
   background-color: #fff;
-  border-radius: var(--smc-border);
+  border-radius: var(--smc-frameBorderRadius);
   overflow: hidden;
   box-shadow: 0 0rem 3.2rem rgb(0 0 0 / 8%);
   transition: all 0.3s ease;
@@ -170,7 +170,7 @@ smc-product-link {
   width: 100%;
   text-align: center;
   justify-content: center;
-  color: var(--smc-text);
+  color: var(--smc-textColour);
 }
 
 smc-product-name {
@@ -239,7 +239,7 @@ smc-rating img {
 smc-rating:after {
   content: "\0022 Testimonial number one here \0022";
   font-size: 11px;
-  color: var(--smc-text);
+  color: var(--smc-textColour);
   font-weight: 400;
   animation: smc-changewords 6s infinite;
 }
@@ -268,7 +268,7 @@ smc-rating:after {
 smc-overlay-inner{
   width: 320px;
   min-height: 500px;  
-  background: linear-gradient(180deg, var(--smc-bkg1) 85%, var(--smc-bkg2) 85%);
+  background: linear-gradient(180deg, var(--smc-mainBkg) 85%, var(--smc-cardBkg) 85%);
 
 }
 smc-img-outer,

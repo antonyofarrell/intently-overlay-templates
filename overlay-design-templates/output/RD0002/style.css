@@ -2,12 +2,12 @@
 @import url('https://fonts.smct.co/smc-DMserif-Display/smc-DMserifDisplay.css');
 smc-bg *{font-family: "smc-DMSans-Regular", sans-serif;}
 smc-overlay-inner {
-  --smc-bg: #ffd814;
-  --smc-text: #2D419A;
-  --smc-text2: #1B244B;
-  --smc-btn: #fff;
-  --smc-btn-text:#2a2827;
-  --smc-border:2px;
+  --smc-mainBkg: #ffd814;
+  --smc-textColour: #2D419A;
+  --smc-textColour2: #1B244B;
+  --smc-btnBkg: #fff;
+  --smc-btnText:#2a2827;
+  --smc-frameBorderRadius:2px;
 }
 
 smc-overlay-inner {
@@ -35,11 +35,11 @@ smc-text-outer, smc-option {
 	font-weight: normal;
 	line-height: 1.2;
 	font-family: "DMSerifDisplay-Regular", serif;
-	color: var(--smc-text);
+	color: var(--smc-textColour);
 }
 .smc-text2 {
 	margin: 10px auto 10px auto;
-	color: var(--smc-text2);
+	color: var(--smc-textColour2);
 	font-size: 17px;
 	font-weight: normal;
 	line-height: 1.2;
@@ -47,7 +47,7 @@ smc-text-outer, smc-option {
 .smc-button {
 	max-width: 160px;
 	margin: 25px auto 10px auto;
-	background-color:var(--smc-text2);
+	background-color:var(--smc-textColour2);
 	color: #fff;
 	font-size: 16px;
 	font-weight: normal;
@@ -77,7 +77,7 @@ smc-multi-holder {
 	height: 150px;
 	overflow: hidden;
 	margin: 5px auto;
-	background: var(--smc-text);
+	background: var(--smc-textColour);
 	border-radius: 10px;
 	cursor: pointer;
 }

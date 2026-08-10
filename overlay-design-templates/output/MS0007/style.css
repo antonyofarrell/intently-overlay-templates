@@ -5,17 +5,17 @@ smc-bg * {
 }
 
 smc-overlay-inner {
-  --smc-bg1: #66a3d2;
-  --smc-bg2: #1c6298;
-  --smc-text: #fff;
+  --smc-mainBkg: #66a3d2;
+  --smc-cardBkg: #1c6298;
+  --smc-textColour: #fff;
   --smc-text-dark: #333;
-  --smc-btn: #27a254;
-  --smc-btnHover: #1a513e;
-  --smc-border: 8px;
+  --smc-btnBkg: #27a254;
+  --smc-btnBkgHover: #1a513e;
+  --smc-frameBorderRadius: 8px;
 }
 
 smc-overlay-inner {
-  background-image: linear-gradient(180deg, var(--smc-bg1) 50%,  var(--smc-bg2) 50%);
+  background-image: linear-gradient(180deg, var(--smc-mainBkg) 50%,  var(--smc-cardBkg) 50%);
   width: 450px;
   min-height: auto;
   border-radius: 10px;
@@ -41,7 +41,7 @@ smc-text:empty, smc-img:empty, smc-img img:empty{
 .smc-text3 {
   font-size: 12px;
   font-weight: 400;
-  color: var(--smc-text);
+  color: var(--smc-textColour);
   text-align: left;
   line-height: 1.3;
 }
@@ -92,7 +92,7 @@ input.smc-input {
 }
 
 label.smc-check-label {
-  color: var(--smc-text);
+  color: var(--smc-textColour);
   font-size: 12px;
   display: flex;
   align-items: center;
@@ -119,7 +119,7 @@ smc-button-wrap{
 
 .smc-button,
 smc-long-close span.smc-link  {
-  background-color: var(--smc-btn);
+  background-color: var(--smc-btnBkg);
   color: #fff;
   text-align: center;
   font-weight: normal;
@@ -134,7 +134,7 @@ smc-long-close span.smc-link  {
 }
 
 .smc-button:hover {
-  background-color: var(--smc-btnHover);
+  background-color: var(--smc-btnBkgHover);
   box-shadow: 0 10px 30px #3333337e;
 }
 
@@ -152,7 +152,7 @@ smc-long-close span.smc-link {
 }
 
 smc-long-close span.smc-link:hover {
-  background-color: var(--smc-btnHover);
+  background-color: var(--smc-btnBkgHover);
   color: #fff;
 }
 

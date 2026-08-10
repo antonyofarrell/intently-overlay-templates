@@ -5,11 +5,11 @@ font-family: "Montserrat", serif;
 }
 
 smc-overlay-inner {
---smc-bg: #ffd814;
---smc-text: #fff;
---smc-btn: #d95d31;
---smc-btnHover: #b64821;
---smc-border: 2px;
+--smc-mainBkg: #ffd814;
+--smc-textColour: #fff;
+--smc-btnBkg: #d95d31;
+--smc-btnBkgHover: #b64821;
+--smc-frameBorderRadius: 2px;
 }
 
 smc-overlay-inner {
@@ -17,7 +17,7 @@ background:#0E2545;
 width:700px;
 min-height: 300px;
 padding: 30px;
-border-radius: var(--smc-border);
+border-radius: var(--smc-frameBorderRadius);
 overflow: hidden;
 }
 
@@ -34,7 +34,7 @@ width: 100%;
 .smc-text4 {
 font-weight: 300;
 font-size: 20px;
-color: var(--smc-text);
+color: var(--smc-textColour);
 line-height: 1.2;
 }
 .smc-img1{
@@ -76,7 +76,7 @@ display: flex;
 flex-direction: column;
 transition: all 0.3s ease;
 position: relative;
-border: 1px solid var(--smc-btn);
+border: 1px solid var(--smc-btnBkg);
 }
 smc-multi-cta:hover{
 box-shadow: 10px 10px 10px #333;

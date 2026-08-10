@@ -5,14 +5,14 @@ smc-bg * {
 }
 
 smc-overlay-inner {
-  --smc-bg: #284256;
-  --smc-text: #fff;
-  --smc-btn: #98c2d9;
-  --smc-btnHover: #65a0bf;
-  --smc-border:2px;
+  --smc-mainBkg: #284256;
+  --smc-textColour: #fff;
+  --smc-btnBkg: #98c2d9;
+  --smc-btnBkgHover: #65a0bf;
+  --smc-frameBorderRadius:2px;
 }
 smc-overlay-inner {
-    background-color:var(--smc-bg);
+    background-color:var(--smc-mainBkg);
     width: 750px;
     min-height: 350px;
     border-radius: 2px;
@@ -43,11 +43,11 @@ smc-long-close {
     text-align: left;
     line-height: 1.2;
     font-weight: 400;
-    color: var(--smc-text);
+    color: var(--smc-textColour);
 }
 
 .smc-text1 {
-    color: var(--smc-btn);
+    color: var(--smc-btnBkg);
     margin: 25px auto 15px auto;
 }
 
@@ -62,12 +62,12 @@ smc-long-close {
     padding: 14px;
     font-size: 15px;
     border-radius: 2px;
-    border: 1px solid var(--smc-btn);
-    background-color:var(--smc-btn);
+    border: 1px solid var(--smc-btnBkg);
+    background-color:var(--smc-btnBkg);
     color: #284256;
 }
 .smc-button:hover{
-    background-color: var(--smc-btnHover);
+    background-color: var(--smc-btnBkgHover);
 }
 smc-cart {
     position: absolute;

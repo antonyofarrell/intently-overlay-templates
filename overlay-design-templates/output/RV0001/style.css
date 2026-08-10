@@ -5,10 +5,10 @@ font-family: 'Beatrice-Regular', sans-serif;
 }
 
 smc-overlay-inner {
---smc-bg: #ffd814;
---smc-text: #005451;
---smc-btn: #18c9b4;
---smc-border: 12px;
+--smc-mainBkg: #ffd814;
+--smc-textColour: #005451;
+--smc-btnBkg: #18c9b4;
+--smc-frameBorderRadius: 12px;
 }
 
 smc-overlay-inner {
@@ -16,7 +16,7 @@ background: linear-gradient(180deg, #deefed 0, #fff 49%);
 width: 650px;
 min-height: 300px;
 padding-bottom: 20px;
-border-radius: var(--smc-border);
+border-radius: var(--smc-frameBorderRadius);
 }
 
 smc-img-outer,
@@ -41,7 +41,7 @@ bottom: 20px;
 right: 20px;
 max-width: 250px;
 overflow: hidden;
-border-radius: var(--smc-border);
+border-radius: var(--smc-frameBorderRadius);
 }
 
 .smc-img2 img {
@@ -54,7 +54,7 @@ bottom: 120px;
 right: 0;
 max-width: 250px;
 overflow: hidden;
-border-radius: var(--smc-border);
+border-radius: var(--smc-frameBorderRadius);
 }
 
 .smc-img3 img {
@@ -65,7 +65,7 @@ max-width: 250px;
 .smc-text2,
 .smc-text3,
 .smc-text4 {
-color: var(--smc-text);
+color: var(--smc-textColour);
 line-height: 1.3;
 }
 
@@ -100,7 +100,7 @@ font-weight: 400;
 }
 
 smc-cover {
-background-color: var(--smc-btn);
+background-color: var(--smc-btnBkg);
 padding: 14px;
 box-shadow: 0 .5rem 1rem 0 rgba(18, 166, 149, .33);
 }
@@ -118,7 +118,7 @@ display: block;
 font-size: 14px;
 border-radius: 30px;
 margin: auto;
-background-color: var(--smc-btn);
+background-color: var(--smc-btnBkg);
 padding: 14px;
 box-shadow: 0 .5rem 1rem 0 rgba(18, 166, 149, .33);
 }

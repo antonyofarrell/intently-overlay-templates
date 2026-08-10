@@ -5,16 +5,16 @@ font-family: 'Poppins', sans-serif;
 }
 
 smc-overlay-inner {
---smc-bg: #F7C8E0;
---smc-text: #123063;
---smc-btn: #2B8333;
---smc-border: 10px;
+--smc-mainBkg: #F7C8E0;
+--smc-textColour: #123063;
+--smc-btnBkg: #2B8333;
+--smc-frameBorderRadius: 10px;
 --smc-banner:#3498db;
 }
 
 smc-overlay-inner {
-background-color: var(--smc-bg);
-border-radius: var(--smc-border);
+background-color: var(--smc-mainBkg);
+border-radius: var(--smc-frameBorderRadius);
 width: 400px;
 min-height: auto;
 padding: 30px;
@@ -27,7 +27,7 @@ min-width: auto;
 }
 
 .smc-img1 img {
-border-radius: var(--smc-border);
+border-radius: var(--smc-frameBorderRadius);
 }
 
 .smc-img2 {
@@ -109,7 +109,7 @@ left: 0;
 font-size: 16px;
 font-weight: 400;
 margin: 10px auto;
-color: var(--smc-text);
+color: var(--smc-textColour);
 line-height: 1.2;
 }
 
@@ -128,7 +128,7 @@ border-radius: 5px;
 font-size: 16px;
 padding: 14px;
 font-weight: 700;
-background-color: var(--smc-btn);
+background-color: var(--smc-btnBkg);
 color: #fff;
 }
 .smc-button:hover{
@@ -140,11 +140,11 @@ top: -5px;
 right: -5px;
 width: 25px;
 height: 25px;
-background: var(--smc-bg);
+background: var(--smc-mainBkg);
 }
 
 smc-close:hover {
-background: var(--smc-bg)
+background: var(--smc-mainBkg)
 }
 
 smc-close a.smc-link {

@@ -2,11 +2,11 @@
 smc-bg *{font-family: 'Nunito Sans', sans-serif;}
 
 smc-overlay-inner {
-  --smc-bg: #ffd814;
-  --smc-text: #000;
-  --smc-btn: #000;
-  --smc-btnHover: #000;
-  --smc-border:2px;
+  --smc-mainBkg: #ffd814;
+  --smc-textColour: #000;
+  --smc-btnBkg: #000;
+  --smc-btnBkgHover: #000;
+  --smc-frameBorderRadius:2px;
 }
 smc-bg {
   width: 100%;
@@ -60,7 +60,7 @@ smc-long-close {
   font-size: 11px;
   font-weight: 400;
   margin:10px auto 0 auto;
-  color: var(--smc-text);
+  color: var(--smc-textColour);
   text-align: left;
   line-height: 130%;
 }
@@ -83,7 +83,7 @@ smc-long-close {
 .smc-button {
   max-width: 160px;
   margin: 15px auto auto 0;
-  background-color:var(--smc-btn);
+  background-color:var(--smc-btnBkg);
   color: #fff;
   padding: 10px;
   font-size: 11px;
@@ -91,7 +91,7 @@ smc-long-close {
   border-radius: 40px;
 }
 .smc-button:hover{
-  background-color: var(--smc-btnHover);
+  background-color: var(--smc-btnBkgHover);
 }
 smc-close {
   top: -5px;

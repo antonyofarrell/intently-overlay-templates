@@ -4,17 +4,17 @@ smc-bg * {
   font-family: "DM Sans", sans-serif;
 }
 smc-overlay-inner {
-  --smc-bg: #fff;
-  --smc-text: #2a2b2a;
-  --smc-btn: #EC7F73;
-  --smc-btnHover: #fff;
-  --smc-border:10px;
+  --smc-mainBkg: #fff;
+  --smc-textColour: #2a2b2a;
+  --smc-btnBkg: #EC7F73;
+  --smc-btnBkgHover: #fff;
+  --smc-frameBorderRadius:10px;
 }
 
 
 
 smc-overlay-inner {
-  background-color:var(--smc-bg);
+  background-color:var(--smc-mainBkg);
   width: 720px;
   min-height: 400px;
   padding-bottom: 0;
@@ -36,7 +36,7 @@ smc-long-close {
 .smc-text2 {
   font-size: 15px;
   font-weight: 400;
-  color: var(--smc-text);
+  color: var(--smc-textColour);
   margin: 15px auto;
   text-align: left;
   line-height: 1.2;
@@ -55,13 +55,13 @@ smc-option{
 .smc-button {
   max-width: 160px;
   margin: 22px auto auto 0;
-  background-color: var(--smc-btn);
+  background-color: var(--smc-btnBkg);
   color: #fff;
   font-size: 14px;
   font-weight: 500;
   padding: 12px;
   border-radius: 30px;
-  border: 1px solid var(--smc-btn);
+  border: 1px solid var(--smc-btnBkg);
 }
 
 smc-close {
@@ -127,7 +127,7 @@ smc-product-link {
   font-size: 10px;
   font-weight: 400;
   margin: 0 auto;
-  color: var(--smc-text);
+  color: var(--smc-textColour);
   text-align: left;
 }
 
@@ -150,9 +150,9 @@ smc-product-price {
 }
 
 smc-product-link {
-  background: var(--smc-btn);
+  background: var(--smc-btnBkg);
   color: #fff;
-  border: 1px solid var(--smc-btn);
+  border: 1px solid var(--smc-btnBkg);
   font-size: 12px;
   padding: 10px;
   width: 100%;
@@ -167,7 +167,7 @@ smc-product-link {
 }
 smc-product-link:hover {
   background: #fff;
-  color: var(--smc-btn);
+  color: var(--smc-btnBkg);
 }
 
 

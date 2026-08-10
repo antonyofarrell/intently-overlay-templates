@@ -6,11 +6,11 @@ smc-bg * {
 
 
 smc-overlay-inner {
-  --smc-bg: #FFFCD2;
-  --smc-text: #222;
-  --smc-btn: #2d5605;
-  --smc-btnHover: #1a3203;
-  --smc-border: 1px;
+  --smc-mainBkg: #FFFCD2;
+  --smc-textColour: #222;
+  --smc-btnBkg: #2d5605;
+  --smc-btnBkgHover: #1a3203;
+  --smc-frameBorderRadius: 1px;
   --smc-length: 420px
 }
 
@@ -19,7 +19,7 @@ smc-overlay-inner {
   width: 750px;
   min-height: 275px;
   padding-bottom: 15px;
-  border-radius: var(--smc-border);
+  border-radius: var(--smc-frameBorderRadius);
 }
 
 smc-overlay-bkg {
@@ -33,7 +33,7 @@ smc-overlay-bkg svg {
   height: 100%;
 }
 .smc-blob {
-  fill: var(--smc-bg);
+  fill: var(--smc-mainBkg);
 }
 smc-img-outer,
 smc-text-outer,
@@ -52,7 +52,7 @@ smc-long-close {
 .smc-text2,
 .smc-text3,
 .smc-text4 {
-  color: var(--smc-text);
+  color: var(--smc-textColour);
   line-height: 1.2;
   font-weight: 400;
   text-align: left;
@@ -107,7 +107,7 @@ smc-product {
   background: #fff;
   border: 1px solid rgba(128, 128, 128, .16);
   box-shadow: 0 1px 4px #8080801c;
-  border-radius: var(--smc-border);
+  border-radius: var(--smc-frameBorderRadius);
   overflow: hidden;
   max-width: 160px;
   max-height: 275px;
@@ -127,7 +127,7 @@ smc-prices {
   display: flex;
   margin: 2px auto;
   font-size: 12px;
-  color: var(--smc-text);
+  color: var(--smc-textColour);
   line-height: 1.3;
   width: 100%;
   font-weight: 500;
@@ -155,7 +155,7 @@ smc-product-name {
   -webkit-box-orient: vertical;
   line-height: 1.2;
   font-size: 15px;
-  color: var(--smc-text);
+  color: var(--smc-textColour);
   min-height: 38px;
   margin-top: 10px;
 }
@@ -165,7 +165,7 @@ smc-prices {
   align-items: center;
 }
 smc-product-price {
-  color: var(--smc-btn);
+  color: var(--smc-btnBkg);
   font-size: 13px;
   font-weight: 600;
 }
@@ -179,7 +179,7 @@ smc-old-price:empty{
   padding: 0;
 }
 smc-product-link {
-  background: var(--smc-btn);
+  background: var(--smc-btnBkg);
   color: #fff;
   font-size: 12px;
   padding: 12px;
@@ -195,5 +195,5 @@ smc-product-link {
 }
 smc-product-link:hover {
   box-shadow: 0 3px 8px #0000001a;
-  background: var(--smc-btnHover);
+  background: var(--smc-btnBkgHover);
 }

@@ -6,12 +6,12 @@ smc-bg * {
 
 smc-bg {
   background-color: rgb(210 210 210 / 60%);
-  --smc-text: #212529;
+  --smc-textColour: #212529;
   --smc-text-size: 16px;
-  --smc-btn: #4aaae0;
-  --smc-border: 4px;
-  --smc-bkg1: #fff;
-  --smc-bkg2: #DE2283;
+  --smc-btnBkg: #4aaae0;
+  --smc-frameBorderRadius: 4px;
+  --smc-mainBkg: #fff;
+  --smc-cardBkg: #DE2283;
 }
 
 

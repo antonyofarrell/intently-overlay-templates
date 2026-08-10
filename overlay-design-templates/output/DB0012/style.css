@@ -8,7 +8,7 @@ smc-overlay-inner {
     --smc-btnBkg: #ffffff;
     --smc-btnText: #000000;
     --smc-btnBorder: 1px solid #000000;
-    --smc-frameBorder: 2px;
+    --smc-frameBorderRadius: 2px;
 }
 
 smc-bg * {
@@ -19,7 +19,7 @@ smc-overlay-inner {
     background-color: var(--smc-mainBkg);
     width: 600px;
     height: 360px;
-    border-radius: var(--smc-frameBorder);
+    border-radius: var(--smc-frameBorderRadius);
 }
 
 /* Align the content Left */

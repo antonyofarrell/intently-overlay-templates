@@ -5,13 +5,13 @@ font-family: "Poppins", sans-serif;
 }
 
 smc-bg {
---smc-bg: #ffd814;
---smc-text: #fff;
---smc-btn: #FAD663;
---smc-btnHover: #E3B10F;
---smc-border: 5px;
+--smc-mainBkg: #ffd814;
+--smc-textColour: #fff;
+--smc-btnBkg: #FAD663;
+--smc-btnBkgHover: #E3B10F;
+--smc-frameBorderRadius: 5px;
 --smc-bkg1:#fff;
---smc-bkg2:#1F2D3D;
+--smc-cardBkg:#1F2D3D;
 }
 smc-bg {
 bottom: auto;
@@ -99,22 +99,22 @@ line-height: 1.2;
 
 .smc-button {
 border: 1px solid ;
-background:var(--smc-btn);
+background:var(--smc-btnBkg);
 display: flex;
 justify-content: center;
 margin: 0;
 max-width: 140px;
 text-transform: uppercase;
-border-color: var(--smc-btn);
-background: var(--smc-btn);
+border-color: var(--smc-btnBkg);
+background: var(--smc-btnBkg);
 padding: 17px 18px;
 font-size: 15px;
 color: #212E3C;
 font-weight: 500;
-border-radius: var(--smc-border);
+border-radius: var(--smc-frameBorderRadius);
 }
 .smc-button:hover{
-background-color: var(--smc-btnHover);
+background-color: var(--smc-btnBkgHover);
 color: #fff;
 }
 

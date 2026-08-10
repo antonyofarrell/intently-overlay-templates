@@ -4,9 +4,9 @@ smc-bg * {
   font-family: "Source Sans 3", sans-serif;
 }
 smc-overlay-inner {
-	--smc-brand: #fff;
-	--smc-text: #1f1f1f;
-	--smc-btn: #003870;
+	--smc-accent: #fff;
+	--smc-textColour: #1f1f1f;
+	--smc-btnBkg: #003870;
   --smc-border:#eee;
 }
 smc-overlay-inner {
@@ -28,7 +28,7 @@ smc-text-outer {
 .smc-text2{
   font-size: 14px;
   font-weight: 400;
-  color: var(--smc-text);
+  color: var(--smc-textColour);
   margin: 14px auto;
   text-align: cener;
   line-height: 1.1;
@@ -37,7 +37,7 @@ smc-text-outer {
 .smc-text1 {
   font-weight: bold;
   margin: 30px auto auto auto;
-  color:var(--smc-btn);
+  color:var(--smc-btnBkg);
   font-size: 32px;
 }
 
@@ -162,7 +162,7 @@ smc-product-link {
   text-align: center;
   font-weight: 500;
   border-radius: 2px;
-  background-color: var(--smc-btn);
+  background-color: var(--smc-btnBkg);
   color: #fff;
   display: block;
   cursor: pointer;

@@ -5,15 +5,15 @@ smc-bg * {
 }
 
 smc-overlay-inner {
-  --smc-bkg1: #626bec;
-  --smc-bkg2: rgb(18, 0, 99);
-  --smc-button: #e2ed12;
-  --smc-buttonHover: #bac316;
+  --smc-mainBkg: #626bec;
+  --smc-cardBkg: rgb(18, 0, 99);
+  --smc-btnBkg: #e2ed12;
+  --smc-btnBkgHover: #bac316;
 }
 
 smc-overlay-inner {
-  background-color: var(--smc-bkg1);
-  background: linear-gradient(180deg, var(--smc-bkg1) 0%, var(--smc-bkg2) 100%);
+  background-color: var(--smc-mainBkg);
+  background: linear-gradient(180deg, var(--smc-mainBkg) 0%, var(--smc-cardBkg) 100%);
   width: 440px;
   min-height: auto;
   border-radius: 8px;
@@ -81,7 +81,7 @@ smc-reveal.smc-eng {
 }
 
 smc-cover {
-  background: var(--smc-button);
+  background: var(--smc-btnBkg);
   color: #333;
   padding: 11px;
   font-size: 15px;
@@ -90,7 +90,7 @@ smc-cover {
 }
 
 smc-cover:hover {
-  background: var(--smc-buttonHover);
+  background: var(--smc-btnBkgHover);
 }
 
 smc-code {
@@ -107,7 +107,7 @@ smc-long-close.smc-engaged {
 }
 
 smc-long-close.smc-engaged>a.smc-link {
-  background: var(--smc-button);
+  background: var(--smc-btnBkg);
   color: #333;
   display: block;
   font-size: 14px;
@@ -119,7 +119,7 @@ smc-long-close.smc-engaged>a.smc-link {
 }
 
 smc-long-close.smc-engaged>a.smc-link:hover {
-  background: var(--smc-buttonHover);
+  background: var(--smc-btnBkgHover);
 }
 
 smc-cp {
@@ -207,7 +207,7 @@ smc-overlay-inner {
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  background: var(--smc-button);
+  background: var(--smc-btnBkg);
   background-image: radial-gradient(circle at center 15%, #ffffff16 0%, #000000c4 100%);
   color: #fff;
   display: flex;

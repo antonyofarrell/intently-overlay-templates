@@ -16,14 +16,14 @@ smc-overlay-inner {
   --smc-btnBorder: 1px solid #ffb300cb;
   --smc-btnBorderRadius: 4px;
   --smc-btnPadding: 12px;
-  --smc-frameBorder: 4px;
+  --smc-frameBorderRadius: 4px;
 }
 
 smc-overlay-inner {
   background: var(--smc-mainBkg);
   width: 450px;
   padding: 20px;
-  border-radius: var(--smc-frameBorder);
+  border-radius: var(--smc-frameBorderRadius);
 }
 
 smc-img-outer,
@@ -103,7 +103,7 @@ smc-cart {
   align-items: center;
   justify-content: center;
   flex-wrap: nowrap;
-  border-radius: var(--smc-frameBorder);
+  border-radius: var(--smc-frameBorderRadius);
   transition: all 0.3s ease;
   background: #fff;
   border: 1px solid rgba(128, 128, 128, 0.16);

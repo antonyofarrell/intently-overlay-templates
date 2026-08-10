@@ -4,12 +4,12 @@ smc-bg * {
   font-family: 'Helvetica W01', sans-serif;
 }
 smc-bg {
-  --smc-text: #fff;
-  --smc-btn: #84f45c;
-  --smc-btnHover: #38851c;
-  --smc-border: 5px;
-  --smc-bkg1: #436fff;
-  --smc-bkg2: #142f55;
+  --smc-textColour: #fff;
+  --smc-btnBkg: #84f45c;
+  --smc-btnBkgHover: #38851c;
+  --smc-frameBorderRadius: 5px;
+  --smc-mainBkg: #436fff;
+  --smc-cardBkg: #142f55;
 }
 smc-bg {
   height: 100%;
@@ -32,7 +32,7 @@ smc-overlay-outer {
 
 smc-overlay-inner {
   background: #fff0;
-  background: linear-gradient(135deg, var(--smc-bkg1) 0%, var(--smc-bkg2) 100%);
+  background: linear-gradient(135deg, var(--smc-mainBkg) 0%, var(--smc-cardBkg) 100%);
   transform-origin: center;
   min-height: 330px;
   width: 330px;
@@ -61,7 +61,7 @@ smc-overlay-inner {
     font-weight:300;
     font-size:20px;
     margin:10px auto 10px auto;
-    color:var(--smc-text);
+    color:var(--smc-textColour);
     line-height:1.2;
 }
 .smc-text1{
@@ -75,7 +75,7 @@ smc-overlay-inner {
     margin:10px auto 10px auto;
 }
 .smc-button {
-  background-color: var(--smc-btn);
+  background-color: var(--smc-btnBkg);
   color: #333;
   font-size: 16px;
   border-radius: 5px;
@@ -88,7 +88,7 @@ smc-overlay-inner {
 }
 
 .smc-button:hover {
-  background-color: var(--smc-btnHover);
+  background-color: var(--smc-btnBkgHover);
   color: #fff;
 }
 
@@ -164,13 +164,13 @@ smc-cool-checkboxes {
   10% {
     transform: scale(0.91);
     animation-timing-function: ease-in;
-    background: var(--smc-btnHover);
+    background: var(--smc-btnBkgHover);
   }
 
   17% {
     transform: scale(0.98);
     animation-timing-function: ease-out;
-    background:var(--smc-btn);
+    background:var(--smc-btnBkg);
   }
 
   33% {

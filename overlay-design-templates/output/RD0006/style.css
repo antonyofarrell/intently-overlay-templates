@@ -5,18 +5,18 @@ smc-bg * {
 }
 
 smc-overlay-inner {
-  --smc-bg: #164d82;
-  --smc-bg2:rgb(116, 164, 209);
-  --smc-text: #fff;
-  --smc-btn: #BAD584;
-  --smc-border: 4px;
+  --smc-mainBkg: #164d82;
+  --smc-cardBkg:rgb(116, 164, 209);
+  --smc-textColour: #fff;
+  --smc-btnBkg: #BAD584;
+  --smc-frameBorderRadius: 4px;
 }
 smc-overlay-inner {
-  background:linear-gradient(0deg, var(--smc-bg) 0%, 
-  var(--smc-bg2) 100%);
+  background:linear-gradient(0deg, var(--smc-mainBkg) 0%, 
+  var(--smc-cardBkg) 100%);
   width: 600px;
   min-height: 400px;
-  border-radius:var(--smc-border);
+  border-radius:var(--smc-frameBorderRadius);
   padding-bottom: 0;
 }
 .smc-img1 {
@@ -32,7 +32,7 @@ smc-text-outer{
   font-weight: 400;
   margin: 10px auto;
   line-height:1.3;
-  color: var(--smc-text);
+  color: var(--smc-textColour);
 }
 .smc-text1 {
   font-size: 24px;
@@ -43,9 +43,9 @@ smc-text-outer{
 
 .smc-button {
   padding: 12px;
-  border-radius: var(--smc-border);
+  border-radius: var(--smc-frameBorderRadius);
   font-size: 14px;
-  background-color:var(--smc-btn);
+  background-color:var(--smc-btnBkg);
   color: #000;
   font-weight: bold;
 }
@@ -108,8 +108,8 @@ smc-close a.smc-link {
     padding: 10px;
     font-size: 14px;
     cursor: pointer;
-    background-color: var(--smc-btn);
-    border: 1px solid var(--smc-btn);
+    background-color: var(--smc-btnBkg);
+    border: 1px solid var(--smc-btnBkg);
     border-radius: 5px;
     color: #000;
 }
