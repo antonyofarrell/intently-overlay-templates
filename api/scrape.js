@@ -171,16 +171,25 @@ module.exports = async (req, res) => {
     // colours) on sites that don't expose CSS custom properties. Comments stripped to save room.
     const cssSample = css.replace(/\/\*[\s\S]*?\*\//g, " ").replace(/\s+/g, " ").trim().slice(0, 90000);
 
+    // Detect bot-protection / challenge / error interstitials (Cloudflare, Incapsula, PerimeterX,
+    // Akamai, DataDome). If we hit one we scraped the block page, NOT the real site — returning its
+    // tokens/CSS would map garbage (e.g. Cloudflare's #f68b1f orange), so flag it and return empty.
+    const probe = (html + " " + css.slice(0, 8000));
+    const blocked =
+      [401, 403, 429, 503].includes(page.status || 0) ||
+      /id=["']cf-wrapper|cf-browser-verification|__cf_chl|_cf_chl_opt|challenge-platform|cf-error|Just a moment\.\.\.|Attention Required!\s*\|\s*Cloudflare|_Incapsula_Resource|Incapsula incident|px-captcha|PerimeterX|distil_r_captcha|DataDome|Enable JavaScript and cookies to continue/i.test(probe);
+
     res.status(200).json({
       finalUrl: base,
-      themeColor,
-      cssVars,
-      fontFaces,
-      fontFamilies,
-      fontImports,
-      cssSample,
+      blocked,
+      themeColor: blocked ? null : themeColor,
+      cssVars: blocked ? {} : cssVars,
+      fontFaces: blocked ? [] : fontFaces,
+      fontFamilies: blocked ? [] : fontFamilies,
+      fontImports: blocked ? [] : fontImports,
+      cssSample: blocked ? "" : cssSample,
       stylesheetsFetched: fetched,
-      counts: { vars: Object.keys(cssVars).length, fontFaces: fontFaces.length, fontFamilies: fontFamilies.length, sheets: fetched.length, cssSampleChars: cssSample.length },
+      counts: { vars: Object.keys(cssVars).length, fontFaces: fontFaces.length, fontFamilies: fontFamilies.length, sheets: fetched.length, cssSampleChars: blocked ? 0 : cssSample.length, blocked },
     });
   } catch (e) {
     res.status(502).json({ error: { message: "Scrape failed: " + String(e && e.message ? e.message : e) } });

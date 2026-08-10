@@ -500,17 +500,21 @@
           // @font-face, or a colour custom property). A lone font — or nothing — isn't enough, so
           // we keep web browsing on to actually find the brand's colours.
           const hasColour = (v) => /^\s*#|^\s*(rgb|hsl)/i.test(String(v));
+          // A bot-block/challenge page (Cloudflare etc.) is NOT the real site — don't map its
+          // styles. Treat it as an unusable scrape and warn the user afterwards.
+          const blocked = !!(scraped && scraped.blocked);
+          const usable = (scraped && !blocked) ? scraped : null;
           // We can map locally (no slow web browsing) whenever the scrape gave us usable content:
           // colour tokens, a real font, OR the raw CSS sample to read rules from. Only browse when
           // the scrape returned essentially nothing (bot-blocked / fully JS-rendered).
-          const canMapLocally = !!(scraped && (
-            scraped.themeColor ||
-            (scraped.fontFaces && scraped.fontFaces.length) ||
-            Object.values(scraped.cssVars || {}).some(hasColour) ||
-            (scraped.cssSample && scraped.cssSample.length > 200)
+          const canMapLocally = !!(usable && (
+            usable.themeColor ||
+            (usable.fontFaces && usable.fontFaces.length) ||
+            Object.values(usable.cssVars || {}).some(hasColour) ||
+            (usable.cssSample && usable.cssSample.length > 200)
           ));
           setStatus("info", '<span class="spinner"></span>Mapping ' + shortUrl(url) + " to the overlay…");
-          const raw = await callClaude(buildPrompt(url, scraped), !canMapLocally);
+          const raw = await callClaude(buildPrompt(url, usable), !canMapLocally);
           const parsed = parseJson(raw);
           if (!parsed) throw new Error("Could not read a valid response. Try again.");
           if (parsed.vars && typeof parsed.vars === "object") {
@@ -521,7 +525,11 @@
           renderEditor(); applyAll(); saveState();
           const ev = (typeof parsed.evidence === "string" && parsed.evidence.trim())
             ? "<span class='evidence'>" + escHtml(parsed.evidence.trim()) + "</span>" : "";
-          setStatus("ok", "✓ Brand styles extracted. Fine-tune anything below." + ev);
+          if (blocked) {
+            setStatus("err", "⚠ " + shortUrl(url) + " blocks automated access (bot protection), so its real styles couldn't be read — values below are best-effort. Set brand colours/fonts by hand." + ev);
+          } else {
+            setStatus("ok", "✓ Brand styles extracted. Fine-tune anything below." + ev);
+          }
         } catch (e) {
           setStatus("err", "✗ " + (e.message || "Extraction failed."));
         } finally { btn.disabled = false; }
@@ -537,6 +545,7 @@
           if (!res.ok) return null;
           const data = await res.json();
           const has = data && (
+            data.blocked ||
             (data.cssVars && Object.keys(data.cssVars).length) ||
             (data.fontFaces && data.fontFaces.length) ||
             (data.fontFamilies && data.fontFamilies.length) ||
@@ -603,7 +612,8 @@
         } else {
           scrapedBlock =
             "No tokens could be scraped server-side for " + url + " (the site may block bots or render CSS at runtime). " +
-            "FETCH the page and its stylesheets with web_fetch and read the real markup/CSS yourself.\n\n";
+            "FETCH the page and its stylesheets with web_fetch and read the real markup/CSS yourself. " +
+            "IMPORTANT: if what you fetch is a bot-challenge or error page (Cloudflare 'Just a moment', 'Attention Required', an #cf-wrapper / #cf-error page, a CAPTCHA, or an access-denied page), that is NOT the brand's site — do NOT extract its colours or fonts. Instead keep the overlay's current default values, use a neutral system font stack, and say plainly in \"evidence\" that the site blocked automated access.\n\n";
         }
         return (
           "You are a CRO overlay brand specialist. Map the brand's real design system at " + url + " onto this intent.ly overlay's CSS variables.\n\n" +
