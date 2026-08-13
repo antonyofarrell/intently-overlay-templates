@@ -1128,6 +1128,15 @@
       function renderEditor() {
         const editor = document.getElementById("editor");
         const noEditor = document.getElementById("noEditor");
+        // The preview product only fills templates that actually have an smc-cart (in practice the
+        // DB + PR categories). Hide the panel for everything else so it isn't dead, confusing UI.
+        const pbox = document.getElementById("productBox");
+        if (pbox) {
+          const hasCart = /<smc-cart|smc-product-name|smc-product-price/i.test(
+            (state.asset && state.asset.html) || "",
+          );
+          pbox.style.display = hasCart ? "" : "none";
+        }
         if (!state.hasSource) {
           editor.style.display = "none";
           noEditor.style.display = "";
