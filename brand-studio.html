@@ -759,7 +759,14 @@
         },
       };
       // Optional per-template overrides — add "REF": { text1: "…" } entries to fine-tune one overlay.
-      const COPY_BY_REF = {};
+      const COPY_BY_REF = {
+        DB0013: {
+          text1: "Basket recovery",
+          text2:
+            "You are one step away from losing the great product in your cart",
+          text3: "Don't forget about it, revisit your cart contents now",
+        },
+      };
 
       // Real preview images per template, keyed by ref → { content1: "https://…", … }. Only the
       // {contentN} slots listed here render an image in the preview; every other content token stays
@@ -776,24 +783,23 @@
         DB0003: { content1: "https://cdn.smct.io/74856-201.svg" },
         DB0004: { content1: "https://cdn.smct.io/74856-201.svg" },
         DB0008: { content5: "https://cdn.smct.io/101745-404.jpg" },
-        DB0010: { content6: "https://cdn.smct.io/72836-220.jpg" },        // unref
-        DB0013: { content2: "https://cdn.smct.io/104812-191.jpg" },
+        DB0010: { content6: "https://cdn.smct.io/72836-220.jpg" }, // unref
         DB0015: {
           content1: "https://cdn.smct.io/106443-924.png",
           content6: "https://cdn.smct.io/106441-174.webp",
         },
-        DB0016: { content6: "https://cdn.smct.io/104386-748.png" },       // unref
+        DB0016: { content6: "https://cdn.smct.io/104386-748.png" }, // unref
         DB0018: { content1: "https://cdn.smct.io/107677-981.svg" },
 
         // ---- Recomminder ----
         PR0002: {
           content1: "https://cdn.smct.io/99370-170.svg",
           content3: "https://cdn.smct.io/99369-102.png",
-          content6: "https://cdn.smct.io/99358-871.svg",                  // unref
+          content6: "https://cdn.smct.io/99358-871.svg", // unref
         },
         PR0003: {
           content1: "https://cdn.smct.io/99370-170.svg",
-          content6: "https://cdn.smct.io/99358-871.svg",                  // unref
+          content6: "https://cdn.smct.io/99358-871.svg", // unref
         },
         PR0005: { content6: "https://cdn.smct.io/104253-228.webp" },
         PR0007: { content1: "https://cdn.smct.io/99370-170.svg" },
@@ -801,8 +807,8 @@
           content1: "https://cdn.smct.io/106443-924.png",
           content6: "https://cdn.smct.io/106441-174.webp",
         },
-        PR0009: { content6: "https://cdn.smct.io/104386-748.png" },       // unref
-        PR0011: { content6: "https://cdn.smct.io/72836-220.jpg" },        // unref
+        PR0009: { content6: "https://cdn.smct.io/104386-748.png" }, // unref
+        PR0011: { content6: "https://cdn.smct.io/72836-220.jpg" }, // unref
 
         // ---- Redirect ----
         RD0001: { content6: "https://cdn.smct.io/103490-502.jpg" },
@@ -839,9 +845,9 @@
         RD0005: { content6: "https://cdn.smct.io/103033-433.svg" },
         RD0007: {
           content2: "https://cdn.smct.io/99987-867.png",
-          content6: "https://cdn.smct.io/102270-992.png",                 // unref
+          content6: "https://cdn.smct.io/102270-992.png", // unref
         },
-        RD0008: { content6: "https://cdn.smct.io/118295-904.jpg" },       // unref; HTML hardcodes cdn.smct.co variant
+        RD0008: { content6: "https://cdn.smct.io/118295-904.jpg" }, // unref; HTML hardcodes cdn.smct.co variant
         RD0009: { content6: "https://cdn.smct.io/103770-652.jpg" },
         RD0010: {
           content2: "https://cdn.smct.io/108862-314.png",
@@ -857,7 +863,7 @@
         },
         RD0013: {
           content1: "https://cdn.smct.io/107019-194.png",
-          content6: "https://cdn.smct.io/106087-633.webp",                // unref
+          content6: "https://cdn.smct.io/106087-633.webp", // unref
           content7: "https://cdn.smct.io/107017-850.webp",
           content8: "https://cdn.smct.io/107015-714.webp",
           content9: "https://cdn.smct.io/107018-182.webp",
@@ -865,19 +871,21 @@
         },
         RD0014: {
           content1: "https://cdn.smct.io/72752-546.png",
-          content6: "https://cdn.smct.io/100408-295.jpg",                 // unref
+          content6: "https://cdn.smct.io/100408-295.jpg", // unref
         },
         RD0015: {
           content1: "https://cdn.smct.io/77819-631.svg",
-          content6: "https://picsum.photos/1000/1000",                    // placeholder, not a real asset
+          content6: "https://picsum.photos/1000/1000", // placeholder, not a real asset
         },
         // RD0016 is listed twice in the sheet with two different overlay ids →
         // tool refs RD0016 (uses content6) and RD0016b (template dir RD0016-2, no content6).
-        RD0016: {                                                         // oid 171989
+        RD0016: {
+          // oid 171989
           content2: "https://cdn.smct.io/109370-899.png",
           content6: "https://cdn.smct.io/109078-150.svg",
         },
-        RD0016b: {                                                        // oid 178036
+        RD0016b: {
+          // oid 178036
           content1: "https://cdn.smct.io/109283-838.jpg",
           content2: "https://cdn.smct.io/109284-123.png",
         },
@@ -905,10 +913,10 @@
         RV0008: { content1: "https://cdn.smct.io/118670-196.jpg" },
 
         // ---- Miscellaneous ----
-        MS0001: { content6: "https://cdn.smct.io/103904-417.jpg" },       // unref
+        MS0001: { content6: "https://cdn.smct.io/103904-417.jpg" }, // unref
         MS0002: {
           content1: "https://cdn.smct.io/104665-728.jpg",
-          content6: "https://cdn.smct.io/103904-417.jpg",                 // unref
+          content6: "https://cdn.smct.io/103904-417.jpg", // unref
         },
         MS0003: { content1: "https://cdn.smct.io/109863-839.webp" },
         MS0004: {
