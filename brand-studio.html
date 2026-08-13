@@ -1126,7 +1126,9 @@
           "smc-bg{position:static!important;display:flex!important;align-items:center;justify-content:center;min-height:100vh;margin:0;background:rgba(20,20,20,.28)}" +
           "smc-overlay-outer{position:static!important;top:auto;left:auto;transform:none!important}body{margin:0}" +
           "smc-bar,smc-final-message,smc-shake-msg,smc-close-safe,smc-success-message,smc-loader-bg,smc-cp-msg{display:none!important}" +
-          "smc-img img[src=''],smc-img img:not([src]){display:none}";
+          // Any content slot with no configured image collapses to nothing instead of a broken
+          // grey box — matches production, where unsupplied {contentN} images aren't rendered.
+          "img[src=''],img:not([src]),img[src='{content1}'],img[src='{content2}'],img[src='{content3}'],img[src='{content4}'],img[src='{content5}'],img[src='{content6}']{display:none!important}";
         // Build from the EDITOR content so hand-edits in the CSS/HTML boxes update the preview too.
         // cssText() already contains @imports + smc-bg font + variables + layout; htmlText() is the markup.
         return (
