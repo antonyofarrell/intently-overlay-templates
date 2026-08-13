@@ -761,6 +761,20 @@
       // Optional per-template overrides — add "REF": { text1: "…" } entries to fine-tune one overlay.
       const COPY_BY_REF = {};
 
+      // Placeholder image for {contentN} tokens in the PREVIEW only (the paste-ready output keeps
+      // the real {contentN} tokens for the platform to fill). Self-contained SVG data URI so it
+      // always renders — no external request.
+      const PLACEHOLDER_IMG =
+        "data:image/svg+xml," +
+        encodeURIComponent(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400">' +
+            '<rect width="100%" height="100%" fill="#e7e7e7"/>' +
+            '<circle cx="140" cy="150" r="34" fill="#c2c2c2"/>' +
+            '<path d="M55 330 L175 195 L245 270 L305 205 L345 330 Z" fill="#c2c2c2"/>' +
+            '<text x="200" y="372" font-family="sans-serif" font-size="22" fill="#9a9a9a" text-anchor="middle">image</text>' +
+          '</svg>'
+        );
+
       let state = {
         ref: null,
         tmpl: null,
@@ -1096,9 +1110,16 @@
           COPY_BY_REF[state.ref] || {},
         );
       }
-      function replaceTokens(html) {
+      // Preview-only token fill: text copy for {text*}/{smarterbar}/etc., a placeholder image for
+      // {contentN}. Used for BOTH the HTML and the preview CSS so <img src> and background-image
+      // url() both show. The paste-ready output never goes through this, so it keeps the tokens.
+      function replaceTokens(str) {
         const c = activeCopy();
-        return html.replace(/\{([\w-]+)\}/g, (m, k) => (k in c ? c[k] : ""));
+        return String(str).replace(/\{([\w-]+)\}/g, (m, k) => {
+          if (k in c) return c[k];
+          if (/^content\d+$/.test(k)) return PLACEHOLDER_IMG;
+          return "";
+        });
       }
 
       function buildIframeSrcdoc() {
@@ -1118,7 +1139,7 @@
           PAGE_STYLES +
           "</style>" +
           "<style>" +
-          cssText() +
+          replaceTokens(cssText()) +
           "</style>" +
           "<style>" +
           preview +
