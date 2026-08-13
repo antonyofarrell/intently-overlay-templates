@@ -1479,15 +1479,36 @@
             "'s stylesheets…",
         );
         try {
-          const scraped = await scrapeSite(url); // server-side: real HTML + linked CSS tokens
+          const scrapeRes = await scrapeSite(url); // server-side: real HTML + linked CSS tokens
+          const scraped = scrapeRes.data;
+          // The scrape endpoint itself gateway-timed-out: don't spend another 60s on Claude web
+          // tools (which would 504 too) — say plainly what happened.
+          if (!scraped && [502, 503, 504].includes(scrapeRes.status)) {
+            setStatus(
+              "err",
+              "⚠ Couldn't read " +
+                shortUrl(url) +
+                " in time — the site was too slow to respond, or it's blocking automated access. Set the brand values by hand below, and paste product details in the Preview product panel.",
+            );
+            return;
+          }
+          // A bot-block/challenge page (Cloudflare etc.) is NOT the real site, and web_fetch can't
+          // get past it either — so short-circuit with a clear message instead of a doomed Claude
+          // call that hits the serverless timeout and surfaces as a cryptic "HTTP 504".
+          if (scraped && scraped.blocked) {
+            setStatus(
+              "err",
+              "⚠ " +
+                shortUrl(url) +
+                " uses bot protection (e.g. Cloudflare) that blocks automated access, so its styles and product couldn't be read. Set the brand colours/fonts by hand below, and paste product details in the Preview product panel.",
+            );
+            return;
+          }
           // Skip web tools only when the scrape has strong COLOUR signal (a theme colour, a real
           // @font-face, or a colour custom property). A lone font — or nothing — isn't enough, so
           // we keep web browsing on to actually find the brand's colours.
           const hasColour = (v) => /^\s*#|^\s*(rgb|hsl)/i.test(String(v));
-          // A bot-block/challenge page (Cloudflare etc.) is NOT the real site — don't map its
-          // styles. Treat it as an unusable scrape and warn the user afterwards.
-          const blocked = !!(scraped && scraped.blocked);
-          const usable = scraped && !blocked ? scraped : null;
+          const usable = scraped; // present and not bot-blocked at this point
           // Prefill the preview product from the page's structured data (if any).
           if (usable && usable.product) prefillProduct(usable.product);
           // We can map locally (no slow web browsing) whenever the scrape gave us usable content:
@@ -1535,20 +1556,10 @@
                 escHtml(parsed.evidence.trim()) +
                 "</span>"
               : "";
-          if (blocked) {
-            setStatus(
-              "err",
-              "⚠ " +
-                shortUrl(url) +
-                " blocks automated access (bot protection), so its real styles couldn't be read — values below are best-effort. Set brand colours/fonts by hand." +
-                ev,
-            );
-          } else {
-            setStatus(
-              "ok",
-              "✓ Brand styles extracted. Fine-tune anything below." + ev,
-            );
-          }
+          setStatus(
+            "ok",
+            "✓ Brand styles extracted. Fine-tune anything below." + ev,
+          );
         } catch (e) {
           setStatus("err", "✗ " + (e.message || "Extraction failed."));
         } finally {
@@ -1557,7 +1568,8 @@
       }
 
       // Server-side scrape: pulls real design tokens from the page + its linked stylesheets
-      // (what web_fetch can't reach). Returns null on failure so Extract can fall back to web tools.
+      // (what web_fetch can't reach). Returns { status, data }: data is null on failure/empty so
+      // Extract can react (fall back to web tools, or report a timeout / bot-block clearly).
       async function scrapeSite(url) {
         try {
           const res = await fetch(
@@ -1566,7 +1578,7 @@
               headers: { "x-brand-passphrase": state.pass },
             },
           );
-          if (!res.ok) return null;
+          if (!res.ok) return { status: res.status, data: null };
           const data = await res.json();
           const has =
             data &&
@@ -1576,9 +1588,9 @@
               (data.fontFamilies && data.fontFamilies.length) ||
               data.themeColor ||
               (data.cssSample && data.cssSample.length > 200));
-          return has ? data : null;
+          return { status: 200, data: has ? data : null };
         } catch (e) {
-          return null;
+          return { status: 0, data: null };
         }
       }
 
