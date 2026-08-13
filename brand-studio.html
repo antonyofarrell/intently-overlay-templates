@@ -775,6 +775,19 @@
           '</svg>'
         );
 
+      // Which {contentN} image slots are typically populated in production (the platform hides the
+      // rest). We only show a placeholder for these — everything else stays empty/hidden, matching
+      // production. Default is content1 only; recommenders show a small product row. Add a
+      // per-template entry to IMG_SLOTS_BY_REF for overlays that use a different/wider set.
+      const IMG_SLOTS_BY_CAT = {
+        db: ["content1"],
+        pr: ["content1", "content2", "content3", "content4"],
+        rd: ["content1"],
+        rv: ["content1"],
+        ms: ["content1"],
+      };
+      const IMG_SLOTS_BY_REF = {}; // e.g. "RD0004": ["content7","content8","content9","content10"]
+
       let state = {
         ref: null,
         tmpl: null,
@@ -1110,14 +1123,24 @@
           COPY_BY_REF[state.ref] || {},
         );
       }
-      // Preview-only token fill: text copy for {text*}/{smarterbar}/etc., a placeholder image for
-      // {contentN}. Used for BOTH the HTML and the preview CSS so <img src> and background-image
-      // url() both show. The paste-ready output never goes through this, so it keeps the tokens.
+      function activeImgSlots() {
+        const cat =
+          (state.tmpl && state.tmpl.cat) ||
+          (state.ref || "").slice(0, 2).toLowerCase();
+        return new Set(
+          IMG_SLOTS_BY_REF[state.ref] || IMG_SLOTS_BY_CAT[cat] || ["content1"],
+        );
+      }
+      // Preview-only token fill: text copy for {text*}/{smarterbar}/etc., and a placeholder image
+      // ONLY for the {contentN} slots typically populated in production (the rest stay empty, so
+      // the preview matches production instead of showing grey boxes everywhere). Used for BOTH the
+      // HTML and the preview CSS. The paste-ready output never goes through this, so it keeps tokens.
       function replaceTokens(str) {
         const c = activeCopy();
+        const imgSlots = activeImgSlots();
         return String(str).replace(/\{([\w-]+)\}/g, (m, k) => {
           if (k in c) return c[k];
-          if (/^content\d+$/.test(k)) return PLACEHOLDER_IMG;
+          if (/^content\d+$/.test(k)) return imgSlots.has(k) ? PLACEHOLDER_IMG : "";
           return "";
         });
       }
