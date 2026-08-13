@@ -6,120 +6,509 @@
     <title>Brand Studio — intent.ly overlay</title>
     <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
     <style>
-      * { box-sizing: border-box; margin: 0; padding: 0; }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
       :root {
-        --bg: #f7f6f3; --surface: #fff; --border: #e4e2dc; --border2: #d8d5cf;
-        --text: #1a1a1a; --muted: #777; --hint: #a9a49c;
-        --accent: #1a1a1a; --accent-hover: #333;
-        --green: #3b6d11; --green-bg: #eaf3de;
-        --red: #a32d2d; --red-bg: #fcebeb;
-        --radius: 10px; --radius-sm: 6px;
+        --bg: #f7f6f3;
+        --surface: #fff;
+        --border: #e4e2dc;
+        --border2: #d8d5cf;
+        --text: #1a1a1a;
+        --muted: #777;
+        --hint: #a9a49c;
+        --accent: #1a1a1a;
+        --accent-hover: #333;
+        --green: #3b6d11;
+        --green-bg: #eaf3de;
+        --red: #a32d2d;
+        --red-bg: #fcebeb;
+        --radius: 10px;
+        --radius-sm: 6px;
       }
-      body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); font-size: 14px; min-height: 100vh; }
-      a { color: inherit; }
-
-      .top { background: var(--surface); border-bottom: 1px solid var(--border); padding: 12px 22px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; position: sticky; top: 0; z-index: 30; }
-      .back { font-size: 13px; color: var(--muted); text-decoration: none; white-space: nowrap; }
-      .back:hover { color: var(--text); }
-      .top-titles { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
-      .top-ref { font-size: 15px; font-weight: 700; letter-spacing: -0.2px; }
-      .top-desc { font-size: 12px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 60ch; }
-      .top-right { margin-left: auto; display: flex; align-items: center; gap: 10px; }
-      .cat-badge { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; background: #efece7; color: #555; white-space: nowrap; }
-      .key-pill { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; cursor: pointer; }
-      .key-pill.set { background: var(--green-bg); color: var(--green); }
-      .key-pill.unset { background: var(--red-bg); color: var(--red); }
-      .view-base { font-size: 12px; color: var(--muted); text-decoration: none; white-space: nowrap; }
-      .view-base:hover { color: var(--text); }
-
-      .wrap { display: grid; grid-template-columns: 380px 1fr; }
-      @media (max-width: 900px) { .wrap { grid-template-columns: 1fr; } }
-      .panel { padding: 20px 22px; }
-      .left { border-right: 1px solid var(--border); background: var(--surface); min-height: calc(100vh - 58px); }
-      .section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: var(--hint); margin: 22px 0 10px; }
-      .section-label:first-child { margin-top: 0; }
-
-      label { font-size: 12px; font-weight: 500; color: #555; display: block; margin-bottom: 5px; }
-      input[type="text"], input[type="url"], input[type="password"], textarea {
-        width: 100%; padding: 8px 11px; font-size: 13px; border: 1px solid var(--border2);
-        border-radius: var(--radius-sm); background: var(--surface); color: var(--text);
-        outline: none; font-family: inherit; transition: border-color 0.15s;
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        font-size: 14px;
+        min-height: 100vh;
       }
-      input:focus, textarea:focus { border-color: var(--accent); }
-      textarea { resize: vertical; font-family: "SF Mono", ui-monospace, monospace; font-size: 11px; min-height: 58px; line-height: 1.5; }
-      .field { margin-bottom: 12px; }
-      .hint { font-size: 11px; color: var(--hint); line-height: 1.5; margin-top: 5px; }
+      a {
+        color: inherit;
+      }
 
-      .btn { padding: 9px 16px; border-radius: var(--radius-sm); font-size: 13px; font-weight: 600; border: 1px solid transparent; cursor: pointer; transition: all 0.15s; display: inline-flex; align-items: center; justify-content: center; gap: 7px; font-family: inherit; }
-      .btn-primary { background: var(--accent); color: #fff; }
-      .btn-primary:hover:not(:disabled) { background: var(--accent-hover); }
-      .btn-secondary { background: #f0ede8; color: #444; border-color: #e0ddd6; }
-      .btn-secondary:hover:not(:disabled) { background: #e8e4de; }
-      .btn-full { width: 100%; }
-      .btn:disabled { opacity: 0.45; cursor: not-allowed; }
-      .btn-sm { padding: 6px 12px; font-size: 12px; }
+      .top {
+        background: var(--surface);
+        border-bottom: 1px solid var(--border);
+        padding: 12px 22px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        flex-wrap: wrap;
+        position: sticky;
+        top: 0;
+        z-index: 30;
+      }
+      .back {
+        font-size: 13px;
+        color: var(--muted);
+        text-decoration: none;
+        white-space: nowrap;
+      }
+      .back:hover {
+        color: var(--text);
+      }
+      .top-titles {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+        min-width: 0;
+      }
+      .top-ref {
+        font-size: 15px;
+        font-weight: 700;
+        letter-spacing: -0.2px;
+      }
+      .top-desc {
+        font-size: 12px;
+        color: var(--muted);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 60ch;
+      }
+      .top-right {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .cat-badge {
+        font-size: 11px;
+        font-weight: 600;
+        padding: 3px 10px;
+        border-radius: 20px;
+        background: #efece7;
+        color: #555;
+        white-space: nowrap;
+      }
+      .key-pill {
+        font-size: 11px;
+        font-weight: 600;
+        padding: 3px 10px;
+        border-radius: 20px;
+        cursor: pointer;
+      }
+      .key-pill.set {
+        background: var(--green-bg);
+        color: var(--green);
+      }
+      .key-pill.unset {
+        background: var(--red-bg);
+        color: var(--red);
+      }
+      .view-base {
+        font-size: 12px;
+        color: var(--muted);
+        text-decoration: none;
+        white-space: nowrap;
+      }
+      .view-base:hover {
+        color: var(--text);
+      }
 
-      .url-row { display: flex; gap: 8px; }
-      .url-row input { flex: 1; }
+      .wrap {
+        display: grid;
+        grid-template-columns: 380px 1fr;
+      }
+      @media (max-width: 900px) {
+        .wrap {
+          grid-template-columns: 1fr;
+        }
+      }
+      .panel {
+        padding: 20px 22px;
+      }
+      .left {
+        border-right: 1px solid var(--border);
+        background: var(--surface);
+        min-height: calc(100vh - 58px);
+      }
+      .section-label {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+        color: var(--hint);
+        margin: 22px 0 10px;
+      }
+      .section-label:first-child {
+        margin-top: 0;
+      }
 
-      .status { font-size: 12px; margin-top: 10px; line-height: 1.5; min-height: 18px; }
-      .status.err { color: var(--red); }
-      .status.ok { color: var(--green); }
-      .status.info { color: var(--muted); }
-      .status .evidence { display: block; margin-top: 6px; font-size: 11px; color: var(--muted); font-style: italic; }
-      .spinner { width: 13px; height: 13px; border: 2px solid #e0ddd6; border-top-color: var(--accent); border-radius: 50%; animation: spin 0.7s linear infinite; display: inline-block; vertical-align: -2px; margin-right: 6px; }
-      @keyframes spin { to { transform: rotate(360deg); } }
+      label {
+        font-size: 12px;
+        font-weight: 500;
+        color: #555;
+        display: block;
+        margin-bottom: 5px;
+      }
+      input[type="text"],
+      input[type="url"],
+      input[type="password"],
+      textarea {
+        width: 100%;
+        padding: 8px 11px;
+        font-size: 13px;
+        border: 1px solid var(--border2);
+        border-radius: var(--radius-sm);
+        background: var(--surface);
+        color: var(--text);
+        outline: none;
+        font-family: inherit;
+        transition: border-color 0.15s;
+      }
+      input:focus,
+      textarea:focus {
+        border-color: var(--accent);
+      }
+      textarea {
+        resize: vertical;
+        font-family: "SF Mono", ui-monospace, monospace;
+        font-size: 11px;
+        min-height: 58px;
+        line-height: 1.5;
+      }
+      .field {
+        margin-bottom: 12px;
+      }
+      .hint {
+        font-size: 11px;
+        color: var(--hint);
+        line-height: 1.5;
+        margin-top: 5px;
+      }
 
-      .var-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 14px; }
-      .var-grid .full { grid-column: 1 / -1; }
-      .swatch-row { display: flex; align-items: center; gap: 7px; }
-      .swatch-row input[type="color"] { width: 30px; height: 30px; padding: 0; border: 1px solid var(--border2); border-radius: 6px; background: none; cursor: pointer; flex-shrink: 0; }
-      .swatch-row input[type="text"] { flex: 1; font-family: "SF Mono", ui-monospace, monospace; }
-      .var-name { font-family: "SF Mono", ui-monospace, monospace; font-size: 11px; color: #555; }
-      .no-source { font-size: 12.5px; color: var(--muted); line-height: 1.6; background: #faf9f7; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 14px; }
+      .btn {
+        padding: 9px 16px;
+        border-radius: var(--radius-sm);
+        font-size: 13px;
+        font-weight: 600;
+        border: 1px solid transparent;
+        cursor: pointer;
+        transition: all 0.15s;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        font-family: inherit;
+      }
+      .btn-primary {
+        background: var(--accent);
+        color: #fff;
+      }
+      .btn-primary:hover:not(:disabled) {
+        background: var(--accent-hover);
+      }
+      .btn-secondary {
+        background: #f0ede8;
+        color: #444;
+        border-color: #e0ddd6;
+      }
+      .btn-secondary:hover:not(:disabled) {
+        background: #e8e4de;
+      }
+      .btn-full {
+        width: 100%;
+      }
+      .btn:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+      }
+      .btn-sm {
+        padding: 6px 12px;
+        font-size: 12px;
+      }
 
-      .right { background: var(--bg); position: sticky; top: 58px; }
-      .preview-title { font-size: 13px; font-weight: 700; }
-      .stage { background: repeating-conic-gradient(#efeae2 0% 25%, #f7f4ef 0% 50%) 50% / 22px 22px; border: 1px solid var(--border); border-radius: var(--radius); min-height: 340px; display: flex; align-items: center; justify-content: center; padding: 0; overflow: hidden; }
-      #pvFrame { width: 100%; height: 440px; border: 0; border-radius: var(--radius); background: #fff; display: none; }
-      #fallbackWrap { display: none; flex-direction: column; gap: 10px; align-items: center; padding: 26px; }
-      .fb-label { font-size: 10px; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase; color: var(--hint); }
-      #pvShot { max-width: 300px; max-height: 340px; border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); }
-      .pv-note { font-size: 11px; color: var(--hint); line-height: 1.5; margin-top: 10px; }
+      .url-row {
+        display: flex;
+        gap: 8px;
+      }
+      .url-row input {
+        flex: 1;
+      }
 
-      .outputs-bar { display: flex; align-items: center; justify-content: flex-end; margin-top: 22px; }
-      .layout-toggle { cursor: pointer; user-select: none; }
-      .outputs { margin-top: 12px; display: flex; flex-direction: column; gap: 22px; }
-      .outputs .output-wrap { margin-top: 0; min-width: 0; }
-      .outputs.side-by-side { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: start; }
-      @media (max-width: 1100px) { .outputs.side-by-side { grid-template-columns: 1fr; } }
-      .output-wrap { margin-top: 22px; }
-      .output-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; gap: 8px; flex-wrap: wrap; }
-      pre.output { background: #1e1c1a; color: #eae6df; border-radius: var(--radius-sm); padding: 14px 16px; font-family: "SF Mono", ui-monospace, monospace; font-size: 11.5px; line-height: 1.6; overflow-x: auto; white-space: pre; max-height: 500px; overflow-y: auto; }
-      .editor-host { height: 500px; border: 1px solid #2b2b2b; border-radius: var(--radius-sm); overflow: hidden; background: #1e1c1a; }
+      .status {
+        font-size: 12px;
+        margin-top: 10px;
+        line-height: 1.5;
+        min-height: 18px;
+      }
+      .status.err {
+        color: var(--red);
+      }
+      .status.ok {
+        color: var(--green);
+      }
+      .status.info {
+        color: var(--muted);
+      }
+      .status .evidence {
+        display: block;
+        margin-top: 6px;
+        font-size: 11px;
+        color: var(--muted);
+        font-style: italic;
+      }
+      .spinner {
+        width: 13px;
+        height: 13px;
+        border: 2px solid #e0ddd6;
+        border-top-color: var(--accent);
+        border-radius: 50%;
+        animation: spin 0.7s linear infinite;
+        display: inline-block;
+        vertical-align: -2px;
+        margin-right: 6px;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .var-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px 14px;
+      }
+      .var-grid .full {
+        grid-column: 1 / -1;
+      }
+      .swatch-row {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+      }
+      .swatch-row input[type="color"] {
+        width: 30px;
+        height: 30px;
+        padding: 0;
+        border: 1px solid var(--border2);
+        border-radius: 6px;
+        background: none;
+        cursor: pointer;
+        flex-shrink: 0;
+      }
+      .swatch-row input[type="text"] {
+        flex: 1;
+        font-family: "SF Mono", ui-monospace, monospace;
+      }
+      .var-name {
+        font-family: "SF Mono", ui-monospace, monospace;
+        font-size: 11px;
+        color: #555;
+      }
+      .no-source {
+        font-size: 12.5px;
+        color: var(--muted);
+        line-height: 1.6;
+        background: #faf9f7;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        padding: 12px 14px;
+      }
+
+      .right {
+        background: var(--bg);
+        position: sticky;
+        top: 58px;
+      }
+      .preview-title {
+        font-size: 13px;
+        font-weight: 700;
+      }
+      .stage {
+        background: repeating-conic-gradient(#efeae2 0% 25%, #f7f4ef 0% 50%)
+          50% / 22px 22px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        min-height: 340px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        overflow: hidden;
+      }
+      #pvFrame {
+        width: 100%;
+        height: 440px;
+        border: 0;
+        border-radius: var(--radius);
+        background: #fff;
+        display: none;
+      }
+      #fallbackWrap {
+        display: none;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+        padding: 26px;
+      }
+      .fb-label {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.6px;
+        text-transform: uppercase;
+        color: var(--hint);
+      }
+      #pvShot {
+        max-width: 300px;
+        max-height: 340px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      }
+      .pv-note {
+        font-size: 11px;
+        color: var(--hint);
+        line-height: 1.5;
+        margin-top: 10px;
+      }
+
+      .outputs-bar {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        margin-top: 22px;
+      }
+      .layout-toggle {
+        cursor: pointer;
+        user-select: none;
+      }
+      .outputs {
+        margin-top: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+      }
+      .outputs .output-wrap {
+        margin-top: 0;
+        min-width: 0;
+      }
+      .outputs.side-by-side {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+        align-items: start;
+      }
+      @media (max-width: 1100px) {
+        .outputs.side-by-side {
+          grid-template-columns: 1fr;
+        }
+      }
+      .output-wrap {
+        margin-top: 22px;
+      }
+      .output-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 8px;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      pre.output {
+        background: #1e1c1a;
+        color: #eae6df;
+        border-radius: var(--radius-sm);
+        padding: 14px 16px;
+        font-family: "SF Mono", ui-monospace, monospace;
+        font-size: 11.5px;
+        line-height: 1.6;
+        overflow-x: auto;
+        white-space: pre;
+        max-height: 500px;
+        overflow-y: auto;
+      }
+      .editor-host {
+        height: 500px;
+        border: 1px solid #2b2b2b;
+        border-radius: var(--radius-sm);
+        overflow: hidden;
+        background: #1e1c1a;
+      }
       /* Force the editor + its popups dark, even if the page styles bleed into Monaco's widgets */
-      .monaco-editor, .monaco-editor .overflow-guard, .monaco-editor-background, .monaco-editor .margin { background: #1e1c1a !important; }
+      .monaco-editor,
+      .monaco-editor .overflow-guard,
+      .monaco-editor-background,
+      .monaco-editor .margin {
+        background: #1e1c1a !important;
+      }
       /* Force the whole suggestion/hover popup subtree dark — the page styles were bleeding
          into a child element and overriding Monaco's dark background. */
-      .suggest-widget, .suggest-widget *,
-      .monaco-hover, .monaco-hover *,
-      .suggest-details, .suggest-details * {
+      .suggest-widget,
+      .suggest-widget *,
+      .monaco-hover,
+      .monaco-hover *,
+      .suggest-details,
+      .suggest-details * {
         background-color: #26241f !important;
         color: #d7d2ca !important;
         border-color: #3a372f !important;
       }
       .suggest-widget .monaco-list-row.focused,
-      .suggest-widget .monaco-list-row.focused * { background-color: #3a372f !important; color: #ffffff !important; }
+      .suggest-widget .monaco-list-row.focused * {
+        background-color: #3a372f !important;
+        color: #ffffff !important;
+      }
       .suggest-widget .highlight,
-      .suggest-widget .monaco-highlighted-label .highlight { color: #e6b450 !important; }
-      .suggest-widget .codicon, .suggest-widget .suggest-icon { background-color: transparent !important; }
+      .suggest-widget .monaco-highlighted-label .highlight {
+        color: #e6b450 !important;
+      }
+      .suggest-widget .codicon,
+      .suggest-widget .suggest-icon {
+        background-color: transparent !important;
+      }
 
-      .overlay-modal { position: fixed; inset: 0; background: rgba(0,0,0,.4); display: none; align-items: center; justify-content: center; z-index: 100; }
-      .overlay-modal.show { display: flex; }
-      .modal { background: var(--surface); border-radius: var(--radius); padding: 24px; width: 460px; max-width: 90vw; box-shadow: 0 8px 32px rgba(0,0,0,.2); }
-      .modal h2 { font-size: 17px; margin-bottom: 6px; }
-      .modal p { font-size: 12px; color: var(--muted); line-height: 1.5; margin-bottom: 16px; }
-      .modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 16px; }
+      .overlay-modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.4);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 100;
+      }
+      .overlay-modal.show {
+        display: flex;
+      }
+      .modal {
+        background: var(--surface);
+        border-radius: var(--radius);
+        padding: 24px;
+        width: 460px;
+        max-width: 90vw;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      }
+      .modal h2 {
+        font-size: 17px;
+        margin-bottom: 6px;
+      }
+      .modal p {
+        font-size: 12px;
+        color: var(--muted);
+        line-height: 1.5;
+        margin-bottom: 16px;
+      }
+      .modal-actions {
+        display: flex;
+        gap: 8px;
+        justify-content: flex-end;
+        margin-top: 16px;
+      }
     </style>
   </head>
   <body>
@@ -130,10 +519,26 @@
         <span class="top-desc" id="topDesc">Loading…</span>
       </div>
       <div class="top-right">
-        <a class="view-base" id="viewBase" href="#" target="_blank" rel="noopener" style="display:none">View template ↗</a>
-        <span class="cat-badge" id="catBadge" style="display:none"></span>
-        <span class="key-pill unset" id="aiPill" onclick="toggleAi()" title="AI ghost-text autocomplete in the editors (needs the access passphrase)">✨ AI: off</span>
-        <span class="key-pill unset" id="keyPill" onclick="openKeyModal()">Access: locked</span>
+        <a
+          class="view-base"
+          id="viewBase"
+          href="#"
+          target="_blank"
+          rel="noopener"
+          style="display: none"
+          >View template ↗</a
+        >
+        <span class="cat-badge" id="catBadge" style="display: none"></span>
+        <span
+          class="key-pill unset"
+          id="aiPill"
+          onclick="toggleAi()"
+          title="AI ghost-text autocomplete in the editors (needs the access passphrase)"
+          >✨ AI: off</span
+        >
+        <span class="key-pill unset" id="keyPill" onclick="openKeyModal()"
+          >Access: locked</span
+        >
       </div>
     </div>
 
@@ -143,31 +548,51 @@
         <div class="field">
           <label>Brand / site URL</label>
           <div class="url-row">
-            <input type="url" id="siteUrl" placeholder="https://example.com" onkeydown="if(event.key==='Enter')extractBrand()" />
-            <button class="btn btn-primary btn-sm" id="extractBtn" onclick="extractBrand()">Extract</button>
+            <input
+              type="url"
+              id="siteUrl"
+              placeholder="https://example.com"
+              onkeydown="if (event.key === 'Enter') extractBrand();"
+            />
+            <button
+              class="btn btn-primary btn-sm"
+              id="extractBtn"
+              onclick="extractBrand()"
+            >
+              Extract
+            </button>
           </div>
-          <p class="hint">Claude reads the site (via web search) and fills this overlay's own CSS variables below. Fine-tune anything by hand.</p>
+          <p class="hint">
+            Claude reads the site (via web search) and fills this overlay's own
+            CSS variables below. Fine-tune anything by hand.
+          </p>
           <div class="status info" id="status"></div>
         </div>
 
         <div id="editor">
           <div class="section-label">Fonts</div>
           <div id="fontFields"></div>
-          <div class="section-label">Overlay variables <span id="varCount" class="var-name"></span></div>
+          <div class="section-label">
+            Overlay variables <span id="varCount" class="var-name"></span>
+          </div>
           <div class="var-grid" id="varFields"></div>
-          <div style="margin-top:20px;">
-            <button class="btn btn-secondary btn-full" onclick="resetVars()">Reset to overlay default</button>
+          <div style="margin-top: 20px">
+            <button class="btn btn-secondary btn-full" onclick="resetVars()">
+              Reset to overlay default
+            </button>
           </div>
         </div>
 
-        <div id="noEditor" style="display:none">
+        <div id="noEditor" style="display: none">
           <div class="section-label">Overlay source</div>
           <div class="no-source" id="noSourceMsg"></div>
         </div>
       </div>
 
       <div class="panel right">
-        <div class="preview-title" style="margin-bottom:14px;">Live preview</div>
+        <div class="preview-title" style="margin-bottom: 14px">
+          Live preview
+        </div>
         <div class="stage" id="stage">
           <iframe id="pvFrame" title="Overlay preview"></iframe>
           <div id="fallbackWrap">
@@ -178,35 +603,70 @@
         <p class="pv-note" id="pvNote"></p>
 
         <div class="outputs-bar">
-          <button class="btn btn-secondary btn-sm layout-toggle" id="layoutToggle" onclick="toggleLayout()">⬌ Side by side</button>
+          <button
+            class="btn btn-secondary btn-sm layout-toggle"
+            id="layoutToggle"
+            onclick="toggleLayout()"
+          >
+            ⬌ Side by side
+          </button>
         </div>
         <div class="outputs" id="outputs">
-        <div class="output-wrap">
-          <div class="output-head">
-            <span class="preview-title">Overlay CSS (paste-ready)</span>
-            <div style="display:flex; gap:8px;">
-              <button class="btn btn-secondary btn-sm" onclick="flattenAndCopy()" title="Resolve every var(--…) to its value and drop the variable block — self-contained CSS for production">⚡ Flatten &amp; copy</button>
-              <button class="btn btn-secondary btn-sm" onclick="copyOutput()">Copy CSS</button>
-              <button class="btn btn-secondary btn-sm" onclick="downloadOutput()">Download</button>
+          <div class="output-wrap">
+            <div class="output-head">
+              <span class="preview-title">Overlay CSS (paste-ready)</span>
+              <div style="display: flex; gap: 8px">
+                <button
+                  class="btn btn-secondary btn-sm"
+                  onclick="flattenAndCopy()"
+                  title="Resolve every var(--…) to its value and drop the variable block — self-contained CSS for production"
+                >
+                  ⚡ Flatten &amp; copy
+                </button>
+                <button class="btn btn-secondary btn-sm" onclick="copyOutput()">
+                  Copy CSS
+                </button>
+                <button
+                  class="btn btn-secondary btn-sm"
+                  onclick="downloadOutput()"
+                >
+                  Download
+                </button>
+              </div>
             </div>
+            <pre class="output" id="output"></pre>
+            <div class="editor-host" id="cssHost" style="display: none"></div>
+            <p class="hint">
+              The overlay's <strong>full CSS</strong> with your brand values
+              applied (fonts, variables and all layout) — paste straight into a
+              new overlay's Custom CSS.
+            </p>
           </div>
-          <pre class="output" id="output"></pre>
-          <div class="editor-host" id="cssHost" style="display: none"></div>
-          <p class="hint">The overlay's <strong>full CSS</strong> with your brand values applied (fonts, variables and all layout) — paste straight into a new overlay's Custom CSS.</p>
-        </div>
 
-        <div class="output-wrap">
-          <div class="output-head">
-            <span class="preview-title">Overlay HTML</span>
-            <div style="display:flex; gap:8px;">
-              <button class="btn btn-secondary btn-sm" onclick="copyHtml()">Copy HTML</button>
-              <button class="btn btn-secondary btn-sm" onclick="downloadHtml()">Download</button>
+          <div class="output-wrap">
+            <div class="output-head">
+              <span class="preview-title">Overlay HTML</span>
+              <div style="display: flex; gap: 8px">
+                <button class="btn btn-secondary btn-sm" onclick="copyHtml()">
+                  Copy HTML
+                </button>
+                <button
+                  class="btn btn-secondary btn-sm"
+                  onclick="downloadHtml()"
+                >
+                  Download
+                </button>
+              </div>
             </div>
+            <pre class="output" id="htmlOutput"></pre>
+            <div class="editor-host" id="htmlHost" style="display: none"></div>
+            <p class="hint">
+              The overlay's markup with template tokens (<code>{text1}</code>,
+              <code>{content1}</code>…) intact — paste into the overlay's Custom
+              HTML in the admin site. Branding doesn't change the HTML, so this
+              is the same for every brand.
+            </p>
           </div>
-          <pre class="output" id="htmlOutput"></pre>
-          <div class="editor-host" id="htmlHost" style="display: none"></div>
-          <p class="hint">The overlay's markup with template tokens (<code>{text1}</code>, <code>{content1}</code>…) intact — paste into the overlay's Custom HTML in the admin site. Branding doesn't change the HTML, so this is the same for every brand.</p>
-        </div>
         </div>
       </div>
     </div>
@@ -214,10 +674,17 @@
     <div class="overlay-modal" id="keyModal">
       <div class="modal">
         <h2>Access passphrase</h2>
-        <p>Enter the shared passphrase to use Extract and AI autocomplete. It's checked by this site's own <code>/api</code> proxy — the Anthropic key stays on the server and never reaches the browser. Stored only in this browser's localStorage.</p>
+        <p>
+          Enter the shared passphrase to use Extract and AI autocomplete. It's
+          checked by this site's own <code>/api</code> proxy — the Anthropic key
+          stays on the server and never reaches the browser. Stored only in this
+          browser's localStorage.
+        </p>
         <input type="password" id="keyInput" placeholder="passphrase" />
         <div class="modal-actions">
-          <button class="btn btn-secondary" onclick="closeKeyModal()">Cancel</button>
+          <button class="btn btn-secondary" onclick="closeKeyModal()">
+            Cancel
+          </button>
           <button class="btn btn-primary" onclick="saveKey()">Save</button>
         </div>
       </div>
@@ -226,7 +693,13 @@
     <script src="templates-data.js"></script>
     <script src="data.js"></script>
     <script>
-      const CAT_LABELS = { db: "Dynamic Basket", pr: "Recomminder", rd: "Redirect", rv: "Click to Reveal", ms: "Miscellaneous" };
+      const CAT_LABELS = {
+        db: "Dynamic Basket",
+        pr: "Recomminder",
+        rd: "Redirect",
+        rv: "Click to Reveal",
+        ms: "Miscellaneous",
+      };
       const PASS_STORE = "smc_brand_studio_pass";
       const MODEL = "claude-sonnet-5"; // current Sonnet (Sonnet 4 retired 2026-06-15); change if your key lacks access
       const COMPLETION_MODEL = "claude-haiku-4-5-20251001"; // fast model for inline (ghost-text) autocomplete
@@ -235,30 +708,53 @@
       // Chosen per category (db / pr / rd / rv / ms) so a Redirect/Reveal overlay doesn't preview
       // with basket wording. Edit these freely — they're preview-only and never leave the browser.
       const COPY_BY_CAT = {
-        db: { // Dynamic Basket
-          text1: "You left something in your basket", text2: "Complete your order before it's gone",
-          text3: "Free delivery on orders over £50", text10: "Return to basket", text13: "Return to basket",
+        db: {
+          // Dynamic Basket
+          text1: "You left something in your basket",
+          text2: "Complete your order before it's gone",
+          text10: "Return to basket",
+          text13: "Return to basket",
           smarterbar: "Complete your order and get free delivery",
         },
-        pr: { // Recomminder (recommendations)
-          text1: "You might also like", text2: "Handpicked picks, just for you",
-          text3: "Trending now", text8: "Best seller", text9: "Customer favourite",
-          text10: "Shop now", text12: "Shop now", text13: "Add to basket",
+        pr: {
+          // Recomminder (recommendations)
+          text1: "Still interested in these?",
+          text2: "Items you viewed are selling fast!",
+          text3: "Trending now",
+          text8: "Best seller",
+          text9: "Customer favourite",
+          text10: "Shop now",
+          text12: "Shop now",
+          text13: "Add to basket",
           smarterbar: "Complete the look and save",
         },
-        rd: { // Redirect
-          text1: "Before you go…", text2: "Don't miss what's inside",
-          text3: "Handpicked for you", text10: "Take me there", text13: "Continue",
+        rd: {
+          // Redirect
+          text1: "Before you go…",
+          text2: "Don't miss what's inside",
+          text3: "Handpicked for you",
+          text10: "Take me there",
+          text13: "Continue",
           smarterbar: "Limited-time offer inside",
         },
-        rv: { // Click to Reveal
-          text1: "Here's a treat for you", text2: "Unlock your exclusive discount",
-          text3: "Use this code at checkout", text10: "Reveal my code", text13: "Copy code",
-          vc: "SAVE10", "vc-cp": "Copy", smarterbar: "Your reward is waiting",
+        rv: {
+          // Click to Reveal
+          text1: "Here's a treat for you",
+          text2: "Unlock your exclusive discount",
+          text3: "Use this code at checkout",
+          text10: "Reveal my code",
+          text13: "Copy code",
+          vc: "SAVE10",
+          "vc-cp": "Copy",
+          smarterbar: "Your reward is waiting",
         },
-        ms: { // Miscellaneous
-          text1: "Welcome", text2: "Sign up for exclusive offers",
-          text3: "Be the first to know", text10: "Get started", text13: "Sign up",
+        ms: {
+          // Miscellaneous
+          text1: "Welcome",
+          text2: "Sign up for exclusive offers",
+          text3: "Be the first to know",
+          text10: "Get started",
+          text13: "Sign up",
           smarterbar: "Join for offers and updates",
         },
       };
@@ -266,22 +762,40 @@
       const COPY_BY_REF = {};
 
       let state = {
-        ref: null, tmpl: null, pass: "", asset: null, hasSource: false,
-        vars: [], values: {}, fontImports: [], bodyFont: "",
+        ref: null,
+        tmpl: null,
+        pass: "",
+        asset: null,
+        hasSource: false,
+        vars: [],
+        values: {},
+        fontImports: [],
+        bodyFont: "",
         base: null,
       };
       let previewMode = "none";
       let _iframeTimer = null;
-      let cssEditor = null, htmlEditor = null, monacoReady = false;
+      let cssEditor = null,
+        htmlEditor = null,
+        monacoReady = false;
       let aiEnabled = false;
       let layoutSide = false; // false = stacked, true = CSS/HTML side by side
 
       // read current text from the Monaco editor if it's mounted, else the fallback <pre>
-      function cssText() { return monacoReady && cssEditor ? cssEditor.getValue() : document.getElementById("output").textContent; }
-      function htmlText() { return monacoReady && htmlEditor ? htmlEditor.getValue() : document.getElementById("htmlOutput").textContent; }
+      function cssText() {
+        return monacoReady && cssEditor
+          ? cssEditor.getValue()
+          : document.getElementById("output").textContent;
+      }
+      function htmlText() {
+        return monacoReady && htmlEditor
+          ? htmlEditor.getValue()
+          : document.getElementById("htmlOutput").textContent;
+      }
 
       /* ───────── init ───────── */
       function init() {
+        purgeSavedState(); // clear any stale per-template brand values from older builds
         state.pass = localStorage.getItem(PASS_STORE) || "";
         updateKeyPill();
 
@@ -296,19 +810,33 @@
 
         const params = new URLSearchParams(location.search);
         state.ref = (params.get("ref") || "").trim();
-        state.tmpl = (typeof TEMPLATES !== "undefined" ? TEMPLATES : []).find((t) => t.ref === state.ref) || null;
-        state.asset = typeof OVERLAY_ASSETS !== "undefined" ? OVERLAY_ASSETS[state.ref] : null;
+        state.tmpl =
+          (typeof TEMPLATES !== "undefined" ? TEMPLATES : []).find(
+            (t) => t.ref === state.ref,
+          ) || null;
+        state.asset =
+          typeof OVERLAY_ASSETS !== "undefined"
+            ? OVERLAY_ASSETS[state.ref]
+            : null;
 
         if (state.tmpl) {
           document.getElementById("topRef").textContent = state.tmpl.ref;
-          document.getElementById("topDesc").textContent = state.tmpl.desc || "";
+          document.getElementById("topDesc").textContent =
+            state.tmpl.desc || "";
           const cb = document.getElementById("catBadge");
-          cb.textContent = CAT_LABELS[state.tmpl.cat] || state.tmpl.cat; cb.style.display = "";
-          if (state.tmpl.url) { const vb = document.getElementById("viewBase"); vb.href = state.tmpl.url; vb.style.display = ""; }
+          cb.textContent = CAT_LABELS[state.tmpl.cat] || state.tmpl.cat;
+          cb.style.display = "";
+          if (state.tmpl.url) {
+            const vb = document.getElementById("viewBase");
+            vb.href = state.tmpl.url;
+            vb.style.display = "";
+          }
           document.title = "Brand Studio — " + state.tmpl.ref;
         } else {
-          document.getElementById("topRef").textContent = state.ref || "Brand Studio";
-          document.getElementById("topDesc").textContent = "Open this page from a template card in the library.";
+          document.getElementById("topRef").textContent =
+            state.ref || "Brand Studio";
+          document.getElementById("topDesc").textContent =
+            "Open this page from a template card in the library.";
         }
 
         state.hasSource = !!(state.asset && state.asset.css);
@@ -319,13 +847,16 @@
           state.bodyFont = det.bodyFont;
           state.values = {};
           det.vars.forEach((v) => (state.values[v.name] = v.value));
-          state.base = JSON.parse(JSON.stringify({ values: state.values, fontImports: state.fontImports, bodyFont: state.bodyFont }));
-          const saved = loadSaved();
-          if (saved) {
-            state.values = Object.assign({}, state.base.values, saved.values || {});
-            state.fontImports = saved.fontImports || state.fontImports;
-            state.bodyFont = saved.bodyFont || state.bodyFont;
-          }
+          state.base = JSON.parse(
+            JSON.stringify({
+              values: state.values,
+              fontImports: state.fontImports,
+              bodyFont: state.bodyFont,
+            }),
+          );
+          // NOTE: we intentionally do NOT restore any previous per-template brand values from
+          // localStorage here. Each overlay must open at its pristine template default; a prior
+          // scrape/edit should never become the "default" on the next visit.
         }
 
         renderEditor();
@@ -336,24 +867,41 @@
       /* ───────── detect this overlay's own variables ───────── */
       function detectFromCss(css) {
         const out = { vars: [], fontImports: [], bodyFont: "" };
-        out.fontImports = (css.match(/@import[^;]+;/g) || []).map((s) => s.trim());
-        const bg = css.match(/smc-bg\s*\*\s*\{[^}]*font-family:\s*([^;}]+)[;}]/i);
+        out.fontImports = (css.match(/@import[^;]+;/g) || []).map((s) =>
+          s.trim(),
+        );
+        const bg = css.match(
+          /smc-bg\s*\*\s*\{[^}]*font-family:\s*([^;}]+)[;}]/i,
+        );
         if (bg) out.bodyFont = bg[1].trim();
         // collect custom-property DECLARATIONS anywhere (overlays declare them on
         // smc-overlay-inner, smc-bg or :root). "--x:" only matches declarations, not var(--x) usages.
-        const seen = {}; const all = [];
-        const re = /(--[\w-]+)\s*:\s*([^;}]+?)\s*[;}]/g; let m;
+        const seen = {};
+        const all = [];
+        const re = /(--[\w-]+)\s*:\s*([^;}]+?)\s*[;}]/g;
+        let m;
         while ((m = re.exec(css))) {
-          const name = m[1].trim(), value = m[2].trim();
+          const name = m[1].trim(),
+            value = m[2].trim();
           if (seen[name] || !value) continue;
           seen[name] = true;
-          all.push({ name: name, value: value, type: isColor(value) ? "color" : "text" });
+          all.push({
+            name: name,
+            value: value,
+            type: isColor(value) ? "color" : "text",
+          });
         }
         const smc = all.filter((v) => v.name.indexOf("--smc-") === 0);
         out.vars = smc.length ? smc : all; // prefer the --smc-* theme set when present
         return out;
       }
-      function isColor(v) { return /^#[0-9a-f]{3,8}$/i.test(v) || /^rgba?\(/i.test(v) || /^hsla?\(/i.test(v); }
+      function isColor(v) {
+        return (
+          /^#[0-9a-f]{3,8}$/i.test(v) ||
+          /^rgba?\(/i.test(v) ||
+          /^hsla?\(/i.test(v)
+        );
+      }
 
       /* ───────── editor ───────── */
       function renderEditor() {
@@ -363,8 +911,12 @@
           editor.style.display = "none";
           noEditor.style.display = "";
           document.getElementById("noSourceMsg").innerHTML =
-            "This overlay's source (<code>" + escHtml(state.ref) + ".css</code>) isn't stored locally yet, so there are no variables to brand.<br><br>" +
-            "Add its Custom CSS (and HTML) under a <code>" + escHtml(state.ref) + "/</code> folder and run <code>build-templates-data.js</code> to enable branding here.";
+            "This overlay's source (<code>" +
+            escHtml(state.ref) +
+            ".css</code>) isn't stored locally yet, so there are no variables to brand.<br><br>" +
+            "Add its Custom CSS (and HTML) under a <code>" +
+            escHtml(state.ref) +
+            "/</code> folder and run <code>build-templates-data.js</code> to enable branding here.";
           document.getElementById("extractBtn").disabled = true;
           document.getElementById("siteUrl").disabled = true;
           return;
@@ -376,48 +928,98 @@
         const fw = document.getElementById("fontFields");
         fw.innerHTML =
           '<div class="field"><label>Body font (smc-bg)</label>' +
-          '<input type="text" id="f_bodyFont" value="' + escAttr(state.bodyFont) + '" oninput="onBody(this.value)" /></div>' +
+          '<input type="text" id="f_bodyFont" value="' +
+          escAttr(state.bodyFont) +
+          '" oninput="onBody(this.value)" /></div>' +
           '<div class="field"><label>Font @imports (one per line)</label>' +
-          '<textarea id="f_imports" oninput="onImports()">' + escHtml(state.fontImports.join("\n")) + "</textarea></div>";
+          '<textarea id="f_imports" oninput="onImports()">' +
+          escHtml(state.fontImports.join("\n")) +
+          "</textarea></div>";
 
         // variables
-        document.getElementById("varCount").textContent = "(" + state.vars.length + ")";
+        document.getElementById("varCount").textContent =
+          "(" + state.vars.length + ")";
         const vw = document.getElementById("varFields");
         vw.innerHTML = "";
         if (!state.vars.length) {
-          vw.innerHTML = '<p class="no-source">This overlay declares no <code>--smc-*</code> CSS variables, so only the fonts can be rebranded here. To make it themeable, expose its colours as variables in the overlay source.</p>';
+          vw.innerHTML =
+            '<p class="no-source">This overlay declares no <code>--smc-*</code> CSS variables, so only the fonts can be rebranded here. To make it themeable, expose its colours as variables in the overlay source.</p>';
         }
         state.vars.forEach((v, i) => {
-          const val = state.values[v.name] != null ? state.values[v.name] : v.value;
+          const val =
+            state.values[v.name] != null ? state.values[v.name] : v.value;
           const wrap = document.createElement("div");
           wrap.className = "field" + (v.type === "color" ? "" : " full");
           if (v.type === "color") {
             wrap.innerHTML =
-              '<label class="var-name">' + escHtml(v.name) + "</label>" +
+              '<label class="var-name">' +
+              escHtml(v.name) +
+              "</label>" +
               '<div class="swatch-row">' +
-              '<input type="color" id="c_' + i + '" value="' + toHex6(val) + '" oninput="onColor(' + i + ', this.value)" />' +
-              '<input type="text" id="v_' + i + '" value="' + escAttr(val) + '" oninput="onVar(' + i + ', this.value)" /></div>';
+              '<input type="color" id="c_' +
+              i +
+              '" value="' +
+              toHex6(val) +
+              '" oninput="onColor(' +
+              i +
+              ', this.value)" />' +
+              '<input type="text" id="v_' +
+              i +
+              '" value="' +
+              escAttr(val) +
+              '" oninput="onVar(' +
+              i +
+              ', this.value)" /></div>';
           } else {
             wrap.innerHTML =
-              '<label class="var-name">' + escHtml(v.name) + "</label>" +
-              '<input type="text" id="v_' + i + '" value="' + escAttr(val) + '" oninput="onVar(' + i + ', this.value)" />';
+              '<label class="var-name">' +
+              escHtml(v.name) +
+              "</label>" +
+              '<input type="text" id="v_' +
+              i +
+              '" value="' +
+              escAttr(val) +
+              '" oninput="onVar(' +
+              i +
+              ', this.value)" />';
           }
           vw.appendChild(wrap);
         });
       }
 
       function onVar(i, val) {
-        const v = state.vars[i]; state.values[v.name] = val;
-        if (v.type === "color") { const cp = document.getElementById("c_" + i); const h = toHex6(val); if (cp && h) cp.value = h; }
-        applyAll(); saveState();
+        const v = state.vars[i];
+        state.values[v.name] = val;
+        if (v.type === "color") {
+          const cp = document.getElementById("c_" + i);
+          const h = toHex6(val);
+          if (cp && h) cp.value = h;
+        }
+        applyAll();
+        saveState();
       }
       function onColor(i, hex) {
-        const v = state.vars[i]; state.values[v.name] = hex;
-        const tf = document.getElementById("v_" + i); if (tf) tf.value = hex;
-        applyAll(); saveState();
+        const v = state.vars[i];
+        state.values[v.name] = hex;
+        const tf = document.getElementById("v_" + i);
+        if (tf) tf.value = hex;
+        applyAll();
+        saveState();
       }
-      function onBody(val) { state.bodyFont = val; applyAll(); saveState(); }
-      function onImports() { state.fontImports = document.getElementById("f_imports").value.split("\n").map((s) => s.trim()).filter(Boolean); applyAll(); saveState(); }
+      function onBody(val) {
+        state.bodyFont = val;
+        applyAll();
+        saveState();
+      }
+      function onImports() {
+        state.fontImports = document
+          .getElementById("f_imports")
+          .value.split("\n")
+          .map((s) => s.trim())
+          .filter(Boolean);
+        applyAll();
+        saveState();
+      }
 
       /* ───────── preview ───────── */
       function setupPreview() {
@@ -427,42 +1029,77 @@
         const shot = document.getElementById("pvShot");
         if (state.asset && state.asset.html) {
           previewMode = "iframe";
-          frame.style.display = "block"; fb.style.display = "none";
-          note.textContent = "Live render of the real overlay, themed with the values on the left. Sample text is filler for the preview only.";
+          frame.style.display = "block";
+          fb.style.display = "none";
+          note.textContent =
+            "Live render of the real overlay, themed with the values on the left. Sample text is filler for the preview only.";
         } else {
           previewMode = "shot";
-          frame.style.display = "none"; fb.style.display = "flex";
-          if (state.tmpl && state.tmpl.img) { shot.src = state.tmpl.img; shot.style.display = ""; } else { shot.style.display = "none"; }
+          frame.style.display = "none";
+          fb.style.display = "flex";
+          if (state.tmpl && state.tmpl.img) {
+            shot.src = state.tmpl.img;
+            shot.style.display = "";
+          } else {
+            shot.style.display = "none";
+          }
           note.textContent = state.hasSource
-            ? "No HTML stored for a live layout render — showing the screenshot. Add " + state.ref + ".html to enable a live themed preview; the CSS below is still correct."
+            ? "No HTML stored for a live layout render — showing the screenshot. Add " +
+              state.ref +
+              ".html to enable a live themed preview; the CSS below is still correct."
             : "No overlay source stored locally — showing the screenshot.";
         }
       }
 
-      function applyAll() { if (previewMode === "iframe") updateIframe(); renderOutput(); renderHtmlOutput(); }
+      function applyAll() {
+        if (previewMode === "iframe") updateIframe();
+        renderOutput();
+        renderHtmlOutput();
+      }
 
       function renderHtmlOutput() {
         const el = document.getElementById("htmlOutput");
         if (!el) return;
         if (state.asset && state.asset.html) el.textContent = state.asset.html;
-        else el.textContent = state.hasSource
-          ? "<!-- No HTML stored for this overlay. -->"
-          : "<!-- No overlay source loaded for " + state.ref + ". -->";
+        else
+          el.textContent = state.hasSource
+            ? "<!-- No HTML stored for this overlay. -->"
+            : "<!-- No overlay source loaded for " + state.ref + ". -->";
       }
 
       function overrideCss() {
         // set on both smc-bg and smc-overlay-inner with !important so our values win
         // wherever the overlay declared them, and inherit down to every consumer.
-        let s = "smc-bg * { font-family: " + state.bodyFont + " !important; }\nsmc-bg, smc-overlay-inner {\n";
-        state.vars.forEach((v) => (s += "  " + v.name + ": " + (state.values[v.name] || "") + " !important;\n"));
+        let s =
+          "smc-bg * { font-family: " +
+          state.bodyFont +
+          " !important; }\nsmc-bg, smc-overlay-inner {\n";
+        state.vars.forEach(
+          (v) =>
+            (s +=
+              "  " +
+              v.name +
+              ": " +
+              (state.values[v.name] || "") +
+              " !important;\n"),
+        );
         s += "}";
         return s;
       }
       function activeCopy() {
-        const cat = (state.tmpl && state.tmpl.cat) || (state.ref || "").slice(0, 2).toLowerCase();
-        return Object.assign({}, COPY_BY_CAT[cat] || COPY_BY_CAT.db, COPY_BY_REF[state.ref] || {});
+        const cat =
+          (state.tmpl && state.tmpl.cat) ||
+          (state.ref || "").slice(0, 2).toLowerCase();
+        return Object.assign(
+          {},
+          COPY_BY_CAT[cat] || COPY_BY_CAT.db,
+          COPY_BY_REF[state.ref] || {},
+        );
       }
-      function replaceTokens(html) { const c = activeCopy(); return html.replace(/\{([\w-]+)\}/g, (m, k) => (k in c ? c[k] : "")); }
+      function replaceTokens(html) {
+        const c = activeCopy();
+        return html.replace(/\{([\w-]+)\}/g, (m, k) => (k in c ? c[k] : ""));
+      }
 
       function buildIframeSrcdoc() {
         const a = state.asset;
@@ -477,16 +1114,26 @@
         // cssText() already contains @imports + smc-bg font + variables + layout; htmlText() is the markup.
         return (
           "<!doctype html><html><head><meta charset='utf-8'>" +
-          "<style>" + PAGE_STYLES + "</style>" +
-          "<style>" + cssText() + "</style>" +
-          "<style>" + preview + "</style>" +
-          "</head><body>" + replaceTokens(htmlText()) + "</body></html>"
+          "<style>" +
+          PAGE_STYLES +
+          "</style>" +
+          "<style>" +
+          cssText() +
+          "</style>" +
+          "<style>" +
+          preview +
+          "</style>" +
+          "</head><body>" +
+          replaceTokens(htmlText()) +
+          "</body></html>"
         );
       }
       function updateIframe() {
         const f = document.getElementById("pvFrame");
         clearTimeout(_iframeTimer);
-        _iframeTimer = setTimeout(() => { f.srcdoc = buildIframeSrcdoc(); }, 160);
+        _iframeTimer = setTimeout(() => {
+          f.srcdoc = buildIframeSrcdoc();
+        }, 160);
       }
 
       // Full overlay CSS with the edited brand values substituted in (imports + body font + every variable),
@@ -494,7 +1141,8 @@
       function renderOutput() {
         const out = document.getElementById("output");
         if (!state.hasSource) {
-          out.textContent = "/* No overlay source loaded for " + state.ref + ". */";
+          out.textContent =
+            "/* No overlay source loaded for " + state.ref + ". */";
           if (cssEditor) cssEditor.setValue(out.textContent);
           return;
         }
@@ -502,10 +1150,15 @@
         // drop the overlay's existing @import lines (we re-add the current ones at the top)
         css = css.replace(/@import[^;]+;[ \t]*\r?\n?/g, "");
         // swap the smc-bg body font-family
-        css = css.replace(/(smc-bg\s*\*\s*\{[^}]*font-family:\s*)([^;}]+)/i, (m, p1) => p1 + state.bodyFont);
+        css = css.replace(
+          /(smc-bg\s*\*\s*\{[^}]*font-family:\s*)([^;}]+)/i,
+          (m, p1) => p1 + state.bodyFont,
+        );
         // swap each declared variable's value (declarations only — var(--x) usages are untouched)
         state.vars.forEach((v) => {
-          const re = new RegExp("(" + v.name.replace(/[-]/g, "\\-") + "\\s*:\\s*)[^;]+;");
+          const re = new RegExp(
+            "(" + v.name.replace(/[-]/g, "\\-") + "\\s*:\\s*)[^;]+;",
+          );
           css = css.replace(re, "$1" + (state.values[v.name] || "") + ";");
         });
         css = css.replace(/^\s+/, "");
@@ -520,10 +1173,18 @@
         if (!state.hasSource) return;
         const url = document.getElementById("siteUrl").value.trim();
         if (!url) return setStatus("err", "Enter a site URL first.");
-        if (!state.pass) { openKeyModal(); return; }
+        if (!state.pass) {
+          openKeyModal();
+          return;
+        }
         const btn = document.getElementById("extractBtn");
         btn.disabled = true;
-        setStatus("info", '<span class="spinner"></span>Reading ' + shortUrl(url) + "'s stylesheets…");
+        setStatus(
+          "info",
+          '<span class="spinner"></span>Reading ' +
+            shortUrl(url) +
+            "'s stylesheets…",
+        );
         try {
           const scraped = await scrapeSite(url); // server-side: real HTML + linked CSS tokens
           // Skip web tools only when the scrape has strong COLOUR signal (a theme colour, a real
@@ -533,57 +1194,97 @@
           // A bot-block/challenge page (Cloudflare etc.) is NOT the real site — don't map its
           // styles. Treat it as an unusable scrape and warn the user afterwards.
           const blocked = !!(scraped && scraped.blocked);
-          const usable = (scraped && !blocked) ? scraped : null;
+          const usable = scraped && !blocked ? scraped : null;
           // We can map locally (no slow web browsing) whenever the scrape gave us usable content:
           // colour tokens, a real font, OR the raw CSS sample to read rules from. Only browse when
           // the scrape returned essentially nothing (bot-blocked / fully JS-rendered).
-          const canMapLocally = !!(usable && (
-            usable.themeColor ||
-            (usable.fontFaces && usable.fontFaces.length) ||
-            Object.values(usable.cssVars || {}).some(hasColour) ||
-            (usable.cssSample && usable.cssSample.length > 200)
-          ));
-          setStatus("info", '<span class="spinner"></span>Mapping ' + shortUrl(url) + " to the overlay…");
-          const raw = await callClaude(buildPrompt(url, usable), !canMapLocally);
+          const canMapLocally = !!(
+            usable &&
+            (usable.themeColor ||
+              (usable.fontFaces && usable.fontFaces.length) ||
+              Object.values(usable.cssVars || {}).some(hasColour) ||
+              (usable.cssSample && usable.cssSample.length > 200))
+          );
+          setStatus(
+            "info",
+            '<span class="spinner"></span>Mapping ' +
+              shortUrl(url) +
+              " to the overlay…",
+          );
+          const raw = await callClaude(
+            buildPrompt(url, usable),
+            !canMapLocally,
+          );
           const parsed = parseJson(raw);
-          if (!parsed) throw new Error("Could not read a valid response. Try again.");
+          if (!parsed)
+            throw new Error("Could not read a valid response. Try again.");
           if (parsed.vars && typeof parsed.vars === "object") {
-            state.vars.forEach((v) => { if (typeof parsed.vars[v.name] === "string" && parsed.vars[v.name].trim()) state.values[v.name] = parsed.vars[v.name].trim(); });
+            state.vars.forEach((v) => {
+              if (
+                typeof parsed.vars[v.name] === "string" &&
+                parsed.vars[v.name].trim()
+              )
+                state.values[v.name] = parsed.vars[v.name].trim();
+            });
           }
-          if (typeof parsed.bodyFont === "string" && parsed.bodyFont.trim()) state.bodyFont = parsed.bodyFont.trim();
-          if (Array.isArray(parsed.fontImports)) state.fontImports = parsed.fontImports;
-          renderEditor(); applyAll(); saveState();
-          const ev = (typeof parsed.evidence === "string" && parsed.evidence.trim())
-            ? "<span class='evidence'>" + escHtml(parsed.evidence.trim()) + "</span>" : "";
+          if (typeof parsed.bodyFont === "string" && parsed.bodyFont.trim())
+            state.bodyFont = parsed.bodyFont.trim();
+          if (Array.isArray(parsed.fontImports))
+            state.fontImports = parsed.fontImports;
+          renderEditor();
+          applyAll();
+          saveState();
+          const ev =
+            typeof parsed.evidence === "string" && parsed.evidence.trim()
+              ? "<span class='evidence'>" +
+                escHtml(parsed.evidence.trim()) +
+                "</span>"
+              : "";
           if (blocked) {
-            setStatus("err", "⚠ " + shortUrl(url) + " blocks automated access (bot protection), so its real styles couldn't be read — values below are best-effort. Set brand colours/fonts by hand." + ev);
+            setStatus(
+              "err",
+              "⚠ " +
+                shortUrl(url) +
+                " blocks automated access (bot protection), so its real styles couldn't be read — values below are best-effort. Set brand colours/fonts by hand." +
+                ev,
+            );
           } else {
-            setStatus("ok", "✓ Brand styles extracted. Fine-tune anything below." + ev);
+            setStatus(
+              "ok",
+              "✓ Brand styles extracted. Fine-tune anything below." + ev,
+            );
           }
         } catch (e) {
           setStatus("err", "✗ " + (e.message || "Extraction failed."));
-        } finally { btn.disabled = false; }
+        } finally {
+          btn.disabled = false;
+        }
       }
 
       // Server-side scrape: pulls real design tokens from the page + its linked stylesheets
       // (what web_fetch can't reach). Returns null on failure so Extract can fall back to web tools.
       async function scrapeSite(url) {
         try {
-          const res = await fetch("/api/scrape?url=" + encodeURIComponent(url), {
-            headers: { "x-brand-passphrase": state.pass },
-          });
+          const res = await fetch(
+            "/api/scrape?url=" + encodeURIComponent(url),
+            {
+              headers: { "x-brand-passphrase": state.pass },
+            },
+          );
           if (!res.ok) return null;
           const data = await res.json();
-          const has = data && (
-            data.blocked ||
-            (data.cssVars && Object.keys(data.cssVars).length) ||
-            (data.fontFaces && data.fontFaces.length) ||
-            (data.fontFamilies && data.fontFamilies.length) ||
-            data.themeColor ||
-            (data.cssSample && data.cssSample.length > 200)
-          );
+          const has =
+            data &&
+            (data.blocked ||
+              (data.cssVars && Object.keys(data.cssVars).length) ||
+              (data.fontFaces && data.fontFaces.length) ||
+              (data.fontFamilies && data.fontFamilies.length) ||
+              data.themeColor ||
+              (data.cssSample && data.cssSample.length > 200));
           return has ? data : null;
-        } catch (e) { return null; }
+        } catch (e) {
+          return null;
+        }
       }
 
       // Pre-match scraped site tokens to canonical --smc-* slots by well-known name patterns
@@ -593,24 +1294,63 @@
       function canonicalHints(scraped, vars) {
         if (!scraped) return {};
         const cv = scraped.cssVars || {};
-        const isCol = (v) => /^\s*#([0-9a-f]{3,8})\s*$/i.test(String(v)) || /^\s*(rgb|rgba|hsl|hsla)\(/i.test(String(v));
+        const isCol = (v) =>
+          /^\s*#([0-9a-f]{3,8})\s*$/i.test(String(v)) ||
+          /^\s*(rgb|rgba|hsl|hsla)\(/i.test(String(v));
         const cols = Object.entries(cv).filter(([, v]) => isCol(v));
-        const find = (re) => { const h = cols.find(([k]) => re.test(k)); return h ? h[1].trim() : null; };
+        const find = (re) => {
+          const h = cols.find(([k]) => re.test(k));
+          return h ? h[1].trim() : null;
+        };
         const has = (n) => vars.some((v) => v.name === n);
         const out = {};
-        const put = (slot, val) => { if (val && has(slot) && !out[slot]) out[slot] = val; };
-        const btn = find(/btn.*(primary|bg|background|colou?r)|primary.*(btn|button|colou?r)|\bcta\b|accent[-_]?1\b|base-accent-1/i) || scraped.themeColor;
+        const put = (slot, val) => {
+          if (val && has(slot) && !out[slot]) out[slot] = val;
+        };
+        const btn =
+          find(
+            /btn.*(primary|bg|background|colou?r)|primary.*(btn|button|colou?r)|\bcta\b|accent[-_]?1\b|base-accent-1/i,
+          ) || scraped.themeColor;
         put("--smc-btnBkg", btn);
-        put("--smc-accent", find(/\b(accent|brand)\b|primary(?!.*text)/i) || btn);
-        put("--smc-btnBkgHover", find(/btn.*(hover|dim|dark)|primary.*(hover|dim|dark)/i));
-        put("--smc-btnText", find(/btn.*(text|label|fg|foreground)|on[-_]?primary|primary.*text/i));
-        put("--smc-textColour", find(/text.*(body|colou?r)\b|body.*text|base-text\b|(^|[-_])text$|colou?rtextbody/i));
-        put("--smc-mainBkg", find(/(^|[-_])(body|background|bg)[-_]?1?$|base-background-1|colou?rbody|page.*(bg|background)/i));
+        put(
+          "--smc-accent",
+          find(/\b(accent|brand)\b|primary(?!.*text)/i) || btn,
+        );
+        put(
+          "--smc-btnBkgHover",
+          find(/btn.*(hover|dim|dark)|primary.*(hover|dim|dark)/i),
+        );
+        put(
+          "--smc-btnText",
+          find(/btn.*(text|label|fg|foreground)|on[-_]?primary|primary.*text/i),
+        );
+        put(
+          "--smc-textColour",
+          find(
+            /text.*(body|colou?r)\b|body.*text|base-text\b|(^|[-_])text$|colou?rtextbody/i,
+          ),
+        );
+        put(
+          "--smc-mainBkg",
+          find(
+            /(^|[-_])(body|background|bg)[-_]?1?$|base-background-1|colou?rbody|page.*(bg|background)/i,
+          ),
+        );
         return out;
       }
 
       function buildPrompt(url, scraped) {
-        const list = state.vars.map((v) => "  \"" + v.name + "\": \"" + v.value + "\"" + (v.type === "color" ? "   // colour" : "")).join("\n");
+        const list = state.vars
+          .map(
+            (v) =>
+              '  "' +
+              v.name +
+              '": "' +
+              v.value +
+              '"' +
+              (v.type === "color" ? "   // colour" : ""),
+          )
+          .join("\n");
         let scrapedBlock = "";
         if (scraped) {
           const compact = {
@@ -621,9 +1361,13 @@
             fontImports: scraped.fontImports || [],
           };
           scrapedBlock =
-            "GROUND-TRUTH TOKENS already extracted server-side from " + url + "'s HTML and its linked stylesheets " +
+            "GROUND-TRUTH TOKENS already extracted server-side from " +
+            url +
+            "'s HTML and its linked stylesheets " +
             "(CSS custom properties, @font-face families, the font-family names actually used, font imports, theme-color). PREFER THESE over anything else — " +
-            "they are the real values from the site's own CSS:\n" + JSON.stringify(compact) + "\n\n" +
+            "they are the real values from the site's own CSS:\n" +
+            JSON.stringify(compact) +
+            "\n\n" +
             "Interpret them: custom properties named like --color*Btn*/--*accent*/--*primary* are usually the CTA/button colour; " +
             "--color*Text*/--*body* the text colour; --color*Bg*/--*background*/--colorBody the background. " +
             "For the font, use fontFamilies[0] (the most-used real typeface on the site) or a fontFaces family — that IS the brand font even if it's a common name like Montserrat; only fall back to a system stack if fontFamilies and fontFaces are both empty. " +
@@ -632,42 +1376,64 @@
           if (Object.keys(hints).length) {
             scrapedBlock +=
               "SUGGESTED MAPPING — these overlay variables were pre-matched to the site's tokens by name and are strong defaults. Use them as-is unless the tokens clearly contradict them; then just fill the remaining variables:\n" +
-              JSON.stringify(hints) + "\n\n";
+              JSON.stringify(hints) +
+              "\n\n";
           }
           // Only attach the bulky raw CSS when the colour tokens are sparse — otherwise the tokens
           // already answer it, and 90k of CSS just slows the request (and can hit the 60s cap).
-          const hasColourToken = scraped.themeColor || Object.values(scraped.cssVars || {}).some((v) => /^\s*#|^\s*(rgb|hsl)/i.test(String(v)));
-          if (!hasColourToken && scraped.cssSample && scraped.cssSample.length > 200) {
+          const hasColourToken =
+            scraped.themeColor ||
+            Object.values(scraped.cssVars || {}).some((v) =>
+              /^\s*#|^\s*(rgb|hsl)/i.test(String(v)),
+            );
+          if (
+            !hasColourToken &&
+            scraped.cssSample &&
+            scraped.cssSample.length > 200
+          ) {
             scrapedBlock +=
               "RAW CSS from the site's stylesheets (already fetched for you). The token fields above are sparse, so read these ACTUAL rules to find the brand's real values: the primary button/CTA colour (a prominent non-white background on a .btn/.button/[class*=cta]/add-to-cart rule), body text colour, link/accent colour, and font-family. Extract from what's here — do NOT invent values:\n```css\n" +
-              scraped.cssSample.slice(0, 45000) + "\n```\n\n";
+              scraped.cssSample.slice(0, 45000) +
+              "\n```\n\n";
           }
         } else {
           scrapedBlock =
-            "No tokens could be scraped server-side for " + url + " (the site may block bots or render CSS at runtime). " +
+            "No tokens could be scraped server-side for " +
+            url +
+            " (the site may block bots or render CSS at runtime). " +
             "FETCH the page and its stylesheets with web_fetch and read the real markup/CSS yourself. " +
             "IMPORTANT: if what you fetch is a bot-challenge or error page (Cloudflare 'Just a moment', 'Attention Required', an #cf-wrapper / #cf-error page, a CAPTCHA, or an access-denied page), that is NOT the brand's site — do NOT extract its colours or fonts. Instead keep the overlay's current default values, use a neutral system font stack, and say plainly in \"evidence\" that the site blocked automated access.\n\n";
         }
         return (
-          "You are a CRO overlay brand specialist. Map the brand's real design system at " + url + " onto this intent.ly overlay's CSS variables.\n\n" +
+          "You are a CRO overlay brand specialist. Map the brand's real design system at " +
+          url +
+          " onto this intent.ly overlay's CSS variables.\n\n" +
           scrapedBlock +
-          "The overlay declares exactly these variables (name: current default value). Return NEW values that match the brand at " + url + ":\n{\n" + list + "\n}\n\n" +
+          "The overlay declares exactly these variables (name: current default value). Return NEW values that match the brand at " +
+          url +
+          ":\n{\n" +
+          list +
+          "\n}\n\n" +
           "Return ONLY a JSON object, no markdown, in this shape:\n" +
-          "{\n  \"vars\": { " + state.vars.map((v) => "\"" + v.name + "\": \"...\"").join(", ") + " },\n" +
-          "  \"bodyFont\": \"'Brand Font', sans-serif\",\n" +
-          "  \"fontImports\": [\"@import url('https://fonts.googleapis.com/...');\"],\n" +
-          "  \"evidence\": \"one short, honest sentence: the font you used and where you found it (or 'no font in source — used system stack'), plus where the key colours came from\"\n}\n\n" +
+          '{\n  "vars": { ' +
+          state.vars.map((v) => '"' + v.name + '": "..."').join(", ") +
+          " },\n" +
+          '  "bodyFont": "\'Brand Font\', sans-serif",\n' +
+          '  "fontImports": ["@import url(\'https://fonts.googleapis.com/...\');"],\n' +
+          '  "evidence": "one short, honest sentence: the font you used and where you found it (or \'no font in source — used system stack\'), plus where the key colours came from"\n}\n\n' +
           "Rules:\n" +
           "- EVIDENCE ONLY. Base every value on the ground-truth tokens above, or on markup/CSS you fetch — never guess from memory or from what a brand 'like this' usually uses.\n" +
-          "- Fill \"evidence\" truthfully with what you actually found: the real font name and its source (scraped @font-face / font import, Google Fonts link, or fetched CSS), and where the colours came from. If you could not find the font and fell back to a system stack, say exactly that.\n" +
-          "- Fonts: use a real font only if it appears in the scraped fontFaces/fontImports or in CSS you fetch — a common name like Montserrat IS correct when it's actually there. If NO real font can be found anywhere, do NOT substitute a trendy default from memory — use a neutral system stack (\"system-ui, -apple-system, sans-serif\") and return an empty fontImports array. If a found @font-face family is also on Google Fonts, include its Google Fonts @import.\n" +
+          '- Fill "evidence" truthfully with what you actually found: the real font name and its source (scraped @font-face / font import, Google Fonts link, or fetched CSS), and where the colours came from. If you could not find the font and fell back to a system stack, say exactly that.\n' +
+          '- Fonts: use a real font only if it appears in the scraped fontFaces/fontImports or in CSS you fetch — a common name like Montserrat IS correct when it\'s actually there. If NO real font can be found anywhere, do NOT substitute a trendy default from memory — use a neutral system stack ("system-ui, -apple-system, sans-serif") and return an empty fontImports array. If a found @font-face family is also on Google Fonts, include its Google Fonts @import.\n' +
           "- Only include a Google Fonts @import if that exact font is actually loaded by the site.\n" +
           "- Font weights: any font-weight value you set (e.g. --smc-btnFontWeight) MUST be one of the weights loaded by your @import — if you use a weight the import doesn't include, add that weight to the @import URL (Google Fonts css2 supports 'family=Name:wght@400;600;700'). Never set a weight that isn't loaded, or it will faux-bold or fall back.\n" +
           "- Colours: take the real brand colours from the fetched CSS/markup. Map the primary button/CTA colour to the button variable(s), the main accent to accent variables, body text colour to text variables.\n" +
           "- Buttons are FILLED CTAs: put the brand's primary/accent colour on the button background (e.g. --smc-btnBkg), set the button text to a colour that clearly contrasts it, and set any button-border variable to match the button background — even when the template's default button is a white/outline style.\n" +
           "- Keep each variable's UNIT/kind: colour variables → hex (rgba/8-hex only if transparency is needed); size/radius variables → keep px/rem etc.\n" +
           "- Ensure button text clearly contrasts the button background.\n" +
-          "Current body font: " + state.bodyFont + "\nReturn JSON only."
+          "Current body font: " +
+          state.bodyFont +
+          "\nReturn JSON only."
         );
       }
 
@@ -677,28 +1443,58 @@
       async function callClaude(prompt, useWebTools) {
         // Low effort for the local-map path (extraction, not deep reasoning → much faster, avoids
         // the 60s serverless cap); a bit more for the web-tools fallback since it must plan fetches.
-        const body = { model: MODEL, max_tokens: 8000, output_config: { effort: useWebTools ? "medium" : "low" }, messages: [{ role: "user", content: prompt }] };
-        if (useWebTools) body.tools = [{ type: "web_fetch_20260209", name: "web_fetch", max_uses: 4 }];
+        const body = {
+          model: MODEL,
+          max_tokens: 8000,
+          output_config: { effort: useWebTools ? "medium" : "low" },
+          messages: [{ role: "user", content: prompt }],
+        };
+        if (useWebTools)
+          body.tools = [
+            { type: "web_fetch_20260209", name: "web_fetch", max_uses: 4 },
+          ];
         const res = await fetch("/api/anthropic", {
           method: "POST",
-          headers: { "Content-Type": "application/json", "x-brand-passphrase": state.pass, "anthropic-version": "2023-06-01" },
+          headers: {
+            "Content-Type": "application/json",
+            "x-brand-passphrase": state.pass,
+            "anthropic-version": "2023-06-01",
+          },
           body: JSON.stringify(body),
         });
-        if (!res.ok) { const err = await res.json().catch(() => ({})); throw new Error((err && err.error && err.error.message) || "HTTP " + res.status); }
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          throw new Error(
+            (err && err.error && err.error.message) || "HTTP " + res.status,
+          );
+        }
         const data = await res.json();
-        return (data.content || []).map((b) => b.text || "").filter(Boolean).join("\n");
+        return (data.content || [])
+          .map((b) => b.text || "")
+          .filter(Boolean)
+          .join("\n");
       }
 
       function parseJson(raw) {
         if (!raw) return null;
         let s = raw.replace(/```json/gi, "").replace(/```/g, "");
-        const start = s.indexOf("{"), end = s.lastIndexOf("}");
+        const start = s.indexOf("{"),
+          end = s.lastIndexOf("}");
         if (start < 0 || end < 0) return null;
-        try { return JSON.parse(s.slice(start, end + 1)); } catch (e) { return null; }
+        try {
+          return JSON.parse(s.slice(start, end + 1));
+        } catch (e) {
+          return null;
+        }
       }
 
       /* ───────── output actions ───────── */
-      function copyOutput() { navigator.clipboard.writeText(cssText()).then(() => setStatus("ok", "✓ CSS copied."), () => setStatus("err", "Could not copy.")); }
+      function copyOutput() {
+        navigator.clipboard.writeText(cssText()).then(
+          () => setStatus("ok", "✓ CSS copied."),
+          () => setStatus("err", "Could not copy."),
+        );
+      }
 
       // Resolve every var(--…) to its concrete value and remove the variable definitions,
       // producing self-contained CSS with no custom properties (for the production paste).
@@ -708,16 +1504,22 @@
         // definition map (wrong values) nor be half-eaten by the line removal (corrupting a
         // comment's closing */). The sentinel is a control char that never occurs in CSS.
         const comments = [];
-        let s = css.replace(/\/\*[\s\S]*?\*\//g, (c) => { comments.push(c); return "\u0001C" + (comments.length - 1) + "\u0001"; });
+        let s = css.replace(/\/\*[\s\S]*?\*\//g, (c) => {
+          comments.push(c);
+          return "\u0001C" + (comments.length - 1) + "\u0001";
+        });
         // collect --x: value declarations from the (comment-free) CSS; last definition wins, mirroring the cascade
         const defs = {};
-        for (const m of s.matchAll(/(--[\w-]+)\s*:\s*([^;}]+?)\s*(?:;|(?=}))/g)) defs[m[1].trim()] = m[2].trim();
+        for (const m of s.matchAll(/(--[\w-]+)\s*:\s*([^;}]+?)\s*(?:;|(?=}))/g))
+          defs[m[1].trim()] = m[2].trim();
         // resolve var() inside a value, recursively, guarding against cycles
-        const resolve = (val, seen) => val.replace(VARREF, (whole, name, fb) => {
-          if (defs[name] != null && !seen.has(name)) return resolve(defs[name], new Set(seen).add(name)).trim();
-          if (fb != null) return fb.trim();
-          return whole; // undefined and no fallback → leave as-is
-        });
+        const resolve = (val, seen) =>
+          val.replace(VARREF, (whole, name, fb) => {
+            if (defs[name] != null && !seen.has(name))
+              return resolve(defs[name], new Set(seen).add(name)).trim();
+            if (fb != null) return fb.trim();
+            return whole; // undefined and no fallback → leave as-is
+          });
         const resolved = {};
         for (const k in defs) resolved[k] = resolve(defs[k], new Set([k]));
         // substitute throughout the CSS
@@ -741,38 +1543,93 @@
         const flat = flattenCss(cssText());
         const leftover = /var\(\s*--/.test(flat);
         navigator.clipboard.writeText(flat).then(
-          () => setStatus("ok", "✓ Flattened CSS copied — no variables, ready for production." + (leftover ? " <span class='evidence'>Note: some var() had no definition in this CSS and were left as-is.</span>" : " <span class='evidence'>Your editor still has the editable, variable version.</span>")),
-          () => setStatus("err", "Could not copy.")
+          () =>
+            setStatus(
+              "ok",
+              "✓ Flattened CSS copied — no variables, ready for production." +
+                (leftover
+                  ? " <span class='evidence'>Note: some var() had no definition in this CSS and were left as-is.</span>"
+                  : " <span class='evidence'>Your editor still has the editable, variable version.</span>"),
+            ),
+          () => setStatus("err", "Could not copy."),
         );
       }
       function downloadOutput() {
         const blob = new Blob([cssText()], { type: "text/css" });
-        const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = (state.ref || "overlay") + "-branded.css"; a.click();
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = (state.ref || "overlay") + "-branded.css";
+        a.click();
       }
-      function copyHtml() { navigator.clipboard.writeText(htmlText()).then(() => setStatus("ok", "✓ HTML copied."), () => setStatus("err", "Could not copy.")); }
+      function copyHtml() {
+        navigator.clipboard.writeText(htmlText()).then(
+          () => setStatus("ok", "✓ HTML copied."),
+          () => setStatus("err", "Could not copy."),
+        );
+      }
       function downloadHtml() {
         const blob = new Blob([htmlText()], { type: "text/html" });
-        const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = (state.ref || "overlay") + ".html"; a.click();
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = (state.ref || "overlay") + ".html";
+        a.click();
       }
       function resetVars() {
         if (!state.base) return;
         state.values = JSON.parse(JSON.stringify(state.base.values));
         state.fontImports = state.base.fontImports.slice();
         state.bodyFont = state.base.bodyFont;
-        renderEditor(); applyAll(); saveState();
+        renderEditor();
+        applyAll();
+        saveState();
         setStatus("info", "Reset to this overlay's default values.");
       }
 
       /* ───────── persistence ───────── */
-      function skey() { return "smc_brand_state_" + (state.ref || "_"); }
-      function saveState() { try { localStorage.setItem(skey(), JSON.stringify({ values: state.values, fontImports: state.fontImports, bodyFont: state.bodyFont })); } catch (e) {} }
-      function loadSaved() { try { const raw = localStorage.getItem(skey()); return raw ? JSON.parse(raw) : null; } catch (e) { return null; } }
+      function skey() {
+        return "smc_brand_state_" + (state.ref || "_");
+      }
+      // Persistence intentionally disabled: overlays always open at their pristine template
+      // default, so a prior scrape/edit never becomes the "default" on the next visit.
+      function saveState() {}
+      // One-time cleanup of any brand-state saved by older builds, so stale scrapes don't linger.
+      function purgeSavedState() {
+        try {
+          Object.keys(localStorage)
+            .filter((k) => k.indexOf("smc_brand_state_") === 0)
+            .forEach((k) => localStorage.removeItem(k));
+        } catch (e) {}
+      }
 
       /* ───────── api key ───────── */
-      function openKeyModal() { document.getElementById("keyInput").value = state.pass || ""; document.getElementById("keyModal").classList.add("show"); setTimeout(() => document.getElementById("keyInput").focus(), 50); }
-      function closeKeyModal() { document.getElementById("keyModal").classList.remove("show"); }
-      function saveKey() { const k = document.getElementById("keyInput").value.trim(); state.pass = k; try { localStorage.setItem(PASS_STORE, k); } catch (e) {} updateKeyPill(); updateAiPill(); closeKeyModal(); }
-      function updateKeyPill() { const p = document.getElementById("keyPill"); if (state.pass) { p.className = "key-pill set"; p.textContent = "Access: unlocked"; } else { p.className = "key-pill unset"; p.textContent = "Access: locked"; } }
+      function openKeyModal() {
+        document.getElementById("keyInput").value = state.pass || "";
+        document.getElementById("keyModal").classList.add("show");
+        setTimeout(() => document.getElementById("keyInput").focus(), 50);
+      }
+      function closeKeyModal() {
+        document.getElementById("keyModal").classList.remove("show");
+      }
+      function saveKey() {
+        const k = document.getElementById("keyInput").value.trim();
+        state.pass = k;
+        try {
+          localStorage.setItem(PASS_STORE, k);
+        } catch (e) {}
+        updateKeyPill();
+        updateAiPill();
+        closeKeyModal();
+      }
+      function updateKeyPill() {
+        const p = document.getElementById("keyPill");
+        if (state.pass) {
+          p.className = "key-pill set";
+          p.textContent = "Access: unlocked";
+        } else {
+          p.className = "key-pill unset";
+          p.textContent = "Access: locked";
+        }
+      }
 
       /* ───────── output layout (stacked ↔ side by side) ───────── */
       function applyLayout() {
@@ -781,25 +1638,42 @@
         const btn = document.getElementById("layoutToggle");
         if (btn) btn.textContent = layoutSide ? "⬍ Stack" : "⬌ Side by side";
         // Monaco reads its container size once; force a relayout after the width changes
-        requestAnimationFrame(() => { if (cssEditor) cssEditor.layout(); if (htmlEditor) htmlEditor.layout(); });
+        requestAnimationFrame(() => {
+          if (cssEditor) cssEditor.layout();
+          if (htmlEditor) htmlEditor.layout();
+        });
       }
       function toggleLayout() {
         layoutSide = !layoutSide;
-        try { localStorage.setItem("smc_outputs_layout", layoutSide ? "side" : "stack"); } catch (e) {}
+        try {
+          localStorage.setItem(
+            "smc_outputs_layout",
+            layoutSide ? "side" : "stack",
+          );
+        } catch (e) {}
         applyLayout();
       }
 
       /* ───────── AI (Copilot-style) inline autocomplete ───────── */
       function toggleAi() {
-        if (!state.pass) { openKeyModal(); return; }
+        if (!state.pass) {
+          openKeyModal();
+          return;
+        }
         aiEnabled = !aiEnabled;
-        try { localStorage.setItem("smc_ai_complete", aiEnabled ? "1" : "0"); } catch (e) {}
+        try {
+          localStorage.setItem("smc_ai_complete", aiEnabled ? "1" : "0");
+        } catch (e) {}
         updateAiPill();
       }
       function updateAiPill() {
         const p = document.getElementById("aiPill");
         if (!p) return;
-        if (!state.pass) { p.className = "key-pill unset"; p.textContent = "✨ AI: needs access"; return; }
+        if (!state.pass) {
+          p.className = "key-pill unset";
+          p.textContent = "✨ AI: needs access";
+          return;
+        }
         p.className = "key-pill " + (aiEnabled ? "set" : "unset");
         p.textContent = "✨ AI: " + (aiEnabled ? "on" : "off");
       }
@@ -809,15 +1683,28 @@
         const pass = state.pass || localStorage.getItem(PASS_STORE) || "";
         if (!pass) return "";
         const prompt =
-          "You are an inline code-autocomplete engine for " + (lang || "css").toUpperCase() +
+          "You are an inline code-autocomplete engine for " +
+          (lang || "css").toUpperCase() +
           " inside an intent.ly overlay (SMC) editor. Continue the code EXACTLY at the cursor marker <|>. " +
           "Return ONLY the raw text to insert at the cursor — no markdown fences, no explanation, and do not repeat the surrounding code. " +
           "Follow intent.ly SMC conventions (smc- custom elements, --smc-* CSS variables).\n\n" +
-          "CODE:\n" + before.slice(-2000) + "<|>" + after.slice(0, 400);
+          "CODE:\n" +
+          before.slice(-2000) +
+          "<|>" +
+          after.slice(0, 400);
         const res = await fetch("/api/anthropic", {
-          method: "POST", signal,
-          headers: { "Content-Type": "application/json", "x-brand-passphrase": pass, "anthropic-version": "2023-06-01" },
-          body: JSON.stringify({ model: COMPLETION_MODEL, max_tokens: 160, messages: [{ role: "user", content: prompt }] }),
+          method: "POST",
+          signal,
+          headers: {
+            "Content-Type": "application/json",
+            "x-brand-passphrase": pass,
+            "anthropic-version": "2023-06-01",
+          },
+          body: JSON.stringify({
+            model: COMPLETION_MODEL,
+            max_tokens: 160,
+            messages: [{ role: "user", content: prompt }],
+          }),
         });
         if (!res.ok) return "";
         const data = await res.json();
@@ -826,18 +1713,44 @@
       }
 
       /* ───────── helpers ───────── */
-      function setStatus(kind, html) { const el = document.getElementById("status"); el.className = "status " + kind; el.innerHTML = html; }
-      function shortUrl(u) { return u.replace(/^https?:\/\//, "").replace(/\/$/, ""); }
+      function setStatus(kind, html) {
+        const el = document.getElementById("status");
+        el.className = "status " + kind;
+        el.innerHTML = html;
+      }
+      function shortUrl(u) {
+        return u.replace(/^https?:\/\//, "").replace(/\/$/, "");
+      }
       function toHex6(val) {
         if (!val) return "#000000";
-        let m = String(val).match(/#([0-9a-f]{6})/i); if (m) return "#" + m[1];
-        m = String(val).match(/#([0-9a-f]{3})\b/i); if (m) return "#" + m[1].split("").map((c) => c + c).join("");
+        let m = String(val).match(/#([0-9a-f]{6})/i);
+        if (m) return "#" + m[1];
+        m = String(val).match(/#([0-9a-f]{3})\b/i);
+        if (m)
+          return (
+            "#" +
+            m[1]
+              .split("")
+              .map((c) => c + c)
+              .join("")
+          );
         return "#000000";
       }
-      function escAttr(s) { return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/"/g, "&quot;"); }
-      function escHtml(s) { return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+      function escAttr(s) {
+        return String(s == null ? "" : s)
+          .replace(/&/g, "&amp;")
+          .replace(/"/g, "&quot;");
+      }
+      function escHtml(s) {
+        return String(s == null ? "" : s)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;");
+      }
 
-      document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeKeyModal(); });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeKeyModal();
+      });
       init();
     </script>
 
@@ -855,8 +1768,12 @@
             return (
               "data:text/javascript;charset=utf-8," +
               encodeURIComponent(
-                "self.MonacoEnvironment={baseUrl:'" + BASE + "'};" +
-                "importScripts('" + BASE + "vs/base/worker/workerMain.js');",
+                "self.MonacoEnvironment={baseUrl:'" +
+                  BASE +
+                  "'};" +
+                  "importScripts('" +
+                  BASE +
+                  "vs/base/worker/workerMain.js');",
               )
             );
           },
@@ -880,11 +1797,23 @@
           };
           cssEditor = monaco.editor.create(
             document.getElementById("cssHost"),
-            Object.assign({ language: "css", value: document.getElementById("output").textContent }, opts),
+            Object.assign(
+              {
+                language: "css",
+                value: document.getElementById("output").textContent,
+              },
+              opts,
+            ),
           );
           htmlEditor = monaco.editor.create(
             document.getElementById("htmlHost"),
-            Object.assign({ language: "html", value: document.getElementById("htmlOutput").textContent }, opts),
+            Object.assign(
+              {
+                language: "html",
+                value: document.getElementById("htmlOutput").textContent,
+              },
+              opts,
+            ),
           );
           monacoReady = true;
           monaco.editor.setTheme("vs-dark");
@@ -895,8 +1824,12 @@
           document.getElementById("htmlOutput").style.display = "none";
 
           // Editing either editor updates the live preview (debounced inside updateIframe)
-          cssEditor.onDidChangeModelContent(function () { if (previewMode === "iframe") updateIframe(); });
-          htmlEditor.onDidChangeModelContent(function () { if (previewMode === "iframe") updateIframe(); });
+          cssEditor.onDidChangeModelContent(function () {
+            if (previewMode === "iframe") updateIframe();
+          });
+          htmlEditor.onDidChangeModelContent(function () {
+            if (previewMode === "iframe") updateIframe();
+          });
 
           // Manual AI trigger (Alt+\) — also confirms the provider path works
           [cssEditor, htmlEditor].forEach(function (ed) {
@@ -930,64 +1863,116 @@
         const rangeAt = (model, position) => {
           const w = model.getWordUntilPosition(position);
           return {
-            startLineNumber: position.lineNumber, endLineNumber: position.lineNumber,
-            startColumn: w.startColumn, endColumn: w.endColumn,
+            startLineNumber: position.lineNumber,
+            endLineNumber: position.lineNumber,
+            startColumn: w.startColumn,
+            endColumn: w.endColumn,
           };
         };
         const cssSnippets = [
           {
-            label: "smc-vars", detail: "SMC overlay variable block",
+            label: "smc-vars",
+            detail: "SMC overlay variable block",
             insertText:
               "smc-overlay-inner {\n  --smc-mainBkg: ${1:#ffffff};\n  --smc-textColour: ${2:#111111};\n  --smc-btnBkg: ${3:#111111};\n  --smc-btnText: ${4:#ffffff};\n  --smc-btnBkgHover: ${5:#000000};\n  --smc-border: ${6:8px};\n}",
           },
           {
-            label: "smc-button", detail: "Button + hover using SMC vars",
+            label: "smc-button",
+            detail: "Button + hover using SMC vars",
             insertText:
               ".smc-button {\n  background: var(--smc-btnBkg);\n  color: var(--smc-btnText);\n  border-radius: var(--smc-border);\n  padding: ${1:12px};\n  transition: all .2s ease;\n}\n.smc-button:hover {\n  background: var(--smc-btnBkgHover);\n}",
           },
           {
-            label: "smc-mobile", detail: "Mobile breakpoint",
-            insertText: "@media (max-width: ${1:768px}) {\n  smc-overlay-inner {\n    width: ${2:90vw};\n    $0\n  }\n}",
+            label: "smc-mobile",
+            detail: "Mobile breakpoint",
+            insertText:
+              "@media (max-width: ${1:768px}) {\n  smc-overlay-inner {\n    width: ${2:90vw};\n    $0\n  }\n}",
           },
         ];
         const htmlSnippets = [
           {
-            label: "smc-text", detail: "SMC text box",
-            insertText: '<smc-text class="smc-text${1:1} smc-animated smc-fadeIn" data-edits="text${1:1}">{text${1:1}}</smc-text>',
+            label: "smc-text",
+            detail: "SMC text box",
+            insertText:
+              '<smc-text class="smc-text${1:1} smc-animated smc-fadeIn" data-edits="text${1:1}">{text${1:1}}</smc-text>',
           },
           {
-            label: "smc-redirect", detail: "Click-to-redirect option",
+            label: "smc-redirect",
+            detail: "Click-to-redirect option",
             insertText:
               '<smc-option class="smc-clickRedirect">\n  <smc-input-group>\n    <span class="smc-button">{text10}</span>\n  </smc-input-group>\n</smc-option>',
           },
         ];
         const make = (list) => (model, position) => ({
           suggestions: list.map((s) => ({
-            label: s.label, kind: K, insertText: s.insertText, insertTextRules: R,
-            detail: s.detail, documentation: s.detail, range: rangeAt(model, position),
+            label: s.label,
+            kind: K,
+            insertText: s.insertText,
+            insertTextRules: R,
+            detail: s.detail,
+            documentation: s.detail,
+            range: rangeAt(model, position),
           })),
         });
-        monaco.languages.registerCompletionItemProvider("css", { provideCompletionItems: make(cssSnippets) });
-        monaco.languages.registerCompletionItemProvider("html", { provideCompletionItems: make(htmlSnippets) });
+        monaco.languages.registerCompletionItemProvider("css", {
+          provideCompletionItems: make(cssSnippets),
+        });
+        monaco.languages.registerCompletionItemProvider("html", {
+          provideCompletionItems: make(htmlSnippets),
+        });
       }
 
       // Copilot-style ghost-text completions, powered by Claude
       function installAiAutocomplete(monaco) {
         monaco.languages.registerInlineCompletionsProvider(["css", "html"], {
-          provideInlineCompletions: async function (model, position, context, token) {
+          provideInlineCompletions: async function (
+            model,
+            position,
+            context,
+            token,
+          ) {
             if (!aiEnabled || !state.pass) return { items: [] };
             await new Promise((r) => setTimeout(r, 350)); // debounce; cancelled if the user keeps typing
             if (token.isCancellationRequested) return { items: [] };
-            const before = model.getValueInRange(new monaco.Range(1, 1, position.lineNumber, position.column));
+            const before = model.getValueInRange(
+              new monaco.Range(1, 1, position.lineNumber, position.column),
+            );
             const last = model.getLineCount();
-            const after = model.getValueInRange(new monaco.Range(position.lineNumber, position.column, last, model.getLineMaxColumn(last)));
+            const after = model.getValueInRange(
+              new monaco.Range(
+                position.lineNumber,
+                position.column,
+                last,
+                model.getLineMaxColumn(last),
+              ),
+            );
             const ac = new AbortController();
             token.onCancellationRequested(() => ac.abort());
             let text = "";
-            try { text = await claudeComplete(model.getLanguageId(), before, after, ac.signal); }
-            catch (e) { return { items: [] }; }
+            try {
+              text = await claudeComplete(
+                model.getLanguageId(),
+                before,
+                after,
+                ac.signal,
+              );
+            } catch (e) {
+              return { items: [] };
+            }
             if (!text || token.isCancellationRequested) return { items: [] };
-            return { items: [{ insertText: text, range: new monaco.Range(position.lineNumber, position.column, position.lineNumber, position.column) }] };
+            return {
+              items: [
+                {
+                  insertText: text,
+                  range: new monaco.Range(
+                    position.lineNumber,
+                    position.column,
+                    position.lineNumber,
+                    position.column,
+                  ),
+                },
+              ],
+            };
           },
           freeInlineCompletions: function () {},
         });
