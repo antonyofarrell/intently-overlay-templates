@@ -761,32 +761,12 @@
       // Optional per-template overrides — add "REF": { text1: "…" } entries to fine-tune one overlay.
       const COPY_BY_REF = {};
 
-      // Placeholder image for {contentN} tokens in the PREVIEW only (the paste-ready output keeps
-      // the real {contentN} tokens for the platform to fill). Self-contained SVG data URI so it
-      // always renders — no external request.
-      const PLACEHOLDER_IMG =
-        "data:image/svg+xml," +
-        encodeURIComponent(
-          '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400">' +
-            '<rect width="100%" height="100%" fill="#e7e7e7"/>' +
-            '<circle cx="140" cy="150" r="34" fill="#c2c2c2"/>' +
-            '<path d="M55 330 L175 195 L245 270 L305 205 L345 330 Z" fill="#c2c2c2"/>' +
-            '<text x="200" y="372" font-family="sans-serif" font-size="22" fill="#9a9a9a" text-anchor="middle">image</text>' +
-          '</svg>'
-        );
-
-      // Which {contentN} image slots are typically populated in production (the platform hides the
-      // rest). We only show a placeholder for these — everything else stays empty/hidden, matching
-      // production. Default is content1 only; recommenders show a small product row. Add a
-      // per-template entry to IMG_SLOTS_BY_REF for overlays that use a different/wider set.
-      const IMG_SLOTS_BY_CAT = {
-        db: ["content1"],
-        pr: ["content1", "content2", "content3", "content4"],
-        rd: ["content1"],
-        rv: ["content1"],
-        ms: ["content1"],
-      };
-      const IMG_SLOTS_BY_REF = {}; // e.g. "RD0004": ["content7","content8","content9","content10"]
+      // Real preview images per template, keyed by ref → { content1: "https://…", … }. Only the
+      // {contentN} slots listed here render an image in the preview; every other content token stays
+      // empty (hidden), matching production where the platform populates just a few slots. Leave a
+      // template out entirely and its content images simply don't show — a clean preview, no broken
+      // boxes. Populate with each overlay's actual demo image URLs to make the preview faithful.
+      const CONTENT_BY_REF = {};
 
       let state = {
         ref: null,
@@ -1123,24 +1103,17 @@
           COPY_BY_REF[state.ref] || {},
         );
       }
-      function activeImgSlots() {
-        const cat =
-          (state.tmpl && state.tmpl.cat) ||
-          (state.ref || "").slice(0, 2).toLowerCase();
-        return new Set(
-          IMG_SLOTS_BY_REF[state.ref] || IMG_SLOTS_BY_CAT[cat] || ["content1"],
-        );
-      }
-      // Preview-only token fill: text copy for {text*}/{smarterbar}/etc., and a placeholder image
-      // ONLY for the {contentN} slots typically populated in production (the rest stay empty, so
-      // the preview matches production instead of showing grey boxes everywhere). Used for BOTH the
-      // HTML and the preview CSS. The paste-ready output never goes through this, so it keeps tokens.
+      // Preview-only token fill: text copy for {text*}/{smarterbar}/etc., and a real image URL for
+      // any {contentN} slot defined in CONTENT_BY_REF for this template. Content slots with no
+      // configured image render empty (hidden) — matching production, no broken/grey boxes. Used
+      // for BOTH the HTML and the preview CSS. The paste-ready output never goes through this, so it
+      // keeps the {contentN} tokens for the platform.
       function replaceTokens(str) {
         const c = activeCopy();
-        const imgSlots = activeImgSlots();
+        const imgs = CONTENT_BY_REF[state.ref] || {};
         return String(str).replace(/\{([\w-]+)\}/g, (m, k) => {
           if (k in c) return c[k];
-          if (/^content\d+$/.test(k)) return imgSlots.has(k) ? PLACEHOLDER_IMG : "";
+          if (/^content\d+$/.test(k)) return imgs[k] || "";
           return "";
         });
       }
