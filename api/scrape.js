@@ -248,13 +248,19 @@ module.exports = async (req, res) => {
     // colours) on sites that don't expose CSS custom properties. Comments stripped to save room.
     const cssSample = css.replace(/\/\*[\s\S]*?\*\//g, " ").replace(/\s+/g, " ").trim().slice(0, 90000);
 
-    // Detect bot-protection / challenge / error interstitials (Cloudflare, Incapsula, PerimeterX,
-    // Akamai, DataDome). If we hit one we scraped the block page, NOT the real site — returning its
-    // tokens/CSS would map garbage (e.g. Cloudflare's #f68b1f orange), so flag it and return empty.
-    const probe = (html + " " + css.slice(0, 8000));
+    // Detect bot-protection / challenge / error interstitials — but PRECISELY. Many legitimate
+    // pages (200, full content) embed a bot-management vendor's script (Cloudflare JSD, DataDome,
+    // PerimeterX), so the vendor NAME alone is NOT a block. We trip only on:
+    //   (a) a blocking HTTP status (401/403/429/503), or
+    //   (b) an actual challenge/CAPTCHA marker on a SMALL page — a real interstitial is a few KB,
+    //       whereas a full Shopify/product page that merely loads a bot script is hundreds of KB.
+    const status = page.status || 0;
+    const head = html.slice(0, 20000);
+    const challengeMarker =
+      /cf-browser-verification|id=["']cf-wrapper|__cf_chl_|_cf_chl_opt|window\._cf_chl|Attention Required!\s*\|\s*Cloudflare|Just a moment\.\.\.|Checking your browser before accessing|Enable JavaScript and cookies to continue|_Incapsula_Resource|Incapsula incident|px-captcha|distil_r_captcha|geo\.captcha-delivery\.com/i.test(head);
     const blocked =
-      [401, 403, 429, 503].includes(page.status || 0) ||
-      /id=["']cf-wrapper|cf-browser-verification|__cf_chl|_cf_chl_opt|challenge-platform|cf-error|Just a moment\.\.\.|Attention Required!\s*\|\s*Cloudflare|_Incapsula_Resource|Incapsula incident|px-captcha|PerimeterX|distil_r_captcha|DataDome|Enable JavaScript and cookies to continue/i.test(probe);
+      [401, 403, 429, 503].includes(status) ||
+      (challengeMarker && html.length < 60000);
 
     // Product info for the overlay's demo <smc-cart> (skip on bot-block pages).
     const product = blocked ? null : extractProduct(html, base);
