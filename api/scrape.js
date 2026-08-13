@@ -43,6 +43,83 @@ async function fetchText(url, maxBytes) {
   }
 }
 
+// ---- Product extraction -------------------------------------------------
+// Pull name / image / price from a product page so the overlay's <smc-cart>
+// demo product can be replaced with the real one. Structured data first
+// (JSON-LD Product), then Open Graph / product meta, then microdata.
+function absUrl(u, base) { try { return new URL(u, base).href; } catch (e) { return u || ""; } }
+
+function firstImage(img) {
+  if (!img) return "";
+  if (typeof img === "string") return img;
+  if (Array.isArray(img)) return firstImage(img[0]);
+  if (typeof img === "object") return img.url || img.contentUrl || "";
+  return "";
+}
+
+function pickOffer(offers) {
+  if (!offers) return null;
+  if (Array.isArray(offers)) return pickOffer(offers[0]);
+  if (typeof offers === "object") return offers;
+  return null;
+}
+
+// Walk arbitrarily-nested JSON-LD (arrays, @graph) for the first Product node.
+function findProductNode(node, depth) {
+  if (!node || depth > 6) return null;
+  if (Array.isArray(node)) {
+    for (const n of node) { const f = findProductNode(n, depth + 1); if (f) return f; }
+    return null;
+  }
+  if (typeof node !== "object") return null;
+  const t = node["@type"];
+  if (t && (t === "Product" || (Array.isArray(t) && t.includes("Product")))) return node;
+  if (node["@graph"]) return findProductNode(node["@graph"], depth + 1);
+  return null;
+}
+
+function extractProduct(html, base) {
+  let name = "", image = "", price = "", oldPrice = "", currency = "";
+
+  // 1) JSON-LD Product
+  for (const m of html.matchAll(/<script[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)) {
+    let data; try { data = JSON.parse(m[1].trim()); } catch (e) { continue; }
+    const p = findProductNode(data, 0);
+    if (!p) continue;
+    if (!name && typeof p.name === "string") name = p.name.trim();
+    if (!image) image = firstImage(p.image);
+    const off = pickOffer(p.offers);
+    if (off) {
+      const spec = off.priceSpecification || {};
+      const pr = off.price != null ? off.price : (off.lowPrice != null ? off.lowPrice : spec.price);
+      if (pr != null && price === "") price = String(pr).trim();
+      currency = currency || off.priceCurrency || spec.priceCurrency || "";
+    }
+    if (name || price) break;
+  }
+
+  // 2) Open Graph / product price meta
+  const meta = (prop) => {
+    const r = html.match(new RegExp('<meta[^>]*(?:property|name)=["\']' + prop + '["\'][^>]*>', "i"));
+    if (!r) return "";
+    const c = r[0].match(/content=["']([^"']+)["']/i);
+    return c ? c[1].trim() : "";
+  };
+  if (!name) name = meta("og:title");
+  if (!image) image = meta("og:image");
+  if (!price) price = meta("product:price:amount") || meta("og:price:amount");
+  if (!currency) currency = meta("product:price:currency") || meta("og:price:currency");
+
+  // 3) Microdata
+  if (!price) { const r = html.match(/itemprop=["']price["'][^>]*content=["']([^"']+)["']/i); if (r) price = r[1].trim(); }
+  if (!currency) { const r = html.match(/itemprop=["']priceCurrency["'][^>]*content=["']([^"']+)["']/i); if (r) currency = r[1].trim(); }
+
+  image = image ? absUrl(image, base) : "";
+  name = name.replace(/\s+/g, " ").trim();
+  if (!name && !price && !image) return null;
+  return { name, image, price, oldPrice, currency };
+}
+
 module.exports = async (req, res) => {
   const gate = (process.env.BRAND_STUDIO_PASSPHRASE || "").trim();
   if (gate) {
@@ -179,9 +256,13 @@ module.exports = async (req, res) => {
       [401, 403, 429, 503].includes(page.status || 0) ||
       /id=["']cf-wrapper|cf-browser-verification|__cf_chl|_cf_chl_opt|challenge-platform|cf-error|Just a moment\.\.\.|Attention Required!\s*\|\s*Cloudflare|_Incapsula_Resource|Incapsula incident|px-captcha|PerimeterX|distil_r_captcha|DataDome|Enable JavaScript and cookies to continue/i.test(probe);
 
+    // Product info for the overlay's demo <smc-cart> (skip on bot-block pages).
+    const product = blocked ? null : extractProduct(html, base);
+
     res.status(200).json({
       finalUrl: base,
       blocked,
+      product,
       themeColor: blocked ? null : themeColor,
       cssVars: blocked ? {} : cssVars,
       fontFaces: blocked ? [] : fontFaces,

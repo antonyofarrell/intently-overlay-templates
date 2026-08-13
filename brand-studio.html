@@ -564,10 +564,55 @@
           </div>
           <p class="hint">
             Claude reads the site (via web search) and fills this overlay's own
-            CSS variables below. Fine-tune anything by hand.
+            CSS variables below. If the page exposes product data, the preview
+            product is filled too. Fine-tune anything by hand.
           </p>
           <div class="status info" id="status"></div>
         </div>
+
+        <details id="productBox" class="field" style="padding-top: 4px">
+          <summary style="cursor: pointer; font-weight: 600">
+            Preview product <span class="var-name">(optional)</span>
+          </summary>
+          <p class="hint" style="margin-top: 8px">
+            Auto-filled from the extracted page when it exposes product data.
+            Paste details by hand for sites that block scraping.
+          </p>
+          <label>Product name</label>
+          <input
+            type="text"
+            id="pName"
+            oninput="onProductInput()"
+            placeholder="Product name"
+          />
+          <label style="margin-top: 8px">Image URL</label>
+          <input
+            type="url"
+            id="pImage"
+            oninput="onProductInput()"
+            placeholder="https://…/image.jpg"
+          />
+          <div style="display: flex; gap: 8px; margin-top: 8px">
+            <div style="flex: 1">
+              <label>Price</label>
+              <input
+                type="text"
+                id="pPrice"
+                oninput="onProductInput()"
+                placeholder="$49.99"
+              />
+            </div>
+            <div style="flex: 1">
+              <label>Was (optional)</label>
+              <input
+                type="text"
+                id="pOldPrice"
+                oninput="onProductInput()"
+                placeholder="$123.45"
+              />
+            </div>
+          </div>
+        </details>
 
         <div id="editor">
           <div class="section-label">Fonts</div>
@@ -1287,6 +1332,50 @@
         });
       }
 
+      // ---- Preview product: fills the template's demo <smc-cart> ----------
+      // The inputs are the single source of truth. Extract prefills them from the
+      // scraped page; the user can override for blocked sites. activeProduct()
+      // returns null when all four are empty, so the template's demo product shows.
+      function fmtMoney(v, c) {
+        if (v == null || v === "") return "";
+        v = String(v).trim();
+        if (/^[^\d.\-]/.test(v)) return v; // already carries a currency symbol
+        const sym =
+          {
+            USD: "$", GBP: "£", EUR: "€", AUD: "$", CAD: "$", NZD: "$",
+            JPY: "¥", INR: "₹", SEK: "kr ", DKK: "kr ", NOK: "kr ",
+          }[String(c || "").toUpperCase()] || "";
+        return sym + v;
+      }
+      function prefillProduct(p) {
+        if (!p) return;
+        const set = (id, val) => {
+          const el = document.getElementById(id);
+          if (el) el.value = val || "";
+        };
+        set("pName", p.name);
+        set("pImage", p.image);
+        set("pPrice", fmtMoney(p.price, p.currency));
+        set("pOldPrice", fmtMoney(p.oldPrice, p.currency));
+        const box = document.getElementById("productBox");
+        if (box && (p.name || p.price || p.image)) box.open = true;
+      }
+      function activeProduct() {
+        const val = (id) => {
+          const el = document.getElementById(id);
+          return el ? el.value.trim() : "";
+        };
+        const name = val("pName"),
+          image = val("pImage"),
+          price = val("pPrice"),
+          oldPrice = val("pOldPrice");
+        if (!name && !image && !price && !oldPrice) return null;
+        return { name, image, price, oldPrice };
+      }
+      function onProductInput() {
+        updateIframe();
+      }
+
       function buildIframeSrcdoc() {
         const a = state.asset;
         const fonts = (state.fontImports || []).join("\n");
@@ -1298,6 +1387,21 @@
           // Any content slot with no configured image collapses to nothing instead of a broken
           // grey box — matches production, where unsupplied {contentN} images aren't rendered.
           "img[src=''],img:not([src]),img[src='{content1}'],img[src='{content2}'],img[src='{content3}'],img[src='{content4}'],img[src='{content5}'],img[src='{content6}']{display:none!important}";
+        // Replace the template's demo product with the extracted/entered one, targeting the
+        // smc-cart elements by NAME so the small structural differences between templates don't
+        // matter. Runs after the markup is parsed; skipped entirely when no product is set.
+        const prod = activeProduct();
+        const prodScript = prod
+          ? "<scr" +
+            "ipt>(function(){var p=" +
+            JSON.stringify(prod).replace(/</g, "\\u003c") +
+            ";var s=document.querySelector('smc-product')||document;" +
+            "function t(sel,v,hide){var el=s.querySelector(sel)||document.querySelector(sel);if(!el)return;if(v){el.textContent=v;el.style.display='';}else if(hide){el.style.display='none';}}" +
+            "t('smc-product-name',p.name);t('smc-product-price',p.price);t('smc-old-price',p.oldPrice,true);" +
+            "if(p.image){var im=s.querySelector('smc-product-img img')||document.querySelector('smc-product-img img');if(im){im.src=p.image;im.style.display='';}}" +
+            "})();</scr" +
+            "ipt>"
+          : "";
         // Build from the EDITOR content so hand-edits in the CSS/HTML boxes update the preview too.
         // cssText() already contains @imports + smc-bg font + variables + layout; htmlText() is the markup.
         return (
@@ -1313,6 +1417,7 @@
           "</style>" +
           "</head><body>" +
           replaceTokens(htmlText()) +
+          prodScript +
           "</body></html>"
         );
       }
@@ -1383,6 +1488,8 @@
           // styles. Treat it as an unusable scrape and warn the user afterwards.
           const blocked = !!(scraped && scraped.blocked);
           const usable = scraped && !blocked ? scraped : null;
+          // Prefill the preview product from the page's structured data (if any).
+          if (usable && usable.product) prefillProduct(usable.product);
           // We can map locally (no slow web browsing) whenever the scrape gave us usable content:
           // colour tokens, a real font, OR the raw CSS sample to read rules from. Only browse when
           // the scrape returned essentially nothing (bot-blocked / fully JS-rendered).
