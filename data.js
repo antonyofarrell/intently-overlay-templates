@@ -89,6 +89,7 @@ const SCORES = {
   MS0002: { eng: null, conv: null },
   MS0003: { eng: 2.09, conv: 6.29 },
   MS0004: { eng: 50.0, conv: 0.0 },
+  MS0011: { eng: null, conv: null },
 };
 
 /* ── Templates ──────────────────────────────────────
@@ -818,6 +819,16 @@ const TEMPLATES = [
     desc: "Giftcloud template",
     url: "https://admin.intent.ly/my-account/overlay-manager/#190539",
     img: "images/MS0010.png",
+    notes: null,
+    upvotes: 0,
+    downvotes: 0,
+  },
+  {
+    ref: "MS0011",
+    cat: "ms",
+    desc: "Basic email to reveal",
+    url: null,
+    img: "images/MS0011.png",
     notes: null,
     upvotes: 0,
     downvotes: 0,
