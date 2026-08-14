@@ -9,4 +9,10 @@ if echo "$changed" | grep -qE '^(overlay-design-templates/|reference/page-styles
   node build-templates-data.js || { echo "pre-commit: build FAILED — commit aborted"; exit 1; }
   git add templates-data.js
 fi
+
+# Validate brand-studio.html preview-map keys (COPY_BY_REF / CONTENT_BY_REF) against real
+# template refs, so a typo like MS00010 can't silently ship. Runs when those inputs change.
+if echo "$changed" | grep -qE '^(brand-studio\.html|data\.js)'; then
+  node check-keys.js || { echo "pre-commit: key check FAILED — commit aborted"; exit 1; }
+fi
 exit 0
