@@ -4,8 +4,6 @@ smc-bg * {
   /* border: 1px solid #ccc; */
 }
 
-
-
 smc-overlay-inner {
   --smc-mainBkg: #1b4868;
   --smc-cardBkg: #fff;
@@ -31,7 +29,7 @@ smc-overlay-inner {
   width: 600px;
   min-height: auto;
   padding: 20px;
-  gap: 20px;
+  gap: 10px;
   border-radius: var(--smc-frameBorderRadius);
   display: flex;
   flex-direction: row;
@@ -51,11 +49,11 @@ smc-text:empty {
 smc-wrap {
   display: flex;
   flex-direction: column;
-  gap:20px;
+  gap: 10px;
 }
 smc-img-outer,
 smc-text-outer,
-smc-option{
+smc-option {
   width: auto;
   min-width: auto;
   display: flex;
@@ -67,13 +65,14 @@ smc-option{
   gap: 20px;
   padding: 20px;
 }
-smc-img-outer, smc-option{
-    padding: 0;
-    background-color: #fff0;
+smc-img-outer,
+smc-option {
+  padding: 0;
+  background-color: #fff0;
 }
-smc-img{
-    border-radius: var(--smc-cardBorderRadius);
-    overflow: hidden;
+smc-img {
+  border-radius: var(--smc-cardBorderRadius);
+  overflow: hidden;
 }
 .smc-text1,
 .smc-text2,
@@ -181,7 +180,7 @@ smc-product-img {
   align-items: center;
   overflow: hidden;
   border-radius: var(--smc-cardBorderRadius);
-  margin:0;
+  margin: 0;
 }
 smc-product-img img {
   width: 100%;
@@ -239,8 +238,6 @@ smc-product-link:hover {
   box-shadow: 0 3px 8px #0000001a;
 }
 
-
-
 /* ── Mobile specific styles ──────────────────────────────────── */
 @media (max-width: 600px) {
   smc-overlay-inner {
@@ -259,7 +256,7 @@ smc-product-link:hover {
   smc-option {
     gap: 10px;
   }
-  smc-cart{
-  width: 100%;
-}
+  smc-cart {
+    width: 100%;
+  }
 }
