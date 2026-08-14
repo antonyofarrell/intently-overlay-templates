@@ -827,7 +827,7 @@ const TEMPLATES = [
     ref: "MS0011",
     cat: "ms",
     desc: "Basic email to reveal",
-    url: null,
+    url: "https://admin.intent.ly/my-account/overlay-manager/#198669",
     img: "images/MS0011.png",
     notes: null,
     upvotes: 0,
