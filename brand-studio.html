@@ -1388,8 +1388,13 @@
       function buildIframeSrcdoc() {
         const a = state.asset;
         const fonts = (state.fontImports || []).join("\n");
+        // Show the one <smc-option> this overlay uses in production (its "Type" in the overlay
+        // manager), computed at build time into asset.opt. Falls back to the click-to-redirect CTA.
+        const opt = (state.asset && state.asset.opt) || "smc-clickRedirect";
         const preview =
-          "smc-bg,smc-overlay-outer{display:block!important}smc-option{display:none}smc-option.smc-clickRedirect{display:block}" +
+          "smc-bg,smc-overlay-outer{display:block!important}smc-option{display:none}smc-option." +
+          opt +
+          "{display:block}" +
           "smc-bg{position:static!important;display:flex!important;align-items:center;justify-content:center;min-height:100vh;margin:0;background:rgba(20,20,20,.28)}" +
           "smc-overlay-outer{position:static!important;top:auto;left:auto;transform:none!important}body{margin:0}" +
           "smc-bar,smc-final-message,smc-shake-msg,smc-close-safe,smc-success-message,smc-loader-bg,smc-cp-msg{display:none!important}" +
