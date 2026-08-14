@@ -77,6 +77,7 @@ function optionFor(css, html, title) {
 const OPTION_OVERRIDES = {
   MS0004: "smc-email", // "Email to Redirect" in the title, but it's an Email Voucher
   MS0007: "smc-email", // "Basket Backup / Opt In" in the title, but it's an Email Voucher
+  MS0010: "smc-emailToReveal", // title says "Giftcloud", but its Type is Email To Reveal
 };
 
 const cand = {};
