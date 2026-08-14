@@ -1482,12 +1482,15 @@
           /(smc-bg\s*\*\s*\{[^}]*font-family:\s*)([^;}]+)/i,
           (m, p1) => p1 + state.bodyFont,
         );
-        // swap each declared variable's value (declarations only — var(--x) usages are untouched)
+        // swap each declared variable's value (declarations only — var(--x) usages are untouched).
+        // Match the value up to the next ; OR } and leave that terminator in place: some templates
+        // omit the trailing ; on the last property in a block, and a greedy [^;]+; would then
+        // swallow everything up to the next ; in a later rule (dropping real CSS in between).
         state.vars.forEach((v) => {
           const re = new RegExp(
-            "(" + v.name.replace(/[-]/g, "\\-") + "\\s*:\\s*)[^;]+;",
+            "(" + v.name.replace(/[-]/g, "\\-") + "\\s*:\\s*)[^;}]+",
           );
-          css = css.replace(re, "$1" + (state.values[v.name] || "") + ";");
+          css = css.replace(re, "$1" + (state.values[v.name] || ""));
         });
         css = css.replace(/^\s+/, "");
         const imports = (state.fontImports || []).join("\n");

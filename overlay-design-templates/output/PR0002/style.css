@@ -10,7 +10,7 @@ smc-overlay-inner {
   --smc-btnBkg: #323e48;
   --smc-btnBkgHover: #5b646c;
   --smc-frameBorderRadius:5px;
-  --smc-length: 420px
+  --smc-length: 420px;
 }
 
 smc-overlay-inner {background-size: 150% 150%;

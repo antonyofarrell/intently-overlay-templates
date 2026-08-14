@@ -11,7 +11,7 @@ smc-overlay-inner {
   --smc-btnBkg: #2d5605;
   --smc-btnBkgHover: #1a3203;
   --smc-frameBorderRadius: 1px;
-  --smc-length: 420px
+  --smc-length: 420px;
 }
 
 smc-overlay-inner {
