@@ -72,6 +72,7 @@ function optionFor(html, title) {
 // Set from the actual "Type" in the overlay manager (production).
 const OPTION_OVERRIDES = {
   MS0004: "smc-email", // "Email to Redirect" in the title, but it's an Email Voucher
+  MS0007: "smc-email", // "Basket Backup / Opt In" in the title, but it's an Email Voucher
 };
 
 const cand = {};
