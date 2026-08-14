@@ -68,6 +68,12 @@ function optionFor(html, title) {
   return "smc-clickRedirect"; // safe default (a plain CTA button)
 }
 
+// Per-ref option overrides for templates whose title doesn't map cleanly to a Type.
+// Set from the actual "Type" in the overlay manager (production).
+const OPTION_OVERRIDES = {
+  MS0004: "smc-email", // "Email to Redirect" in the title, but it's an Email Voucher
+};
+
 const cand = {};
 function add(ref, css, html, source, title) {
   if (!css || !css.trim()) return;
@@ -116,7 +122,7 @@ Object.keys(cand).forEach((ref) => {
   assets[ref] = {
     css: best.css,
     html: best.complete ? cleanBody(best.html) : null,
-    opt: optionFor(best.html, best.title),
+    opt: OPTION_OVERRIDES[ref] || optionFor(best.html, best.title),
   };
 });
 
