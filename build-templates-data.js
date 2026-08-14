@@ -42,7 +42,7 @@ function cleanBody(html) {
 // template has been trimmed to a single option (then it's unambiguous). Otherwise fall back to the
 // type named in the _meta.txt title's 2nd "||" segment. Order matters: the email-* patterns must
 // beat the bare "redirect"/"reveal" ones.
-function optionFor(html, title) {
+function optionFor(css, html, title) {
   if (!html) return "smc-clickRedirect";
   const present = [
     ...new Set(
@@ -52,6 +52,10 @@ function optionFor(html, title) {
     ),
   ];
   if (present.length === 1) return present[0]; // trimmed template — the only option is the answer
+  // The template hides ALL options in its own CSS (a standalone `smc-option{display:none}` rule,
+  // not a comma-grouped layout rule). Its CTA is the product tiles / smc-cta buttons, not an
+  // smc-option — so show NONE ("" tells the preview not to force any option visible).
+  if (/(?:^|}|;|\*\/)\s*smc-option\s*\{[^}]*display\s*:\s*none/i.test(css || "")) return "";
   const seg = (String(title || "").split("||")[1] || "").toLowerCase();
   const rules = [
     [/giftcloud/, "smc-emailToGiftCloud"],
@@ -123,7 +127,7 @@ Object.keys(cand).forEach((ref) => {
   assets[ref] = {
     css: best.css,
     html: best.complete ? cleanBody(best.html) : null,
-    opt: OPTION_OVERRIDES[ref] || optionFor(best.html, best.title),
+    opt: ref in OPTION_OVERRIDES ? OPTION_OVERRIDES[ref] : optionFor(best.css, best.html, best.title),
   };
 });
 

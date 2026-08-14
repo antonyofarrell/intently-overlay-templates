@@ -811,6 +811,14 @@
             "You are one step away from losing the great product in your cart",
           text3: "Don't forget about it, revisit your cart contents now",
         },
+        MS00010: {
+          text1: "Register your email and get",
+          text2: "10% off your order today!",
+          text3: "Enter our email below to reveal the discount code",
+          text9: "Enter your email here",
+          text11: "Continue shopping",
+          text13: "Reveal Voucher Code",
+        },
       };
 
       // Real preview images per template, keyed by ref → { content1: "https://…", … }. Only the
@@ -1351,8 +1359,17 @@
         if (/^[^\d.\-]/.test(v)) return v; // already carries a currency symbol
         const sym =
           {
-            USD: "$", GBP: "£", EUR: "€", AUD: "$", CAD: "$", NZD: "$",
-            JPY: "¥", INR: "₹", SEK: "kr ", DKK: "kr ", NOK: "kr ",
+            USD: "$",
+            GBP: "£",
+            EUR: "€",
+            AUD: "$",
+            CAD: "$",
+            NZD: "$",
+            JPY: "¥",
+            INR: "₹",
+            SEK: "kr ",
+            DKK: "kr ",
+            NOK: "kr ",
           }[String(c || "").toUpperCase()] || "";
         return sym + v;
       }
@@ -1389,12 +1406,16 @@
         const a = state.asset;
         const fonts = (state.fontImports || []).join("\n");
         // Show the one <smc-option> this overlay uses in production (its "Type" in the overlay
-        // manager), computed at build time into asset.opt. Falls back to the click-to-redirect CTA.
-        const opt = (state.asset && state.asset.opt) || "smc-clickRedirect";
+        // manager), computed at build time into asset.opt. "" means show no option (e.g. product
+        // recommenders / multi-CTA templates whose CTA isn't an smc-option). Undefined (old data)
+        // falls back to the click-to-redirect CTA.
+        const opt =
+          state.asset && typeof state.asset.opt === "string"
+            ? state.asset.opt
+            : "smc-clickRedirect";
         const preview =
-          "smc-bg,smc-overlay-outer{display:block!important}smc-option{display:none}smc-option." +
-          opt +
-          "{display:block}" +
+          "smc-bg,smc-overlay-outer{display:block!important}smc-option{display:none}" +
+          (opt ? "smc-option." + opt + "{display:block}" : "") +
           "smc-bg{position:static!important;display:flex!important;align-items:center;justify-content:center;min-height:100vh;margin:0;background:rgba(20,20,20,.28)}" +
           "smc-overlay-outer{position:static!important;top:auto;left:auto;transform:none!important}body{margin:0}" +
           "smc-bar,smc-final-message,smc-shake-msg,smc-close-safe,smc-success-message,smc-loader-bg,smc-cp-msg{display:none!important}" +
