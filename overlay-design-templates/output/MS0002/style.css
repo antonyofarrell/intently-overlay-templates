@@ -24,7 +24,14 @@ smc-overlay-outer {
 }
 
 smc-overlay-inner {
-  background: #fff;
+  --smc-mainBkg: #fff;
+  --smc-textColour: #303b43;
+  --smc-btnBkg: #303b43;
+  --smc-btnText: #fff;
+  --smc-btnBorderRadius: 3px;
+  --smc-fontRg: 14px;
+  --smc-fontLg: 18px;
+  background: var(--smc-mainBkg);
   width: 450px;
   min-height: auto;
   border-radius: 1px;
@@ -43,8 +50,8 @@ smc-overlay-inner.smc-revealed{
 }
 
 smc-ol-reveal {
-  background: #303b43;
-  color: #fff;
+  background: var(--smc-btnBkg);
+  color: var(--smc-btnText);
   font-size: 14px;
   padding: 12px;
   position: absolute;
@@ -88,15 +95,15 @@ smc-long-close {
 
 .smc-text1,
 .smc-text2 {
-  font-size: 14px;
+  font-size: var(--smc-fontRg);
   font-weight: normal;
-  color: #303b43;
+  color: var(--smc-textColour);
   margin: 15px auto;
   text-align: left;
 }
 
 .smc-text1 {
-  font-size: 18px;
+  font-size: var(--smc-fontLg);
   margin: 160px auto 20px auto;
 }
 
@@ -117,8 +124,8 @@ smc-reveal {
   margin: 10px auto 0 0 ;
   max-width: 240px;
   font-size:14px;
-  background: #303b43;
-  border-radius: 3px;
+  background: var(--smc-btnBkg);
+  border-radius: var(--smc-btnBorderRadius);
   min-height: 40px;
 }
 

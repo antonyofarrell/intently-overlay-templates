@@ -22,7 +22,20 @@ smc-overlay-outer {
 }
 
 smc-overlay-inner {
-  background: #113136;
+  --smc-mainBkg: #113136;
+  --smc-textColour: #fff;
+  --smc-accent: #9CE0D7;
+  --smc-btnBkg: #31dac4;
+  --smc-btnText: #051517;
+  --smc-btnBkgHover: #051517;
+  --smc-btnBorder: 1px solid #31dac4;
+  --smc-btnBorderRadius: 3px;
+  --smc-btnPadding: 12px;
+  --smc-btnFontWeight: bold;
+  --smc-font2: 'Souvenir-Medium', serif;
+  --smc-fontRg: 14px;
+  --smc-fontLg: 30px;
+  background: var(--smc-mainBkg);
   width: 600px;
   min-height: 150px;
   border-radius: 5px 300px 300px 5px;
@@ -42,8 +55,8 @@ smc-overlay-inner.smc-revealed{
 }
 
 smc-ol-reveal {
-  background: #9CE0D7;
-  color: #113136;
+  background: var(--smc-accent);
+  color: var(--smc-mainBkg);
   font-size: 22px;
   padding: 12px;
   font-weight: 400;
@@ -74,8 +87,8 @@ smc-ol-reveal:hover:before{
     width: 100%;
     height: 100%;
   border-radius: 50%;
-  background: #31dac4;
-  color: #051517;
+  background: var(--smc-btnBkg);
+  color: var(--smc-btnText);
     z-index:0;
 }
 
@@ -91,16 +104,16 @@ smc-long-close {
 
 .smc-text1,
 .smc-text2 {
-  font-size: 14px;
+  font-size: var(--smc-fontRg);
   font-weight: normal;
-  color: #fff;
+  color: var(--smc-textColour);
   margin: 15px auto;
   text-align: left;
 }
 
 .smc-text1 {
-  font-size: 30px;
-	font-family: 'Souvenir-Medium', serif;
+  font-size: var(--smc-fontLg);
+	font-family: var(--smc-font2);
   margin: 10px auto 5px auto;
 }
 
@@ -116,19 +129,19 @@ smc-reveal {
 smc-cover,
 smc-code {
   font-size: 14px;
-  border: 1px solid #31dac4;
-  border-radius: 3px;
+  border: var(--smc-btnBorder);
+  border-radius: var(--smc-btnBorderRadius);
 }
 
 smc-cover {
-  background-color: #31dac4;
-  color: #051517;
-  font-weight: bold;
-  padding: 12px;
+  background-color: var(--smc-btnBkg);
+  color: var(--smc-btnText);
+  font-weight: var(--smc-btnFontWeight);
+  padding: var(--smc-btnPadding);
 }
 smc-cover:hover{
-  color: #31dac4;
-  background-color: #051517;
+  color: var(--smc-btnBkg);
+  background-color: var(--smc-btnBkgHover);
 
 }
 smc-code {
@@ -144,15 +157,15 @@ smc-long-close.smc-engaged {
 }
 
 smc-long-close.smc-engaged>a.smc-link {
-  background-color: #31dac4;
-  color: #051517;
-  border-radius: 3px;
+  background-color: var(--smc-btnBkg);
+  color: var(--smc-btnText);
+  border-radius: var(--smc-btnBorderRadius);
   display: block;
   font-size: 14px;
   margin: auto;
   max-width: 200px;
-  padding: 12px;
-  font-weight: bold;
+  padding: var(--smc-btnPadding);
+  font-weight: var(--smc-btnFontWeight);
 }
 
 smc-cp {

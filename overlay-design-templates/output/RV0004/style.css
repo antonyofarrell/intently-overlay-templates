@@ -9,7 +9,7 @@ smc-overlay-inner {
 --smc-textColour: #123063;
 --smc-btnBkg: #2B8333;
 --smc-frameBorderRadius: 10px;
---smc-banner:#3498db;
+--smc-accent:#3498db;
 }
 
 smc-overlay-inner {
@@ -61,7 +61,7 @@ position: absolute;
 z-index: -1;
 content: '';
 display: block;
-border: 5px solid var(--smc-banner);
+border: 5px solid var(--smc-accent);
 filter: brightness(.7);
 }
 
@@ -70,7 +70,7 @@ position: absolute;
 display: block;
 width: 300px;
 padding: 15px 0;
-background-color: var(--smc-banner);
+background-color: var(--smc-accent);
 box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
 color: #fff;
 font-size: 16px;

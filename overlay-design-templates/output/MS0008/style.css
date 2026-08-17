@@ -5,13 +5,20 @@ smc-bg * {
 }
 
 smc-overlay-inner {
+  --smc-textColour: #1e1e1e;
+  --smc-btnBkg: #2D3D4A;
+  --smc-btnText: #fff;
+  --smc-btnBorder: 1px solid #2D3D4A;
+  --smc-btnBorderRadius: 3px;
+  --smc-btnPadding: 14px;
+  --smc-frameBorderRadius: 3px;
   background-image: linear-gradient(90deg, #ffffff8b 0%, #fff0 100%),
   url('{content6}');
   background-size: cover;
   width: 670px;
   min-height: 320px;
   padding-bottom: 0;
-  border-radius: 3px;
+  border-radius: var(--smc-frameBorderRadius);
 }
 
 smc-img-outer,
@@ -28,7 +35,7 @@ smc-long-close {
 .smc-text3 {
   font-size: 24px;
   font-weight: 300;
-  color: #1e1e1e;
+  color: var(--smc-textColour);
   margin: 5px auto;
   line-height: 1.2;
 }
@@ -63,12 +70,12 @@ smc-long-close {
 }
 
 .smc-button{
-  padding: 14px;
+  padding: var(--smc-btnPadding);
   font-size: 16px;
-  color: #fff;
-  background-color: #2D3D4A;
-  border: 1px solid #2D3D4A;
-  border-radius: 3px;
+  color: var(--smc-btnText);
+  background-color: var(--smc-btnBkg);
+  border: var(--smc-btnBorder);
+  border-radius: var(--smc-btnBorderRadius);
   margin: 15px auto 10px auto;
   max-width: 220px;
 }

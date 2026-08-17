@@ -10,13 +10,24 @@ smc-bg{
 }
 
 smc-overlay-inner {
-    background-color: #f2f2f2;
+    --smc-mainBkg: #f2f2f2;
+    --smc-cardBkg: #fff;
+    --smc-textColour: #181818;
+    --smc-borderColour: #818181;
+    --smc-btnBkg: #f04e2f;
+    --smc-btnText: #fff;
+    --smc-btnFontWeight: bold;
+    --smc-btnPadding: 15px;
+    --smc-btnBorderRadius: 30px;
+    --smc-frameBorder: 1px solid #c5bbb6;
+    --smc-frameBorderRadius: 12px;
+    background-color: var(--smc-mainBkg);
     width: 360px;
     min-height: 460px;
     padding:30px;
     overflow: hidden;
-    border-radius: 12px;
-    border: 1px solid #c5bbb6;
+    border-radius: var(--smc-frameBorderRadius);
+    border: var(--smc-frameBorder);
 }
 
 smc-text-outer,
@@ -32,7 +43,7 @@ smc-option {
     font-weight: 400;
     margin: 0 auto;
     text-align: left;
-    color: #181818;
+    color: var(--smc-textColour);
 }
 
 .smc-img1{
@@ -63,21 +74,21 @@ smc-option {
 }
 
 .smc-button {
-    background-color: #f04e2f;
-    color: #fff;
-    border-radius: 30px;
+    background-color: var(--smc-btnBkg);
+    color: var(--smc-btnText);
+    border-radius: var(--smc-btnBorderRadius);
     text-align: center;
     font-size: 14px;
-    font-weight: bold;
+    font-weight: var(--smc-btnFontWeight);
     max-width: 160px;
     margin: 15px auto 0 0;
-    padding: 15px;
+    padding: var(--smc-btnPadding);
     text-transform: uppercase;
 }
 
 label.smc-email-label {
     font-weight: normal;
-    color: #181818;
+    color: var(--smc-textColour);
     text-align: left;
     width: 100%;
     font-size: 12px;
@@ -87,15 +98,15 @@ label.smc-email-label {
 
 input.smc-input {
     border-radius: 999px;
-    background: #fff;
-    border: 1px solid #818181;
+    background: var(--smc-cardBkg);
+    border: 1px solid var(--smc-borderColour);
     max-width: 300px;
     padding: 14px 14px 14px 20px;
     margin: 10px 0 15px 0;
 }
 
 label.smc-check-label {
-    color: #181818;
+    color: var(--smc-textColour);
     font-size:12px;
     display: flex;
     flex-direction: row;
@@ -105,7 +116,7 @@ label.smc-check-label {
 }
 
 label.smc-check-label a {
-    color: #181818;
+    color: var(--smc-textColour);
     text-decoration: underline;
 }
 

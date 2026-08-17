@@ -10,8 +10,16 @@ smc-bg {
 }
 
 smc-overlay-inner {
-    background-color: #F8F8F8;
-    background-image: linear-gradient(90deg, #F8F8F8 50%, #fff0 100%),
+    --smc-mainBkg: #F8F8F8;
+    --smc-textColour: #000;
+    --smc-btnBkg: #f04e2f;
+    --smc-btnText: #fff;
+    --smc-btnBorderRadius: 30px;
+    --smc-btnPadding: 15px;
+    --smc-btnFontWeight: bold;
+    --smc-frameBorderRadius: 12px;
+    background-color: var(--smc-mainBkg);
+    background-image: linear-gradient(90deg, var(--smc-mainBkg) 50%, #fff0 100%),
     url('{content6}');
     background-size: contain;
     background-position: 100% 50%;
@@ -20,7 +28,7 @@ smc-overlay-inner {
     min-height: 350px;
     padding: 50px 50px 0 50px;
     overflow: hidden;
-    border-radius: 12px;
+    border-radius: var(--smc-frameBorderRadius);
 }
 
 smc-img-outer,
@@ -38,7 +46,7 @@ smc-long-close {
     font-weight: 400;
     margin: 0 auto;
     text-align: left;
-    color: #000;
+    color: var(--smc-textColour);
     line-height: 1.2;
 }
 
@@ -73,12 +81,12 @@ smc-reveal.smc-eng{
     margin-top: 25px;
 }
 smc-cover {
-    background-color: #f04e2f;
-    color: #fff;
-    border-radius: 30px;
+    background-color: var(--smc-btnBkg);
+    color: var(--smc-btnText);
+    border-radius: var(--smc-btnBorderRadius);
     font-size: 14px;
-    font-weight: bold;
-    padding: 15px;
+    font-weight: var(--smc-btnFontWeight);
+    padding: var(--smc-btnPadding);
     text-transform: uppercase;
 }
 smc-code{
@@ -124,12 +132,12 @@ smc-long-close.smc-engaged {
 smc-long-close.smc-engaged > a.smc-link {
     display: block;
     margin: auto;
-    background-color: #f04e2f;
-    color: #fff;
-    border-radius: 30px;
+    background-color: var(--smc-btnBkg);
+    color: var(--smc-btnText);
+    border-radius: var(--smc-btnBorderRadius);
     font-size: 14px;
-    font-weight: bold;
-    padding: 15px;
+    font-weight: var(--smc-btnFontWeight);
+    padding: var(--smc-btnPadding);
     text-transform: uppercase;
 }
 smc-cp {
