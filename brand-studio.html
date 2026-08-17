@@ -1096,9 +1096,12 @@
       /* ───────── detect this overlay's own variables ───────── */
       function detectFromCss(css) {
         const out = { vars: [], fontImports: [], bodyFont: "" };
-        out.fontImports = (css.match(/@import[^;]+;/g) || []).map((s) =>
-          s.trim(),
-        );
+        // Match a whole @import statement. Must consume the url()/quoted string wholesale, because
+        // Google Fonts css2 URLs contain semicolons (family=DM+Sans:wght@300;400;500;…) — a naive
+        // /@import[^;]+;/ stops at the first internal ; and truncates the import.
+        out.fontImports = (
+          css.match(/@import\s+(?:url\([^)]*\)|"[^"]*"|'[^']*')[^;]*;/gi) || []
+        ).map((s) => s.replace(/\s+/g, " ").trim());
         const bg = css.match(
           /smc-bg\s*\*\s*\{[^}]*font-family:\s*([^;}]+)[;}]/i,
         );
@@ -1475,8 +1478,13 @@
           return;
         }
         let css = state.asset.css;
-        // drop the overlay's existing @import lines (we re-add the current ones at the top)
-        css = css.replace(/@import[^;]+;[ \t]*\r?\n?/g, "");
+        // drop the overlay's existing @import lines (we re-add the current ones at the top).
+        // Consume the whole url()/string — css2 font URLs contain semicolons, so a naive
+        // /@import[^;]+;/ truncates them and leaves orphaned garbage that breaks the CSS.
+        css = css.replace(
+          /@import\s+(?:url\([^)]*\)|"[^"]*"|'[^']*')[^;]*;[ \t]*\r?\n?/gi,
+          "",
+        );
         // swap the smc-bg body font-family
         css = css.replace(
           /(smc-bg\s*\*\s*\{[^}]*font-family:\s*)([^;}]+)/i,
