@@ -1,6 +1,6 @@
 <!-- Overlay V4 Template -->
 <smc-bg class="smc-animated smc-fadeIn">
-  <smc-overlay-outer class="smc-animated smc-fadeIn smc-animDelay2">
+  <smc-overlay-outer class="smc-animated smc-bounceInDown smc-animDelay2">
     <!--  data-animout="smc-bounceOutLeft" -->
     <smc-overlay-inner
       class="smc_clearfix"
@@ -8,21 +8,6 @@
       data-changes="smc-overlay-inner|width,background-image,background-color"
       data-edits="content6"
       ><!-- If the background is dark use this option -->
-
-      <!-- Closers -->
-      <smc-close
-        class="smc-animated smc-bounceInRight smc-animDelay4 smc-closer"
-      >
-        <a data-close-type="x_close" class="smc-link" href="#rdl">✕</a
-        ><!-- Note - Redirect Link gets automatically rewritten -->
-      </smc-close>
-
-      <smc-img
-        class="smc-img1 smc-animated smc-bounceInRight smc-animDelay6"
-        data-changes=".smc-img1|margin-top,margin-bottom,image-upload"
-        data-edits="content1"
-        ><img src="{content1}" alt=""
-      /></smc-img>
 
       <!-- Images - You can add as many as you like -->
       <smc-img-outer>
@@ -46,72 +31,87 @@
         /></smc-img>
       </smc-img-outer>
 
-      <!-- Text Boxes - You can add as many as you like -->
-      <smc-text-outer>
-        <smc-text
-          class="smc-text1 smc-animated smc-bounceInRight smc-animDelay8"
-          data-edits="text1"
-          data-changes=".smc-text1|font-size,color,margin-top,margin-bottom"
-          >{text1}</smc-text
-        >
-        <smc-text
-          class="smc-text2 smc-animated smc-bounceInRight smc-animDelay10"
-          data-edits="text2"
-          data-changes=".smc-text2|font-size,color,margin-top,margin-bottom"
-          >{text2}</smc-text
-        >
-        <smc-text
-          class="smc-text3 smc-animated smc-bounceInLeft smc-animDelay8"
-          data-edits="text3"
-          data-changes=".smc-text3|font-size,color,margin-top,margin-bottom"
-          >{text3}</smc-text
-        >
-        <smc-text
-          class="smc-text4 smc-animated smc-bounceInRight smc-animDelay10"
-          data-edits="text4"
-          data-changes=".smc-text4|font-size,color,margin-top,margin-bottom"
-          >{text4}</smc-text
-        >
-      </smc-text-outer>
+      <smc-wrap>
+        <!-- Text Boxes - You can add as many as you like -->
+        <smc-text-outer>
+          <smc-text
+            class="smc-text1 smc-animated smc-bounceInDown smc-animDelay4"
+            data-edits="text1"
+            data-changes=".smc-text1|font-size,color,margin-top,margin-bottom"
+            >{text1}</smc-text
+          >
+          <smc-text
+            class="smc-text2 smc-animated smc-bounceInRight smc-animDelay6"
+            data-edits="text2"
+            data-changes=".smc-text2|font-size,color,margin-top,margin-bottom"
+            >{text2}</smc-text
+          >
+          <smc-text
+            class="smc-text3 smc-animated smc-bounceInLeft smc-animDelay8"
+            data-edits="text3"
+            data-changes=".smc-text3|font-size,color,margin-top,margin-bottom"
+            >{text3}</smc-text
+          >
+          <smc-text
+            class="smc-text4 smc-animated smc-bounceInRight smc-animDelay10"
+            data-edits="text4"
+            data-changes=".smc-text4|font-size,color,margin-top,margin-bottom"
+            >{text4}</smc-text
+          >
+        </smc-text-outer>
 
-      <smc-cart>
-        <smc-product>
-          <smc-left>
-            <smc-product-img
-              ><img src="https://picsum.photos/400/460"
-            /></smc-product-img> </smc-left
-          ><smc-right>
-            <smc-product-name
-              >12pc Raffi MKII Travel Bundle - Gloss Black adding text to test
-              line clamp</smc-product-name
+        <!-- Click To Redirect Option -->
+        <smc-option class="smc-clickRedirect">
+          <smc-input-group>
+            <span
+              class="smc-button smc-animated smc-fadeInRight smc-animDelay10"
+              data-edits="text10"
+              data-changes=".smc-button|font-size,background-color,color"
+              >{text10}</span
             >
-            <smc-product-desc>Bababing</smc-product-desc>
-            <smc-prices>
-              <smc-old-price>£1,277.46</smc-old-price
-              ><smc-product-price>£890.00</smc-product-price>
-            </smc-prices>
-            <smc-product-link>{text14}</smc-product-link>
-          </smc-right>
-        </smc-product>
+          </smc-input-group>
+        </smc-option>
+      </smc-wrap>
 
-        <smc-product>
-          <smc-left>
-            <smc-product-img
-              ><img src="https://picsum.photos/400/460"
-            /></smc-product-img> </smc-left
-          ><smc-right>
-            <smc-product-name
-              >Raffi Travel System MKII - Minky</smc-product-name
-            >
-            <smc-product-desc>Bababing</smc-product-desc>
-            <smc-prices>
-              <smc-old-price></smc-old-price
-              ><smc-product-price>£725.00</smc-product-price>
-            </smc-prices>
-            <smc-product-link>{text14}</smc-product-link>
-          </smc-right>
-        </smc-product>
-      </smc-cart>
+      <smc-rev>
+        <smc-rev-item>
+          <smc-rev-stars data-stars="5"
+            ><i></i><i></i><i></i><i></i><i></i
+          ></smc-rev-stars>
+          <smc-rev-text
+            >"Genuinely the easiest car deal I've ever done. No haggling, no
+            pressure."</smc-rev-text
+          >
+          <smc-rev-name>Sarah T. — Verified</smc-rev-name>
+        </smc-rev-item>
+
+        <smc-rev-item>
+          <smc-rev-stars data-stars="5"
+            ><i></i><i></i><i></i><i></i><i></i
+          ></smc-rev-stars>
+          <smc-rev-text
+            >"Saved me nearly £60 a month against the quote I had from the
+            dealer."</smc-rev-text
+          >
+          <smc-rev-name>James M. — Verified</smc-rev-name>
+        </smc-rev-item>
+
+        <smc-rev-item>
+          <smc-rev-stars data-stars="4"
+            ><i></i><i></i><i></i><i></i><i></i
+          ></smc-rev-stars>
+          <smc-rev-text
+            >"Really straightforward from start to finish. Car arrived a week
+            early."</smc-rev-text
+          >
+          <smc-rev-name>Priya K. — Verified</smc-rev-name>
+        </smc-rev-item>
+      </smc-rev>
+
+      <!-- Optional. Delete this line if you don't want it. -->
+      <smc-rev-foot
+        >Rated <b>4.3 / 5</b> on Trustpilot · 1k+ reviews</smc-rev-foot
+      >
 
       <!-- Email Voucher Option -->
       <smc-option class="smc-email">
@@ -169,16 +169,40 @@
         </smc-reveal>
       </smc-option>
 
-      <!-- Click To Redirect Option -->
-      <smc-option class="smc-clickRedirect">
-        <smc-input-group>
-          <span
-            class="smc-button smc-animated smc-bounceInRight smc-animDelay12"
-            data-edits="text10"
-            data-changes=".smc-button|font-size,background-color,color"
-            >{text10}</span
+      <!-- Uniqodo Email To Reveal Option -->
+      <smc-option class="smc-uniqodoEmailToReveal">
+        <smc-input-group
+          ><input
+            class="smc-input smc-animated smc-fadeInLeft smc-animDelay8"
+            name="email"
+            autocomplete="smc-autocomplete"
+            data-required="true"
+            data-verify="email"
+            placeholder="{text13}"
+            type="text"
+        /></smc-input-group>
+        <smc-reveal class="smc-animated smc-bounceInUp smc-animDelay12">
+          <smc-cover
+            data-edits="text9"
+            data-changes=".smc-emailToReveal smc-cover|font-size,background-color,color"
+            >{text9}</smc-cover
           >
-        </smc-input-group>
+          <smc-code>{vc}</smc-code>
+          <smc-cp data-clipboard-text="{vc-cp}"></smc-cp>
+        </smc-reveal>
+      </smc-option>
+
+      <!-- Uniqodo Click To Reveal Option -->
+      <smc-option class="smc-uniqodoCodeReveal">
+        <smc-reveal class="smc-animated smc-bounceInUp smc-animDelay12">
+          <smc-cover
+            data-edits="text8"
+            data-changes=".smc-uniqodoCodeReveal smc-cover|font-size,background-color,color"
+            >{text8}</smc-cover
+          >
+          <smc-code>{vc}</smc-code>
+          <smc-cp data-clipboard-text="{vc-cp}"></smc-cp>
+        </smc-reveal>
       </smc-option>
 
       <!-- Email to GiftCloud Option -->
@@ -387,62 +411,15 @@
         />
       </smc-option>
 
-      <!-- Scrolling Marquee Section -->
-      <div class="smc-scrolling-text-container">
-        <div
-          class="smc-scrolling-text-inner"
-          style="--marquee-speed: 15s; --direction: smc-scroll-left"
-          role="marquee"
-        >
-          <div class="smc-scrolling-text">
-            <div class="smc-scrolling-text-item">
-              Sign up to get 10% off your first order
-            </div>
-            <div class="smc-scrolling-text-item">
-              Spend £60 and get a Free pushchair organiser
-            </div>
-            <div class="smc-scrolling-text-item">
-              Free standard UK delivery on all orders
-            </div>
-            <div class="smc-scrolling-text-item">
-              Klarna available at checkout
-            </div>
-            <div class="smc-scrolling-text-item">
-              ★★★★★ 1.4K certified reviews
-            </div>
-            <!-- Add More Items Here - Duplicate the above to the below section in order to get seemless scrolling -->
-          </div>
-
-          <div class="smc-scrolling-text">
-            <div class="smc-scrolling-text-item">
-              Sign up to get 10% off your first order
-            </div>
-            <div class="smc-scrolling-text-item">
-              Spend £60 and get a Free pushchair organiser
-            </div>
-            <div class="smc-scrolling-text-item">
-              Free standard UK delivery on all orders
-            </div>
-            <div class="smc-scrolling-text-item">
-              Klarna available at checkout
-            </div>
-            <div class="smc-scrolling-text-item">
-              ★★★★★ 1.4K certified reviews
-            </div>
-            <!-- Make sure this content is exactly the same as the top section -->
-          </div>
-        </div>
-      </div>
-      <!-- Scrolling Marquee Section End -->
-
+      <!-- Closers (Both Need) -->
       <smc-long-close
         class="smc-animated smc-fadeInUp smc-animDelay14"
         data-engage-class="smc-engaged"
       >
         <a
-          href="#rdl"
           data-close-type="long_close"
           class="smc-link smc-closer"
+          href="#rdl"
           data-engage-text="{text11}"
           data-edits="text7,text11"
           data-changes="smc-long-close a.smc-link|font-size,color,margin-top,margin-bottom"
@@ -450,6 +427,11 @@
         >
         <!-- Note - Redirect Link gets automatically rewritten, once clicked on the data-engage text and classes are applied -->
       </smc-long-close>
+
+      <smc-close class="smc-animated smc-fadeInRight smc-animDelay4 smc-closer">
+        <a data-close-type="x_close" class="smc-link" href="#rdl">✕</a
+        ><!-- Note - Redirect Link gets automatically rewritten -->
+      </smc-close>
 
       <!-- Success Message -->
       <smc-success-message class="smc-animated smc-fadeIn">

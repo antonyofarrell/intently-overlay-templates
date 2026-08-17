@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Arsenal:wght@400;700&family=Poppins:wght@300;400;500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Arsenal:wght@400;700&family=Poppins:wght@300;400;500&display=swap");
 
 smc-overlay-inner {
   --smc-mainBkg: #494949;
@@ -41,7 +41,7 @@ smc-long-close {
   margin: 0 0 0 25px;
 }
 
-smc-option{
+smc-option {
   display: none;
 }
 
@@ -67,7 +67,7 @@ smc-option{
 
 .smc-img1 {
   max-width: 68px;
-  margin:95px auto 0 0;
+  margin: 95px auto 0 0;
 }
 
 smc-option,
@@ -76,22 +76,6 @@ smc-input-group,
   min-width: 220px;
   max-width: 220px;
   margin: 0;
-}
-
-.smc-button {
-  margin: 12px auto 0 auto;
-  text-align: center;
-  font-weight: bold;
-  font-size: 12px;
-  padding: 12px;
-  background-color: var(--smc-btnBkg);
-  color: var(--smc-btnText);
-  border-radius: var(--smc-btnBorderRadius);
-  transition: all 0.5s ease !important;
-}
-
-.smc-button:hover {
-  background-color: var(--smc-btnBkgHover);
 }
 
 smc-close {
@@ -110,7 +94,7 @@ smc-cart {
   bottom: 0;
   right: 0;
   width: auto;
-  height: 383px;
+  height: 100%;
   padding: 20px;
   align-items: center;
   justify-content: center;
@@ -128,26 +112,33 @@ smc-product {
   padding: 0;
 }
 
-smc-product-img,
-smc-product-img img {
-  max-width: 220px;
-  margin: 0;
-  border-radius: 2px;
+smc-product-img {
+  width: 200px;
+  height: 180px;
+  flex-shrink: 0;
 }
 
+smc-product-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: calc(var(--smc-frameBorderRadius) / 3);
+}
 smc-details {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
+  gap: 5px;
 }
 
 smc-product-name,
+smc-product-desc,
 smc-product-price,
 smc-product-oldprice,
 smc-product-link {
-  display: block;
+  display: flex;
   font-size: 14px;
   text-align: left;
   width: 100%;
@@ -161,9 +152,8 @@ smc-product-name {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   line-height: 1.2;
-  margin: 5px auto 20px auto;
-  min-height: 33.58px;
-  max-height: 33.58px;
+  margin: 0;
+  min-height: 34px;
 }
 
 smc-product-link {
@@ -176,6 +166,8 @@ smc-product-link {
   color: var(--smc-btnText);
   border-radius: var(--smc-btnBorderRadius);
   transition: all 0.5s ease !important;
+  cursor: pointer;
+  user-select: none;
 }
 
 smc-product-link:hover {

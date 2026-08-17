@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800;900&display=swap");
 
 smc-bg * {
   font-family: "DM Sans", sans-serif;
@@ -6,15 +6,16 @@ smc-bg * {
 smc-overlay-inner {
   --smc-mainBkg: #fff;
   --smc-textColour: #2a2b2a;
-  --smc-btnBkg: #EC7F73;
+  --smc-btnBkg: #ec7f73;
+  --smc-fontSm: 14px;
+  --smc-fontRg: 16px;
+  --smc-fontLg: 24px;
   --smc-btnBkgHover: #fff;
-  --smc-frameBorderRadius:10px;
+  --smc-frameBorderRadius: 10px;
 }
 
-
-
 smc-overlay-inner {
-  background-color:var(--smc-mainBkg);
+  background-color: var(--smc-mainBkg);
   width: 720px;
   min-height: 400px;
   padding-bottom: 0;
@@ -48,7 +49,7 @@ smc-long-close {
   margin: 25px auto auto auto;
 }
 
-smc-option{
+smc-option {
   display: none;
 }
 
@@ -144,7 +145,7 @@ smc-product-price {
   right: 0;
   width: 246px;
   height: 210px;
-  background-image: url('{content6}');
+  background-image: url("{content6}");
   background-size: cover;
   border-radius: 20px 0 0 0;
 }
@@ -169,7 +170,6 @@ smc-product-link:hover {
   background: #fff;
   color: var(--smc-btnBkg);
 }
-
 
 /* *****************MOBILE STYLES****************** 
 

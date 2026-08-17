@@ -90,6 +90,7 @@ const SCORES = {
   MS0003: { eng: 2.09, conv: 6.29 },
   MS0004: { eng: 50.0, conv: 0.0 },
   MS0011: { eng: null, conv: null },
+  MS0012: { eng: null, conv: null },
 };
 
 /* ── Templates ──────────────────────────────────────
@@ -235,7 +236,7 @@ const TEMPLATES = [
   {
     ref: "DB0013",
     cat: "db",
-    desc: "Basket reminder with code and countdown to 30 minutes",
+    desc: "Basket reminder with central product section",
     url: "https://admin.intent.ly/my-account/overlay-manager/#161587",
     img: "images/DB0013.png",
     notes: null,
@@ -829,6 +830,16 @@ const TEMPLATES = [
     desc: "Basic email to reveal",
     url: "https://admin.intent.ly/my-account/overlay-manager/#198669",
     img: "images/MS0011.png",
+    notes: null,
+    upvotes: 0,
+    downvotes: 0,
+  },
+  {
+    ref: "MS0012",
+    cat: "ms",
+    desc: "Trustpilot",
+    url: null,
+    img: "images/MS0012.png",
     notes: null,
     upvotes: 0,
     downvotes: 0,
