@@ -1416,9 +1416,14 @@
           state.asset && typeof state.asset.opt === "string"
             ? state.asset.opt
             : "smc-clickRedirect";
+        // Hide every option EXCEPT the active one, with !important and via :not() so we win over
+        // templates that force `smc-option{display:… !important}` (e.g. MS0012) — and so the shown
+        // option keeps its own template display (flex/block) instead of us guessing it.
         const preview =
-          "smc-bg,smc-overlay-outer{display:block!important}smc-option{display:none}" +
-          (opt ? "smc-option." + opt + "{display:block}" : "") +
+          "smc-bg,smc-overlay-outer{display:block!important}" +
+          (opt
+            ? "smc-option:not(." + opt + "){display:none!important}"
+            : "smc-option{display:none!important}") +
           "smc-bg{position:static!important;display:flex!important;align-items:center;justify-content:center;min-height:100vh;margin:0;background:rgba(20,20,20,.28)}" +
           "smc-overlay-outer{position:static!important;top:auto;left:auto;transform:none!important}body{margin:0}" +
           "smc-bar,smc-final-message,smc-shake-msg,smc-close-safe,smc-success-message,smc-loader-bg,smc-cp-msg{display:none!important}" +
