@@ -838,7 +838,7 @@ const TEMPLATES = [
     ref: "MS0012",
     cat: "ms",
     desc: "Trustpilot",
-    url: null,
+    url: "https://admin.intent.ly/my-account/overlay-manager/#198738",
     img: "images/MS0012.png",
     notes: null,
     upvotes: 0,
