@@ -1,0 +1,51 @@
+/* =====================================================
+   intent.ly overlay — canonical brand variables (--smc-*)
+
+   Starter block for new/standardised templates. Companion to NAMING-STANDARD.md.
+
+   HOW TO USE
+   1. Declare the variables on smc-overlay-inner; put the body font on smc-bg *.
+   2. Keep only the variables THIS template actually uses — a declaration does
+      nothing unless the template's rules reference it via var(--smc-…).
+   3. Wire the template's brand values to var(): e.g.
+         background: var(--smc-btnBkg);   color: var(--smc-btnText);
+      Leave genuinely structural values (shadows, utility greys, layout sizes)
+      hardcoded — only brand-meaningful values become variables.
+
+   The Brand Studio extract tool fills these by name, so consistent naming =
+   more reliable, less-guessy extraction.
+   ===================================================== */
+
+smc-bg * {
+  font-family: "Inter", sans-serif;        /* body font — Extract sets this */
+}
+
+smc-overlay-inner {
+  /* — Colours — */
+  --smc-mainBkg: #ffffff;                  /* overlay / main background */
+  --smc-cardBkg: #ffffff;                  /* inner card / cart / panel background */
+  --smc-textColour: #1a1a1a;               /* primary text */
+  --smc-textColour2: #6b6b6b;              /* secondary / muted text */
+  --smc-accent: #7e4aff;                   /* brand accent (non-button) */
+  --smc-borderColour: #e5e5e5;             /* dividers / element borders */
+
+  /* — Button / CTA — */
+  --smc-btnBkg: #1a1a1a;                   /* button background (brand CTA colour) */
+  --smc-btnText: #ffffff;                  /* button text (contrasts btnBkg) */
+  --smc-btnBkgHover: #333333;              /* button hover background (darker CTA) */
+  --smc-btnBorder: 1px solid #1a1a1a;      /* button border — match btnBkg for a filled CTA */
+  --smc-btnBorderRadius: 6px;              /* button corner radius */
+  --smc-btnPadding: 12px 20px;             /* button padding (structural, not branded) */
+  --smc-btnFontWeight: 600;                /* button font weight (within imported weights) */
+
+  /* — Frame / cards — */
+  --smc-frameBorder: none;                 /* outer frame border (only if the design has one) */
+  --smc-frameBorderRadius: 12px;           /* outer frame corner radius */
+  --smc-cardBorderRadius: 8px;             /* inner card / cart corner radius */
+
+  /* — Type — */
+  --smc-font2: "Inter", sans-serif;        /* heading / secondary font */
+  --smc-fontSm: 12px;                      /* structural */
+  --smc-fontRg: 15px;                      /* structural */
+  --smc-fontLg: 28px;                      /* structural */
+}
