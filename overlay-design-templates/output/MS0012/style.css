@@ -1,248 +1,265 @@
-@import url("https://fonts.smct.co/smc-HelveticaNeueW01/helveticaNeueW01.css");
-
-smc-bg * {
-  font-family: "HelveticaNeueW01-35Thin", sans-serif;
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+smc-overlay-inner {
+  --smc-mainBkg: #181c35;
+  --smc-cardBkg: #ffffff;
+  --smc-textColour: #fff;
+  --smc-textColour2: #1a1a2e;
+  --smc-borderColour: #e5e7eb;
+  --smc-font2: "Inter", system-ui, -apple-system, sans-serif;
+  --smc-btnBkg: #fff;
+  --smc-btnText: #e5007d;
+  --smc-btnBkgHover: #c9006d;
+  --smc-btnBorderRadius: 8px;
+  --smc-frameBorderRadius: 12px;
 }
 
-smc-bg {
-  background-color: rgb(210 210 210 / 60%);
-  --smc-gradient1: #60293b;
-  --smc-gradient2: #e5827f;
-  --smc-gradient3: #a9515e;
-  --smc-fontSm: 12px;
-  --smc-fontRg: 16px;
-  --smc-fontLg: 44px;
-  --smc-btnBkg: #000000;
-  --smc-btnBkgHover: #00111c;
-  --smc-btnText: #fff;
-  --smc-btnBorder: 1px solid #000;
-  --smc-btnBorderRadius: 3px;
-  --smc-btnPadding: 14px;
-  --smc-frameBorderRadius: 14px;
-  --smc-accent: #e6001e;
-  --smc-font2: "HelveticaNeueW01-65Medium", sans-serif;
+smc-bg * {
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  /* border: 1px solid #333; */
+}
+/* ── Hide empty elements ──────────────────────────────────── */
+smc-img:has(img[src=""]),
+smc-img:has(img[src^="{"]),
+smc-img:has(img:not([src])),
+smc-img:not(:has(img)),
+smc-img-outer:not(:has(img[src]:not([src=""]):not([src^="{"]))),
+smc-text-outer:not(:has(smc-text:not(:empty))),
+smc-option:empty,
+smc-long-close:empty,
+smc-text:empty,
+smc-long-close {
+  display: none;
 }
 
 smc-overlay-inner {
-  background-image: linear-gradient(
-    150deg,
-    var(--smc-gradient1) 0%,
-    var(--smc-gradient3) 50%,
-    var(--smc-gradient2) 100%
-  );
-  width: 630px;
+  background-image: linear-gradient(180deg, #b0006a 0%, #e5007d 100%);
+  background-position: center left;
+  background-size: cover;
+  width: 450px;
   min-height: auto;
   padding: 40px;
-  border-radius: var(--smc-frameBorderRadius);
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  overflow: hidden;
+  border-radius: var(--smc-frameBorderRadius);
 }
 
-smc-text-outer {
+/* Align the content Left */
+smc-img-outer,
+smc-text-outer,
+smc-option,
+smc-wrap {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  min-width: auto;
   width: 100%;
-  text-align: center;
+  gap: 10px;
 }
 
 .smc-text1,
 .smc-text2,
-.smc-text3,
-.smc-text4 {
-  color: #fff;
-  line-height: 1.2;
-  font-weight: normal;
-  font-size: var(--smc-fontRg);
-  text-align: center;
+.smc-text3 {
+  font-size: 14px;
+  font-weight: 400;
   margin: 0;
+  text-align: left;
+  color: var(--smc-textColour);
+  line-height: 1.3;
 }
 
-.smc-text2 {
-  font-size: var(--smc-fontLg);
-}
-
-smc-email-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #ffffff3c;
-  border: 1px dashed #ffffff4a;
-  padding: 10px;
-  gap: 10px;
-  border-radius: calc(var(--smc-frameBorderRadius) - 4px);
+.smc-text1 {
+  font-size: 28px;
+  font-weight: bold;
+  margin: 0;
 }
 
 .smc-text3 {
-  width: 100%;
-  font-size: var(--smc-fontRg);
+  font-size: 10px;
+  opacity: 0.7;
+  font-weight: 300;
 }
 
-.smc-text3 span {
-  font-family: var(--smc-font2);
-  color: var(--smc-accent);
-}
-
-smc-option {
-  width: 100%;
-  min-width: auto;
-  flex: 1;
-  display: flex !important;
-  gap: 10px;
-}
-
-smc-input-group {
-  flex: 1;
-}
-
-smc-input-group.smc-eng {
-  display: none;
-}
-
-.smc-input {
-  display: flex;
-  margin: 0;
-  border-radius: var(--smc-btnBorderRadius);
-  flex: 1;
-  font-size: var(--smc-fontSm);
-  padding: var(--smc-btnPadding);
-}
-
-smc-reveal {
-  width: 50%;
-  margin: 0;
-}
-
-smc-cover {
-  background: var(--smc-btnBkg);
-  color: var(--smc-btnText);
-  border: var(--smc-btnBorder);
-  font-size: var(--smc-fontSm);
-  padding: var(--smc-btnPadding);
-  width: 100%;
-  margin: 0;
-  text-transform: uppercase;
-  display: flex;
-  align-items: center;
+.smc-button {
+  margin: 15px auto;
   text-align: center;
-  justify-content: center;
-  border-radius: var(--smc-btnBorderRadius);
-}
-
-smc-code {
-  font-size: var(--smc-fontSm);
-  padding: calc(var(--smc-btnPadding) - 2px);
-  border-radius: var(--smc-btnBorderRadius);
-}
-
-smc-cp {
-  position: absolute;
-  right: 0;
-  top: 0;
-  height: 100%;
-  width: 35px;
-  z-index: 1;
-  cursor: pointer;
-  background: center / 50% no-repeat url("https://cdn.smct.io/65845-696.png");
-  opacity: 0.5;
-  display: block;
-}
-smc-cp:hover {
-  opacity: 1;
-}
-smc-long-close.smc-engaged {
-  position: relative;
-  width: 50%;
-  top: 0;
-  left: 0;
-}
-
-smc-long-close.smc-engaged > a.smc-link {
-  background: var(--smc-btnBkg);
-  color: var(--smc-btnText);
-  display: block;
-  font-size: var(--smc-fontSm);
-  margin: 0;
-  border-radius: 2px;
-  border: 1px solid var(--smc-btnBkg);
-  font-weight: bold;
-  text-transform: uppercase;
-  padding: calc(var(--smc-btnPadding) - 2px);
-}
-
-smc-cp-msg {
-  position: absolute;
-  inset: auto 0 calc(100% + 9px) auto;
-  width: max-content;
-  max-width: 170px;
-  box-sizing: border-box;
-  padding: 6px 9px;
-  border-radius: 8px;
+  font-weight: 400;
+  font-size: 12px;
+  width: 100%;
+  padding: 12px;
   background-color: var(--smc-btnBkg);
   color: var(--smc-btnText);
-  font-size: 11px;
-  line-height: 1.35;
-  text-align: center;
-  z-index: 3;
-  box-shadow: 0 3px 8px rgb(0 0 0 / 22%);
-  animation: smc-cpPop 0.18s ease-out;
+  border-radius: var(--smc-btnBorderRadius);
+  transition: all 0.5s ease !important;
+  border: 1px solid var(--smc-btnBkg);
 }
 
-smc-cp-msg:before {
-  content: "";
-  position: absolute;
-  top: 100%;
-  right: 11px;
-  width: 0;
-  height: 0;
-  border: 7px solid transparent;
-  border-bottom: 0;
-  border-top-color: var(--smc-btnBkg);
-}
-
-@keyframes smc-cpPop {
-  from {
-    opacity: 0;
-    transform: translateY(4px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-.smc-tick {
-  display: flex;
-  align-items: center;
-  font-size: var(--smc-fontSm);
+.smc-button:hover {
+  background-color: var(--smc-btnBkgHover);
   color: #fff;
 }
-label.smc-eng {
-  display: none;
-}
+
 smc-close {
-  top: 5px;
-  right: 5px;
-  height: 20px;
-  width: 20px;
-  background-color: #ffffffb3;
+  font-size: 12px;
+  top: 15px;
+  right: 15px;
 }
 
 smc-close a.smc-link {
-  color: #000;
+  color: #fff;
+}
+
+/* ============================================================
+   smc-reviews — three Trustpilot reviews. Paste into overlay CSS.
+
+   TO RE-BRAND, four values:
+     smc-rev-item          background-color  (card)
+     smc-rev-stars i       background-color  (lit star tile)
+     smc-rev-stars i::before  background-color  (the star itself)
+     smc-rev-stars i       width + height    (star size — keep them equal)
+
+   No images, no URLs: the star is cut out with clip-path.
+
+   The rating on each card is the data-stars="5" attribute in the HTML.
+   ============================================================ */
+
+smc-rev {
   display: flex;
+  flex-direction: row;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
+  width: 100%;
   font-size: 12px;
+  line-height: 1.45;
+  color: #fff;
+  gap: 10px;
 }
-@media (max-width: 600px) {
-  smc-option {
-    flex-direction: column;
-  }
-  smc-reveal {
-    width: 100%;
-    height: 40px;
-  }
+
+smc-rev-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1 1 0;
+  padding: 14px;
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 0.08); /* card background */
+  text-align: left;
 }
+
+smc-rev-stars {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 3px;
+}
+
+smc-rev-stars i {
+  display: flex;
+  position: relative;
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+  border-radius: 2px;
+  background-color: #00b67a;
+}
+
+smc-rev-stars i::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff; /* star colour */
+  -webkit-clip-path: polygon(
+    50% 15.6%,
+    61.5% 39.6%,
+    87.6% 42.5%,
+    67.9% 60%,
+    73.6% 85.8%,
+    50% 72.6%,
+    26.4% 85.8%,
+    32.1% 60%,
+    12.4% 42.5%,
+    38.5% 39.6%
+  );
+  clip-path: polygon(
+    50% 15.6%,
+    61.5% 39.6%,
+    87.6% 42.5%,
+    67.9% 60%,
+    73.6% 85.8%,
+    50% 72.6%,
+    26.4% 85.8%,
+    32.1% 60%,
+    12.4% 42.5%,
+    38.5% 39.6%
+  );
+}
+
+/* Unlit tiles, driven by data-stars in the HTML */
+smc-rev-stars[data-stars="4"] i:nth-child(n + 5),
+smc-rev-stars[data-stars="3"] i:nth-child(n + 4),
+smc-rev-stars[data-stars="2"] i:nth-child(n + 3),
+smc-rev-stars[data-stars="1"] i:nth-child(n + 2) {
+  background-color: #dcdce6; /* unlit star tile */
+}
+
+smc-rev-text {
+  display: block;
+  line-height: 1.3;
+}
+
+smc-rev-name {
+  display: flex;
+  font-size: 12px;
+  line-height: 1.3;
+  font-weight: 700;
+  opacity: 0.75;
+}
+
+/* Optional footer line: "Rated 4.3/5 on Trustpilot" */
+smc-rev-foot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  margin-top: 10px;
+  font-size: 12px;
+  line-height: 1.3;
+  text-align: center;
+  opacity: 0.75;
+  color: #fff;
+}
+
+smc-rev-foot b {
+  font-weight: 700;
+  opacity: 1;
+}
+
+/* ============================================================
+   MOBILE VERSION — paste into the SEPARATE mobile overlay.
+   Stacks the three cards. No media queries (mobile is its own build).
+   ============================================================ */
+/*
+smc-rev {
+  flex-direction: column;
+  justify-content: flex-start;
+  font-size: 12px;
+  max-height: 250px;
+  gap: 5px;
+  overflow-y: scroll;
+}
+smc-rev-item + smc-rev-item {
+  margin-left: 0;
+  margin-top: 8px;
+}
+smc-rev-stars i {
+  width: 15px;
+  height: 15px;
+}
+
+
+*/
