@@ -151,6 +151,37 @@ function buildCssSample(rawCss, budget) {
   return (prioritized + (remaining > 0 ? "\n" + head.slice(0, remaining) : "")).slice(0, budget);
 }
 
+// Deterministically pick the PRIMARY button's corner radius. Big design systems declare many
+// .button/.btn rules with different radii; the one that matters is the primary/action/brand CTA
+// (the same button that carries the CTA colour, e.g. .vtex-button.bg-action-primary{border-radius:40px}).
+// Prefer that; fall back to a buy/add-to-cart/checkout button; else give up (null).
+function extractBtnRadius(css) {
+  const rules = [...css.matchAll(/([^{}]+)\{([^{}]*)\}/g)];
+  const grab = (re) => {
+    const vals = [];
+    for (const m of rules) {
+      if (!re.test(m[1])) continue;
+      const r = m[2].match(/border-radius\s*:\s*([^;}]+)/i);
+      if (!r) continue;
+      const v = r[1].trim();
+      if (/inherit|unset|initial|revert|var\(|calc\(/i.test(v)) continue; // keep concrete lengths
+      if (/^\d|^\.\d/.test(v)) vals.push(v);
+    }
+    return vals;
+  };
+  const mostCommon = (vals) => {
+    if (!vals.length) return null;
+    const f = {};
+    vals.forEach((v) => (f[v] = (f[v] || 0) + 1));
+    return Object.keys(f).sort((a, b) => f[b] - f[a])[0];
+  };
+  return (
+    mostCommon(grab(/(action-primary|btn-primary|primary[-_]?(?:btn|button|cta)|(?:btn|button|cta)[-_]?primary)/i)) ||
+    mostCommon(grab(/(buy|add[-_ ]?to[-_ ]?cart|addtocart|checkout|\bcta\b)/i)) ||
+    null
+  );
+}
+
 module.exports = async (req, res) => {
   const gate = (process.env.BRAND_STUDIO_PASSPHRASE || "").trim();
   if (gate) {
@@ -280,6 +311,9 @@ module.exports = async (req, res) => {
     // surfaced first so they aren't truncated out on large sites — see buildCssSample.
     const cssSample = buildCssSample(css, 90000);
 
+    // The primary button's corner radius (from the action/primary/CTA button rule).
+    const btnRadius = extractBtnRadius(css);
+
     // Detect bot-protection / challenge / error interstitials — but PRECISELY. Many legitimate
     // pages (200, full content) embed a bot-management vendor's script (Cloudflare JSD, DataDome,
     // PerimeterX), so the vendor NAME alone is NOT a block. We trip only on:
@@ -302,6 +336,7 @@ module.exports = async (req, res) => {
       blocked,
       product,
       themeColor: blocked ? null : themeColor,
+      btnRadius: blocked ? null : btnRadius,
       cssVars: blocked ? {} : cssVars,
       fontFaces: blocked ? [] : fontFaces,
       fontFamilies: blocked ? [] : fontFamilies,

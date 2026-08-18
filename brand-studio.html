@@ -1694,6 +1694,8 @@
             /(^|[-_])(body|background|bg)[-_]?1?$|base-background-1|colou?rbody|page.*(bg|background)/i,
           ),
         );
+        // Button corner radius, extracted server-side from the primary/action CTA button rule.
+        put("--smc-btnBorderRadius", scraped.btnRadius);
         return out;
       }
 
