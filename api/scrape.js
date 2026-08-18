@@ -182,6 +182,39 @@ function extractBtnRadius(css) {
   );
 }
 
+// Deterministically pick the brand's primary CTA colour from semantic utility classes
+// (.bg-action-primary / .bg-emphasis / .btn-primary / buy / add-to-cart → background; else
+// .c-action-primary / .c-emphasis / .c-link → color). Design systems like VTEX Storefront UI ship
+// GENERIC scale tokens (--sl-color-blue-10 #0366dd) that a model easily mistakes for the brand —
+// the real brand colour is the one wired to the semantic 'action/emphasis' role, which this finds.
+function extractBtnColor(css) {
+  const rules = [...css.matchAll(/([^{}]+)\{([^{}]*)\}/g)];
+  const COLOUR = /(#[0-9a-f]{3,8}|rgba?\([^)]+\)|hsla?\([^)]+\))/i;
+  const grab = (selRe, propRe) => {
+    const vals = [];
+    for (const m of rules) {
+      if (!selRe.test(m[1])) continue;
+      const d = m[2].match(propRe);
+      if (!d) continue;
+      const v = d[1].trim();
+      if (/^#fff(f{0,3})?$|^#000(0{0,3})?$|transparent|inherit|currentcolor/i.test(v)) continue; // skip b/w/none
+      vals.push(v);
+    }
+    return vals;
+  };
+  const common = (vals) => {
+    if (!vals.length) return null;
+    const f = {};
+    vals.forEach((v) => (f[v.toLowerCase()] = (f[v.toLowerCase()] || 0) + 1));
+    return Object.keys(f).sort((a, b) => f[b] - f[a])[0];
+  };
+  return (
+    common(grab(/(bg-action-primary|bg-emphasis|action-primary[^{]*bg|btn-primary|\bbuy\b|add[-_ ]?to[-_ ]?cart|addtocart)/i, new RegExp("background(?:-color)?\\s*:\\s*" + COLOUR.source, "i"))) ||
+    common(grab(/(c-action-primary|c-emphasis|\bc-link\b)/i, new RegExp("(?:^|;)\\s*color\\s*:\\s*" + COLOUR.source, "i"))) ||
+    null
+  );
+}
+
 module.exports = async (req, res) => {
   const gate = (process.env.BRAND_STUDIO_PASSPHRASE || "").trim();
   if (gate) {
@@ -311,8 +344,9 @@ module.exports = async (req, res) => {
     // surfaced first so they aren't truncated out on large sites — see buildCssSample.
     const cssSample = buildCssSample(css, 90000);
 
-    // The primary button's corner radius (from the action/primary/CTA button rule).
+    // The primary button's corner radius + brand colour (from the action/primary/CTA button rules).
     const btnRadius = extractBtnRadius(css);
+    const btnColor = extractBtnColor(css);
 
     // Detect bot-protection / challenge / error interstitials — but PRECISELY. Many legitimate
     // pages (200, full content) embed a bot-management vendor's script (Cloudflare JSD, DataDome,
@@ -336,6 +370,7 @@ module.exports = async (req, res) => {
       blocked,
       product,
       themeColor: blocked ? null : themeColor,
+      btnColor: blocked ? null : btnColor,
       btnRadius: blocked ? null : btnRadius,
       cssVars: blocked ? {} : cssVars,
       fontFaces: blocked ? [] : fontFaces,
