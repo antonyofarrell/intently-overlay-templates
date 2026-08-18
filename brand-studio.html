@@ -1922,14 +1922,35 @@
         a.download = (state.ref || "overlay") + "-branded.css";
         a.click();
       }
+      // Bake the active preview product into the FIRST <smc-product> of the copied/downloaded HTML,
+      // so a design sent to a client shows their product (not the template's demo item). Product
+      // only — {text}/{content} tokens are left intact for production. Returns the HTML unchanged
+      // when no product is set. smc-cart is repopulated live in production, so this stays safe there.
+      function bakeProductIntoHtml(html) {
+        const p = activeProduct();
+        if (!p) return html;
+        let out = html;
+        const once = (re, repl) => {
+          let done = false;
+          out = out.replace(re, (m, ...g) => (done ? m : ((done = true), repl(m, ...g))));
+        };
+        if (p.name)
+          once(/(<smc-product-name\b[^>]*>)[\s\S]*?(<\/smc-product-name>)/i, (m, a, b) => a + escHtml(p.name) + b);
+        if (p.price)
+          once(/(<smc-product-price\b[^>]*>)[\s\S]*?(<\/smc-product-price>)/i, (m, a, b) => a + escHtml(p.price) + b);
+        once(/(<smc-old-price\b[^>]*>)[\s\S]*?(<\/smc-old-price>)/i, (m, a, b) => a + (p.oldPrice ? escHtml(p.oldPrice) : "") + b);
+        if (p.image)
+          once(/(<smc-product-img\b[^>]*>\s*<img\b[^>]*\bsrc=)(["'])[^"']*\2/i, (m, a, q) => a + q + p.image + q);
+        return out;
+      }
       function copyHtml() {
-        navigator.clipboard.writeText(htmlText()).then(
+        navigator.clipboard.writeText(bakeProductIntoHtml(htmlText())).then(
           () => setStatus("ok", "✓ HTML copied."),
           () => setStatus("err", "Could not copy."),
         );
       }
       function downloadHtml() {
-        const blob = new Blob([htmlText()], { type: "text/html" });
+        const blob = new Blob([bakeProductIntoHtml(htmlText())], { type: "text/html" });
         const a = document.createElement("a");
         a.href = URL.createObjectURL(blob);
         a.download = (state.ref || "overlay") + ".html";
