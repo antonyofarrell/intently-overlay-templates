@@ -287,7 +287,7 @@ const TEMPLATES = [
     ref: "DB0018",
     cat: "db",
     desc: "Left right layout using flex CSS functionality",
-    url: "https://admin.intent.ly/my-account/overlay-manager/#167656",
+    url: "https://admin.intent.ly/my-account/overlay-manager/#198868",
     img: "images/DB0018.png",
     notes: null,
     upvotes: 0,
