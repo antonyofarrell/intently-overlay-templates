@@ -9,6 +9,7 @@ smc-overlay-inner {
   --smc-cardBkg: rgb(18, 0, 99);
   --smc-btnBkg: #e2ed12;
   --smc-btnBkgHover: #bac316;
+  --smc-btnBorderRadius: 4px;
 }
 
 smc-overlay-inner {
@@ -85,7 +86,7 @@ smc-cover {
   color: #333;
   padding: 11px;
   font-size: 15px;
-  border-radius: 4px;
+  border-radius: var(--smc-btnBorderRadius);
   font-weight: 600;
 }
 

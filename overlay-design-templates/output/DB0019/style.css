@@ -10,6 +10,7 @@ smc-overlay-inner {
   --smc-btnBkg: #36e6a3;
   --smc-btnBkgHover: #25956a;
   --smc-frameBorderRadius: 3px;
+  --smc-btnBorderRadius: 3px;
 }
 
 smc-overlay-inner {
@@ -75,7 +76,7 @@ smc-reveal {
 
 smc-cover {
   font-size: 16px;
-  border-radius: var(--smc-frameBorderRadius);
+  border-radius: var(--smc-btnBorderRadius);
   padding: 12px;
   background-color: var(--smc-btnBkg);
   border: 1px solid var(--smc-btnBkg);
@@ -112,7 +113,7 @@ smc-long-close.smc-engaged>a.smc-link {
   display: block;
   font-size: 14px;
   margin: auto;
-  border-radius: var(--smc-frameBorderRadius);
+  border-radius: var(--smc-btnBorderRadius);
   padding: 12px 2px;
   height: 40px;
 }

@@ -13,6 +13,7 @@ smc-overlay-inner {
   --smc-textColour: #000;
   --smc-btnBkg: #fff;
   --smc-frameBorderRadius: 20px;
+  --smc-btnBorderRadius: 5px;
 }
 
 
@@ -87,7 +88,7 @@ smc-option {
 
 .smc-button {
   background-color: var(--smc-btnBkg);
-  border-radius: 5px;
+  border-radius: var(--smc-btnBorderRadius);
   font-size: 14px;
   max-width: 220px;
   padding: 15px;

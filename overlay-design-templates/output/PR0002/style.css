@@ -10,6 +10,7 @@ smc-overlay-inner {
   --smc-btnBkg: #323e48;
   --smc-btnBkgHover: #5b646c;
   --smc-frameBorderRadius:5px;
+  --smc-btnBorderRadius: 30px;
   --smc-length: 420px;
 }
 
@@ -189,7 +190,7 @@ smc-product-link {
   width: 100%;
   display: flex;
   justify-content: center;
-  border-radius: 30px;
+  border-radius: var(--smc-btnBorderRadius);
 }
 smc-product-link:hover {
   box-shadow: 0 3px 8px #0000001a;

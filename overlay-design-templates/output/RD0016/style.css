@@ -11,6 +11,7 @@ smc-bg {
 --smc-btnBkgHover: #E3B10F;
 --smc-frameBorderRadius: 5px;
 --smc-cardBkg:#1F2D3D;
+--smc-btnBorderRadius: 5px;
 }
 smc-bg {
 bottom: auto;
@@ -110,7 +111,7 @@ padding: 17px 18px;
 font-size: 15px;
 color: #212E3C;
 font-weight: 500;
-border-radius: var(--smc-frameBorderRadius);
+border-radius: var(--smc-btnBorderRadius);
 }
 .smc-button:hover{
 background-color: var(--smc-btnBkgHover);

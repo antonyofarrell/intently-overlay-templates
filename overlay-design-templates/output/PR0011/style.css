@@ -6,6 +6,7 @@ smc-overlay-inner {
     --smc-textColour: #222;
     --smc-btnBkg: #000;
     --smc-frameBorderRadius: 2px;
+    --smc-btnBorderRadius: var(--smc-frameBorderRadius);
 }
 
 smc-overlay-inner {
@@ -182,7 +183,7 @@ smc-old-price:empty {
 smc-product-link{
     font-weight:400;
     max-width:240px;
-    border-radius:var(--smc-frameBorderRadius);
+    border-radius:var(--smc-btnBorderRadius);
     cursor:pointer;
     width:100%;
     display:flex;

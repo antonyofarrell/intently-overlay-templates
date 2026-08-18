@@ -10,6 +10,7 @@ smc-overlay-inner {
 --smc-btnBkg: #2B8333;
 --smc-frameBorderRadius: 10px;
 --smc-accent:#3498db;
+--smc-btnBorderRadius: 5px;
 }
 
 smc-overlay-inner {
@@ -124,7 +125,7 @@ min-height: 35px;
 }
 
 .smc-button {
-border-radius: 5px;
+border-radius: var(--smc-btnBorderRadius);
 font-size: 16px;
 padding: 14px;
 font-weight: 700;

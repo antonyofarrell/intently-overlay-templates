@@ -7,6 +7,7 @@ smc-overlay-inner {
   --smc-textColour: #000;
   --smc-btnBkg: #d0f491;
   --smc-frameBorderRadius:2px;
+  --smc-btnBorderRadius: 8px;
 }
 smc-bg{background-color: #d0f491cb;}
 
@@ -68,7 +69,7 @@ smc-img-outer, smc-text-outer, smc-option, smc-long-close{
     padding: 18px ;
     font-weight:400;
     width:90%;
-    border-radius:8px;
+    border-radius:var(--smc-btnBorderRadius);
     text-transform:uppercase;
     transition:all 0.3s ease;
     margin: auto;

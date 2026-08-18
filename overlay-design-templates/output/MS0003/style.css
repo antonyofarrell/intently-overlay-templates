@@ -16,6 +16,7 @@ smc-bg {
 
 
 smc-overlay-inner {
+  --smc-btnBorderRadius: 30px;
   background-color: #284749;
   width: 500px;
   border-radius: 4px;
@@ -68,7 +69,7 @@ smc-cover {
   font-size: 16px;
   padding: 12px;
   font-weight: 700;
-  border-radius: 30px;
+  border-radius: var(--smc-btnBorderRadius);
 }
 
 smc-cover:hover {
@@ -94,7 +95,7 @@ smc-long-close.smc-engaged>a.smc-link {
   color: #83858c;
   display: block;
   margin: auto;
-  border-radius: 30px;
+  border-radius: var(--smc-btnBorderRadius);
   font-size: 16px;
   padding: 12px;
   font-weight: 700;

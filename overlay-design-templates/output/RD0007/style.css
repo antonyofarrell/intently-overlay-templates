@@ -8,6 +8,7 @@ smc-bg {
   --smc-btnBkg: #84f45c;
   --smc-btnBkgHover: #38851c;
   --smc-frameBorderRadius: 5px;
+  --smc-btnBorderRadius: 5px;
   --smc-mainBkg: #436fff;
   --smc-cardBkg: #142f55;
 }
@@ -78,7 +79,7 @@ smc-overlay-inner {
   background-color: var(--smc-btnBkg);
   color: #333;
   font-size: 16px;
-  border-radius: 5px;
+  border-radius: var(--smc-btnBorderRadius);
   padding: 10px 0;
   max-width: 180px;
   font-weight: 300;

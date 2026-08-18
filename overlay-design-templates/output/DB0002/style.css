@@ -8,6 +8,7 @@ smc-overlay-inner {
   --smc-btnBkg: #c0ffee;
   --smc-btnBkgHover: #000;
   --smc-frameBorderRadius:5px;
+  --smc-btnBorderRadius: 30px;
 }
 
 smc-overlay-inner{
@@ -45,7 +46,7 @@ smc-img-outer, smc-text-outer, smc-option, smc-long-close{
     padding: 12px ;
     font-weight:400;
     max-width:220px;
-    border-radius:30px;
+    border-radius:var(--smc-btnBorderRadius);
     margin:10px auto 0 0;
     transition:all 0.3s ease;
 }

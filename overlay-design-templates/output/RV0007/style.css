@@ -15,6 +15,7 @@ smc-overlay-inner {
   --smc-btnBkgHover: #000000;
   --smc-btnBorder: 1px solid #ffffff;
   --smc-frameBorderRadius: 4px;
+  --smc-btnBorderRadius: 0;
 }
 
 smc-bg * {
@@ -102,6 +103,7 @@ smc-cover {
   color: var(--smc-btnText);
   letter-spacing: 1px;
   font-weight: bold;
+  border-radius: var(--smc-btnBorderRadius);
 }
 
 smc-cover:hover {
@@ -132,6 +134,7 @@ smc-long-close.smc-engaged>a.smc-link {
   margin: auto;
   padding: 12px;
   border: 1px solid var(--smc-borderColour);
+  border-radius: var(--smc-btnBorderRadius);
 }
 
 /* Copy To Clipboard Button */

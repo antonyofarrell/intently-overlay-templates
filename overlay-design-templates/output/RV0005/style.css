@@ -11,6 +11,7 @@ smc-bg {
     --smc-btnBkgHover: #E3B10F;
     --smc-frameBorderRadius: 5px;
     --smc-cardBkg: #1F2D3D;
+    --smc-btnBorderRadius: 5px;
 }
 
 smc-bg {
@@ -118,7 +119,7 @@ smc-cover {
     font-size: 15px;
     color: #212E3C;
     font-weight: 500;
-    border-radius: var(--smc-frameBorderRadius);
+    border-radius: var(--smc-btnBorderRadius);
 }
 
 smc-cover:hover {
@@ -148,7 +149,7 @@ smc-long-close.smc-engaged>a.smc-link {
     font-size: 15px;
     color: #212E3C;
     margin: auto;
-    border-radius: 5px;
+    border-radius: var(--smc-btnBorderRadius);
     text-transform: uppercase;
 }
 smc-long-close.smc-engaged>a.smc-link:hover {

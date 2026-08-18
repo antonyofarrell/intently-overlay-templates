@@ -9,6 +9,7 @@ smc-overlay-inner {
     --smc-textColour: #222;
     --smc-btnBkg: #3f3f3f;
     --smc-frameBorderRadius: 2px;
+    --smc-btnBorderRadius: 0;
 }
 
 smc-overlay-inner {
@@ -58,6 +59,7 @@ smc-option {
     color: #fff;
     text-transform: uppercase;
     border: 1px solid var(--smc-btnBkg);
+    border-radius: var(--smc-btnBorderRadius);
 }
 
 .smc-button:hover{

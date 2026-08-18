@@ -10,6 +10,7 @@ smc-overlay-inner {
   --smc-btnBkg: #fff;
   --smc-btnText:#2a2827;
   --smc-frameBorderRadius:2px;
+  --smc-btnBorderRadius: 999px;
 }
 smc-overlay-inner {
   background-image: url('{content6}');
@@ -62,7 +63,7 @@ smc-long-close {
   font-size: 12px;
   font-weight: normal;
   padding: 12px;
-  border-radius: 999px;
+  border-radius: var(--smc-btnBorderRadius);
 }
 .smc-button:hover{
   background-color: var(--smc-btnText);

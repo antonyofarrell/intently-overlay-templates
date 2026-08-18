@@ -7,6 +7,7 @@ smc-overlay-inner {
   --smc-btnBkg: #000;
   --smc-btnBkgHover: #000;
   --smc-frameBorderRadius:2px;
+  --smc-btnBorderRadius: 40px;
 }
 smc-bg {
   width: 100%;
@@ -88,7 +89,7 @@ smc-long-close {
   padding: 10px;
   font-size: 11px;
   font-weight: bold;
-  border-radius: 40px;
+  border-radius: var(--smc-btnBorderRadius);
 }
 .smc-button:hover{
   background-color: var(--smc-btnBkgHover);

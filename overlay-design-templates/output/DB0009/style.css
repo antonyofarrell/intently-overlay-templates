@@ -12,6 +12,7 @@ smc-bg {
     --smc-frameBorderRadius: 4px;
     --smc-mainBkg: #fff;
     --smc-cardBkg: #DE2283;
+    --smc-btnBorderRadius: 4px;
 }
 
 smc-bg {
@@ -77,7 +78,7 @@ smc-option {
     font-size: 16px;
     padding: 16px;
     font-weight: 700;
-    border-radius: 4px;
+    border-radius: var(--smc-btnBorderRadius);
 }
 
 smc-close {

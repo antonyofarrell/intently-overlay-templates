@@ -4,6 +4,7 @@ smc-bg *{font-family: 'Montserrat', sans-serif;}
 smc-overlay-inner {
   --smc-dark: #1c1c1c;
   --smc-light: #fff;
+  --smc-btnBorderRadius: 0;
 }
 
 smc-overlay-inner{
@@ -49,6 +50,7 @@ smc-img-outer, smc-text-outer, smc-option, smc-long-close{
     font-size:12px;
     letter-spacing:2px;
     border:1px solid var(--smc-dark);
+    border-radius: var(--smc-btnBorderRadius);
 	width:240px;
     text-align:center;
     transition:all 0.5s ease;

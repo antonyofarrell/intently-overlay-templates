@@ -5,6 +5,7 @@ smc-bg{
   --smc-accent: #feb91d;
 }
 smc-overlay-inner{
+    --smc-btnBorderRadius: 3px;
     background-image: linear-gradient(120deg, #154D82 0%, #091f34 100%);
     width: 750px;
     min-height: 400px;
@@ -64,7 +65,7 @@ smc-reveal, .smc-input{
 
 smc-cover, smc-code{
     font-size: 14px;
-    border-radius: 3px;
+    border-radius: var(--smc-btnBorderRadius);
     padding: 12px;
 }
 
@@ -90,7 +91,7 @@ smc-long-close.smc-engaged > a.smc-link {
     color: #1e1e1e;
     display: block;
     font-size: 14px;
-    border-radius: 3px;
+    border-radius: var(--smc-btnBorderRadius);
     margin: auto;
     max-width: 260px;
     padding: 12px;
