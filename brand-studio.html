@@ -847,7 +847,9 @@
           if (!hit) continue;
           state.bodyFont = hit.body;
           if (!(state.fontImports || []).some((i) => i.indexOf(hit.url) !== -1))
-            state.fontImports = ["@import url('" + hit.url + "');"].concat(state.fontImports || []);
+            state.fontImports = ["@import url('" + hit.url + "');"].concat(
+              state.fontImports || [],
+            );
           if (hit.heading && state.vars.some((v) => v.name === "--smc-font2"))
             state.values["--smc-font2"] = hit.heading;
           return hit;
@@ -876,7 +878,7 @@
           content6: "https://cdn.smct.io/106441-174.webp",
         },
         DB0016: { content6: "https://cdn.smct.io/104386-748.png" }, // unref
-        DB0018: { content1: "https://cdn.smct.io/107677-981.svg" },
+        DB0018: { content6: "https://cdn.smct.io/120770-571.webp" },
 
         // ---- Recomminder ----
         PR0002: {
@@ -1731,7 +1733,9 @@
         put("--smc-btnBkg", btn);
         put(
           "--smc-accent",
-          scraped.btnColor || find(/\b(accent|brand)\b|primary(?!.*text)/i) || btn,
+          scraped.btnColor ||
+            find(/\b(accent|brand)\b|primary(?!.*text)/i) ||
+            btn,
         );
         put(
           "--smc-btnBkgHover",
@@ -1991,15 +1995,29 @@
         let out = html;
         const once = (re, repl) => {
           let done = false;
-          out = out.replace(re, (m, ...g) => (done ? m : ((done = true), repl(m, ...g))));
+          out = out.replace(re, (m, ...g) =>
+            done ? m : ((done = true), repl(m, ...g)),
+          );
         };
         if (p.name)
-          once(/(<smc-product-name\b[^>]*>)[\s\S]*?(<\/smc-product-name>)/i, (m, a, b) => a + escHtml(p.name) + b);
+          once(
+            /(<smc-product-name\b[^>]*>)[\s\S]*?(<\/smc-product-name>)/i,
+            (m, a, b) => a + escHtml(p.name) + b,
+          );
         if (p.price)
-          once(/(<smc-product-price\b[^>]*>)[\s\S]*?(<\/smc-product-price>)/i, (m, a, b) => a + escHtml(p.price) + b);
-        once(/(<smc-old-price\b[^>]*>)[\s\S]*?(<\/smc-old-price>)/i, (m, a, b) => a + (p.oldPrice ? escHtml(p.oldPrice) : "") + b);
+          once(
+            /(<smc-product-price\b[^>]*>)[\s\S]*?(<\/smc-product-price>)/i,
+            (m, a, b) => a + escHtml(p.price) + b,
+          );
+        once(
+          /(<smc-old-price\b[^>]*>)[\s\S]*?(<\/smc-old-price>)/i,
+          (m, a, b) => a + (p.oldPrice ? escHtml(p.oldPrice) : "") + b,
+        );
         if (p.image)
-          once(/(<smc-product-img\b[^>]*>\s*<img\b[^>]*\bsrc=)(["'])[^"']*\2/i, (m, a, q) => a + q + p.image + q);
+          once(
+            /(<smc-product-img\b[^>]*>\s*<img\b[^>]*\bsrc=)(["'])[^"']*\2/i,
+            (m, a, q) => a + q + p.image + q,
+          );
         return out;
       }
       function copyHtml() {
@@ -2009,7 +2027,9 @@
         );
       }
       function downloadHtml() {
-        const blob = new Blob([bakeProductIntoHtml(htmlText())], { type: "text/html" });
+        const blob = new Blob([bakeProductIntoHtml(htmlText())], {
+          type: "text/html",
+        });
         const a = document.createElement("a");
         a.href = URL.createObjectURL(blob);
         a.download = (state.ref || "overlay") + ".html";
