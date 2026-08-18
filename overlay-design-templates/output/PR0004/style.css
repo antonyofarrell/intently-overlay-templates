@@ -1,13 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200..900&display=swap");
 
 smc-bg * {
   font-family: "Source Sans 3", sans-serif;
 }
 smc-overlay-inner {
-	--smc-accent: #fff;
-	--smc-textColour: #1f1f1f;
-	--smc-btnBkg: #003870;
-  --smc-borderColour:#eee;
+  --smc-accent: #fff;
+  --smc-textColour: #1f1f1f;
+  --smc-btnBkg: #003870;
+  --smc-borderColour: #eee;
   --smc-btnBorderRadius: 2px;
 }
 smc-overlay-inner {
@@ -25,8 +25,8 @@ smc-text-outer {
   margin: auto;
 }
 
-.smc-text1, 
-.smc-text2{
+.smc-text1,
+.smc-text2 {
   font-size: 14px;
   font-weight: 400;
   color: var(--smc-textColour);
@@ -38,7 +38,7 @@ smc-text-outer {
 .smc-text1 {
   font-weight: bold;
   margin: 30px auto auto auto;
-  color:var(--smc-btnBkg);
+  color: var(--smc-btnBkg);
   font-size: 32px;
 }
 
@@ -69,25 +69,26 @@ smc-cart {
 }
 
 smc-product {
-  display: flex !important;
+  display: flex;
   flex-direction: column;
   width: 50%;
   border-radius: 3px;
   overflow: hidden;
 }
 
-smc-product-img{
-	max-width: 250px;
-	max-height: 250px;
-	display:flex;
-	align-items:center;
-	overflow:hidden;
-	margin:auto;
+smc-product-img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 smc-product-img img {
-	width:100%;
-	height:auto;
-  border-radius: 3px;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
 }
 
 smc-details {
@@ -152,7 +153,7 @@ smc-old-price {
   text-decoration: line-through;
   opacity: 0.8;
 }
-smc-old-price:empty{
+smc-old-price:empty {
   display: none;
 }
 smc-product-link {

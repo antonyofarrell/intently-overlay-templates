@@ -26,7 +26,7 @@
               autocomplete="off"
             />
           </div>
-          <a class="btn-admin" href="complexity.html">📊 Complexity</a>
+          <a class="btn-admin" href="complexity.html">📊 Complexity Chart</a>
           <button class="btn-admin" id="adminBtn" onclick="toggleAdmin()">
             ⚙ Admin
           </button>
@@ -75,8 +75,9 @@
         ⤓ Download rebuilt templates-data.js
       </button>
       <span class="rebuild-note">
-        No-terminal option — downloads the file for you to commit. Editing locally?
-        Just run <code>npm run build</code> (or commit; the hook rebuilds).
+        No-terminal option — downloads the file for you to commit. Editing
+        locally? Just run <code>npm run build</code> (or commit; the hook
+        rebuilds).
       </span>
       <span id="rebuildMsg" class="rebuild-msg"></span>
     </div>
@@ -237,7 +238,9 @@
         // Use last-fetched live scores from localStorage if we have them (instant + fresh),
         // otherwise the static SCORES baked into data.js.
         try {
-          const cached = JSON.parse(localStorage.getItem("ot_scores") || "null");
+          const cached = JSON.parse(
+            localStorage.getItem("ot_scores") || "null",
+          );
           if (cached) Object.assign(SCORES, cached);
         } catch (e) {}
 
@@ -404,7 +407,11 @@
 
         // Use the lightweight thumbnail for the grid; fall back to the full image, then the placeholder.
         const thumb = hasImg
-          ? "images/thumbs/" + t.img.split("/").pop().replace(/\.(png|jpe?g)$/i, ".jpg")
+          ? "images/thumbs/" +
+            t.img
+              .split("/")
+              .pop()
+              .replace(/\.(png|jpe?g)$/i, ".jpg")
           : "";
         const imgHtml = hasImg
           ? `<img
@@ -721,7 +728,10 @@
         const m = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
         let body = m ? m[1] : html;
         body = body
-          .replace(/<div class="smc-theme-switcher"[\s\S]*?<\/div>\s*(?=<!--|<smc-bg)/i, "")
+          .replace(
+            /<div class="smc-theme-switcher"[\s\S]*?<\/div>\s*(?=<!--|<smc-bg)/i,
+            "",
+          )
           .replace(/<div class="smc-theme-switcher"[\s\S]*?<\/div>/i, "")
           .replace(/<script[\s\S]*?<\/script>/gi, "");
         return body.trim();
@@ -737,7 +747,9 @@
         const setMsg = (t) => (msg.textContent = t);
         setMsg("Fetching page-styles…");
         try {
-          const pageStyles = await (await fetch("reference/page-styles.css")).text();
+          const pageStyles = await (
+            await fetch("reference/page-styles.css")
+          ).text();
           const assets = {};
           const skipped = [];
           let done = 0;
@@ -745,27 +757,45 @@
             done++;
             setMsg(`Fetching source… ${done}/${templates.length}`);
             const folder = folderForRef(t.ref);
-            let css = "", html = "";
+            let css = "",
+              html = "";
             try {
-              const cr = await fetch(`overlay-design-templates/output/${folder}/style.css`);
-              const hr = await fetch(`overlay-design-templates/output/${folder}/index.html`);
-              if (!cr.ok) { skipped.push(t.ref); continue; }
+              const cr = await fetch(
+                `overlay-design-templates/output/${folder}/style.css`,
+              );
+              const hr = await fetch(
+                `overlay-design-templates/output/${folder}/index.html`,
+              );
+              if (!cr.ok) {
+                skipped.push(t.ref);
+                continue;
+              }
               css = await cr.text();
               html = hr.ok ? await hr.text() : "";
             } catch (e) {
               skipped.push(t.ref);
               continue;
             }
-            if (!css || !css.trim()) { skipped.push(t.ref); continue; }
+            if (!css || !css.trim()) {
+              skipped.push(t.ref);
+              continue;
+            }
             const complete = /<\/smc-bg>/i.test(html || "");
-            assets[t.ref] = { css: css, html: complete ? cleanBodyBrowser(html) : null };
+            assets[t.ref] = {
+              css: css,
+              html: complete ? cleanBodyBrowser(html) : null,
+            };
           }
 
           const out =
             "/* AUTO-GENERATED (admin rebuild) — do not edit by hand.\n" +
             "   PAGE_STYLES = reference/page-styles.css ; OVERLAY_ASSETS[ref] = {css, html|null}. */\n" +
-            "const PAGE_STYLES = " + JSON.stringify(pageStyles) + ";\n" +
-            "const OVERLAY_ASSETS = " + JSON.stringify(assets) + ";\n";
+            "const PAGE_STYLES = " +
+            JSON.stringify(pageStyles) +
+            ";\n" +
+            "const OVERLAY_ASSETS = " +
+            JSON.stringify(assets) +
+            ";\n";
 
           const blob = new Blob([out], { type: "text/javascript" });
           const a = document.createElement("a");
@@ -775,13 +805,17 @@
 
           setMsg(
             `Built ${Object.keys(assets).length} overlays` +
-              (skipped.length ? ` (skipped ${skipped.length}: ${skipped.join(", ")})` : "") +
+              (skipped.length
+                ? ` (skipped ${skipped.length}: ${skipped.join(", ")})`
+                : "") +
               ". Downloaded templates-data.js — commit it to the repo.",
           );
         } catch (e) {
           setMsg(
             "Rebuild needs the page served over http (npm run serve / the Vercel URL), not opened as file://. " +
-              "Or just run `npm run build` in a terminal. (" + (e.message || e) + ")",
+              "Or just run `npm run build` in a terminal. (" +
+              (e.message || e) +
+              ")",
           );
         }
       }
