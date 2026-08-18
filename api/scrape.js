@@ -120,6 +120,37 @@ function extractProduct(html, base) {
   return { name, image, price, oldPrice, currency };
 }
 
+// Build the CSS sample sent to the model. Instead of blindly truncating the first N bytes (which,
+// on a big site, is framework/reset CSS — the real button/brand rules get cut), surface the rules
+// most likely to carry brand styling FIRST: selectors mentioning button/cta/primary/action/accent
+// etc. (e.g. VTEX/Tachyons `.bg-action-primary{background-color:#d6001c}`) and custom-property
+// blocks. Then fill the remaining budget with the head of the stylesheet.
+function buildCssSample(rawCss, budget) {
+  const noComments = rawCss.replace(/\/\*[\s\S]*?\*\//g, " ");
+  const REL =
+    /(?:button|\bbtn\b|\bcta\b|\bbuy\b|comprar|kaufen|acheter|add[-_ ]?to[-_ ]?cart|addtocart|primary|secondary|\baction\b|accent|\bbrand\b|checkout|purchase|emphasis|\bc-link\b|\btheme\b|:root)/i;
+  const picked = [];
+  const seen = new Set();
+  let pickedLen = 0;
+  const cap = Math.floor(budget * 0.6);
+  for (const m of noComments.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+    if (pickedLen >= cap) break;
+    const sel = m[1];
+    const body = m[2];
+    if (!/#[0-9a-f]{3,8}|rgb|hsl|border-radius|font-family|--[\w-]+\s*:/i.test(body)) continue;
+    if (!REL.test(sel) && !/--[\w-]+\s*:/.test(body)) continue;
+    const rule = (sel + "{" + body + "}").replace(/\s+/g, " ").trim();
+    if (rule.length > 600 || seen.has(rule)) continue;
+    seen.add(rule);
+    picked.push(rule);
+    pickedLen += rule.length + 1;
+  }
+  const head = noComments.replace(/\s+/g, " ").trim();
+  const prioritized = picked.join("\n");
+  const remaining = budget - prioritized.length - 1;
+  return (prioritized + (remaining > 0 ? "\n" + head.slice(0, remaining) : "")).slice(0, budget);
+}
+
 module.exports = async (req, res) => {
   const gate = (process.env.BRAND_STUDIO_PASSPHRASE || "").trim();
   if (gate) {
@@ -244,9 +275,10 @@ module.exports = async (req, res) => {
     }
     const fontFamilies = Object.keys(famCount).sort((a, b) => famCount[b] - famCount[a]).map((k) => famLabel[k]).slice(0, 8);
 
-    // A sample of the raw combined CSS so the model can read real rules (button/text/link
-    // colours) on sites that don't expose CSS custom properties. Comments stripped to save room.
-    const cssSample = css.replace(/\/\*[\s\S]*?\*\//g, " ").replace(/\s+/g, " ").trim().slice(0, 90000);
+    // A sample of the raw combined CSS so the model can read real rules (button/text/link colours,
+    // radii, fonts) on sites that don't expose CSS custom properties. Brand-relevant rules are
+    // surfaced first so they aren't truncated out on large sites — see buildCssSample.
+    const cssSample = buildCssSample(css, 90000);
 
     // Detect bot-protection / challenge / error interstitials — but PRECISELY. Many legitimate
     // pages (200, full content) embed a bot-management vendor's script (Cloudflare JSD, DataDome,

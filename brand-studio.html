@@ -1750,7 +1750,7 @@
             scraped.cssSample.length > 200
           ) {
             scrapedBlock +=
-              "RAW CSS from the site's stylesheets (already fetched for you). The token fields above are sparse, so read these ACTUAL rules to find the brand's real values: the primary button/CTA colour (a prominent non-white background on a .btn/.button/[class*=cta]/add-to-cart rule), body text colour, link/accent colour, and font-family. Extract from what's here — do NOT invent values:\n```css\n" +
+              "RAW CSS from the site's stylesheets (already fetched for you). The token fields above are sparse, so read these ACTUAL rules to find the brand's real values: the primary button/CTA colour, body text colour, link/accent colour, font-family, and the button corner radius. The primary CTA colour is a prominent non-white background on a .btn/.button/[class*=cta]/add-to-cart rule OR a semantic utility class such as .bg-action-primary / .c-action-primary / [class*=action-primary] / [class*=primary] / .bg-emphasis (VTEX/Tachyons-style design systems expose the brand colour this way). For the button corner radius, read the border-radius on the primary button/CTA rule. Extract from what's here — do NOT invent values:\n```css\n" +
               scraped.cssSample.slice(0, 45000) +
               "\n```\n\n";
           }
@@ -1785,7 +1785,8 @@
           '- Fonts: use a real font only if it appears in the scraped fontFaces/fontImports or in CSS you fetch — a common name like Montserrat IS correct when it\'s actually there. If NO real font can be found anywhere, do NOT substitute a trendy default from memory — use a neutral system stack ("system-ui, -apple-system, sans-serif") and return an empty fontImports array. If a found @font-face family is also on Google Fonts, include its Google Fonts @import.\n' +
           "- Only include a Google Fonts @import if that exact font is actually loaded by the site.\n" +
           "- Font weights: any font-weight value you set (e.g. --smc-btnFontWeight) MUST be one of the weights loaded by your @import — if you use a weight the import doesn't include, add that weight to the @import URL (Google Fonts css2 supports 'family=Name:wght@400;600;700'). Never set a weight that isn't loaded, or it will faux-bold or fall back.\n" +
-          "- Colours: take the real brand colours from the fetched CSS/markup. Map the primary button/CTA colour to the button variable(s), the main accent to accent variables, body text colour to text variables.\n" +
+          "- Colours: take the real brand colours from the fetched CSS/markup. Map the primary button/CTA colour to the button variable(s), the main accent to accent variables, body text colour to text variables. A semantic 'action-primary'/'primary'/'emphasis' colour in the CSS IS the brand CTA colour — use it for the button background.\n" +
+          "- Radius: if a button-radius variable is declared (e.g. --smc-btnBorderRadius), set it from the site's primary button/CTA border-radius; likewise map a card/frame radius variable from the site's card/container radius when present.\n" +
           "- Buttons are FILLED CTAs: put the brand's primary/accent colour on the button background (e.g. --smc-btnBkg), set the button text to a colour that clearly contrasts it, and set any button-border variable to match the button background — even when the template's default button is a white/outline style.\n" +
           "- Keep each variable's UNIT/kind: colour variables → hex (rgba/8-hex only if transparency is needed); size/radius variables → keep px/rem etc.\n" +
           "- Ensure button text clearly contrasts the button background.\n" +
