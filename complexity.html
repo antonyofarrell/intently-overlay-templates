@@ -182,6 +182,20 @@
         line-height: 1.2;
         text-wrap: balance;
       }
+      .tier-wrap {
+        flex: none;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 3px;
+      }
+      .tier-label {
+        font-family: var(--mono);
+        font-size: 8.5px;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+      }
       .tier {
         flex: none;
         font-size: 10px;
@@ -643,7 +657,7 @@
         const card = document.createElement("article");
         card.className = "card";
         card.innerHTML =
-          `<div class="card-head"><h2 class="name">${d.type}</h2><span class="${tierClass}">${tierText}</span></div>` +
+          `<div class="card-head"><h2 class="name">${d.type}</h2><span class="tier-wrap"><span class="tier-label">Client tier</span><span class="${tierClass}">${tierText}</span></span></div>` +
           `<div class="screen" role="img" aria-label="Complexity ${d.c} out of 10">` +
           `<div class="screen-top"><span class="screen-label">Complexity</span>` +
           `<span class="readout"><span class="val" style="color:${b.glow};text-shadow:0 0 14px ${b.glow}55">${d.c}</span><span class="den">/10</span></span></div>` +
