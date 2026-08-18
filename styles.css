@@ -141,6 +141,13 @@ select {
   color: var(--accent);
 }
 
+a.btn-admin {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+}
+
 .btn-admin.active {
   background: var(--accent);
   border-color: var(--accent);
