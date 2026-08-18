@@ -1301,7 +1301,8 @@
       function renderHtmlOutput() {
         const el = document.getElementById("htmlOutput");
         if (!el) return;
-        if (state.asset && state.asset.html) el.textContent = state.asset.html;
+        if (state.asset && state.asset.html)
+          el.textContent = bakeProductIntoHtml(state.asset.html);
         else
           el.textContent = state.hasSource
             ? "<!-- No HTML stored for this overlay. -->"
@@ -1388,6 +1389,7 @@
         set("pOldPrice", fmtMoney(p.oldPrice, p.currency));
         const box = document.getElementById("productBox");
         if (box && (p.name || p.price || p.image)) box.open = true;
+        applyProductToHtmlEditor();
       }
       function activeProduct() {
         const val = (id) => {
@@ -1402,7 +1404,22 @@
         return { name, image, price, oldPrice };
       }
       function onProductInput() {
+        applyProductToHtmlEditor();
         updateIframe();
+      }
+      // Re-bake the active product into the HTML editor (the visible panel) so it matches what
+      // Copy/Download emit. Derived from the CURRENT editor content, so manual edits and the
+      // {text}/{content} tokens are preserved — only the first smc-product's fields change. Runs
+      // only on product changes / prefill (never on CSS-variable changes → no editor flicker).
+      function applyProductToHtmlEditor() {
+        if (!(monacoReady && htmlEditor)) return;
+        const cur = htmlEditor.getValue();
+        const baked = bakeProductIntoHtml(cur);
+        if (baked !== cur) {
+          const pos = htmlEditor.getPosition();
+          htmlEditor.setValue(baked);
+          if (pos) htmlEditor.setPosition(pos);
+        }
       }
 
       function buildIframeSrcdoc() {
