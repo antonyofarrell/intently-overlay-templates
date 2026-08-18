@@ -821,6 +821,40 @@
         },
       };
 
+      // Brand fonts self-hosted on the intent.ly font CDN (admin → font tool → fonts.smct.co).
+      // When Extract detects one of these on a site (by family name), the tool loads it from the CDN
+      // so the preview + paste-ready CSS render in the real font — even though it isn't on Google
+      // Fonts. Add an entry per onboarded font: `match` (regex on the detected family), the @import
+      // `url`, and the exact hosted family names to use for `body` / `heading`.
+      const HOSTED_FONTS = [
+        {
+          match: /centrale/i,
+          url: "https://fonts.smct.co/smc-centrale-sans/smc-centrale-sans.css",
+          body: '"CentraleSans-Regular", sans-serif',
+          heading: '"CentraleSans-Medium", sans-serif',
+        },
+      ];
+      // If the site's detected font is one we self-host, load it from the CDN and switch to the
+      // hosted family names. Checks the resolved body font + the scraped @font-face/font-family list.
+      function applyHostedFont(scraped) {
+        const cands = [state.bodyFont]
+          .concat((scraped && scraped.fontFaces) || [])
+          .concat((scraped && scraped.fontFamilies) || []);
+        for (const c of cands) {
+          const name = String(c || "").toLowerCase();
+          if (!name) continue;
+          const hit = HOSTED_FONTS.find((f) => f.match.test(name));
+          if (!hit) continue;
+          state.bodyFont = hit.body;
+          if (!(state.fontImports || []).some((i) => i.indexOf(hit.url) !== -1))
+            state.fontImports = ["@import url('" + hit.url + "');"].concat(state.fontImports || []);
+          if (hit.heading && state.vars.some((v) => v.name === "--smc-font2"))
+            state.values["--smc-font2"] = hit.heading;
+          return hit;
+        }
+        return null;
+      }
+
       // Real preview images per template, keyed by ref → { content1: "https://…", … }. Only the
       // {contentN} slots listed here render an image in the preview; every other content token stays
       // empty (hidden), matching production where the platform populates just a few slots. Leave a
@@ -1615,6 +1649,9 @@
             state.bodyFont = parsed.bodyFont.trim();
           if (Array.isArray(parsed.fontImports))
             state.fontImports = parsed.fontImports;
+          // If the brand's font is one we self-host on the intent.ly CDN, load it and use the
+          // hosted family names (covers fonts that aren't on Google Fonts, e.g. Centrale).
+          applyHostedFont(usable);
           renderEditor();
           applyAll();
           saveState();
