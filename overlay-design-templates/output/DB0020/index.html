@@ -1,62 +1,102 @@
 <!-- Overlay V4 Template -->
 <smc-bg class="smc-animated smc-fadeIn">
-    <smc-overlay-outer class="smc-animated smc-bounceInDown smc-animDelay2"> <!--  data-animout="smc-bounceOutLeft" -->
-        <smc-overlay-inner class="smc_clearfix smc-gradient" data-bgtheme="dark" data-changes="smc-overlay-inner|width,background-image,background-color" data-edits="content6"><!-- If the background is dark use this option -->
+  <smc-overlay-outer class="smc-animated smc-bounceInDown smc-animDelay2">
+    <!--  data-animout="smc-bounceOutLeft" -->
+    <smc-overlay-inner
+      class="smc_clearfix"
+      data-bgtheme="dark"
+      data-changes="smc-overlay-inner|width,background-image,background-color"
+      data-edits="content6"
+      ><!-- If the background is dark use this option -->
 
+      <smc-cart>
+        <smc-product>
+          <smc-product-img
+            ><img
+              src="https://shop.mattel.com.au/cdn/shop/files/imgi_219_07eccc700bc9d1866ad2dffad60a682d92389775_765x.progressive.jpg?v=1785740932"
+          /></smc-product-img>
+          <smc-wrap>
+            <smc-product-name
+              >Moonspell Magic By Monster High Carina Song
+              Doll</smc-product-name
+            >
+            <smc-prices>
+              <smc-old-price>$123.45</smc-old-price
+              ><smc-product-price>$49.99</smc-product-price>
+            </smc-prices>
+          </smc-wrap>
+        </smc-product>
+      </smc-cart>
 
-            <smc-cart>
-                <smc-product>
-                    <smc-product-img><img src="https://shop.mattel.com.au/cdn/shop/files/imgi_219_07eccc700bc9d1866ad2dffad60a682d92389775_765x.progressive.jpg?v=1785740932"></smc-product-img>
-                    <smc-wrap>
-                        <smc-product-name>Moonspell Magic By Monster High Carina Song Doll</smc-product-name>
-                        <smc-prices>
-                            <smc-old-price>$123.45</smc-old-price><smc-product-price>$49.99</smc-product-price>
-                        </smc-prices>
-                    </smc-wrap>
-                </smc-product>
-            </smc-cart>
+      <smc-wrap>
+        <smc-text-outer>
+          <smc-text
+            class="smc-text1 smc-animated smc-bounceInDown smc-animDelay4"
+            data-edits="text1"
+            data-changes=".smc-text1|font-size,color,margin-top,margin-bottom"
+            >{text1}</smc-text
+          >
+          <smc-text
+            class="smc-text2 smc-animated smc-bounceInRight smc-animDelay6"
+            data-edits="text2"
+            data-changes=".smc-text2|font-size,color,margin-top,margin-bottom"
+            >{text2}</smc-text
+          >
+          <smc-text
+            class="smc-text3 smc-animated smc-bounceInLeft smc-animDelay8"
+            data-edits="text3"
+            data-changes=".smc-text3|font-size,color,margin-top,margin-bottom"
+            >{text3}</smc-text
+          >
+          <smc-text
+            class="smc-text4 smc-animated smc-bounceInRight smc-animDelay10"
+            data-edits="text4"
+            data-changes=".smc-text4|font-size,color,margin-top,margin-bottom"
+            >{text4}</smc-text
+          >
+        </smc-text-outer>
 
-            <smc-wrap>
-                <smc-text-outer>
-                    <smc-text class="smc-text1 smc-animated smc-bounceInDown smc-animDelay4" data-edits="text1" data-changes=".smc-text1|font-size,color,margin-top,margin-bottom">{text1}</smc-text>
-                    <smc-text class="smc-text2 smc-animated smc-bounceInRight smc-animDelay6" data-edits="text2" data-changes=".smc-text2|font-size,color,margin-top,margin-bottom">{text2}</smc-text>
-                    <smc-text class="smc-text3 smc-animated smc-bounceInLeft smc-animDelay8" data-edits="text3" data-changes=".smc-text3|font-size,color,margin-top,margin-bottom">{text3}</smc-text>
-                    <smc-text class="smc-text4 smc-animated smc-bounceInRight smc-animDelay10" data-edits="text4" data-changes=".smc-text4|font-size,color,margin-top,margin-bottom">{text4}</smc-text>
-                </smc-text-outer>
+        <!-- Click To Redirect Option -->
+        <smc-option class="smc-clickRedirect">
+          <smc-input-group>
+            <span
+              class="smc-button smc-animated smc-fadeInRight smc-animDelay10"
+              data-edits="text10"
+              data-changes=".smc-button|font-size,background-color,color"
+              >{text10}</span
+            >
+          </smc-input-group>
+        </smc-option>
+      </smc-wrap>
 
+      <!-- Closers (Both Need) -->
+      <smc-long-close
+        class="smc-animated smc-fadeInUp smc-animDelay14"
+        data-engage-class="smc-engaged"
+      >
+        <a
+          data-close-type="long_close"
+          class="smc-link smc-closer"
+          href="#rdl"
+          data-engage-text="{text11}"
+          data-edits="text7,text11"
+          data-changes="smc-long-close a.smc-link|font-size,color,margin-top,margin-bottom"
+          >{text7}</a
+        >
+        <!-- Note - Redirect Link gets automatically rewritten, once clicked on the data-engage text and classes are applied -->
+      </smc-long-close>
 
+      <smc-close class="smc-animated smc-fadeInRight smc-animDelay4 smc-closer">
+        <a data-close-type="x_close" class="smc-link" href="#rdl">✕</a
+        ><!-- Note - Redirect Link gets automatically rewritten -->
+      </smc-close>
 
-                <!-- Click To Redirect Option -->
-                <smc-option class="smc-clickRedirect">
-                    <smc-input-group>
-                        <span class="smc-button smc-animated smc-fadeInRight smc-animDelay10" data-edits="text10" data-changes=".smc-button|font-size,background-color,color">{text10}</span>
-                    </smc-input-group>
-                </smc-option>
-
-            </smc-wrap>
-
-
-            <!-- Closers (Both Need) -->
-            <smc-long-close class="smc-animated smc-fadeInUp smc-animDelay14" data-engage-class="smc-engaged">
-                <a data-close-type="long_close" class="smc-link smc-closer" href="#rdl" data-engage-text="{text11}" data-edits="text7,text11" data-changes="smc-long-close a.smc-link|font-size,color,margin-top,margin-bottom">{text7}</a>
-                <!-- Note - Redirect Link gets automatically rewritten, once clicked on the data-engage text and classes are applied -->
-            </smc-long-close>
-
-            <smc-close class="smc-animated smc-fadeInRight smc-animDelay4 smc-closer">
-                <a data-close-type="x_close" class="smc-link" href="#rdl">✕</a><!-- Note - Redirect Link gets automatically rewritten -->
-            </smc-close>
-
-
-
-
-            <!-- CSS Loader -->
-            <smc-loader-bg data-theme="white"><!-- white, black-->
-                <smc-loader-single></smc-loader-single><!-- single, double, pulse -->
-            </smc-loader-bg>
-
-
-        </smc-overlay-inner>
-
-    </smc-overlay-outer>
-
+      <!-- CSS Loader -->
+      <smc-loader-bg data-theme="white"
+        ><!-- white, black-->
+        <smc-loader-single></smc-loader-single
+        ><!-- single, double, pulse -->
+      </smc-loader-bg>
+    </smc-overlay-inner>
+  </smc-overlay-outer>
 </smc-bg>

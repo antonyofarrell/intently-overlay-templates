@@ -92,10 +92,10 @@ smc-cart {
   background-color: #fff;
   border-radius: var(--smc-cardBorderRadius);
   overflow: hidden;
-  gap: 10px;
 }
 smc-product {
   width: 100%;
+  gap: 0;
 }
 smc-product-img {
   width: 100%;
@@ -112,7 +112,8 @@ smc-prices {
 smc-product smc-wrap {
   padding: 10px;
   align-items: center;
-  border-top: 1px solid #eee;
+  border-top: 1px solid #fff;
+  justify-content: space-between;
 }
 smc-product-name,
 smc-product-price,
@@ -144,7 +145,7 @@ smc-close a.smc-link {
   align-items: center;
   justify-content: center;
 }
-
+/* ── Add class smc-gradient to smc-overlay-inner for animated gradient background ────────────────────────────────── */
 smc-bg * {
   --grad-1: #f9888c; /* coral red */
   --grad-2: #f4baad; /* orange-red */
