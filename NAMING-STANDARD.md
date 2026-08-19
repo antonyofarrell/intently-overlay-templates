@@ -35,7 +35,8 @@ A variable name should tell you its CSS property. Encode **type as a suffix** an
 | `--smc-btnBkgHover` | button hover background | colour | darker CTA variant |
 | `--smc-btnBorder` | button border | border shorthand | match `btnBkg` (filled CTA) |
 | `--smc-btnBorderRadius` | button corner radius | radius | site button radius |
-| `--smc-btnPadding` | button padding | length | usually structural, not branded |
+| `--smc-btnFontSize` | button font size | length | site's primary button/CTA font-size |
+| `--smc-btnPadding` | button padding | length | site's primary button/CTA padding |
 | `--smc-btnFontWeight` | button font weight | number | kept within the imported font weights |
 | `--smc-frameBorder` | outer frame border | border shorthand | only if the design has one |
 | `--smc-frameBorderRadius` | outer frame corner radius | radius | site card / container radius |

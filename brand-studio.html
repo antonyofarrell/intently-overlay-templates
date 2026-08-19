@@ -785,9 +785,9 @@
         rv: {
           // Click to Reveal
           text1: "Here's a treat for you",
-          text2: "Unlock your exclusive discount",
-          text3: "Use this code at checkout",
+          text2: "Get 10% off today with the code below",
           text10: "Reveal my code",
+          text11: "Continue shopping",
           text13: "Copy code",
           vc: "SAVE10",
           "vc-cp": "Copy",
@@ -868,7 +868,7 @@
       // token never matches, so the URL is simply unused).
       const CONTENT_BY_REF = {
         // ---- Dynamic Basket ----
-        DB0001: { content1: "https://cdn.smct.io/74856-201.svg" },
+
         DB0003: { content1: "https://cdn.smct.io/74856-201.svg" },
         DB0004: { content1: "https://cdn.smct.io/74856-201.svg" },
         DB0008: { content5: "https://cdn.smct.io/101745-404.jpg" },
@@ -1757,8 +1757,10 @@
             /(^|[-_])(body|background|bg)[-_]?1?$|base-background-1|colou?rbody|page.*(bg|background)/i,
           ),
         );
-        // Button corner radius, extracted server-side from the primary/action CTA button rule.
+        // Button radius / font-size / padding, extracted server-side from the primary CTA rule.
         put("--smc-btnBorderRadius", scraped.btnRadius);
+        put("--smc-btnFontSize", scraped.btnFontSize);
+        put("--smc-btnPadding", scraped.btnPadding);
         return out;
       }
 
@@ -1852,6 +1854,7 @@
           "- Font weights: any font-weight value you set (e.g. --smc-btnFontWeight) MUST be one of the weights loaded by your @import — if you use a weight the import doesn't include, add that weight to the @import URL (Google Fonts css2 supports 'family=Name:wght@400;600;700'). Never set a weight that isn't loaded, or it will faux-bold or fall back.\n" +
           "- Colours: take the real brand colours from the fetched CSS/markup. Map the primary button/CTA colour to the button variable(s), the main accent to accent variables, body text colour to text variables. A semantic 'action-primary'/'primary'/'emphasis' colour in the CSS IS the brand CTA colour — use it for the button background. IGNORE generic design-system SCALE tokens as the brand: names like --sl-color-blue-10, --color-blue-N, --color-gray-N, --color-red-600 are framework palette defaults (VTEX Storefront UI, Tailwind, etc.), NOT the brand — never pick the button/accent colour from those; prefer the SUGGESTED MAPPING and the semantic action/emphasis colour.\n" +
           "- Radius: if a button-radius variable is declared (e.g. --smc-btnBorderRadius), set it from the site's primary button/CTA border-radius; likewise map a card/frame radius variable from the site's card/container radius when present.\n" +
+          "- Button sizing: if --smc-btnFontSize / --smc-btnPadding are declared, set them from the site's primary button/CTA font-size and padding (keep the px/rem units; the SUGGESTED MAPPING already carries these when found).\n" +
           "- Buttons are FILLED CTAs: put the brand's primary/accent colour on the button background (e.g. --smc-btnBkg), set the button text to a colour that clearly contrasts it, and set any button-border variable to match the button background — even when the template's default button is a white/outline style.\n" +
           "- Keep each variable's UNIT/kind: colour variables → hex (rgba/8-hex only if transparency is needed); size/radius variables → keep px/rem etc.\n" +
           "- Ensure button text clearly contrasts the button background.\n" +

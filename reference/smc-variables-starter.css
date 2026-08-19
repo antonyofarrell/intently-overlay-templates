@@ -35,7 +35,8 @@ smc-overlay-inner {
   --smc-btnBkgHover: #333333;              /* button hover background (darker CTA) */
   --smc-btnBorder: 1px solid #1a1a1a;      /* button border — match btnBkg for a filled CTA */
   --smc-btnBorderRadius: 6px;              /* button corner radius */
-  --smc-btnPadding: 12px 20px;             /* button padding (structural, not branded) */
+  --smc-btnFontSize: 16px;                 /* button font size */
+  --smc-btnPadding: 12px 20px;             /* button padding */
   --smc-btnFontWeight: 600;                /* button font weight (within imported weights) */
 
   /* — Frame / cards — */

@@ -215,6 +215,38 @@ function extractBtnColor(css) {
   );
 }
 
+// Most-common value of a given CSS property on the primary/action CTA button rules — used for
+// button font-size and padding (same targeting as the colour/radius extractors).
+function extractBtnProp(css, propName) {
+  const rules = [...css.matchAll(/([^{}]+)\{([^{}]*)\}/g)];
+  const propRe = new RegExp("(?:^|;)\\s*" + propName + "\\s*:\\s*([^;}]+)", "i");
+  const grab = (selRe) => {
+    const vals = [];
+    for (const m of rules) {
+      if (!selRe.test(m[1])) continue;
+      const d = m[2].match(propRe);
+      if (!d) continue;
+      const v = d[1].trim();
+      if (/inherit|unset|initial|revert|var\(|calc\(/i.test(v)) continue;
+      if (/^0(px|rem|em|%)?(\s+0(px|rem|em|%)?)*$/i.test(v)) continue; // skip bare-zero resets
+      vals.push(v);
+    }
+    return vals;
+  };
+  const common = (vals) => {
+    if (!vals.length) return null;
+    const f = {};
+    vals.forEach((v) => (f[v.toLowerCase()] = (f[v.toLowerCase()] || 0) + 1));
+    const key = Object.keys(f).sort((a, b) => f[b] - f[a])[0];
+    return vals.find((v) => v.toLowerCase() === key);
+  };
+  return (
+    common(grab(/(action-primary|btn-primary|primary[-_]?(?:btn|button|cta)|(?:btn|button|cta)[-_]?primary)/i)) ||
+    common(grab(/(buy|add[-_ ]?to[-_ ]?cart|addtocart|checkout|\bcta\b)/i)) ||
+    null
+  );
+}
+
 module.exports = async (req, res) => {
   const gate = (process.env.BRAND_STUDIO_PASSPHRASE || "").trim();
   if (gate) {
@@ -347,6 +379,8 @@ module.exports = async (req, res) => {
     // The primary button's corner radius + brand colour (from the action/primary/CTA button rules).
     const btnRadius = extractBtnRadius(css);
     const btnColor = extractBtnColor(css);
+    const btnFontSize = extractBtnProp(css, "font-size");
+    const btnPadding = extractBtnProp(css, "padding");
 
     // Detect bot-protection / challenge / error interstitials — but PRECISELY. Many legitimate
     // pages (200, full content) embed a bot-management vendor's script (Cloudflare JSD, DataDome,
@@ -372,6 +406,8 @@ module.exports = async (req, res) => {
       themeColor: blocked ? null : themeColor,
       btnColor: blocked ? null : btnColor,
       btnRadius: blocked ? null : btnRadius,
+      btnFontSize: blocked ? null : btnFontSize,
+      btnPadding: blocked ? null : btnPadding,
       cssVars: blocked ? {} : cssVars,
       fontFaces: blocked ? [] : fontFaces,
       fontFamilies: blocked ? [] : fontFamilies,
