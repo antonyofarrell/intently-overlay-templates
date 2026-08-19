@@ -9,6 +9,8 @@ smc-overlay-inner {
   --smc-btnBkgHover: #fff;
   --smc-frameBorderRadius:10px;
   --smc-btnBorderRadius: var(--smc-frameBorderRadius);
+  --smc-btnFontSize: 14px;
+  --smc-btnPadding: 12px;
 }
 
 smc-overlay-inner{
@@ -42,8 +44,8 @@ smc-option{
 .smc-button {
 	background:var(--smc-btnBkg);
     color: #fff;
-    font-size: 14px;
-    padding: 12px ;
+    font-size: var(--smc-btnFontSize);
+    padding: var(--smc-btnPadding);
     font-weight:400;
     width:90%;
     border-radius:var(--smc-btnBorderRadius);
@@ -166,8 +168,8 @@ smc-old-price:empty{
 smc-product-link{
 	background:var(--smc-btnBkg);
     color: #fff;
-    font-size: 14px;
-    padding: 12px ;
+    font-size: var(--smc-btnFontSize);
+    padding: var(--smc-btnPadding);
     font-weight:400;
     max-width:240px;
     border-radius:var(--smc-btnBorderRadius);

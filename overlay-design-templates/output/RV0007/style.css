@@ -16,6 +16,8 @@ smc-overlay-inner {
   --smc-btnBorder: 1px solid #ffffff;
   --smc-frameBorderRadius: 4px;
   --smc-btnBorderRadius: 0;
+  --smc-btnFontSize: 14px;
+  --smc-btnPadding: 0;
 }
 
 smc-bg * {
@@ -104,6 +106,8 @@ smc-cover {
   letter-spacing: 1px;
   font-weight: bold;
   border-radius: var(--smc-btnBorderRadius);
+  font-size: var(--smc-btnFontSize);
+  padding: var(--smc-btnPadding);
 }
 
 smc-cover:hover {
@@ -130,9 +134,9 @@ smc-long-close.smc-engaged>a.smc-link {
   letter-spacing: 1px;
   font-weight: bold;
   display: block;
-  font-size: 14px;
+  font-size: var(--smc-btnFontSize);
   margin: auto;
-  padding: 12px;
+  padding: var(--smc-btnPadding);
   border: 1px solid var(--smc-borderColour);
   border-radius: var(--smc-btnBorderRadius);
 }

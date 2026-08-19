@@ -8,6 +8,8 @@ smc-overlay-inner {
 --smc-btnText: #000000;
 --smc-btnBkgHover: #3d3d3d;
 --smc-btnBorderRadius: 0;
+--smc-btnFontSize: 15px;
+--smc-btnPadding: 12px;
 }
 
 smc-bg * {
@@ -63,8 +65,8 @@ padding: 10px 30px 30px 30px;
 smc-cta {
 background:var(--smc-btnBkg);
 color: var(--smc-btnText);
-font-size: 15px;
-padding: 12px;
+font-size: var(--smc-btnFontSize);
+padding: var(--smc-btnPadding);
 flex: 0 0 31%;
 margin: 0;
 text-transform: uppercase;

@@ -18,6 +18,7 @@ smc-overlay-inner {
   --smc-btnBkgHover: #0075c9cb;
   --smc-btnBorder: 1px solid #0075c9;
   --smc-btnBorderRadius: 8px;
+  --smc-btnFontSize: 14px;
   --smc-btnPadding: 12px;
   --smc-frameBorderRadius: 10px;
   --smc-cardBorderRadius: 5px;
@@ -95,8 +96,8 @@ smc-img {
   background: var(--smc-btnBkg);
   color: var(--smc-btnText);
   border: var(--smc-btnBorder);
-  font-size: var(--smc-fontRg);
-  padding: 12px;
+  font-size: var(--smc-btnFontSize);
+  padding: var(--smc-btnPadding);
   font-weight: 400;
   max-width: 100%;
   border-radius: var(--smc-btnBorderRadius);
@@ -220,8 +221,8 @@ smc-product-link {
   background: var(--smc-btnBkg);
   border: var(--smc-btnBorder);
   color: #fff;
-  font-size: 14px;
-  padding: 12px;
+  font-size: var(--smc-btnFontSize);
+  padding: var(--smc-btnPadding);
   font-weight: 400;
   max-width: 240px;
   border-radius: var(--smc-btnBorderRadius);

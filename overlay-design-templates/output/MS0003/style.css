@@ -17,6 +17,8 @@ smc-bg {
 
 smc-overlay-inner {
   --smc-btnBorderRadius: 30px;
+  --smc-btnFontSize: 16px;
+  --smc-btnPadding: 12px;
   background-color: #284749;
   width: 500px;
   border-radius: 4px;
@@ -66,8 +68,8 @@ smc-cover {
   width: 100%;
   background-color: #fff;
   color: #83858c;
-  font-size: 16px;
-  padding: 12px;
+  font-size: var(--smc-btnFontSize);
+  padding: var(--smc-btnPadding);
   font-weight: 700;
   border-radius: var(--smc-btnBorderRadius);
 }
@@ -96,8 +98,8 @@ smc-long-close.smc-engaged>a.smc-link {
   display: block;
   margin: auto;
   border-radius: var(--smc-btnBorderRadius);
-  font-size: 16px;
-  padding: 12px;
+  font-size: var(--smc-btnFontSize);
+  padding: var(--smc-btnPadding);
   font-weight: 700;
 }
 

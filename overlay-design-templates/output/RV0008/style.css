@@ -51,6 +51,8 @@ smc-text:empty { display: none; }
 
 /* ── Base Dimensions ──────────────────────────────────── */
 smc-overlay-inner {
+  --smc-btnFontSize: var(--smc-fontRg);
+  --smc-btnPadding: 10px;
   background: var(--smc-mainBkg);
   width: 650px;
   min-height: auto;
@@ -192,8 +194,8 @@ smc-long-close.smc-engaged a.smc-link {
   align-items: center;
   justify-content: center;
   width: 100%;
-  font-size: var(--smc-fontRg);
-  padding: 10px;
+  font-size: var(--smc-btnFontSize);
+  padding: var(--smc-btnPadding);
 }
 
 /* ── Close Button ────────────────────────────────────────── */

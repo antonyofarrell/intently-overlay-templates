@@ -36,6 +36,8 @@ smc-overlay-outer{
 
 smc-overlay-inner {
   --smc-btnBorderRadius: 5px;
+  --smc-btnFontSize: 14px;
+  --smc-btnPadding: 12px;
   background: linear-gradient(180deg, var(--smc-mainBkg) 80%, var(--smc-cardBkg) 80%);
   width: 570px;
   min-height: 250px;
@@ -84,10 +86,10 @@ smc-long-close {
   margin: 20px auto auto 0;
   background-color: var(--smc-btnBkg);
   color: #333;
-  font-size: 14px;
+  font-size: var(--smc-btnFontSize);
   font-weight: 500;
   border-radius: var(--smc-btnBorderRadius);
-  padding: 12px;
+  padding: var(--smc-btnPadding);
 }
 
 .smc-button:hover {

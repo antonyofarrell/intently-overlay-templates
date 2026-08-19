@@ -24,6 +24,8 @@ font-family: 'Manrope', sans-serif;
 }
 
 smc-overlay-inner {
+--smc-btnFontSize: var(--smc-fontRg);
+--smc-btnPadding: 0;
 background: var(--smc-mainBkg);
 width: 600px;
 min-height: auto;
@@ -96,7 +98,8 @@ background-color: var(--smc-btnBkg);
 color: var(--smc-btnText);
 border-radius: var(--smc-btnBorderRadius);
 font-weight: 700;
-font-size: var(--smc-fontRg);
+font-size: var(--smc-btnFontSize);
+padding: var(--smc-btnPadding);
 max-width: 65%;
 margin: 0;
 }

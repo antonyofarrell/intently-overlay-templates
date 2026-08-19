@@ -33,6 +33,8 @@ smc-overlay-outer {
 }
 
 smc-overlay-inner {
+    --smc-btnFontSize: 15px;
+    --smc-btnPadding: 12px;
     background-image: url('{content6}');
     background-color: #fff0;
     background-size: cover;
@@ -115,8 +117,8 @@ smc-cover {
     text-transform: uppercase;
     border-color: var(--smc-btnBkg);
     background: var(--smc-btnBkg);
-    padding: 12px;
-    font-size: 15px;
+    padding: var(--smc-btnPadding);
+    font-size: var(--smc-btnFontSize);
     color: #212E3C;
     font-weight: 500;
     border-radius: var(--smc-btnBorderRadius);
@@ -145,8 +147,8 @@ smc-long-close.smc-engaged>a.smc-link {
     border-color: var(--smc-btnBkg);
     background: var(--smc-btnBkg);
     display: block;
-    padding: 12px;
-    font-size: 15px;
+    padding: var(--smc-btnPadding);
+    font-size: var(--smc-btnFontSize);
     color: #212E3C;
     margin: auto;
     border-radius: var(--smc-btnBorderRadius);

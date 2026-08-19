@@ -5,6 +5,8 @@ smc-overlay-inner {
   --smc-dark: #1c1c1c;
   --smc-light: #fff;
   --smc-btnBorderRadius: 0;
+  --smc-btnFontSize: 12px;
+  --smc-btnPadding: 12px 0 12px 0;
 }
 
 smc-overlay-inner{
@@ -44,10 +46,10 @@ smc-img-outer, smc-text-outer, smc-option, smc-long-close{
 }
 .smc-button{
 	text-transform: uppercase;
-	padding: 12px 0 12px 0;
+	padding: var(--smc-btnPadding);
 	background:var(--smc-light);
     color:var(--smc-light);
-    font-size:12px;
+    font-size:var(--smc-btnFontSize);
     letter-spacing:2px;
     border:1px solid var(--smc-dark);
     border-radius: var(--smc-btnBorderRadius);

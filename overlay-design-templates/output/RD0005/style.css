@@ -10,6 +10,8 @@ smc-overlay-inner {
     --smc-btnBkg: #000;
     --smc-frameBorderRadius: 20px;
     --smc-btnBorderRadius: 2px;
+    --smc-btnFontSize: 15px;
+    --smc-btnPadding: 14px;
 }
 
 
@@ -70,12 +72,12 @@ smc-multi-cta {
     background-color: var(--smc-btnBkg);
     margin: 5px auto;
     color: #fff;
-    padding: 14px;
+    padding: var(--smc-btnPadding);
     width: 200px;
     text-align: center;
     cursor: pointer;
     border-radius: var(--smc-btnBorderRadius);
-    font-size: 15px;
+    font-size: var(--smc-btnFontSize);
     animation: smc-btn-attn 1s linear both infinite;
     /* transition: .2s ease; */
 }

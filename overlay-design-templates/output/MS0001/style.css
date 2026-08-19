@@ -31,6 +31,7 @@ smc-overlay-inner {
   --smc-btnBorder: 1px solid #31dac4;
   --smc-btnBorderRadius: 3px;
   --smc-btnPadding: 12px;
+  --smc-btnFontSize: 14px;
   --smc-btnFontWeight: bold;
   --smc-font2: 'Souvenir-Medium', serif;
   --smc-fontRg: 14px;
@@ -128,7 +129,7 @@ smc-reveal {
 
 smc-cover,
 smc-code {
-  font-size: 14px;
+  font-size: var(--smc-btnFontSize);
   border: var(--smc-btnBorder);
   border-radius: var(--smc-btnBorderRadius);
 }
@@ -161,7 +162,7 @@ smc-long-close.smc-engaged>a.smc-link {
   color: var(--smc-btnText);
   border-radius: var(--smc-btnBorderRadius);
   display: block;
-  font-size: 14px;
+  font-size: var(--smc-btnFontSize);
   margin: auto;
   max-width: 200px;
   padding: var(--smc-btnPadding);

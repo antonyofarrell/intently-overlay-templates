@@ -16,6 +16,7 @@ smc-overlay-inner {
     --smc-btnText: #fff;
     --smc-btnBorderRadius: 30px;
     --smc-btnPadding: 15px;
+    --smc-btnFontSize: 14px;
     --smc-btnFontWeight: bold;
     --smc-frameBorderRadius: 12px;
     background-color: var(--smc-mainBkg);
@@ -84,7 +85,7 @@ smc-cover {
     background-color: var(--smc-btnBkg);
     color: var(--smc-btnText);
     border-radius: var(--smc-btnBorderRadius);
-    font-size: 14px;
+    font-size: var(--smc-btnFontSize);
     font-weight: var(--smc-btnFontWeight);
     padding: var(--smc-btnPadding);
     text-transform: uppercase;
@@ -135,7 +136,7 @@ smc-long-close.smc-engaged > a.smc-link {
     background-color: var(--smc-btnBkg);
     color: var(--smc-btnText);
     border-radius: var(--smc-btnBorderRadius);
-    font-size: 14px;
+    font-size: var(--smc-btnFontSize);
     font-weight: var(--smc-btnFontWeight);
     padding: var(--smc-btnPadding);
     text-transform: uppercase;

@@ -11,6 +11,8 @@ smc-overlay-inner {
   --smc-btnBorderRadius: 2px;
   --smc-frameBorderRadius: 2px;
   --smc-cardBorderRadius: 3px;
+  --smc-btnFontSize: 12px;
+  --smc-btnPadding: 11px 10px 10px 10px;
 }
 
 smc-bg *{font-family: 'Roboto', sans-serif;}
@@ -195,8 +197,8 @@ smc-product-price {
 smc-product-link {
   margin: 15px auto 0 auto;
   width:95%;
-  padding: 11px 10px 10px 10px;
-  font-size: 12px;
+  padding: var(--smc-btnPadding);
+  font-size: var(--smc-btnFontSize);
   text-transform: uppercase;
   text-align: center;
   font-weight: bold;

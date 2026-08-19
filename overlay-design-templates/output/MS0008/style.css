@@ -11,6 +11,7 @@ smc-overlay-inner {
   --smc-btnBorder: 1px solid #2D3D4A;
   --smc-btnBorderRadius: 3px;
   --smc-btnPadding: 14px;
+  --smc-btnFontSize: 16px;
   --smc-frameBorderRadius: 3px;
   background-image: linear-gradient(90deg, #ffffff8b 0%, #fff0 100%),
   url('{content6}');
@@ -71,7 +72,7 @@ smc-long-close {
 
 .smc-button{
   padding: var(--smc-btnPadding);
-  font-size: 16px;
+  font-size: var(--smc-btnFontSize);
   color: var(--smc-btnText);
   background-color: var(--smc-btnBkg);
   border: var(--smc-btnBorder);

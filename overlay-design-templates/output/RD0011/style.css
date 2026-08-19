@@ -11,6 +11,8 @@ smc-overlay-inner {
 --smc-btnBkgHover: #000000;
 --smc-btnBorderRadius: 28px;
 --smc-frameBorderRadius: 10px;
+--smc-btnFontSize: 14px;
+--smc-btnPadding: 12px;
 }
 
 smc-bg * {
@@ -64,11 +66,11 @@ margin: 15px auto 0 auto;
 background-color: var(--smc-btnBkg);
 color: var(--smc-btnText);
 border: var(--smc-btnBorder);
-font-size: 14px;
+font-size: var(--smc-btnFontSize);
 font-weight: 500;
 border-radius: var(--smc-btnBorderRadius);
 font-family: "BaseticaTrial-Black", sans-serif;
-padding: 12px;
+padding: var(--smc-btnPadding);
 /* text-transform: uppercase; */
 }
 

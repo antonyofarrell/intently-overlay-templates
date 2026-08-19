@@ -12,6 +12,8 @@ smc-overlay-inner {
   --smc-frameBorderRadius:5px;
   --smc-btnBorderRadius: 30px;
   --smc-length: 420px;
+  --smc-btnFontSize: 12px;
+  --smc-btnPadding: 12px;
 }
 
 smc-overlay-inner {background-size: 150% 150%;
@@ -180,8 +182,8 @@ smc-old-price:empty{
 smc-product-link {
   background: var(--smc-btnBkg);
   color: #fff;
-  font-size: 12px;
-  padding: 12px;
+  font-size: var(--smc-btnFontSize);
+  padding: var(--smc-btnPadding);
   font-weight: 400;
   max-width: 240px;
   margin: 10px auto 0 auto;

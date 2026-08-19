@@ -18,6 +18,7 @@ smc-bg {
   --smc-btnBorder: 1px solid #000;
   --smc-btnBorderRadius: 3px;
   --smc-btnPadding: 14px;
+  --smc-btnFontSize: var(--smc-fontSm);
   --smc-frameBorderRadius: 14px;
   --smc-accent: #e6001e;
   --smc-font2: "HelveticaNeueW01-65Medium", sans-serif;
@@ -119,7 +120,7 @@ smc-cover {
   background: var(--smc-btnBkg);
   color: var(--smc-btnText);
   border: var(--smc-btnBorder);
-  font-size: var(--smc-fontSm);
+  font-size: var(--smc-btnFontSize);
   padding: var(--smc-btnPadding);
   width: 100%;
   margin: 0;
@@ -163,7 +164,7 @@ smc-long-close.smc-engaged > a.smc-link {
   background: var(--smc-btnBkg);
   color: var(--smc-btnText);
   display: block;
-  font-size: var(--smc-fontSm);
+  font-size: var(--smc-btnFontSize);
   margin: 0;
   border-radius: 2px;
   border: 1px solid var(--smc-btnBkg);

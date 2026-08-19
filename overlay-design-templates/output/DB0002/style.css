@@ -9,6 +9,8 @@ smc-overlay-inner {
   --smc-btnBkgHover: #000;
   --smc-frameBorderRadius:5px;
   --smc-btnBorderRadius: 30px;
+  --smc-btnFontSize: 15px;
+  --smc-btnPadding: 12px;
 }
 
 smc-overlay-inner{
@@ -42,8 +44,8 @@ smc-img-outer, smc-text-outer, smc-option, smc-long-close{
 .smc-button {
 	background:var(--smc-btnBkg);
     color: #000;
-    font-size: 15px;
-    padding: 12px ;
+    font-size: var(--smc-btnFontSize);
+    padding: var(--smc-btnPadding);
     font-weight:400;
     max-width:220px;
     border-radius:var(--smc-btnBorderRadius);

@@ -21,6 +21,7 @@ smc-overlay-inner {
   --smc-btnBkgHover: #53575e;
   --smc-btnBorder: 1px solid #0075c9;
   --smc-btnBorderRadius: 40px;
+  --smc-btnFontSize: var(--smc-fontRg);
   --smc-btnPadding: 15px 20px;
   --smc-frameBorderRadius: 20px;
   --smc-cardBorderRadius: 10px;
@@ -79,7 +80,7 @@ smc-text-outer {
   background-color: var(--smc-btnBkg);
   border-radius: var(--smc-btnBorderRadius);
   color: var(--smc-btnText);
-  font-size: var(--smc-fontRg);
+  font-size: var(--smc-btnFontSize);
   font-weight: 700;
   padding: var(--smc-btnPadding);
 }

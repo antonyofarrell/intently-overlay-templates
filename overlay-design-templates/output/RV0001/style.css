@@ -10,6 +10,8 @@ smc-overlay-inner {
 --smc-btnBkg: #18c9b4;
 --smc-frameBorderRadius: 12px;
 --smc-btnBorderRadius: 30px;
+--smc-btnFontSize: 14px;
+--smc-btnPadding: 14px;
 }
 
 smc-overlay-inner {
@@ -102,7 +104,8 @@ font-weight: 400;
 
 smc-cover {
 background-color: var(--smc-btnBkg);
-padding: 14px;
+padding: var(--smc-btnPadding);
+font-size: var(--smc-btnFontSize);
 box-shadow: 0 .5rem 1rem 0 rgba(18, 166, 149, .33);
 border-radius: var(--smc-btnBorderRadius);
 }
@@ -117,11 +120,11 @@ max-width: 160px;
 smc-long-close.smc-engaged>a.smc-link {
 color: #fff;
 display: block;
-font-size: 14px;
+font-size: var(--smc-btnFontSize);
 border-radius: var(--smc-btnBorderRadius);
 margin: auto;
 background-color: var(--smc-btnBkg);
-padding: 14px;
+padding: var(--smc-btnPadding);
 box-shadow: 0 .5rem 1rem 0 rgba(18, 166, 149, .33);
 }
 

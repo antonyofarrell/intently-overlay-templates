@@ -228,7 +228,9 @@ function extractBtnProp(css, propName) {
       if (!d) continue;
       const v = d[1].trim();
       if (/inherit|unset|initial|revert|var\(|calc\(/i.test(v)) continue;
-      if (/^0(px|rem|em|%)?(\s+0(px|rem|em|%)?)*$/i.test(v)) continue; // skip bare-zero resets
+      // Reject a value with ANY zero component (e.g. "0", "0 0 15px", "0 20px") — those are resets
+      // or container spacing, not a reliable button size. Callers fall back to the template baseline.
+      if (v.split(/\s+/).some((p) => /^0(px|rem|em|%)?$/i.test(p))) continue;
       vals.push(v);
     }
     return vals;

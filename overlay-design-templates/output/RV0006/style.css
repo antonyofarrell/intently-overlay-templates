@@ -22,6 +22,8 @@ smc-bg * {
 }
 
 smc-overlay-inner {
+  --smc-btnFontSize: var(--smc-fontRg);
+  --smc-btnPadding: 0;
   background: var(--smc-mainBkg);
   width: 450px;
   min-height: auto;
@@ -101,6 +103,8 @@ smc-cover {
   color: var(--smc-btnText);
   border-radius: var(--smc-btnBorderRadius);
   font-weight: 700;
+  font-size: var(--smc-btnFontSize);
+  padding: var(--smc-btnPadding);
 }
 smc-cover:hover {
   filter: brightness(110%);
@@ -154,8 +158,9 @@ smc-long-close.smc-engaged a.smc-link {
   background-color: var(--smc-btnBkg);
   color: var(--smc-btnText);
   border-radius: var(--smc-btnBorderRadius);
-  font-size: var(--smc-fontRg);
+  font-size: var(--smc-btnFontSize);
   font-weight: 700;
+  padding: var(--smc-btnPadding);
 }
 
 smc-close{

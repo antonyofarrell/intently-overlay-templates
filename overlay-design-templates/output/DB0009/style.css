@@ -37,6 +37,8 @@ smc-overlay-outer {
 }
 
 smc-overlay-inner {
+    --smc-btnFontSize: 16px;
+    --smc-btnPadding: 16px;
     background-color: #dbeef9;
     width: 300px;
     border-radius: 2px;
@@ -75,8 +77,8 @@ smc-option {
     margin: 10px auto 0 auto;
     background-color: var(--smc-btnBkg);
     color: #fff;
-    font-size: 16px;
-    padding: 16px;
+    font-size: var(--smc-btnFontSize);
+    padding: var(--smc-btnPadding);
     font-weight: 700;
     border-radius: var(--smc-btnBorderRadius);
 }

@@ -13,6 +13,8 @@ smc-overlay-inner {
   --smc-btnBkgHover: #ffffff;
   --smc-btnBorderRadius: 1px;
   --smc-frameBorderRadius: 2px;
+  --smc-btnFontSize: 14px;
+  --smc-btnPadding: 12px;
 }
 
 smc-bg * {
@@ -66,10 +68,10 @@ smc-text-outer{
   background-color: var(--smc-btnBkg);
   color: var(--smc-btnText);
   border: var(--smc-btnBorder);
-  font-size: 14px;
+  font-size: var(--smc-btnFontSize);
   font-weight: 500;
   border-radius: var(--smc-btnBorderRadius);
-  padding:12px;
+  padding:var(--smc-btnPadding);
   /* text-transform: uppercase; */
 }
 .smc-button:hover {
