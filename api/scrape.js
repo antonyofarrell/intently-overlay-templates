@@ -401,10 +401,42 @@ module.exports = async (req, res) => {
     // Product info for the overlay's demo <smc-cart> (skip on bot-block pages).
     const product = blocked ? null : extractProduct(html, base);
 
+    // A SECOND, different product for recommender overlays. Shopify stores expose /products.json;
+    // pick the first product whose title differs from the main one. (Non-Shopify: none — the UI
+    // offers a manual paste there.) Currency comes from the main product (same store).
+    let product2 = null;
+    if (!blocked && product) {
+      const isShopify = /cdn\/shop\/|cdn\.shopify\.com|Shopify\.theme|window\.Shopify|myshopify\.com/i.test(html);
+      if (isShopify) {
+        try {
+          const feed = await fetchText(new URL(base).origin + "/products.json?limit=6", 300 * 1024);
+          if (feed.ok) {
+            const items = (JSON.parse(feed.text).products || []);
+            const mainName = (product.name || "").trim().toLowerCase();
+            for (const pr of items) {
+              const title = (pr.title || "").trim();
+              if (!title || title.toLowerCase() === mainName) continue;
+              const v = (pr.variants || [])[0] || {};
+              const img = (pr.images || [])[0] || {};
+              product2 = {
+                name: title,
+                price: v.price != null ? String(v.price) : "",
+                oldPrice: v.compare_at_price != null && parseFloat(v.compare_at_price) > parseFloat(v.price) ? String(v.compare_at_price) : "",
+                image: img.src || "",
+                currency: product.currency || "",
+              };
+              break;
+            }
+          }
+        } catch (e) {}
+      }
+    }
+
     res.status(200).json({
       finalUrl: base,
       blocked,
       product,
+      product2: blocked ? null : product2,
       themeColor: blocked ? null : themeColor,
       btnColor: blocked ? null : btnColor,
       btnRadius: blocked ? null : btnRadius,

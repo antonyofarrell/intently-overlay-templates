@@ -576,6 +576,26 @@
               <input type="text" id="pOldPrice" oninput="onProductInput()" placeholder="$123.45" />
             </div>
           </div>
+          <div id="product2Box" style="margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(128, 128, 128, 0.25)">
+            <label style="font-weight: 600">
+              Product 2
+              <span class="var-name">(shown in the 2nd tile · auto-filled on Shopify)</span>
+            </label>
+            <label style="margin-top: 8px">Product name</label>
+            <input type="text" id="pName2" oninput="onProductInput()" placeholder="Second product name" />
+            <label style="margin-top: 8px">Image URL</label>
+            <input type="url" id="pImage2" oninput="onProductInput()" placeholder="https://…/image.jpg" />
+            <div style="display: flex; gap: 8px; margin-top: 8px">
+              <div style="flex: 1">
+                <label>Price</label>
+                <input type="text" id="pPrice2" oninput="onProductInput()" placeholder="$49.99" />
+              </div>
+              <div style="flex: 1">
+                <label>Was (optional)</label>
+                <input type="text" id="pOldPrice2" oninput="onProductInput()" placeholder="$123.45" />
+              </div>
+            </div>
+          </div>
         </details>
 
         <div id="editor">
@@ -1111,8 +1131,12 @@
         // DB + PR categories). Hide the panel for everything else so it isn't dead, confusing UI.
         const pbox = document.getElementById("productBox");
         if (pbox) {
-          const hasCart = /<smc-cart|smc-product-name|smc-product-price/i.test((state.asset && state.asset.html) || "");
+          const html = (state.asset && state.asset.html) || "";
+          const hasCart = /<smc-cart|smc-product-name|smc-product-price/i.test(html);
           pbox.style.display = hasCart ? "" : "none";
+          // Product 2 only makes sense when the template has 2+ <smc-product> tiles (recommenders).
+          const p2box = document.getElementById("product2Box");
+          if (p2box) p2box.style.display = (html.match(/<smc-product\b/gi) || []).length >= 2 ? "" : "none";
         }
         if (!state.hasSource) {
           editor.style.display = "none";
@@ -1323,31 +1347,47 @@
           }[String(c || "").toUpperCase()] || "";
         return sym + v;
       }
-      function prefillProduct(p) {
+      // Product 1 uses field ids pName/pImage/pPrice/pOldPrice; product 2 the same with a "2" suffix.
+      function setProductFields(sfx, p) {
         if (!p) return;
         const set = (id, val) => {
           const el = document.getElementById(id);
           if (el) el.value = val || "";
         };
-        set("pName", p.name);
-        set("pImage", p.image);
-        set("pPrice", fmtMoney(p.price, p.currency));
-        set("pOldPrice", fmtMoney(p.oldPrice, p.currency));
+        set("pName" + sfx, p.name);
+        set("pImage" + sfx, p.image);
+        set("pPrice" + sfx, fmtMoney(p.price, p.currency));
+        set("pOldPrice" + sfx, fmtMoney(p.oldPrice, p.currency));
+      }
+      function prefillProduct(p) {
+        if (!p) return;
+        setProductFields("", p);
         const box = document.getElementById("productBox");
         if (box && (p.name || p.price || p.image)) box.open = true;
         applyProductToHtmlEditor();
       }
-      function activeProduct() {
+      function prefillProduct2(p) {
+        if (!p) return;
+        setProductFields("2", p);
+        applyProductToHtmlEditor();
+      }
+      function readProduct(sfx) {
         const val = (id) => {
           const el = document.getElementById(id);
           return el ? el.value.trim() : "";
         };
-        const name = val("pName"),
-          image = val("pImage"),
-          price = val("pPrice"),
-          oldPrice = val("pOldPrice");
+        const name = val("pName" + sfx),
+          image = val("pImage" + sfx),
+          price = val("pPrice" + sfx),
+          oldPrice = val("pOldPrice" + sfx);
         if (!name && !image && !price && !oldPrice) return null;
         return { name, image, price, oldPrice };
+      }
+      function activeProduct() {
+        return readProduct("");
+      }
+      function activeProduct2() {
+        return readProduct("2");
       }
       function onProductInput() {
         applyProductToHtmlEditor();
@@ -1388,19 +1428,20 @@
           // Any content slot with no configured image collapses to nothing instead of a broken
           // grey box — matches production, where unsupplied {contentN} images aren't rendered.
           "img[src=''],img:not([src]),img[src='{content1}'],img[src='{content2}'],img[src='{content3}'],img[src='{content4}'],img[src='{content5}'],img[src='{content6}']{display:none!important}";
-        // Replace the template's demo product with the extracted/entered one, targeting the
-        // smc-cart elements by NAME so the small structural differences between templates don't
-        // matter. Runs after the markup is parsed; skipped entirely when no product is set.
-        const prod = activeProduct();
-        const prodScript = prod
+        // Replace the template's demo products with the extracted/entered ones — product 1 into the
+        // first <smc-product>, product 2 into the second (recommenders). Targets elements by NAME so
+        // structural differences between templates don't matter. Skipped when no product is set.
+        const prods = [activeProduct(), activeProduct2()];
+        const prodScript = prods.some(Boolean)
           ? "<scr" +
-            "ipt>(function(){var p=" +
-            JSON.stringify(prod).replace(/</g, "\\u003c") +
-            ";var s=document.querySelector('smc-product')||document;" +
-            "function t(sel,v,hide){var el=s.querySelector(sel)||document.querySelector(sel);if(!el)return;if(v){el.textContent=v;el.style.display='';}else if(hide){el.style.display='none';}}" +
+            "ipt>(function(){var prods=" +
+            JSON.stringify(prods).replace(/</g, "\\u003c") +
+            ";var cards=document.querySelectorAll('smc-product');" +
+            "prods.forEach(function(p,i){if(!p)return;var s=cards[i]||(i===0?document:null);if(!s)return;" +
+            "function t(sel,v,hide){var el=s.querySelector(sel);if(!el)return;if(v){el.textContent=v;el.style.display='';}else if(hide){el.style.display='none';}}" +
             "t('smc-product-name',p.name);t('smc-product-price',p.price);t('smc-old-price',p.oldPrice,true);" +
-            "if(p.image){var im=s.querySelector('smc-product-img img')||document.querySelector('smc-product-img img');if(im){im.src=p.image;im.style.display='';}}" +
-            "})();</scr" +
+            "if(p.image){var im=s.querySelector('smc-product-img img');if(im){im.src=p.image;im.style.display='';}}" +
+            "});})();</scr" +
             "ipt>"
           : "";
         // Build from the EDITOR content so hand-edits in the CSS/HTML boxes update the preview too.
@@ -1506,6 +1547,7 @@
           const usable = scraped; // present and not bot-blocked at this point
           // Prefill the preview product from the page's structured data (if any).
           if (usable && usable.product) prefillProduct(usable.product);
+          if (usable && usable.product2) prefillProduct2(usable.product2);
           // We can map locally (no slow web browsing) whenever the scrape gave us usable content:
           // colour tokens, a real font, OR the raw CSS sample to read rules from. Only browse when
           // the scrape returned essentially nothing (bot-blocked / fully JS-rendered).
@@ -1821,24 +1863,34 @@
       // so a design sent to a client shows their product (not the template's demo item). Product
       // only — {text}/{content} tokens are left intact for production. Returns the HTML unchanged
       // when no product is set. smc-cart is repopulated live in production, so this stays safe there.
+      // Bake product 1 into the FIRST smc-product and product 2 into the SECOND (for recommender
+      // overlays). Each field's Nth occurrence maps to products[N] — closing tags may be wrapped
+      // by prettier (</smc-…\s*>). Products with no value for a field leave that demo value intact.
       function bakeProductIntoHtml(html) {
-        const p = activeProduct();
-        if (!p) return html;
+        const products = [activeProduct(), activeProduct2()];
+        if (!products[0] && !products[1]) return html;
         let out = html;
-        const once = (re, repl) => {
-          let done = false;
-          out = out.replace(re, (m, ...g) => (done ? m : ((done = true), repl(m, ...g))));
+        // Replace the i-th occurrence of a text field with products[i]'s value.
+        const fill = (re, valFor) => {
+          let i = -1;
+          out = out.replace(re, (m, a, b) => {
+            i++;
+            const p = products[i];
+            if (!p) return m;
+            const v = valFor(p);
+            return v == null ? m : a + v + b;
+          });
         };
-        if (p.name)
-          once(/(<smc-product-name\b[^>]*>)[\s\S]*?(<\/smc-product-name\s*>)/i, (m, a, b) => a + escHtml(p.name) + b);
-        if (p.price)
-          once(/(<smc-product-price\b[^>]*>)[\s\S]*?(<\/smc-product-price\s*>)/i, (m, a, b) => a + escHtml(p.price) + b);
-        once(
-          /(<smc-old-price\b[^>]*>)[\s\S]*?(<\/smc-old-price\s*>)/i,
-          (m, a, b) => a + (p.oldPrice ? escHtml(p.oldPrice) : "") + b,
-        );
-        if (p.image)
-          once(/(<smc-product-img\b[^>]*>\s*<img\b[^>]*\bsrc=)(["'])[^"']*\2/i, (m, a, q) => a + q + p.image + q);
+        fill(/(<smc-product-name\b[^>]*>)[\s\S]*?(<\/smc-product-name\s*>)/gi, (p) => (p.name ? escHtml(p.name) : null));
+        fill(/(<smc-product-price\b[^>]*>)[\s\S]*?(<\/smc-product-price\s*>)/gi, (p) => (p.price ? escHtml(p.price) : null));
+        fill(/(<smc-old-price\b[^>]*>)[\s\S]*?(<\/smc-old-price\s*>)/gi, (p) => (p.name || p.price ? (p.oldPrice ? escHtml(p.oldPrice) : "") : null));
+        // Image: same Nth-occurrence mapping across smc-product-img > img.
+        let j = -1;
+        out = out.replace(/(<smc-product-img\b[^>]*>\s*<img\b[^>]*\bsrc=)(["'])[^"']*\2/gi, (m, a, q) => {
+          j++;
+          const p = products[j];
+          return p && p.image ? a + q + p.image + q : m;
+        });
         return out;
       }
       function copyHtml() {
