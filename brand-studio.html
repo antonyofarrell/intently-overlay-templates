@@ -331,8 +331,7 @@
         font-weight: 700;
       }
       .stage {
-        background: repeating-conic-gradient(#efeae2 0% 25%, #f7f4ef 0% 50%)
-          50% / 22px 22px;
+        background: repeating-conic-gradient(#efeae2 0% 25%, #f7f4ef 0% 50%) 50% / 22px 22px;
         border: 1px solid var(--border);
         border-radius: var(--radius);
         min-height: 340px;
@@ -519,26 +518,18 @@
         <span class="top-desc" id="topDesc">Loading…</span>
       </div>
       <div class="top-right">
-        <a
-          class="view-base"
-          id="viewBase"
-          href="#"
-          target="_blank"
-          rel="noopener"
-          style="display: none"
-          >View template ↗</a
-        >
+        <a class="view-base" id="viewBase" href="#" target="_blank" rel="noopener" style="display: none">
+          View template ↗
+        </a>
         <span class="cat-badge" id="catBadge" style="display: none"></span>
         <span
           class="key-pill unset"
           id="aiPill"
           onclick="toggleAi()"
-          title="AI ghost-text autocomplete in the editors (needs the access passphrase)"
-          >✨ AI: off</span
-        >
-        <span class="key-pill unset" id="keyPill" onclick="openKeyModal()"
-          >Access: locked</span
-        >
+          title="AI ghost-text autocomplete in the editors (needs the access passphrase)">
+          ✨ AI: off
+        </span>
+        <span class="key-pill unset" id="keyPill" onclick="openKeyModal()">Access: locked</span>
       </div>
     </div>
 
@@ -552,64 +543,37 @@
               type="url"
               id="siteUrl"
               placeholder="https://example.com"
-              onkeydown="if (event.key === 'Enter') extractBrand();"
-            />
-            <button
-              class="btn btn-primary btn-sm"
-              id="extractBtn"
-              onclick="extractBrand()"
-            >
-              Extract
-            </button>
+              onkeydown="if (event.key === 'Enter') extractBrand();" />
+            <button class="btn btn-primary btn-sm" id="extractBtn" onclick="extractBrand()">Extract</button>
           </div>
           <p class="hint">
-            Claude reads the site (via web search) and fills this overlay's own
-            CSS variables below. If the page exposes product data, the preview
-            product is filled too. Fine-tune anything by hand.
+            Claude reads the site (via web search) and fills this overlay's own CSS variables below. If the page exposes
+            product data, the preview product is filled too. Fine-tune anything by hand.
           </p>
           <div class="status info" id="status"></div>
         </div>
 
         <details id="productBox" class="field" style="padding-top: 4px">
           <summary style="cursor: pointer; font-weight: 600">
-            Preview product <span class="var-name">(optional)</span>
+            Preview product
+            <span class="var-name">(optional)</span>
           </summary>
           <p class="hint" style="margin-top: 8px">
-            Auto-filled from the extracted page when it exposes product data.
-            Paste details by hand for sites that block scraping.
+            Auto-filled from the extracted page when it exposes product data. Paste details by hand for sites that block
+            scraping.
           </p>
           <label>Product name</label>
-          <input
-            type="text"
-            id="pName"
-            oninput="onProductInput()"
-            placeholder="Product name"
-          />
+          <input type="text" id="pName" oninput="onProductInput()" placeholder="Product name" />
           <label style="margin-top: 8px">Image URL</label>
-          <input
-            type="url"
-            id="pImage"
-            oninput="onProductInput()"
-            placeholder="https://…/image.jpg"
-          />
+          <input type="url" id="pImage" oninput="onProductInput()" placeholder="https://…/image.jpg" />
           <div style="display: flex; gap: 8px; margin-top: 8px">
             <div style="flex: 1">
               <label>Price</label>
-              <input
-                type="text"
-                id="pPrice"
-                oninput="onProductInput()"
-                placeholder="$49.99"
-              />
+              <input type="text" id="pPrice" oninput="onProductInput()" placeholder="$49.99" />
             </div>
             <div style="flex: 1">
               <label>Was (optional)</label>
-              <input
-                type="text"
-                id="pOldPrice"
-                oninput="onProductInput()"
-                placeholder="$123.45"
-              />
+              <input type="text" id="pOldPrice" oninput="onProductInput()" placeholder="$123.45" />
             </div>
           </div>
         </details>
@@ -618,13 +582,12 @@
           <div class="section-label">Fonts</div>
           <div id="fontFields"></div>
           <div class="section-label">
-            Overlay variables <span id="varCount" class="var-name"></span>
+            Overlay variables
+            <span id="varCount" class="var-name"></span>
           </div>
           <div class="var-grid" id="varFields"></div>
           <div style="margin-top: 20px">
-            <button class="btn btn-secondary btn-full" onclick="resetVars()">
-              Reset to overlay default
-            </button>
+            <button class="btn btn-secondary btn-full" onclick="resetVars()">Reset to overlay default</button>
           </div>
         </div>
 
@@ -635,9 +598,7 @@
       </div>
 
       <div class="panel right">
-        <div class="preview-title" style="margin-bottom: 14px">
-          Live preview
-        </div>
+        <div class="preview-title" style="margin-bottom: 14px">Live preview</div>
         <div class="stage" id="stage">
           <iframe id="pvFrame" title="Overlay preview"></iframe>
           <div id="fallbackWrap">
@@ -648,11 +609,7 @@
         <p class="pv-note" id="pvNote"></p>
 
         <div class="outputs-bar">
-          <button
-            class="btn btn-secondary btn-sm layout-toggle"
-            id="layoutToggle"
-            onclick="toggleLayout()"
-          >
+          <button class="btn btn-secondary btn-sm layout-toggle" id="layoutToggle" onclick="toggleLayout()">
             ⬌ Side by side
           </button>
         </div>
@@ -664,27 +621,20 @@
                 <button
                   class="btn btn-secondary btn-sm"
                   onclick="flattenAndCopy()"
-                  title="Resolve every var(--…) to its value and drop the variable block — self-contained CSS for production"
-                >
+                  title="Resolve every var(--…) to its value and drop the variable block — self-contained CSS for production">
                   ⚡ Flatten &amp; copy
                 </button>
-                <button class="btn btn-secondary btn-sm" onclick="copyOutput()">
-                  Copy CSS
-                </button>
-                <button
-                  class="btn btn-secondary btn-sm"
-                  onclick="downloadOutput()"
-                >
-                  Download
-                </button>
+                <button class="btn btn-secondary btn-sm" onclick="copyOutput()">Copy CSS</button>
+                <button class="btn btn-secondary btn-sm" onclick="downloadOutput()">Download</button>
               </div>
             </div>
             <pre class="output" id="output"></pre>
             <div class="editor-host" id="cssHost" style="display: none"></div>
             <p class="hint">
-              The overlay's <strong>full CSS</strong> with your brand values
-              applied (fonts, variables and all layout) — paste straight into a
-              new overlay's Custom CSS.
+              The overlay's
+              <strong>full CSS</strong>
+              with your brand values applied (fonts, variables and all layout) — paste straight into a new overlay's
+              Custom CSS.
             </p>
           </div>
 
@@ -692,24 +642,19 @@
             <div class="output-head">
               <span class="preview-title">Overlay HTML</span>
               <div style="display: flex; gap: 8px">
-                <button class="btn btn-secondary btn-sm" onclick="copyHtml()">
-                  Copy HTML
-                </button>
-                <button
-                  class="btn btn-secondary btn-sm"
-                  onclick="downloadHtml()"
-                >
-                  Download
-                </button>
+                <button class="btn btn-secondary btn-sm" onclick="copyHtml()">Copy HTML</button>
+                <button class="btn btn-secondary btn-sm" onclick="downloadHtml()">Download</button>
               </div>
             </div>
             <pre class="output" id="htmlOutput"></pre>
             <div class="editor-host" id="htmlHost" style="display: none"></div>
             <p class="hint">
-              The overlay's markup with template tokens (<code>{text1}</code>,
-              <code>{content1}</code>…) intact — paste into the overlay's Custom
-              HTML in the admin site. Branding doesn't change the HTML, so this
-              is the same for every brand.
+              The overlay's markup with template tokens (
+              <code>{text1}</code>
+              ,
+              <code>{content1}</code>
+              …) intact — paste into the overlay's Custom HTML in the admin site. Branding doesn't change the HTML, so
+              this is the same for every brand.
             </p>
           </div>
         </div>
@@ -720,16 +665,14 @@
       <div class="modal">
         <h2>Access passphrase</h2>
         <p>
-          Enter the shared passphrase to use Extract and AI autocomplete. It's
-          checked by this site's own <code>/api</code> proxy — the Anthropic key
-          stays on the server and never reaches the browser. Stored only in this
-          browser's localStorage.
+          Enter the shared passphrase to use Extract and AI autocomplete. It's checked by this site's own
+          <code>/api</code>
+          proxy — the Anthropic key stays on the server and never reaches the browser. Stored only in this browser's
+          localStorage.
         </p>
         <input type="password" id="keyInput" placeholder="passphrase" />
         <div class="modal-actions">
-          <button class="btn btn-secondary" onclick="closeKeyModal()">
-            Cancel
-          </button>
+          <button class="btn btn-secondary" onclick="closeKeyModal()">Cancel</button>
           <button class="btn btn-primary" onclick="saveKey()">Save</button>
         </div>
       </div>
@@ -807,8 +750,7 @@
       const COPY_BY_REF = {
         DB0013: {
           text1: "Basket recovery",
-          text2:
-            "You are one step away from losing the great product in your cart",
+          text2: "You are one step away from losing the great product in your cart",
           text3: "Don't forget about it, revisit your cart contents now",
         },
         MS0011: {
@@ -818,6 +760,13 @@
           text9: "Enter your email here",
           text11: "Continue shopping",
           text12: "Reveal Voucher Code",
+        },
+        RD0021: {
+          text1: "Hiking & Walking",
+          text2: "Built for long days on the trail — comfort, grip, and durability where it matters.",
+          text10: "Shop mens",
+          text11: "Shop Womens",
+          text12: "shop Kids",
         },
       };
 
@@ -847,9 +796,7 @@
           if (!hit) continue;
           state.bodyFont = hit.body;
           if (!(state.fontImports || []).some((i) => i.indexOf(hit.url) !== -1))
-            state.fontImports = ["@import url('" + hit.url + "');"].concat(
-              state.fontImports || [],
-            );
+            state.fontImports = ["@import url('" + hit.url + "');"].concat(state.fontImports || []);
           if (hit.heading && state.vars.some((v) => v.name === "--smc-font2"))
             state.values["--smc-font2"] = hit.heading;
           return hit;
@@ -982,6 +929,10 @@
         RD0018: { content1: "https://cdn.smct.io/114805-685.svg" },
         RD0019: { content6: "https://cdn.smct.io/116186-132.webp" },
         RD0020: { content1: "https://cdn.smct.io/118567-681.webp" },
+        RD0021: {
+          content1: "https://cdn.smct.io/120819-496.jpg",
+          content2: "https://cdn.smct.io/120820-562.jpg",
+        },
 
         // ---- Click to reveal ----
         RV0001: {
@@ -1048,14 +999,10 @@
 
       // read current text from the Monaco editor if it's mounted, else the fallback <pre>
       function cssText() {
-        return monacoReady && cssEditor
-          ? cssEditor.getValue()
-          : document.getElementById("output").textContent;
+        return monacoReady && cssEditor ? cssEditor.getValue() : document.getElementById("output").textContent;
       }
       function htmlText() {
-        return monacoReady && htmlEditor
-          ? htmlEditor.getValue()
-          : document.getElementById("htmlOutput").textContent;
+        return monacoReady && htmlEditor ? htmlEditor.getValue() : document.getElementById("htmlOutput").textContent;
       }
 
       /* ───────── init ───────── */
@@ -1075,19 +1022,12 @@
 
         const params = new URLSearchParams(location.search);
         state.ref = (params.get("ref") || "").trim();
-        state.tmpl =
-          (typeof TEMPLATES !== "undefined" ? TEMPLATES : []).find(
-            (t) => t.ref === state.ref,
-          ) || null;
-        state.asset =
-          typeof OVERLAY_ASSETS !== "undefined"
-            ? OVERLAY_ASSETS[state.ref]
-            : null;
+        state.tmpl = (typeof TEMPLATES !== "undefined" ? TEMPLATES : []).find((t) => t.ref === state.ref) || null;
+        state.asset = typeof OVERLAY_ASSETS !== "undefined" ? OVERLAY_ASSETS[state.ref] : null;
 
         if (state.tmpl) {
           document.getElementById("topRef").textContent = state.tmpl.ref;
-          document.getElementById("topDesc").textContent =
-            state.tmpl.desc || "";
+          document.getElementById("topDesc").textContent = state.tmpl.desc || "";
           const cb = document.getElementById("catBadge");
           cb.textContent = CAT_LABELS[state.tmpl.cat] || state.tmpl.cat;
           cb.style.display = "";
@@ -1098,10 +1038,8 @@
           }
           document.title = "Brand Studio — " + state.tmpl.ref;
         } else {
-          document.getElementById("topRef").textContent =
-            state.ref || "Brand Studio";
-          document.getElementById("topDesc").textContent =
-            "Open this page from a template card in the library.";
+          document.getElementById("topRef").textContent = state.ref || "Brand Studio";
+          document.getElementById("topDesc").textContent = "Open this page from a template card in the library.";
         }
 
         state.hasSource = !!(state.asset && state.asset.css);
@@ -1135,12 +1073,10 @@
         // Match a whole @import statement. Must consume the url()/quoted string wholesale, because
         // Google Fonts css2 URLs contain semicolons (family=DM+Sans:wght@300;400;500;…) — a naive
         // /@import[^;]+;/ stops at the first internal ; and truncates the import.
-        out.fontImports = (
-          css.match(/@import\s+(?:url\([^)]*\)|"[^"]*"|'[^']*')[^;]*;/gi) || []
-        ).map((s) => s.replace(/\s+/g, " ").trim());
-        const bg = css.match(
-          /smc-bg\s*\*\s*\{[^}]*font-family:\s*([^;}]+)[;}]/i,
+        out.fontImports = (css.match(/@import\s+(?:url\([^)]*\)|"[^"]*"|'[^']*')[^;]*;/gi) || []).map((s) =>
+          s.replace(/\s+/g, " ").trim(),
         );
+        const bg = css.match(/smc-bg\s*\*\s*\{[^}]*font-family:\s*([^;}]+)[;}]/i);
         if (bg) out.bodyFont = bg[1].trim();
         // collect custom-property DECLARATIONS anywhere (overlays declare them on
         // smc-overlay-inner, smc-bg or :root). "--x:" only matches declarations, not var(--x) usages.
@@ -1164,11 +1100,7 @@
         return out;
       }
       function isColor(v) {
-        return (
-          /^#[0-9a-f]{3,8}$/i.test(v) ||
-          /^rgba?\(/i.test(v) ||
-          /^hsla?\(/i.test(v)
-        );
+        return /^#[0-9a-f]{3,8}$/i.test(v) || /^rgba?\(/i.test(v) || /^hsla?\(/i.test(v);
       }
 
       /* ───────── editor ───────── */
@@ -1179,9 +1111,7 @@
         // DB + PR categories). Hide the panel for everything else so it isn't dead, confusing UI.
         const pbox = document.getElementById("productBox");
         if (pbox) {
-          const hasCart = /<smc-cart|smc-product-name|smc-product-price/i.test(
-            (state.asset && state.asset.html) || "",
-          );
+          const hasCart = /<smc-cart|smc-product-name|smc-product-price/i.test((state.asset && state.asset.html) || "");
           pbox.style.display = hasCart ? "" : "none";
         }
         if (!state.hasSource) {
@@ -1214,8 +1144,7 @@
           "</textarea></div>";
 
         // variables
-        document.getElementById("varCount").textContent =
-          "(" + state.vars.length + ")";
+        document.getElementById("varCount").textContent = "(" + state.vars.length + ")";
         const vw = document.getElementById("varFields");
         vw.innerHTML = "";
         if (!state.vars.length) {
@@ -1223,8 +1152,7 @@
             '<p class="no-source">This overlay declares no <code>--smc-*</code> CSS variables, so only the fonts can be rebranded here. To make it themeable, expose its colours as variables in the overlay source.</p>';
         }
         state.vars.forEach((v, i) => {
-          const val =
-            state.values[v.name] != null ? state.values[v.name] : v.value;
+          const val = state.values[v.name] != null ? state.values[v.name] : v.value;
           const wrap = document.createElement("div");
           wrap.className = "field" + (v.type === "color" ? "" : " full");
           if (v.type === "color") {
@@ -1337,8 +1265,7 @@
       function renderHtmlOutput() {
         const el = document.getElementById("htmlOutput");
         if (!el) return;
-        if (state.asset && state.asset.html)
-          el.textContent = bakeProductIntoHtml(state.asset.html);
+        if (state.asset && state.asset.html) el.textContent = bakeProductIntoHtml(state.asset.html);
         else
           el.textContent = state.hasSource
             ? "<!-- No HTML stored for this overlay. -->"
@@ -1348,31 +1275,14 @@
       function overrideCss() {
         // set on both smc-bg and smc-overlay-inner with !important so our values win
         // wherever the overlay declared them, and inherit down to every consumer.
-        let s =
-          "smc-bg * { font-family: " +
-          state.bodyFont +
-          " !important; }\nsmc-bg, smc-overlay-inner {\n";
-        state.vars.forEach(
-          (v) =>
-            (s +=
-              "  " +
-              v.name +
-              ": " +
-              (state.values[v.name] || "") +
-              " !important;\n"),
-        );
+        let s = "smc-bg * { font-family: " + state.bodyFont + " !important; }\nsmc-bg, smc-overlay-inner {\n";
+        state.vars.forEach((v) => (s += "  " + v.name + ": " + (state.values[v.name] || "") + " !important;\n"));
         s += "}";
         return s;
       }
       function activeCopy() {
-        const cat =
-          (state.tmpl && state.tmpl.cat) ||
-          (state.ref || "").slice(0, 2).toLowerCase();
-        return Object.assign(
-          {},
-          COPY_BY_CAT[cat] || COPY_BY_CAT.db,
-          COPY_BY_REF[state.ref] || {},
-        );
+        const cat = (state.tmpl && state.tmpl.cat) || (state.ref || "").slice(0, 2).toLowerCase();
+        return Object.assign({}, COPY_BY_CAT[cat] || COPY_BY_CAT.db, COPY_BY_REF[state.ref] || {});
       }
       // Preview-only token fill: text copy for {text*}/{smarterbar}/etc., and a real image URL for
       // any {contentN} slot defined in CONTENT_BY_REF for this template. Content slots with no
@@ -1465,18 +1375,13 @@
         // manager), computed at build time into asset.opt. "" means show no option (e.g. product
         // recommenders / multi-CTA templates whose CTA isn't an smc-option). Undefined (old data)
         // falls back to the click-to-redirect CTA.
-        const opt =
-          state.asset && typeof state.asset.opt === "string"
-            ? state.asset.opt
-            : "smc-clickRedirect";
+        const opt = state.asset && typeof state.asset.opt === "string" ? state.asset.opt : "smc-clickRedirect";
         // Hide every option EXCEPT the active one, with !important and via :not() so we win over
         // templates that force `smc-option{display:… !important}` (e.g. MS0012) — and so the shown
         // option keeps its own template display (flex/block) instead of us guessing it.
         const preview =
           "smc-bg,smc-overlay-outer{display:block!important}" +
-          (opt
-            ? "smc-option:not(." + opt + "){display:none!important}"
-            : "smc-option{display:none!important}") +
+          (opt ? "smc-option:not(." + opt + "){display:none!important}" : "smc-option{display:none!important}") +
           "smc-bg{position:static!important;display:flex!important;align-items:center;justify-content:center;min-height:100vh;margin:0;background:rgba(20,20,20,.28)}" +
           "smc-overlay-outer{position:static!important;top:auto;left:auto;transform:none!important}body{margin:0}" +
           "smc-bar,smc-final-message,smc-shake-msg,smc-close-safe,smc-success-message,smc-loader-bg,smc-cp-msg{display:none!important}" +
@@ -1530,8 +1435,7 @@
       function renderOutput() {
         const out = document.getElementById("output");
         if (!state.hasSource) {
-          out.textContent =
-            "/* No overlay source loaded for " + state.ref + ". */";
+          out.textContent = "/* No overlay source loaded for " + state.ref + ". */";
           if (cssEditor) cssEditor.setValue(out.textContent);
           return;
         }
@@ -1539,23 +1443,15 @@
         // drop the overlay's existing @import lines (we re-add the current ones at the top).
         // Consume the whole url()/string — css2 font URLs contain semicolons, so a naive
         // /@import[^;]+;/ truncates them and leaves orphaned garbage that breaks the CSS.
-        css = css.replace(
-          /@import\s+(?:url\([^)]*\)|"[^"]*"|'[^']*')[^;]*;[ \t]*\r?\n?/gi,
-          "",
-        );
+        css = css.replace(/@import\s+(?:url\([^)]*\)|"[^"]*"|'[^']*')[^;]*;[ \t]*\r?\n?/gi, "");
         // swap the smc-bg body font-family
-        css = css.replace(
-          /(smc-bg\s*\*\s*\{[^}]*font-family:\s*)([^;}]+)/i,
-          (m, p1) => p1 + state.bodyFont,
-        );
+        css = css.replace(/(smc-bg\s*\*\s*\{[^}]*font-family:\s*)([^;}]+)/i, (m, p1) => p1 + state.bodyFont);
         // swap each declared variable's value (declarations only — var(--x) usages are untouched).
         // Match the value up to the next ; OR } and leave that terminator in place: some templates
         // omit the trailing ; on the last property in a block, and a greedy [^;]+; would then
         // swallow everything up to the next ; in a later rule (dropping real CSS in between).
         state.vars.forEach((v) => {
-          const re = new RegExp(
-            "(" + v.name.replace(/[-]/g, "\\-") + "\\s*:\\s*)[^;}]+",
-          );
+          const re = new RegExp("(" + v.name.replace(/[-]/g, "\\-") + "\\s*:\\s*)[^;}]+");
           css = css.replace(re, "$1" + (state.values[v.name] || ""));
         });
         css = css.replace(/^\s+/, "");
@@ -1576,12 +1472,7 @@
         }
         const btn = document.getElementById("extractBtn");
         btn.disabled = true;
-        setStatus(
-          "info",
-          '<span class="spinner"></span>Reading ' +
-            shortUrl(url) +
-            "'s stylesheets…",
-        );
+        setStatus("info", '<span class="spinner"></span>Reading ' + shortUrl(url) + "'s stylesheets…");
         try {
           const scrapeRes = await scrapeSite(url); // server-side: real HTML + linked CSS tokens
           const scraped = scrapeRes.data;
@@ -1625,32 +1516,18 @@
               Object.values(usable.cssVars || {}).some(hasColour) ||
               (usable.cssSample && usable.cssSample.length > 200))
           );
-          setStatus(
-            "info",
-            '<span class="spinner"></span>Mapping ' +
-              shortUrl(url) +
-              " to the overlay…",
-          );
-          const raw = await callClaude(
-            buildPrompt(url, usable),
-            !canMapLocally,
-          );
+          setStatus("info", '<span class="spinner"></span>Mapping ' + shortUrl(url) + " to the overlay…");
+          const raw = await callClaude(buildPrompt(url, usable), !canMapLocally);
           const parsed = parseJson(raw);
-          if (!parsed)
-            throw new Error("Could not read a valid response. Try again.");
+          if (!parsed) throw new Error("Could not read a valid response. Try again.");
           if (parsed.vars && typeof parsed.vars === "object") {
             state.vars.forEach((v) => {
-              if (
-                typeof parsed.vars[v.name] === "string" &&
-                parsed.vars[v.name].trim()
-              )
+              if (typeof parsed.vars[v.name] === "string" && parsed.vars[v.name].trim())
                 state.values[v.name] = parsed.vars[v.name].trim();
             });
           }
-          if (typeof parsed.bodyFont === "string" && parsed.bodyFont.trim())
-            state.bodyFont = parsed.bodyFont.trim();
-          if (Array.isArray(parsed.fontImports))
-            state.fontImports = parsed.fontImports;
+          if (typeof parsed.bodyFont === "string" && parsed.bodyFont.trim()) state.bodyFont = parsed.bodyFont.trim();
+          if (Array.isArray(parsed.fontImports)) state.fontImports = parsed.fontImports;
           // If the brand's font is one we self-host on the intent.ly CDN, load it and use the
           // hosted family names (covers fonts that aren't on Google Fonts, e.g. Centrale).
           applyHostedFont(usable);
@@ -1659,14 +1536,9 @@
           saveState();
           const ev =
             typeof parsed.evidence === "string" && parsed.evidence.trim()
-              ? "<span class='evidence'>" +
-                escHtml(parsed.evidence.trim()) +
-                "</span>"
+              ? "<span class='evidence'>" + escHtml(parsed.evidence.trim()) + "</span>"
               : "";
-          setStatus(
-            "ok",
-            "✓ Brand styles extracted. Fine-tune anything below." + ev,
-          );
+          setStatus("ok", "✓ Brand styles extracted. Fine-tune anything below." + ev);
         } catch (e) {
           setStatus("err", "✗ " + (e.message || "Extraction failed."));
         } finally {
@@ -1679,12 +1551,9 @@
       // Extract can react (fall back to web tools, or report a timeout / bot-block clearly).
       async function scrapeSite(url) {
         try {
-          const res = await fetch(
-            "/api/scrape?url=" + encodeURIComponent(url),
-            {
-              headers: { "x-brand-passphrase": state.pass },
-            },
-          );
+          const res = await fetch("/api/scrape?url=" + encodeURIComponent(url), {
+            headers: { "x-brand-passphrase": state.pass },
+          });
           if (!res.ok) return { status: res.status, data: null };
           const data = await res.json();
           const has =
@@ -1709,8 +1578,7 @@
         if (!scraped) return {};
         const cv = scraped.cssVars || {};
         const isCol = (v) =>
-          /^\s*#([0-9a-f]{3,8})\s*$/i.test(String(v)) ||
-          /^\s*(rgb|rgba|hsl|hsla)\(/i.test(String(v));
+          /^\s*#([0-9a-f]{3,8})\s*$/i.test(String(v)) || /^\s*(rgb|rgba|hsl|hsla)\(/i.test(String(v));
         const cols = Object.entries(cv).filter(([, v]) => isCol(v));
         const find = (re) => {
           const h = cols.find(([k]) => re.test(k));
@@ -1731,31 +1599,13 @@
           ) ||
           scraped.themeColor;
         put("--smc-btnBkg", btn);
-        put(
-          "--smc-accent",
-          scraped.btnColor ||
-            find(/\b(accent|brand)\b|primary(?!.*text)/i) ||
-            btn,
-        );
-        put(
-          "--smc-btnBkgHover",
-          find(/btn.*(hover|dim|dark)|primary.*(hover|dim|dark)/i),
-        );
-        put(
-          "--smc-btnText",
-          find(/btn.*(text|label|fg|foreground)|on[-_]?primary|primary.*text/i),
-        );
-        put(
-          "--smc-textColour",
-          find(
-            /text.*(body|colou?r)\b|body.*text|base-text\b|(^|[-_])text$|colou?rtextbody/i,
-          ),
-        );
+        put("--smc-accent", scraped.btnColor || find(/\b(accent|brand)\b|primary(?!.*text)/i) || btn);
+        put("--smc-btnBkgHover", find(/btn.*(hover|dim|dark)|primary.*(hover|dim|dark)/i));
+        put("--smc-btnText", find(/btn.*(text|label|fg|foreground)|on[-_]?primary|primary.*text/i));
+        put("--smc-textColour", find(/text.*(body|colou?r)\b|body.*text|base-text\b|(^|[-_])text$|colou?rtextbody/i));
         put(
           "--smc-mainBkg",
-          find(
-            /(^|[-_])(body|background|bg)[-_]?1?$|base-background-1|colou?rbody|page.*(bg|background)/i,
-          ),
+          find(/(^|[-_])(body|background|bg)[-_]?1?$|base-background-1|colou?rbody|page.*(bg|background)/i),
         );
         // Button radius / font-size / padding, extracted server-side from the primary CTA rule.
         put("--smc-btnBorderRadius", scraped.btnRadius);
@@ -1766,15 +1616,7 @@
 
       function buildPrompt(url, scraped) {
         const list = state.vars
-          .map(
-            (v) =>
-              '  "' +
-              v.name +
-              '": "' +
-              v.value +
-              '"' +
-              (v.type === "color" ? "   // colour" : ""),
-          )
+          .map((v) => '  "' + v.name + '": "' + v.value + '"' + (v.type === "color" ? "   // colour" : ""))
           .join("\n");
         let scrapedBlock = "";
         if (scraped) {
@@ -1808,14 +1650,8 @@
           // already answer it, and 90k of CSS just slows the request (and can hit the 60s cap).
           const hasColourToken =
             scraped.themeColor ||
-            Object.values(scraped.cssVars || {}).some((v) =>
-              /^\s*#|^\s*(rgb|hsl)/i.test(String(v)),
-            );
-          if (
-            !hasColourToken &&
-            scraped.cssSample &&
-            scraped.cssSample.length > 200
-          ) {
+            Object.values(scraped.cssVars || {}).some((v) => /^\s*#|^\s*(rgb|hsl)/i.test(String(v)));
+          if (!hasColourToken && scraped.cssSample && scraped.cssSample.length > 200) {
             scrapedBlock +=
               "RAW CSS from the site's stylesheets (already fetched for you). The token fields above are sparse, so read these ACTUAL rules to find the brand's real values: the primary button/CTA colour, body text colour, link/accent colour, font-family, and the button corner radius. The primary CTA colour is a prominent non-white background on a .btn/.button/[class*=cta]/add-to-cart rule OR a semantic utility class such as .bg-action-primary / .c-action-primary / [class*=action-primary] / [class*=primary] / .bg-emphasis (VTEX/Tachyons-style design systems expose the brand colour this way). For the button corner radius, read the border-radius on the primary button/CTA rule. Extract from what's here — do NOT invent values:\n```css\n" +
               scraped.cssSample.slice(0, 45000) +
@@ -1876,10 +1712,7 @@
           output_config: { effort: useWebTools ? "medium" : "low" },
           messages: [{ role: "user", content: prompt }],
         };
-        if (useWebTools)
-          body.tools = [
-            { type: "web_fetch_20260209", name: "web_fetch", max_uses: 4 },
-          ];
+        if (useWebTools) body.tools = [{ type: "web_fetch_20260209", name: "web_fetch", max_uses: 4 }];
         const res = await fetch("/api/anthropic", {
           method: "POST",
           headers: {
@@ -1891,9 +1724,7 @@
         });
         if (!res.ok) {
           const err = await res.json().catch(() => ({}));
-          throw new Error(
-            (err && err.error && err.error.message) || "HTTP " + res.status,
-          );
+          throw new Error((err && err.error && err.error.message) || "HTTP " + res.status);
         }
         const data = await res.json();
         return (data.content || [])
@@ -1937,13 +1768,11 @@
         });
         // collect --x: value declarations from the (comment-free) CSS; last definition wins, mirroring the cascade
         const defs = {};
-        for (const m of s.matchAll(/(--[\w-]+)\s*:\s*([^;}]+?)\s*(?:;|(?=}))/g))
-          defs[m[1].trim()] = m[2].trim();
+        for (const m of s.matchAll(/(--[\w-]+)\s*:\s*([^;}]+?)\s*(?:;|(?=}))/g)) defs[m[1].trim()] = m[2].trim();
         // resolve var() inside a value, recursively, guarding against cycles
         const resolve = (val, seen) =>
           val.replace(VARREF, (whole, name, fb) => {
-            if (defs[name] != null && !seen.has(name))
-              return resolve(defs[name], new Set(seen).add(name)).trim();
+            if (defs[name] != null && !seen.has(name)) return resolve(defs[name], new Set(seen).add(name)).trim();
             if (fb != null) return fb.trim();
             return whole; // undefined and no fallback → leave as-is
           });
@@ -1998,29 +1827,18 @@
         let out = html;
         const once = (re, repl) => {
           let done = false;
-          out = out.replace(re, (m, ...g) =>
-            done ? m : ((done = true), repl(m, ...g)),
-          );
+          out = out.replace(re, (m, ...g) => (done ? m : ((done = true), repl(m, ...g))));
         };
         if (p.name)
-          once(
-            /(<smc-product-name\b[^>]*>)[\s\S]*?(<\/smc-product-name>)/i,
-            (m, a, b) => a + escHtml(p.name) + b,
-          );
+          once(/(<smc-product-name\b[^>]*>)[\s\S]*?(<\/smc-product-name>)/i, (m, a, b) => a + escHtml(p.name) + b);
         if (p.price)
-          once(
-            /(<smc-product-price\b[^>]*>)[\s\S]*?(<\/smc-product-price>)/i,
-            (m, a, b) => a + escHtml(p.price) + b,
-          );
+          once(/(<smc-product-price\b[^>]*>)[\s\S]*?(<\/smc-product-price>)/i, (m, a, b) => a + escHtml(p.price) + b);
         once(
           /(<smc-old-price\b[^>]*>)[\s\S]*?(<\/smc-old-price>)/i,
           (m, a, b) => a + (p.oldPrice ? escHtml(p.oldPrice) : "") + b,
         );
         if (p.image)
-          once(
-            /(<smc-product-img\b[^>]*>\s*<img\b[^>]*\bsrc=)(["'])[^"']*\2/i,
-            (m, a, q) => a + q + p.image + q,
-          );
+          once(/(<smc-product-img\b[^>]*>\s*<img\b[^>]*\bsrc=)(["'])[^"']*\2/i, (m, a, q) => a + q + p.image + q);
         return out;
       }
       function copyHtml() {
@@ -2110,10 +1928,7 @@
       function toggleLayout() {
         layoutSide = !layoutSide;
         try {
-          localStorage.setItem(
-            "smc_outputs_layout",
-            layoutSide ? "side" : "stack",
-          );
+          localStorage.setItem("smc_outputs_layout", layoutSide ? "side" : "stack");
         } catch (e) {}
         applyLayout();
       }
@@ -2389,37 +2204,20 @@
       // Copilot-style ghost-text completions, powered by Claude
       function installAiAutocomplete(monaco) {
         monaco.languages.registerInlineCompletionsProvider(["css", "html"], {
-          provideInlineCompletions: async function (
-            model,
-            position,
-            context,
-            token,
-          ) {
+          provideInlineCompletions: async function (model, position, context, token) {
             if (!aiEnabled || !state.pass) return { items: [] };
             await new Promise((r) => setTimeout(r, 350)); // debounce; cancelled if the user keeps typing
             if (token.isCancellationRequested) return { items: [] };
-            const before = model.getValueInRange(
-              new monaco.Range(1, 1, position.lineNumber, position.column),
-            );
+            const before = model.getValueInRange(new monaco.Range(1, 1, position.lineNumber, position.column));
             const last = model.getLineCount();
             const after = model.getValueInRange(
-              new monaco.Range(
-                position.lineNumber,
-                position.column,
-                last,
-                model.getLineMaxColumn(last),
-              ),
+              new monaco.Range(position.lineNumber, position.column, last, model.getLineMaxColumn(last)),
             );
             const ac = new AbortController();
             token.onCancellationRequested(() => ac.abort());
             let text = "";
             try {
-              text = await claudeComplete(
-                model.getLanguageId(),
-                before,
-                after,
-                ac.signal,
-              );
+              text = await claudeComplete(model.getLanguageId(), before, after, ac.signal);
             } catch (e) {
               return { items: [] };
             }
@@ -2428,12 +2226,7 @@
               items: [
                 {
                   insertText: text,
-                  range: new monaco.Range(
-                    position.lineNumber,
-                    position.column,
-                    position.lineNumber,
-                    position.column,
-                  ),
+                  range: new monaco.Range(position.lineNumber, position.column, position.lineNumber, position.column),
                 },
               ],
             };
