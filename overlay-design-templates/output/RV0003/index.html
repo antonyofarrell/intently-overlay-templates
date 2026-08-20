@@ -1,0 +1,59 @@
+<!-- Overlay V4 Template -->
+<smc-bg class="smc-animated smc-fadeIn">
+  <smc-overlay-outer class="smc-animated smc-bounceInDown smc-animDelay2">
+    <!-- data-animout="smc-bounceOutLeft" -->
+    <smc-overlay-inner class="smc_clearfix" data-bgtheme="dark">
+      <!-- If the background is dark use this option -->
+
+      <smc-wrap>
+        <!-- Images - You can add as many as you like -->
+        <smc-img-outer>
+          <smc-img class="smc-img1 smc-animated smc-bounceInDown smc-animDelay6">
+            <img src="{content1}" alt="" />
+          </smc-img>
+
+          <smc-img class="smc-img3 smc-animated smc-bounceInRight smc-animDelay10">
+            <img src="{content3}" alt="" />
+          </smc-img>
+          <smc-img class="smc-img4 smc-animated smc-bounceInRight smc-animDelay12">
+            <img src="{content4}" alt="" />
+          </smc-img>
+        </smc-img-outer>
+
+        <!-- Text Boxes - You can add as many as you like -->
+        <smc-text-outer>
+          <smc-text class="smc-text1 smc-animated smc-bounceInDown smc-animDelay4">{text1}</smc-text>
+          <smc-text class="smc-text2 smc-animated smc-bounceInRight smc-animDelay6">{text2}</smc-text>
+          <smc-text class="smc-text3 smc-animated smc-bounceInLeft smc-animDelay8">{text3}</smc-text>
+          <smc-text class="smc-text4 smc-animated smc-bounceInRight smc-animDelay10">{text4}</smc-text>
+        </smc-text-outer>
+      </smc-wrap>
+      <smc-wrap class="smc-stub">
+        <!-- Click To Reveal Option -->
+        <smc-option class="smc-clickToReveal">
+          <smc-reveal class="smc-animated smc-bounceInUp smc-animDelay12">
+            <smc-cover data-edits="text8" data-changes=".smc-clickToReveal smc-cover|font-size,background-color,color">
+              {text8}
+            </smc-cover>
+            <smc-code data-engage-class="smc-eng">{vc}</smc-code>
+            <smc-cp data-clipboard-text="{vc-cp}"></smc-cp>
+          </smc-reveal>
+        </smc-option>
+
+        <!-- Closers (Both Need) -->
+        <smc-long-close class="smc-animated smc-fadeInUp smc-animDelay14" data-engage-class="smc-engaged">
+          <a data-close-type="long_close" class="smc-link smc-closer" href="#rdl" data-engage-text="{text11}">
+            {text7}
+          </a>
+          <!-- Note - Redirect Link gets automatically rewritten, once clicked on the data-engage text and classes are applied -->
+        </smc-long-close>
+      </smc-wrap>
+      <smc-close class="smc-animated smc-fadeInRight smc-animDelay4 smc-closer">
+        <a data-close-type="x_close" class="smc-link" href="#rdl">✕</a>
+        <!-- Note - Redirect Link gets automatically rewritten -->
+      </smc-close>
+      <!-- Copy to Clipboard Success Message -->
+      <smc-cp-msg>"{vc}" has been copied to the clipboard</smc-cp-msg>
+    </smc-overlay-inner>
+  </smc-overlay-outer>
+</smc-bg>
