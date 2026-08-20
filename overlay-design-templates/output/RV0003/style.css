@@ -10,7 +10,6 @@ smc-bg {
     #ffe9a8 26px 52px,
     #d9f0ff 52px 78px
   );
-  opacity: 0.5;
 }
 
 smc-overlay-inner {
@@ -25,7 +24,7 @@ smc-overlay-inner {
   --smc-btnPadding: 14px;
   --smc-notch: 14px;
   --smc-stub-w: 250px;
-  --smc-stubBkg: #e0b6cb;
+  --smc-stubBkg: #f3a1ca;
   --smc-seam: calc(100% - var(--smc-stub-w));
 }
 
@@ -211,11 +210,11 @@ smc-close {
   right: 10px;
   width: 25px;
   height: 25px;
-  background: var(--smc-bg);
+  background: var(--smc-mainBkg);
 }
 
 smc-close:hover {
-  background: var(--smc-bg);
+  background: var(--smc-mainBkg);
 }
 
 smc-close a.smc-link {
