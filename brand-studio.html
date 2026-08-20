@@ -766,7 +766,7 @@
           text2: "Built for long days on the trail — comfort, grip, and durability where it matters.",
           text10: "Shop mens",
           text11: "Shop Womens",
-          text12: "shop Kids",
+          text12: "Shop Kids",
         },
       };
 
@@ -1830,11 +1830,11 @@
           out = out.replace(re, (m, ...g) => (done ? m : ((done = true), repl(m, ...g))));
         };
         if (p.name)
-          once(/(<smc-product-name\b[^>]*>)[\s\S]*?(<\/smc-product-name>)/i, (m, a, b) => a + escHtml(p.name) + b);
+          once(/(<smc-product-name\b[^>]*>)[\s\S]*?(<\/smc-product-name\s*>)/i, (m, a, b) => a + escHtml(p.name) + b);
         if (p.price)
-          once(/(<smc-product-price\b[^>]*>)[\s\S]*?(<\/smc-product-price>)/i, (m, a, b) => a + escHtml(p.price) + b);
+          once(/(<smc-product-price\b[^>]*>)[\s\S]*?(<\/smc-product-price\s*>)/i, (m, a, b) => a + escHtml(p.price) + b);
         once(
-          /(<smc-old-price\b[^>]*>)[\s\S]*?(<\/smc-old-price>)/i,
+          /(<smc-old-price\b[^>]*>)[\s\S]*?(<\/smc-old-price\s*>)/i,
           (m, a, b) => a + (p.oldPrice ? escHtml(p.oldPrice) : "") + b,
         );
         if (p.image)
