@@ -639,6 +639,16 @@ const TEMPLATES = [
     upvotes: 0,
     downvotes: 0,
   },
+  {
+    ref: "RD0021",
+    cat: "rd",
+    desc: "Multiple CTAs",
+    url: "https://admin.intent.ly/my-account/overlay-manager/#199030",
+    img: "images/RD0021.png",
+    notes: null,
+    upvotes: 0,
+    downvotes: 0,
+  },
 
   /* ── Click to Reveal ─────────────────────────── */
   {
@@ -664,11 +674,10 @@ const TEMPLATES = [
   {
     ref: "RV0003",
     cat: "rv",
-    desc: "Click to reveal template (details to be added)",
-    url: null,
+    desc: "Click to reveal template",
+    url: "https://admin.intent.ly/my-account/overlay-manager/#198989",
     img: "images/RV0003.png",
-    notes:
-      "No description or preview link in the source sheet yet — please fill these in.",
+    notes: null,
     upvotes: 0,
     downvotes: 0,
   },
