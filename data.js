@@ -92,6 +92,7 @@ const SCORES = {
   MS0004: { eng: 50.0, conv: 0.0 },
   MS0011: { eng: null, conv: null },
   MS0012: { eng: null, conv: null },
+  MS0013: { eng: null, conv: null },
 };
 
 /* ── Templates ──────────────────────────────────────
@@ -850,6 +851,16 @@ const TEMPLATES = [
     desc: "Trustpilot",
     url: "https://admin.intent.ly/my-account/overlay-manager/#198738",
     img: "images/thumbs/MS0012.jpg",
+    notes: null,
+    upvotes: 0,
+    downvotes: 0,
+  },
+  {
+    ref: "MS0013",
+    cat: "ms",
+    desc: "Gamified multi-step quiz with branching answers, ending in a reveal, email capture or redirect",
+    url: "https://admin.intent.ly/my-account/overlay-manager/#199088",
+    img: "images/thumbs/MS0013.jpg",
     notes: null,
     upvotes: 0,
     downvotes: 0,

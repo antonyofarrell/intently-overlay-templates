@@ -1,0 +1,332 @@
+@import url("https://fonts.smct.co/smc-HelveticaNeueW01/helveticaNeueW01.css");
+
+smc-bg * {
+  font-family: "HelveticaNeueW01-35Thin", sans-serif;
+}
+
+smc-bg {
+  background-color: rgb(210 210 210 / 60%);
+  --smc-gradient1: #352960;
+  --smc-gradient2: #515da9;
+  --smc-gradient3: #7f93e5;
+  --smc-fontSm: 12px;
+  --smc-fontRg: 16px;
+  --smc-fontLg: 44px;
+  --smc-btnBkg: #000000;
+  --smc-btnBkgHover: #00111c;
+  --smc-btnText: #fff;
+  --smc-btnFontSize: 12px;
+  --smc-btnBorder: 1px solid #000;
+  --smc-btnBorderRadius: 3px;
+  --smc-btnPadding: 14px;
+  --smc-frameBorderRadius: 14px;
+  --smc-text: #fff;
+  --smc-accent: #e6001e;
+  --smc-font2: "HelveticaNeueW01-65Medium", sans-serif;
+}
+
+smc-overlay-inner {
+  background-color: #fff0;
+  background-size: cover;
+  width: 450px;
+  min-height: 450px;
+  padding: 0;
+}
+
+smc-quiz {
+  background-image: linear-gradient(
+    150deg,
+    var(--smc-gradient1) 0%,
+    var(--smc-gradient2) 50%,
+    var(--smc-gradient3) 100%
+  );
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  padding-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  border-radius: 15px;
+  padding: 30px 30px 60px 30px;
+  gap: 15px;
+}
+
+smc-quiz-header,
+smc-quiz-para {
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin: 0;
+}
+
+smc-quiz-header {
+  font-size: 30px;
+  color: var(--smc-text);
+}
+
+smc-quiz-para {
+  font-size: 18px;
+  color: var(--smc-text);
+}
+
+smc-quiz-link {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  text-align: center;
+  padding: var(--smc-btnPadding);
+  font-size: var(--smc-btnFontSize);
+  margin: 0;
+  cursor: pointer;
+  font-weight: 400;
+  border-radius: var(--smc-btnBorderRadius);
+  background-color: var(--smc-btnBkg);
+  box-shadow: rgb(238 238 238 / 60%) 0px 0px 0px 1px inset;
+  color: var(--smc-btnText);
+  transition: all 0.5s ease-in-out;
+}
+
+smc-quiz-link:before {
+  content: "";
+  transition: all 0.5s ease-in-out;
+}
+
+smc-quiz-link:hover:before {
+  content: "✓ \00a0\00a0";
+}
+
+smc-quiz-link:hover {
+  background-color: var(--smc-btnBkgHover);
+  color: var(--smc-btnText);
+}
+
+.smc-1,
+.smc-2,
+.smc-3-show,
+.smc-4,
+.smc-5,
+.smc-6,
+.smc-7,
+.smc-8,
+.smc-9 {
+  display: none;
+}
+
+smc-quiz.smc-1 {
+  padding: 30px;
+}
+smc-quiz.smc-1 smc-quiz-header {
+  font-size: 54px;
+}
+
+smc-quiz.smc-1 smc-quiz-para {
+  font-size: 20px;
+}
+
+smc-quiz.smc-1 smc-quiz-link.smc-close {
+  background: #fff;
+  color: #088a20;
+}
+smc-quiz.smc-2 {
+  background-color: #4e4e4e;
+}
+smc-quiz.smc-3 {
+  background-color: #282828;
+}
+
+smc-quiz-back {
+  display: block;
+  position: absolute;
+  bottom: 15px;
+  left: calc(50% - 80px);
+  width: 160px;
+  padding: 10px 0;
+  font-size: 12px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  background-color: #ffffff92;
+  color: #333;
+  border-radius: 25px;
+  z-index: 3;
+}
+
+smc-quiz-back:hover {
+  background-color: #eee;
+  color: #333;
+}
+
+smc-option {
+  width: 100%;
+  min-width: auto;
+  margin: 0;
+  display: flex;
+  gap: 10px;
+}
+
+smc-input-group {
+  flex: 1;
+}
+
+smc-input-group.smc-eng {
+  display: none;
+}
+
+.smc-input {
+  display: flex;
+  margin: 0;
+  border-radius: var(--smc-btnBorderRadius);
+  flex: 1;
+  font-size: var(--smc-fontSm);
+  padding: var(--smc-btnPadding);
+}
+
+smc-reveal {
+  width: 50%;
+  margin: 0;
+}
+
+smc-cover {
+  background: var(--smc-btnBkg);
+  color: var(--smc-btnText);
+  border: var(--smc-btnBorder);
+  font-size: var(--smc-btnFontSize);
+  padding: var(--smc-btnPadding);
+  width: 100%;
+  margin: 0;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  border-radius: var(--smc-btnBorderRadius);
+}
+
+smc-code {
+  font-size: var(--smc-fontSm);
+  padding: calc(var(--smc-btnPadding) - 2px);
+  border-radius: var(--smc-btnBorderRadius);
+}
+
+smc-cp {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 35px;
+  z-index: 1;
+  cursor: pointer;
+  background: center / 50% no-repeat url("https://cdn.smct.io/65845-696.png");
+  opacity: 0.5;
+  display: block;
+}
+smc-cp:hover {
+  opacity: 1;
+}
+smc-long-close.smc-engaged {
+  position: relative;
+  width: 50%;
+  top: 0;
+  left: 0;
+}
+
+smc-long-close.smc-engaged > a.smc-link {
+  background: var(--smc-btnBkg);
+  color: var(--smc-btnText);
+  display: block;
+  font-size: var(--smc-btnFontSize);
+  margin: 0;
+  border-radius: 2px;
+  border: 1px solid var(--smc-btnBkg);
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: calc(var(--smc-btnPadding) - 2px);
+}
+
+smc-cp-msg {
+  position: absolute;
+  inset: auto 0 calc(100% + 9px) auto;
+  width: max-content;
+  max-width: 170px;
+  box-sizing: border-box;
+  padding: 6px 9px;
+  border-radius: 8px;
+  background-color: var(--smc-btnBkg);
+  color: var(--smc-btnText);
+  font-size: 11px;
+  line-height: 1.35;
+  text-align: center;
+  z-index: 3;
+  box-shadow: 0 3px 8px rgb(0 0 0 / 22%);
+  animation: smc-cpPop 0.18s ease-out;
+}
+
+smc-cp-msg:before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  right: 11px;
+  width: 0;
+  height: 0;
+  border: 7px solid transparent;
+  border-bottom: 0;
+  border-top-color: var(--smc-btnBkg);
+}
+
+@keyframes smc-cpPop {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.smc-tick {
+  display: flex;
+  align-items: center;
+  font-size: var(--smc-fontSm);
+  color: #fff;
+}
+label.smc-eng {
+  display: none;
+}
+
+smc-quiz-label {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #fff5;
+  color: #333;
+  font-size: 12px;
+  padding: 3px;
+  border-radius: 3px;
+  z-index: 100;
+}
+
+smc-quiz-label span {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+smc-close {
+  top: 5px;
+  right: 5px;
+  height: 24px;
+  width: 24px;
+}
+
+smc-close a.smc-link {
+  font-size: 12px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

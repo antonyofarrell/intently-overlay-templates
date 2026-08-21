@@ -1,0 +1,283 @@
+<!-- Overlay V4 Template -->
+<smc-bg class="smc-animated smc-fadeIn">
+  <smc-overlay-outer class="smc-animated smc-bounceInDown smc-animDelay2">
+    <!--  data-animout="smc-bounceOutLeft" -->
+    <smc-overlay-inner
+      class="smc_clearfix"
+      data-bgtheme="dark"
+      data-changes="smc-overlay-inner|width,background-image,background-color"
+      data-edits="content6">
+      <!-- If the background is dark use this option -->
+
+      <smc-quiz-label>This tells you which section of the quiz you are in</smc-quiz-label>
+
+      <smc-quiz class="smc-1">
+        <smc-quiz-header>{text1}</smc-quiz-header>
+        <smc-quiz-para>{text4}</smc-quiz-para>
+        <smc-quiz-link>{text10}</smc-quiz-link>
+        <smc-quiz-link class="smc-close">No thanks - not into quizes</smc-quiz-link>
+      </smc-quiz>
+      <smc-quiz class="smc-2">
+        <smc-quiz-header>{text3}</smc-quiz-header>
+        <smc-quiz-para>{text4}</smc-quiz-para>
+        <smc-quiz-link>Answer 1 - will continue to next slide</smc-quiz-link>
+        <smc-quiz-link skipto="4">This will take you to the 4th section</smc-quiz-link>
+        <smc-quiz-link skipto="5">This one skips to section 5</smc-quiz-link>
+        <smc-quiz-back>Back (goes to smc-1)</smc-quiz-back>
+      </smc-quiz>
+      <smc-quiz class="smc-3">
+        <smc-quiz-header>{text3}</smc-quiz-header>
+        <smc-quiz-para>{text4}</smc-quiz-para>
+        <smc-quiz-link redirnum="https://www.google.com">This has a link specified so will go there</smc-quiz-link>
+        <smc-quiz-link skipto="6">This one takes you to section 6</smc-quiz-link>
+        <smc-quiz-link redirnum="https://www.intent.ly">This has a link so will go there</smc-quiz-link>
+        <smc-quiz-back>Back (to section 2)</smc-quiz-back>
+      </smc-quiz>
+      <smc-quiz class="smc-4">
+        <smc-quiz-header>{text3}</smc-quiz-header>
+        <smc-quiz-para>{text4}</smc-quiz-para>
+        <smc-quiz-link redirnum="https://www.google.com">This one links to google</smc-quiz-link>
+        <smc-quiz-link>This has no redirection or skipto so links to the next section (5)</smc-quiz-link>
+        <smc-quiz-back skipto="2">Skips back to section 2</smc-quiz-back>
+      </smc-quiz>
+      <smc-quiz class="smc-5">
+        <smc-quiz-header>{text3}</smc-quiz-header>
+        <smc-quiz-para>{text4}</smc-quiz-para>
+        <smc-quiz-link redirnum="https://www.google.com">Redirection 1</smc-quiz-link>
+        <smc-quiz-link redirnum="https://www.google.com">Redirection 1</smc-quiz-link>
+        <smc-quiz-link redirnum="https://www.google.com">Redirection 1</smc-quiz-link>
+        <smc-quiz-link redirnum="https://www.google.com">Redirection 1</smc-quiz-link>
+        <smc-quiz-back skipto="3">Skips back to section 3</smc-quiz-back>
+      </smc-quiz>
+
+      <smc-quiz class="smc-6">
+        <smc-quiz-header>{text3}</smc-quiz-header>
+        <smc-quiz-para>This section has smc-option - use normal styling to style these elements</smc-quiz-para>
+        <!-- Email To Reveal Option -->
+        <smc-option class="smc-emailToReveal">
+          <smc-input-group>
+            <input
+              class="smc-input smc-animated smc-fadeInLeft smc-animDelay8"
+              name="email"
+              autocomplete="smc-autocomplete"
+              data-required="true"
+              data-verify="email"
+              placeholder="{text13}"
+              type="text" />
+          </smc-input-group>
+          <smc-reveal class="smc-animated smc-bounceInUp smc-animDelay12">
+            <smc-cover data-edits="text9" data-changes=".smc-emailToReveal smc-cover|font-size,background-color,color">
+              {text9}
+            </smc-cover>
+            <smc-code>{vc}</smc-code>
+            <smc-cp data-clipboard-text="{vc-cp}"></smc-cp>
+          </smc-reveal>
+        </smc-option>
+        <smc-quiz-back skipto="2">Skips back to section 2</smc-quiz-back>
+      </smc-quiz>
+
+      <!-- Closers -->
+      <smc-close class="smc-animated smc-fadeInRight smc-animDelay4 smc-closer">
+        <a data-close-type="x_close" class="smc-link" href="#rdl">✕</a>
+        <!-- Note - Redirect Link gets automatically rewritten -->
+      </smc-close>
+
+      <!-- Click To Reveal Option -->
+      <smc-option class="smc-clickToReveal">
+        <smc-reveal class="smc-animated smc-bounceInUp smc-animDelay12">
+          <smc-cover data-edits="text8" data-changes=".smc-clickToReveal smc-cover|font-size,background-color,color">
+            {text8}
+          </smc-cover>
+          <smc-code>{vc}</smc-code>
+          <smc-cp data-clipboard-text="{vc-cp}"></smc-cp>
+        </smc-reveal>
+      </smc-option>
+
+      <!-- Email to GiftCloud Option -->
+      <smc-option class="smc-emailToGiftCloud">
+        <smc-input-group>
+          <input
+            class="smc-input smc-animated smc-fadeInLeft smc-animDelay8"
+            name="email"
+            autocomplete="smc-autocomplete"
+            data-required="true"
+            data-verify="email"
+            placeholder="{text13}"
+            type="text" />
+        </smc-input-group>
+        <smc-reveal class="smc-animated smc-bounceInUp smc-animDelay12">
+          <smc-cover data-edits="text12" data-changes=".smc-emailToReveal smc-cover|font-size,background-color,color">
+            {text12}
+          </smc-cover>
+        </smc-reveal>
+      </smc-option>
+
+      <!-- Request Notifications -->
+      <smc-option class="smc-requestNotifications">
+        <smc-input-group>
+          <span class="smc-button smc-animated smc-fadeInRight smc-animDelay10" data-close-timeout="2000">
+            Enable Notifications
+          </span>
+        </smc-input-group>
+        <smc-agree-yes class="smc-animated smc-fadeIn">Thanks for enabling</smc-agree-yes>
+        <smc-agree-no class="smc-animated smc-fadeIn">Ok no problem</smc-agree-no>
+      </smc-option>
+
+      <!-- Dynamic Form Example -->
+      <smc-option class="smc-dynamicForm">
+        <smc-input-group>
+          <input
+            class="smc-input smc-animated smc-fadeInLeft smc-animDelay6"
+            data-required="true"
+            autocomplete="smc-autocomplete"
+            name="fullname"
+            placeholder="ENTER YOUR NAME"
+            type="text" />
+        </smc-input-group>
+        <smc-input-group>
+          <input
+            class="smc-input smc-animated smc-fadeInLeft smc-animDelay7"
+            data-required="true"
+            autocomplete="smc-autocomplete"
+            name="address"
+            placeholder="YOUR ADDRESS"
+            type="text" />
+        </smc-input-group>
+        <smc-input-group>
+          <input
+            class="smc-input smc-animated smc-fadeInLeft smc-animDelay8"
+            data-required="true"
+            autocomplete="smc-autocomplete"
+            data-verify="email"
+            name="email"
+            placeholder="YOUR EMAIL"
+            type="text" />
+        </smc-input-group>
+        <smc-input-group>
+          <div class="smc-animated smc-fadeInLeft smc-animDelay9">
+            <label>
+              <input type="radio" name="sex" data-required="true" value="male" />
+              Male
+            </label>
+            <label>
+              <input type="radio" name="sex" data-required="true" value="female" />
+              Female
+            </label>
+            <label>
+              <input type="radio" name="sex" data-required="true" value="other" />
+              Other
+            </label>
+          </div>
+        </smc-input-group>
+
+        <!-- Cool Checkboxes -->
+        <smc-cool-checkboxes class="smc-animated smc-fadeInRight smc-animDelay10">
+          <smc-input-group data-edits="cool-checkbox" data-eq="1">
+            <label>
+              <input type="checkbox" name="smc-agree1" value="yes" data-required="false" />
+              <smc-ccb-tick></smc-ccb-tick>
+              <smc-ccb-text>
+                I agree to the
+                <smc-show-terms data-id="terms1">terms</smc-show-terms>
+              </smc-ccb-text>
+            </label>
+          </smc-input-group>
+          <smc-input-group data-edits="cool-checkbox" data-eq="2">
+            <label>
+              <input type="checkbox" name="smc-agree2" value="yes" data-required="false" />
+              <smc-ccb-tick></smc-ccb-tick>
+              <smc-ccb-text>
+                I also agree to the
+                <smc-show-terms data-id="terms2">secondary terms</smc-show-terms>
+                as well
+              </smc-ccb-text>
+            </label>
+          </smc-input-group>
+        </smc-cool-checkboxes>
+        <!-- End Cool Checkboxes -->
+        <input class="smc-button smc-animated smc-fadeInRight smc-animDelay10" value="SUBMIT FORM" type="submit" />
+      </smc-option>
+
+      <!-- Data Consent Example - data-hidden-id="" - Important to copy the new hidden inputs with copied values -->
+      <smc-option class="smc-dataConsent">
+        <smc-input-group>
+          <input
+            class="smc-input smc-animated smc-fadeInLeft smc-animDelay8"
+            data-required="true"
+            data-verify="email"
+            name="email"
+            data-hidden-id="smc-consented-email"
+            placeholder="ENTER YOUR EMAIL"
+            type="text" />
+        </smc-input-group>
+        <!-- Cool Checkboxes -->
+        <smc-cool-checkboxes class="smc-animated smc-fadeInRight smc-animDelay10">
+          <smc-input-group data-edits="cool-checkbox" data-eq="3">
+            <label>
+              <input type="checkbox" name="smc-agree1" value="yes" data-required="true" />
+              <smc-ccb-tick></smc-ccb-tick>
+              <smc-ccb-text>
+                I agree to the
+                <smc-show-terms data-id="terms1">terms</smc-show-terms>
+              </smc-ccb-text>
+            </label>
+          </smc-input-group>
+          <smc-input-group data-edits="cool-checkbox" data-eq="4">
+            <label>
+              <input type="checkbox" name="smc-agree2" value="yes" data-required="true" />
+              <smc-ccb-tick></smc-ccb-tick>
+              <smc-ccb-text>
+                I also agree to the
+                <smc-show-terms data-id="terms2">secondary terms</smc-show-terms>
+                as well
+              </smc-ccb-text>
+            </label>
+          </smc-input-group>
+        </smc-cool-checkboxes>
+        <!-- End Cool Checkboxes -->
+        <input class="smc-button smc-animated smc-fadeInRight smc-animDelay10" value="Save My Basket" type="submit" />
+      </smc-option>
+
+      <!-- Success Message -->
+      <smc-success-message class="smc-animated smc-fadeIn">
+        <smc-success-message-inner class="smc-animated smc-bounceInDown smc-animDelay1">
+          Perfect thank you!
+          <smc-success-close>X</smc-success-close>
+        </smc-success-message-inner>
+      </smc-success-message>
+
+      <!-- CSS Loader -->
+      <smc-loader-bg data-theme="white">
+        <!-- white, black-->
+        <smc-loader-single></smc-loader-single>
+        <!-- single, double, pulse -->
+      </smc-loader-bg>
+
+      <!-- Copy to Clipboard Success Message -->
+      <smc-cp-msg>"{vc}" has been copied to the clipboard</smc-cp-msg>
+    </smc-overlay-inner>
+  </smc-overlay-outer>
+
+  <!-- Safe close - Used when Autoscaling is turned on -->
+  <smc-close-safe class="smc-closer">
+    <a data-close-type="x_close" class="smc-link" href="#rdl">[close]</a>
+    <!-- Note - Redirect Link gets automatically rewritten -->
+  </smc-close-safe>
+</smc-bg>
+
+<!-- SmarterBar -->
+<smc-bar class="smc-animated smc-fadeInDown">
+  <smc-bar-close>X</smc-bar-close>
+  <smc-bar-text>{smarterbar}</smc-bar-text>
+  <smc-handle>
+    <span class="smc-bar1"></span>
+    <span class="smc-bar2"></span>
+    <span class="smc-bar3"></span>
+  </smc-handle>
+</smc-bar>
+
+<!-- Final Mesage Box -->
+<smc-final-message class="smc-animated smc-fadeInDown">
+  Thanks... your code is: {vc}
+  <smc-final-message-close>X</smc-final-message-close>
+</smc-final-message>
