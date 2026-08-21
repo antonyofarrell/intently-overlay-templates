@@ -4,6 +4,7 @@ smc-overlay-inner {
 	--smc-mainBkg: #f3f3f3;
 	--smc-cardBkg: #ffffff;
 	--smc-textColour: #222222;
+  --smc-cardText: #222222;
 	--smc-textColour2: #707070;
 	--smc-btnBkg: #4ea2cf;
 	--smc-btnText: #ffffff;
@@ -132,7 +133,7 @@ smc-product-title {
 	-webkit-box-orient: vertical;
 	line-height: 1.2;
 	width: 50%;
-	color: var(--smc-textColour);
+	color: var(--smc-cardText);
 }
 
 smc-prices {
@@ -154,7 +155,7 @@ smc-product-price {
 	font-size: 16px;
 	display: flex;
 	margin: 5px 0;
-	color: var(--smc-textColour);
+	color: var(--smc-cardText);
 }
 
 smc-close a.smc-link {

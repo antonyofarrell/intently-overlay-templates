@@ -7,6 +7,7 @@ smc-bg * {
 smc-bg {
     background-color: rgb(210 210 210 / 60%);
     --smc-textColour: #212529;
+  --smc-cardText: #212529;
     --smc-fontRg:14px;
     --smc-btnBkg: #4aaae0;
     --smc-frameBorderRadius: 4px;
@@ -127,7 +128,7 @@ smc-product-name {
     display: flex;
     margin: 5px auto;
     font-weight: 400;
-    color: var(--smc-textColour);
+    color: var(--smc-cardText);
     width: 95%;
     font-size: var(--smc-fontRg);
     text-overflow: ellipsis;
@@ -145,7 +146,7 @@ smc-prices{
     justify-content: center;
 }
 smc-product-price{
-    color:var(--smc-textColour);
+    color: var(--smc-cardText);
     font-size:var(--smc-fontRg);
     font-weight:600;
 }

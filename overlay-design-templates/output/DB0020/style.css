@@ -11,6 +11,7 @@ smc-overlay-inner {
   --smc-gradient2: #f4baad;
   --smc-cardBkg: #fff;
   --smc-textColour: #222;
+  --smc-cardText: #222;
   --smc-textColour2: #222;
   --smc-font2: "Matty Sans Bold", sans-serif;
   --smc-fontSm: 12px;
@@ -120,7 +121,7 @@ smc-product-name,
 smc-product-price,
 smc-old-price {
   font-size: var(--smc-fontSm);
-  color: var(--smc-textColour);
+  color: var(--smc-cardText);
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 2;

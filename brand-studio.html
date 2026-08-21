@@ -1184,7 +1184,10 @@
          generic overlays (DB for now). Each palette defines roles; a role is
          applied only to the colour tokens the current overlay actually declares
          (see THEME_TOKEN_ROLES). Picking a theme just rewrites state.values —
-         it's a starting default, so a later brand extract still overrides it. */
+         it's a starting default, so a later brand extract still overrides it.
+         Note: the product card (card / cardText roles) stays a LIGHT surface in
+         every theme — product photos read best on a light tile — so cardText is
+         kept dark while the overlay frame goes dark in the Dark/Bold themes. */
       const THEMES = {
         light: {
           label: "Light",
@@ -1192,6 +1195,7 @@
           roles: {
             bg: "#ffffff",
             card: "#f4f5f8",
+            cardText: "#1a1d27",
             text: "#1a1d27",
             text2: "#5b606e",
             accent: "#5b6af5",
@@ -1208,7 +1212,8 @@
           swatch: ["bg", "card", "btnBg", "accent"],
           roles: {
             bg: "#1a1d27",
-            card: "#262a37",
+            card: "#ffffff",
+            cardText: "#1a1d27",
             text: "#f2f4f8",
             text2: "#aab0c0",
             accent: "#2dd4bf",
@@ -1225,7 +1230,8 @@
           swatch: ["bg", "card", "btnBg", "accent"],
           roles: {
             bg: "#1a0b2e",
-            card: "#2a1548",
+            card: "#ffffff",
+            cardText: "#1a1d27",
             text: "#ffffff",
             text2: "#cbb8ec",
             accent: "#f5384b",
@@ -1244,6 +1250,7 @@
         "--smc-mainBkg": "bg",
         "--smc-cardBkg": "card",
         "--smc-whiteBkg": "card",
+        "--smc-cardText": "cardText",
         "--smc-textColour": "text",
         "--smc-textColour2": "text2",
         "--smc-accent": "accent",

@@ -8,6 +8,7 @@ smc-bg {
   background-color: rgb(210 210 210 / 60%);
   backdrop-filter: blur(3px);
   --smc-textColour: #154D82;
+  --smc-cardText: #154D82;
   --smc-btnBkg: #BAD584;
   --smc-frameBorderRadius: 5px;
   --smc-mainBkg: #e3ecf4;
@@ -173,7 +174,7 @@ smc-product-link {
   width: 100%;
   text-align: center;
   justify-content: center;
-  color: var(--smc-textColour);
+  color: var(--smc-cardText);
 }
 
 smc-product-name {

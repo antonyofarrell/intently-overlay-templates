@@ -5,6 +5,7 @@ smc-overlay-inner {
   --smc-cardBkg: #ffffff;
   --smc-textColour: #000000;
   --smc-textColour2: #262626;
+  --smc-cardText: #262626;
   --smc-btnBkg: #ffffff;
   --smc-btnText: #000000;
   --smc-btnBorder: 1px solid #000000;
@@ -106,7 +107,7 @@ smc-product-oldprice {
   display: block;
   margin: 5px auto;
   font-size: 13px;
-  color: var(--smc-textColour2);
+  color: var(--smc-cardText);
   line-height: 1.3;
   text-align: left;
   width: 100%;

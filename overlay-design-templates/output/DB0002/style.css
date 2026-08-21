@@ -5,6 +5,7 @@ smc-bg *{font-family: 'Quicksand', sans-serif;font-feature-settings: 'lnum' 1;}
 smc-overlay-inner {
   --smc-mainBkg: #ffd814;
   --smc-textColour: #171717;
+  --smc-cardText: #171717;
   --smc-btnBkg: #c0ffee;
   --smc-btnBkgHover: #000;
   --smc-frameBorderRadius:5px;
@@ -110,7 +111,7 @@ smc-product-img, smc-product-name, smc-prices, smc-product-saving, smc-product-d
     display:flex;
     margin:3px auto;
     font-size:14px;
-    color:var(--smc-textColour);
+    color: var(--smc-cardText);
     line-height:1.3;
     width:100%;
     font-weight:500;
@@ -137,7 +138,7 @@ smc-product-name{
     -webkit-box-orient: vertical;
     line-height: 1.2;
     font-size:17px;
-    color:var(--smc-textColour);
+    color: var(--smc-cardText);
 }
 
 smc-cart-icon{

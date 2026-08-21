@@ -1,37 +1,61 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat:300,400,700");
 @import url("https://fonts.googleapis.com/css?family=Playfair:400,700");
+
 smc-bg * {
   font-family: "Montserrat", sans-serif;
+  /* border: 1px solid #333; */
 }
 
 smc-overlay-inner {
-  --smc-mainBkg: #fff;
+  --smc-mainBkg: #eaeaea;
   --smc-textColour: #222;
+  --smc-cardText: #222;
   --smc-textColour2: #222;
   --smc-font2: "Playfair", serif;
   --smc-btnBkg: #ffc107;
-  --smc-btnText: #222;
-  --smc-btnFontWeight:700;
-  --smc-btnBkgHover: #bd8500cb;
+  --smc-btnText: #000;
+  --smc-btnFontWeight: 400;
+  --smc-btnBkgHover: #646464cb;
   --smc-btnBorder: 1px solid #ffb300cb;
-  --smc-btnBorderRadius: 4px;
-  --smc-btnFontSize: 14px;
+  --smc-btnBorderRadius: 5px;
   --smc-btnPadding: 12px;
-  --smc-frameBorderRadius: 4px;
+  --smc-frameBorder: 10px;
 }
 
 smc-overlay-inner {
   background: var(--smc-mainBkg);
   width: 450px;
-  padding: 20px;
-  border-radius: var(--smc-frameBorderRadius);
+  padding: 30px;
+  border-radius: var(--smc-frameBorder);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* ── Hide empty elements ──────────────────────────────────── */
+smc-img:has(img[src=""]),
+smc-img:has(img[src^="{"]),
+smc-img:has(img:not([src])),
+smc-img:not(:has(img)),
+smc-img-outer:not(:has(img[src]:not([src=""]):not([src^="{"]))),
+smc-text-outer:not(:has(smc-text:not(:empty))),
+smc-option:empty,
+smc-long-close:empty,
+smc-text:empty,
+smc-long-close {
+  display: none;
 }
 
 smc-img-outer,
 smc-text-outer,
-smc-option,
-smc-long-close {
+smc-option {
   width: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
 }
 
 .smc-text1,
@@ -40,8 +64,10 @@ smc-long-close {
 .smc-text4 {
   color: var(--smc-textColour);
   line-height: 1.2;
+  margin: 0;
 }
-.smc-img1{
+
+.smc-img1 {
   max-width: 100px;
   margin: 0 auto;
 }
@@ -50,24 +76,22 @@ smc-long-close {
   font-weight: 400;
   font-family: var(--smc-font2);
   font-size: 28px;
-  margin: 10px auto 10px auto;
 }
 
 .smc-text2 {
   font-weight: 300;
   font-size: 16px;
-  margin: 5px auto 30px auto;
 }
 
 .smc-button {
   background: var(--smc-btnBkg);
   color: var(--smc-btnText);
-  font-size: var(--smc-btnFontSize);
+  font-size: 14px;
   padding: var(--smc-btnPadding);
-  font-weight: var(--smc-btnFontWeight);;
-  width: 90%;
+  font-weight: var(--smc-btnFontWeight);
+  width: 100%;
   border-radius: var(--smc-btnBorderRadius);
-  margin: 10px auto;
+  margin: 0;
   transition: all 0.3s ease;
 }
 
@@ -78,13 +102,15 @@ smc-long-close {
 }
 
 smc-close {
-  top: -10px;
-  right: -10px;
-  background: #fff;
+  top: 10px;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+  background: #fff0;
 }
 
 smc-close:hover {
-  background: #fff;
+  background: #fff0;
 }
 
 smc-close a.smc-link {
@@ -104,7 +130,7 @@ smc-cart {
   align-items: center;
   justify-content: center;
   flex-wrap: nowrap;
-  border-radius: var(--smc-frameBorderRadius);
+  border-radius: var(--smc-frameBorder);
   transition: all 0.3s ease;
   background: #fff;
   border: 1px solid rgba(128, 128, 128, 0.16);
@@ -140,7 +166,7 @@ smc-product-desc {
   display: flex;
   margin: 0;
   font-size: 14px;
-  color: var(--smc-textColour);
+  color: var(--smc-cardText);
   line-height: 1.3;
   width: 100%;
   font-weight: 400;
@@ -155,10 +181,12 @@ smc-product-img {
   overflow: hidden;
   margin: auto;
 }
+
 smc-product-img img {
   width: 100%;
   height: auto;
 }
+
 smc-product-name {
   text-overflow: ellipsis;
   overflow: hidden;
@@ -168,23 +196,27 @@ smc-product-name {
   -webkit-box-orient: vertical;
   line-height: 1.2;
   font-size: 16px;
-  color: var(--smc-textColour);
+  color: var(--smc-cardText);
 }
+
 smc-prices {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 5px;
 }
+
 smc-product-price {
-  color: var(--smc-textColour);
+  color: var(--smc-cardText);
   font-size: 16px;
   font-weight: bold;
 }
+
 smc-old-price {
   text-decoration: line-through;
-  color: var(--smc-textColour);
+  color: var(--smc-cardText);
 }
+
 smc-old-price:empty {
   display: none;
 }
