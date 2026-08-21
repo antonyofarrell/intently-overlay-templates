@@ -15,6 +15,7 @@ smc-bg {
   --smc-btnBkg: #000000;
   --smc-btnBkgHover: #00111c;
   --smc-btnText: #fff;
+  --smc-btnFontSize: 12px;
   --smc-btnBorder: 1px solid #000;
   --smc-btnBorderRadius: 3px;
   --smc-btnPadding: 14px;
@@ -120,7 +121,7 @@ smc-cover {
   background: var(--smc-btnBkg);
   color: var(--smc-btnText);
   border: var(--smc-btnBorder);
-  font-size: var(--smc-fontSm);
+  font-size: var(--smc-btnFontSize);
   padding: var(--smc-btnPadding);
   width: 100%;
   margin: 0;
