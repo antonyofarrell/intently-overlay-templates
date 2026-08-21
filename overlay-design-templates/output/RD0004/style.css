@@ -170,7 +170,7 @@ smc-product-link {
   background-position: center;
   background-size: cover;
   color: #47494b;
-  font-size: 12px;
+  font-size: var(--smc-btnFontSize);
   font-weight: 400;
   width: 100%;
   height: 100%;

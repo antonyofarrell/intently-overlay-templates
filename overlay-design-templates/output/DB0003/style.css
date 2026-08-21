@@ -221,7 +221,7 @@ smc-old-price {
 smc-product-link {
   background: var(--smc-btnBkg);
   color: #fff;
-  font-size: 14px;
+  font-size: var(--smc-btnFontSize);
   padding: 12px;
   font-weight: 400;
   max-width: 240px;
