@@ -18,8 +18,8 @@ smc-bg {
   --smc-btnBorder: 1px solid #000;
   --smc-btnBorderRadius: 3px;
   --smc-btnPadding: 14px;
-  --smc-btnFontSize: var(--smc-fontSm);
   --smc-frameBorderRadius: 14px;
+  --smc-text: #212529;
   --smc-accent: #e6001e;
   --smc-font2: "HelveticaNeueW01-65Medium", sans-serif;
 }
@@ -90,7 +90,7 @@ smc-option {
   width: 100%;
   min-width: auto;
   flex: 1;
-  display: flex !important;
+  display: flex;
   gap: 10px;
 }
 
@@ -120,7 +120,7 @@ smc-cover {
   background: var(--smc-btnBkg);
   color: var(--smc-btnText);
   border: var(--smc-btnBorder);
-  font-size: var(--smc-btnFontSize);
+  font-size: var(--smc-fontSm);
   padding: var(--smc-btnPadding);
   width: 100%;
   margin: 0;
@@ -164,7 +164,7 @@ smc-long-close.smc-engaged > a.smc-link {
   background: var(--smc-btnBkg);
   color: var(--smc-btnText);
   display: block;
-  font-size: var(--smc-btnFontSize);
+  font-size: var(--smc-fontSm);
   margin: 0;
   border-radius: 2px;
   border: 1px solid var(--smc-btnBkg);
