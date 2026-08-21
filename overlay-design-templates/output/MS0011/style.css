@@ -165,7 +165,7 @@ smc-long-close.smc-engaged > a.smc-link {
   background: var(--smc-btnBkg);
   color: var(--smc-btnText);
   display: block;
-  font-size: var(--smc-fontSm);
+  font-size: var(--smc-btnFontSize);
   margin: 0;
   border-radius: 2px;
   border: 1px solid var(--smc-btnBkg);
