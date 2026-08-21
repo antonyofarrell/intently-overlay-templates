@@ -148,6 +148,53 @@
         margin-top: 0;
       }
 
+      .theme-row {
+        display: flex;
+        gap: 8px;
+      }
+      .theme-btn {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        padding: 8px;
+        border: 1px solid var(--border2);
+        border-radius: var(--radius-sm);
+        background: var(--surface);
+        color: var(--text);
+        font: inherit;
+        cursor: pointer;
+        text-align: left;
+        transition: border-color 0.15s, box-shadow 0.15s;
+      }
+      .theme-btn:hover {
+        border-color: var(--accent);
+      }
+      .theme-btn.active {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 1px var(--accent);
+      }
+      .theme-swatch {
+        display: flex;
+        height: 22px;
+        border-radius: 4px;
+        overflow: hidden;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+      }
+      .theme-swatch span {
+        flex: 1;
+      }
+      .theme-btn .tlabel {
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .theme-hint {
+        font-size: 11px;
+        color: var(--hint);
+        margin: 8px 0 0;
+        line-height: 1.4;
+      }
+
       label {
         font-size: 12px;
         font-weight: 500;
@@ -599,6 +646,14 @@
         </details>
 
         <div id="editor">
+          <div id="themeBlock" style="display: none">
+            <div class="section-label">Starting theme</div>
+            <div class="theme-row" id="themePresets"></div>
+            <p class="theme-hint">
+              A ready-made colour scheme to start from — extract a brand
+              afterwards to override it, or fine-tune the variables below.
+            </p>
+          </div>
           <div class="section-label">Fonts</div>
           <div id="fontFields"></div>
           <div class="section-label">
@@ -1008,6 +1063,7 @@
         fontImports: [],
         bodyFont: "",
         base: null,
+        activeTheme: null,
       };
       let previewMode = "none";
       let _iframeTimer = null;
@@ -1123,8 +1179,168 @@
         return /^#[0-9a-f]{3,8}$/i.test(v) || /^rgba?\(/i.test(v) || /^hsla?\(/i.test(v);
       }
 
+      /* ───────── starting themes (generic overlays) ─────────
+         Ready-made palettes offered as a default starting point for the more
+         generic overlays (DB for now). Each palette defines roles; a role is
+         applied only to the colour tokens the current overlay actually declares
+         (see THEME_TOKEN_ROLES). Picking a theme just rewrites state.values —
+         it's a starting default, so a later brand extract still overrides it. */
+      const THEMES = {
+        light: {
+          label: "Light",
+          swatch: ["bg", "card", "btnBg", "accent"],
+          roles: {
+            bg: "#ffffff",
+            card: "#f4f5f8",
+            text: "#1a1d27",
+            text2: "#5b606e",
+            accent: "#5b6af5",
+            btnBg: "#5b6af5",
+            btnText: "#ffffff",
+            btnHover: "#4a58d6",
+            border: "#e4e7ee",
+            grad1: "#ffffff",
+            grad2: "#eef0f6",
+          },
+        },
+        dark: {
+          label: "Dark",
+          swatch: ["bg", "card", "btnBg", "accent"],
+          roles: {
+            bg: "#1a1d27",
+            card: "#262a37",
+            text: "#f2f4f8",
+            text2: "#aab0c0",
+            accent: "#2dd4bf",
+            btnBg: "#2dd4bf",
+            btnText: "#06251f",
+            btnHover: "#26b8a6",
+            border: "#333846",
+            grad1: "#20242f",
+            grad2: "#12141b",
+          },
+        },
+        bold: {
+          label: "Bold",
+          swatch: ["bg", "card", "btnBg", "accent"],
+          roles: {
+            bg: "#1a0b2e",
+            card: "#2a1548",
+            text: "#ffffff",
+            text2: "#cbb8ec",
+            accent: "#f5384b",
+            btnBg: "#f5384b",
+            btnText: "#ffffff",
+            btnHover: "#d92b3d",
+            border: "#3a2258",
+            grad1: "#3a1668",
+            grad2: "#1a0b2e",
+          },
+        },
+      };
+      // Which palette role each colour token maps to. Tokens absent from a given
+      // overlay are simply skipped, so a palette adapts to whatever it declares.
+      const THEME_TOKEN_ROLES = {
+        "--smc-mainBkg": "bg",
+        "--smc-cardBkg": "card",
+        "--smc-whiteBkg": "card",
+        "--smc-textColour": "text",
+        "--smc-textColour2": "text2",
+        "--smc-accent": "accent",
+        "--smc-btnBkg": "btnBg",
+        "--smc-btnText": "btnText",
+        "--smc-btnBkgHover": "btnHover",
+        "--smc-btnBorder": "btnBg",
+        "--smc-borderColour": "border",
+        "--smc-gradient1": "grad1",
+        "--smc-gradient2": "grad2",
+      };
+      // A gradient built from translucent colours is a scrim over an image (e.g.
+      // DB0018's photo side): recolouring it would wreck the image/legibility. A
+      // fully-opaque gradient is decorative (e.g. DB0020's coral card) and safe to
+      // theme. So we only re-tint gradient tokens when EVERY one is opaque.
+      function isOpaqueColor(v) {
+        v = String(v).trim();
+        if (/^#([0-9a-f]{4}|[0-9a-f]{8})$/i.test(v)) return false; // #rgba / #rrggbbaa
+        const rgba = v.match(/^(?:rgba|hsla)\(([^)]*)\)/i);
+        if (rgba) {
+          const a = rgba[1].split(/[,/]/).map((s) => s.trim())[3];
+          if (a != null && parseFloat(a) < 1) return false;
+        }
+        return true;
+      }
+
+      // Generic overlays that get the starting-theme picker. DB (Dynamic Basket)
+      // for now; widen by adding categories here.
+      const THEMEABLE_CATS = ["db"];
+      function isThemeableTemplate() {
+        const cat = state.tmpl && state.tmpl.cat;
+        return !!(cat && THEMEABLE_CATS.includes(cat));
+      }
+      // True when this overlay actually declares at least one colour token a
+      // palette can drive — otherwise the picker would do nothing.
+      function hasThemeableTokens() {
+        return state.vars.some((v) => v.type === "color" && THEME_TOKEN_ROLES[v.name]);
+      }
+
+      function applyTheme(name) {
+        const theme = THEMES[name];
+        if (!theme) return;
+        const colorVars = state.vars.filter((v) => v.type === "color" && THEME_TOKEN_ROLES[v.name]);
+        // Only re-tint the gradient set when it's decorative (all opaque), never a scrim.
+        const gradVars = colorVars.filter((v) => /^grad\d$/.test(THEME_TOKEN_ROLES[v.name]));
+        const themeGradients =
+          gradVars.length > 0 && gradVars.every((v) => isOpaqueColor(state.values[v.name] || v.value));
+        colorVars.forEach((v) => {
+          const role = THEME_TOKEN_ROLES[v.name];
+          if (/^grad\d$/.test(role) && !themeGradients) return;
+          const col = theme.roles[role];
+          if (col) state.values[v.name] = col;
+        });
+        state.activeTheme = name;
+        renderEditor();
+        applyAll();
+        saveState();
+        setStatus("info", theme.label + " theme applied — extract a brand or fine-tune below.");
+      }
+
+      function renderThemePresets() {
+        const block = document.getElementById("themeBlock");
+        const row = document.getElementById("themePresets");
+        if (!block || !row) return;
+        const show = state.hasSource && isThemeableTemplate() && hasThemeableTokens();
+        block.style.display = show ? "" : "none";
+        if (!show) {
+          row.innerHTML = "";
+          return;
+        }
+        row.innerHTML = Object.keys(THEMES)
+          .map((key) => {
+            const t = THEMES[key];
+            const stripes = t.swatch
+              .map((r) => '<span style="background:' + t.roles[r] + '"></span>')
+              .join("");
+            return (
+              '<button type="button" class="theme-btn' +
+              (state.activeTheme === key ? " active" : "") +
+              '" onclick="applyTheme(\'' +
+              key +
+              "')\">" +
+              '<span class="theme-swatch">' +
+              stripes +
+              "</span>" +
+              '<span class="tlabel">' +
+              escHtml(t.label) +
+              "</span>" +
+              "</button>"
+            );
+          })
+          .join("");
+      }
+
       /* ───────── editor ───────── */
       function renderEditor() {
+        renderThemePresets();
         const editor = document.getElementById("editor");
         const noEditor = document.getElementById("noEditor");
         // The preview product only fills templates that actually have an smc-cart (in practice the
@@ -1573,6 +1789,7 @@
           // If the brand's font is one we self-host on the intent.ly CDN, load it and use the
           // hosted family names (covers fonts that aren't on Google Fonts, e.g. Centrale).
           applyHostedFont(usable);
+          state.activeTheme = null; // brand values now supersede any starting theme
           renderEditor();
           applyAll();
           saveState();
@@ -1913,6 +2130,7 @@
         state.values = JSON.parse(JSON.stringify(state.base.values));
         state.fontImports = state.base.fontImports.slice();
         state.bodyFont = state.base.bodyFont;
+        state.activeTheme = null;
         renderEditor();
         applyAll();
         saveState();
