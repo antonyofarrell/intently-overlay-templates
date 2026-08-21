@@ -11,6 +11,8 @@ smc-overlay-inner {
   --smc-gradient2: #012e58;
   --smc-textColour: #fff;
   --smc-textColour2: #012e58;
+  --smc-cardBkg: #fff;
+  --smc-cardText: #212121;
   --smc-btnBkg: #ff7518;
   --smc-btnText: #fff;
   --smc-btnFontWeight: 700;
@@ -88,7 +90,7 @@ smc-cart {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--smc-mainBkg);
+  background: var(--smc-cardBkg);
   border: 1px solid #f5f1ee;
   border-radius: var(--smc-frameBorderRadius);
 }
@@ -141,7 +143,7 @@ smc-product-desc {
   line-height: 1.2;
   font-size: 14px;
   width: 100%;
-  color: #212121;
+  color: var(--smc-cardText);
 }
 
 smc-product-name {
@@ -168,7 +170,7 @@ smc-old-price {
   text-decoration: line-through;
   line-height: 1.3;
   padding: 0 10px 0 0;
-  color: var(--smc-textColour2);
+  color: var(--smc-cardText);
   opacity: 0.3;
   font-size: 12px;
 }
