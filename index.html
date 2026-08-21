@@ -159,22 +159,22 @@
         </div>
 
         <div class="form-row">
-          <!-- 
+          <!--
           IMAGE PATH NOTE:
           - For now, paste a Google Sheet image URL here (session-authenticated, may expire).
-          - Once you have Intent.ly admin access, save screenshots to /images/ and use:
-            images/DB0018.png  (relative path)
+          - Once you have Intent.ly admin access, save a thumbnail to /images/thumbs/ and use:
+            images/thumbs/DB0018.jpg  (relative path)
           - Leave blank to show the placeholder card graphic instead.
         -->
           <label>Image Path / URL</label>
           <input
             type="text"
             id="fImg"
-            placeholder="images/DB0018.png  or paste a URL"
+            placeholder="images/thumbs/DB0018.jpg  or paste a URL"
           />
           <small
             >Leave blank to show a placeholder. Use
-            <code>images/REFCODE.png</code> for local files.</small
+            <code>images/thumbs/REFCODE.jpg</code> for local files.</small
           >
         </div>
 
@@ -391,10 +391,10 @@
         /*
         IMAGE SWAP GUIDE:
         ─────────────────
-        Currently: t.img is null for most templates (no local images yet).
+        Currently: t.img points at a thumbnail JPG for each template.
         To add images:
-          1. Save a screenshot as  overlay-templates/images/DB0001.png
-          2. Set t.img = 'images/DB0001.png'  in data.js (or via the admin panel)
+          1. Save a thumbnail as  overlay-templates/images/thumbs/DB0001.jpg
+          2. Set t.img = 'images/thumbs/DB0001.jpg'  in data.js (or via the admin panel)
         
         For Google Sheet URLs (session-authenticated, may expire):
           Set t.img to the full sheets-images-rt URL — it will work while
@@ -405,23 +405,16 @@
       */
         const hasImg = t.img && t.img.trim() !== "";
 
-        // Use the lightweight thumbnail for the grid; fall back to the full image, then the placeholder.
-        const thumb = hasImg
-          ? "images/thumbs/" +
-            t.img
-              .split("/")
-              .pop()
-              .replace(/\.(png|jpe?g)$/i, ".jpg")
-          : "";
+        // One image per template: the thumbnail JPG (t.img points straight at it). If it fails to
+        // load, show the placeholder graphic.
         const imgHtml = hasImg
           ? `<img
               class="card-img"
-              src="${escHtml(thumb)}"
-              data-full="${escHtml(t.img)}"
+              src="${escHtml(t.img)}"
               alt="${escHtml(t.ref)} preview"
               loading="lazy"
               decoding="async"
-              onerror="if(this.dataset.full){this.src=this.dataset.full;this.removeAttribute('data-full');}else{this.style.display='none';this.nextElementSibling.style.display='flex';}"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
            />`
           : "";
 
