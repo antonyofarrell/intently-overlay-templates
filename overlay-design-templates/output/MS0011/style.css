@@ -110,6 +110,7 @@ smc-input-group.smc-eng {
   flex: 1;
   font-size: var(--smc-fontSm);
   padding: var(--smc-btnPadding);
+  line-height: 1.5;
 }
 
 smc-reveal {
@@ -131,6 +132,7 @@ smc-cover {
   text-align: center;
   justify-content: center;
   border-radius: var(--smc-btnBorderRadius);
+  line-height: 1.5;
 }
 
 smc-code {
@@ -217,9 +219,15 @@ smc-cp-msg:before {
 
 .smc-tick {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   font-size: var(--smc-fontSm);
   color: #fff;
+  text-align: left;
+  gap: 5px;
+}
+smc-input-group input[type="checkbox"],
+smc-input-group input[type="radio"] {
+  margin: 0;
 }
 label.smc-eng {
   display: none;
