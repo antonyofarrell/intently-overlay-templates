@@ -1,113 +1,117 @@
-@import url("https://fonts.smct.co/greed/font.css");
-
-smc-overlay-inner {
-  --smc-mainBkg: #ffffff;
-  --smc-textColour: #332d28;
-  --smc-font2: "Greed-Medium";
-  --smc-btnBkg: #332d28;
-  --smc-btnText: #ffffff;
-  --smc-btnBorder: 1px solid #332d28;
-  --smc-btnBkgHover: #ffffff;
-  --smc-frameBorderRadius: 12px;
-  --smc-btnBorderRadius: 0;
-  --smc-btnFontSize: 15px;
-  --smc-btnPadding: 10px;
-}
-
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,700");
 smc-bg * {
-  font-family: "Greed-Regular";
-  font-feature-settings: 'lnum' 1;
+  font-family: "Montserrat", sans-serif;
+  /* border: 1px solid #333; */
 }
+
 smc-bg {
   background-color: rgb(210 210 210 / 60%);
-  backdrop-filter: blur(3px);
+  backdrop-filter: blur(1px);
 }
 smc-overlay-inner {
-    background-color: var(--smc-mainBkg);
-    width: 750px;
-    min-height: 270px;
-    border-radius: var(--smc-frameBorderRadius);
-    padding-bottom: 0;
-    margin-bottom: 0;
-    overflow: hidden;
-    padding: 0;
+  --smc-mainBkg: #eaeaea;
+  --smc-textColour: #222;
+  --smc-cardText: #222;
+  --smc-textColour2: #222;
+  --smc-font2: "Playfair", serif;
+  --smc-font-Sm: 12px;
+  --smc-font-Rg: 16px;
+  --smc-font-Lg: 34px;
+  --smc-btnBkg: #ffc107;
+  --smc-btnText: #000;
+  --smc-btnFontWeight: 400;
+  --smc-btnBkgHover: #646464cb;
+  --smc-btnBorder: 1px solid #ffb300cb;
+  --smc-btnBorderRadius: 5px;
+  --smc-btnPadding: 12px;
+  --smc-btnFontSize: 14px;
+  --smc-frameBorder: 12px;
 }
-/* Align the content Left */
-smc-img-outer, smc-text-outer, smc-option, smc-long-close {
-    width: 50%;
-    margin: 0;
+smc-overlay-inner {
+  background-color: var(--smc-mainBkg);
+  width: 650px;
+  min-height: 270px;
+  border-radius: var(--smc-frameBorder);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  padding: 0;
 }
+smc-long-close,
+smc-text:empty {
+  display: none;
+}
+smc-wrap {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  width: calc(50% - 10px);
+}
+smc-img-outer,
+smc-text-outer,
+smc-option {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-width: auto;
+  width: 100%;
+}
+
 .smc-text1,
 .smc-text2,
 .smc-text3 {
   font-size: 18px;
-  font-weight: 400;
   text-align: center;
   line-height: 1.2;
-  margin: 15px auto;
+  margin: 0;
+  font-weight: normal;
   color: var(--smc-textColour);
-  padding: 0px 10px;
 }
+
 .smc-text1 {
-    font-size: 40px;
-    margin: 60px auto auto auto;
-    font-weight: normal;
-    font-family: var(--smc-font2);
+  font-size: var(--smc-font-Lg);
+  font-family: var(--smc-font2);
 }
+
 .smc-text2 {
-    margin: 10px auto 20px auto;
-    font-size: 19px;
+  margin: 10px auto 20px auto;
+  font-size: var(--smc-font-Rg);
 }
+
 .smc-button {
-    max-width: 150px;
-    padding: var(--smc-btnPadding);
-    cursor: pointer;
-    font-size: var(--smc-btnFontSize);
-    width: 100%;
-    border: var(--smc-btnBorder);
-    border-radius: var(--smc-btnBorderRadius);
-    line-height: normal;
-    letter-spacing: 0.04em;
-    color: var(--smc-btnText);
-    transition: .3s all;
-    position: relative;
-    z-index: 1;
-    background-color: var(--smc-btnBkg);
+  padding: var(--smc-btnPadding);
+  font-size: var(--smc-btnFontSize);
+  margin: 0;
+  width: 100%;
+  border: 1px solid var(--smc-btnBkg);
+  color: var(--smc-btnText);
+  background-color: var(--smc-btnBkg);
+  font-weight: var(--smc-btnFontWeight);
+  border-radius: var(--smc-btnBorderRadius);
 }
-.smc-button::before {
-    background-color: var(--smc-btnBkgHover);
-    width: 0;
-    height: 100%;
-    content: "";
-    left: 0;
-    top: 0;
-    position: absolute;
-    transition: .3s all;
-    z-index: -1;
+
+.smc-button:hover {
+  background-color: var(--smc-btnBkgHover);
 }
-.smc-button:hover::before {
-    width: 100%;
-}
+
 smc-close {
   font-size: 14px;
   top: 10px;
   right: 10px;
 }
-.smc-button:hover {
-    color: var(--smc-btnBkg);
-    box-shadow: none;
-}
 smc-close a.smc-link {
-  color: #000;
+  color: var(--smc-textColour);
 }
+
 .smc-image {
-    display: block;
-    width: 50%;
-    background-image: url('https://cdn.smct.co/118295-904.jpg');
-    background-size: cover;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    right: 0;
-    background-position: center;
+  display: flex;
+  width: 50%;
+  background-image: url("{content6}");
+  background-size: cover;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-position: center;
 }
