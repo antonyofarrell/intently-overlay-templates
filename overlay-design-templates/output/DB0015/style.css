@@ -4,6 +4,7 @@ smc-overlay-inner {
   --smc-mainBkg: #f2f2f2;
   --smc-cardBkg: #ffffff;
   --smc-textColour: #ffffff;
+  --smc-cardText: #1a1d27;
   --smc-textColour2: #000000;
   --smc-font2: "Arsenal", sans-serif;
   --smc-btnBkg: #be8d2d;
@@ -178,4 +179,11 @@ smc-product-link {
 
 smc-product-link:hover {
   background-color: var(--smc-btnBkgHover);
+}
+
+/* product-card text */
+smc-product-name,
+smc-product-price,
+smc-product-oldprice {
+  color: var(--smc-cardText);
 }

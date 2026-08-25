@@ -4,6 +4,7 @@ smc-bg *{font-family: 'Nunito Sans', sans-serif;}
 smc-overlay-inner {
   --smc-mainBkg: #ffd814;
   --smc-textColour: #000;
+  --smc-cardText: #19124f;
   --smc-btnBkg: #000;
   --smc-btnBkgHover: #000;
   --smc-frameBorderRadius:2px;
@@ -155,7 +156,7 @@ smc-product-desc {
   margin: 5px auto;
   font-weight: 300;
   font-size: 14px;
-  color: #19124f;
+  color: var(--smc-cardText);
   width: 100%;
   text-align: left;
 }

@@ -21,6 +21,7 @@ smc-text:empty {
 smc-overlay-inner {
   --smc-mainBkg: #1c4277;
   --smc-textColour: #fff;
+  --smc-cardText: #202020;
   --smc-textColour2: #e9b42a;
   --smc-font2: "UOLtext Bold", sans-serif;
   --smc-btnBkg: #ffce00;
@@ -182,7 +183,7 @@ smc-product-oldprice {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  color: var(--smc-btnText);
+  color: var(--smc-cardText);
 }
 
 smc-product-name,

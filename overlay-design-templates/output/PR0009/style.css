@@ -3,6 +3,7 @@
 smc-overlay-inner {
 	--smc-cardBkg: #ffffff;
 	--smc-textColour: #19124f;
+  --smc-cardText: #19124f;
 	--smc-textColour2: #000000;
 	--smc-accent: #000000;
 	--smc-btnBkg: #000000;
@@ -105,7 +106,7 @@ smc-product-desc {
 	margin: 5px auto;
 	font-weight: 300;
 	font-size: 14px;
-	color: var(--smc-textColour);
+	color: var(--smc-cardText);
 	width: 100%;
 	text-align: left;
 }

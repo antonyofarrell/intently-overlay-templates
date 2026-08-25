@@ -4,6 +4,7 @@ smc-overlay-inner {
   --smc-mainBkg: #000000;
   --smc-cardBkg: #ffffff;
   --smc-textColour: #ffffff;
+  --smc-cardText: #1a1d27;
   --smc-accent: #d93c08;
   --smc-btnBkg: #d93c08;
   --smc-btnText: #ffffff;
@@ -190,4 +191,10 @@ smc-product-price {
 smc-product-oldprice {
   opacity: 0.6;
   text-decoration: line-through;
+}
+
+/* product-card text */
+smc-product-name,
+smc-product-desc {
+  color: var(--smc-cardText);
 }

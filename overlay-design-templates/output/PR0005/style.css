@@ -6,6 +6,7 @@ smc-bg * {
 smc-overlay-inner {
   --smc-mainBkg: #fff;
   --smc-textColour: #2a2b2a;
+  --smc-cardText: #2a2b2a;
   --smc-btnBkg: #ec7f73;
   --smc-fontSm: 14px;
   --smc-fontRg: 16px;
@@ -131,7 +132,7 @@ smc-product-link {
   font-size: 10px;
   font-weight: 400;
   margin: 0 auto;
-  color: var(--smc-textColour);
+  color: var(--smc-cardText);
   text-align: left;
 }
 
