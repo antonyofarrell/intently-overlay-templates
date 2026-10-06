@@ -315,6 +315,16 @@ const TEMPLATES = [
     upvotes: 0,
     downvotes: 0,
   },
+  {
+    ref: "DB0021",
+    cat: "db",
+    desc: "Corner mini basket listing multiple products with a basket total and redirect CTA",
+    url: "https://admin.intent.ly/my-account/overlay-manager/#202247",
+    img: "images/thumbs/DB0021.jpg",
+    notes: null,
+    upvotes: 0,
+    downvotes: 0,
+  },
 
   /* ── Recomminder ─────────────────────────────── */
   {
