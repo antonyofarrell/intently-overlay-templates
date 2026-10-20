@@ -743,6 +743,16 @@ const TEMPLATES = [
     upvotes: 0,
     downvotes: 0,
   },
+  {
+    ref: "RV0009",
+    cat: "rv",
+    desc: "Image split with a coupon ticket panel, animated voucher badge and shine on the reveal CTA",
+    url: "https://admin.intent.ly/my-account/overlay-manager/#203385",
+    img: "images/thumbs/RV0009.jpg",
+    notes: null,
+    upvotes: 0,
+    downvotes: 0,
+  },
 
   /* ── Miscellaneous ───────────────────────────── */
   {
