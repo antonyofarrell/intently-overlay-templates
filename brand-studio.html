@@ -424,6 +424,189 @@
         margin-top: 10px;
       }
 
+      /* ── Compare methods (current vs rendered) ── */
+      .cmp-toggle {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 10px;
+        font-size: 12px;
+        font-weight: 500;
+        color: #555;
+        cursor: pointer;
+        user-select: none;
+      }
+      .cmp-toggle input {
+        width: 15px;
+        height: 15px;
+        accent-color: var(--accent);
+        margin: 0;
+      }
+      .cmp {
+        margin-bottom: 22px;
+      }
+      .cmp-head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 12px;
+      }
+      .cmp-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        align-items: start;
+      }
+      @media (max-width: 1300px) {
+        .cmp-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .cmp-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+        min-width: 0;
+      }
+      .cmp-card.chosen {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 1px var(--accent);
+      }
+      .cmp-card-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 10px 12px;
+        border-bottom: 1px solid var(--border);
+      }
+      .cmp-card-head b {
+        font-size: 13px;
+      }
+      .cmp-meta {
+        font-size: 11px;
+        color: var(--muted);
+        font-variant-numeric: tabular-nums;
+      }
+      .cmp-stage {
+        position: relative;
+        background: repeating-conic-gradient(#efeae2 0% 25%, #f7f4ef 0% 50%) 50% / 22px 22px;
+        overflow: hidden;
+        height: 300px;
+      }
+      .cmp-stage iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 760px;
+        height: 620px;
+        border: 0;
+        transform-origin: 0 0;
+        background: transparent;
+      }
+      .cmp-msg {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        text-align: center;
+        font-size: 12px;
+        color: var(--muted);
+        background: rgba(247, 246, 243, 0.92);
+      }
+      .cmp-msg.err {
+        color: var(--red);
+      }
+      .cmp-msg[hidden],
+      .cmp[hidden],
+      .cmp-diff[hidden] {
+        display: none;
+      }
+      .cmp-ev {
+        padding: 10px 12px;
+        font-size: 11px;
+        line-height: 1.5;
+        color: var(--muted);
+        border-top: 1px solid var(--border);
+      }
+      .cmp-ev ul {
+        margin: 4px 0 0 16px;
+      }
+      .cmp-foot {
+        padding: 10px 12px;
+        border-top: 1px solid var(--border);
+        display: flex;
+        justify-content: flex-end;
+      }
+      .cmp-diff {
+        margin-top: 14px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow-x: auto;
+      }
+      .cmp-diff table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 12px;
+        min-width: 520px;
+      }
+      .cmp-diff th,
+      .cmp-diff td {
+        text-align: left;
+        padding: 7px 12px;
+        border-bottom: 1px solid var(--border);
+        vertical-align: top;
+      }
+      .cmp-diff tr:last-child > * {
+        border-bottom: 0;
+      }
+      .cmp-diff thead th {
+        font-size: 11px;
+        color: var(--muted);
+        font-weight: 600;
+        background: #faf9f7;
+      }
+      .cmp-diff td {
+        font-family: "SF Mono", ui-monospace, monospace;
+        font-size: 11px;
+        word-break: break-word;
+      }
+      .cmp-diff td.same {
+        color: var(--hint);
+      }
+      .cmp-sw {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border-radius: 3px;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        vertical-align: -2px;
+        margin-right: 6px;
+      }
+      .cmp-diff-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 9px 12px;
+        border-bottom: 1px solid var(--border);
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .cmp-diff-head label {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin: 0;
+        font-weight: 500;
+        color: var(--muted);
+        cursor: pointer;
+      }
+
       .outputs-bar {
         display: flex;
         align-items: center;
@@ -593,6 +776,11 @@
               onkeydown="if (event.key === 'Enter') extractBrand();" />
             <button class="btn btn-primary btn-sm" id="extractBtn" onclick="extractBrand()">Extract</button>
           </div>
+          <label class="cmp-toggle" title="Run the current method and the rendered-page method side by side, then pick one">
+            <input type="checkbox" id="cmpToggle" onchange="onCompareToggle(this.checked)" />
+            Compare methods
+            <span class="var-name">(current vs rendered)</span>
+          </label>
           <p class="hint">
             Claude reads the site (via web search) and fills this overlay's own CSS variables below. If the page exposes
             product data, the preview product is filled too. Fine-tune anything by hand.
@@ -673,6 +861,53 @@
       </div>
 
       <div class="panel right">
+        <div class="cmp" id="cmpPanel" hidden>
+          <div class="cmp-head">
+            <span class="preview-title">Compare methods</span>
+            <span class="cmp-meta" id="cmpSummary"></span>
+          </div>
+          <div class="cmp-grid">
+            <div class="cmp-card" id="cmpCard_a">
+              <div class="cmp-card-head">
+                <b>Current <span class="cmp-meta">· stylesheets + Claude</span></b>
+                <span class="cmp-meta" id="cmpMeta_a"></span>
+              </div>
+              <div class="cmp-stage" id="cmpStage_a">
+                <iframe id="cmpFrame_a" title="Current method preview"></iframe>
+                <div class="cmp-msg" id="cmpMsg_a">Not run yet.</div>
+              </div>
+              <div class="cmp-ev" id="cmpEv_a"></div>
+              <div class="cmp-foot">
+                <button class="btn btn-secondary btn-sm" id="cmpUse_a" onclick="useCandidate('a')" disabled>Use this</button>
+              </div>
+            </div>
+            <div class="cmp-card" id="cmpCard_b">
+              <div class="cmp-card-head">
+                <b>Rendered <span class="cmp-meta">· measured in a real browser</span></b>
+                <span class="cmp-meta" id="cmpMeta_b"></span>
+              </div>
+              <div class="cmp-stage" id="cmpStage_b">
+                <iframe id="cmpFrame_b" title="Rendered method preview"></iframe>
+                <div class="cmp-msg" id="cmpMsg_b">Not run yet.</div>
+              </div>
+              <div class="cmp-ev" id="cmpEv_b"></div>
+              <div class="cmp-foot">
+                <button class="btn btn-secondary btn-sm" id="cmpUse_b" onclick="useCandidate('b')" disabled>Use this</button>
+              </div>
+            </div>
+          </div>
+          <div class="cmp-diff" id="cmpDiff" hidden>
+            <div class="cmp-diff-head">
+              <span id="cmpDiffTitle">Differences</span>
+              <label><input type="checkbox" id="cmpShowAll" onchange="renderCompareDiff()" /> Show all values</label>
+            </div>
+            <table>
+              <thead><tr><th>Value</th><th>Current</th><th>Rendered</th></tr></thead>
+              <tbody id="cmpDiffBody"></tbody>
+            </table>
+          </div>
+        </div>
+
         <div class="preview-title" style="margin-bottom: 14px">Live preview</div>
         <div class="stage" id="stage">
           <iframe id="pvFrame" title="Overlay preview"></iframe>
@@ -871,8 +1106,9 @@
       ];
       // If the site's detected font is one we self-host, load it from the CDN and switch to the
       // hosted family names. Checks the resolved body font + the scraped @font-face/font-family list.
-      function applyHostedFont(scraped) {
-        const cands = [state.bodyFont]
+      function applyHostedFont(scraped, t) {
+        t = t || state; // the live state, or a candidate snapshot in Compare mode
+        const cands = [t.bodyFont]
           .concat((scraped && scraped.fontFaces) || [])
           .concat((scraped && scraped.fontFamilies) || []);
         for (const c of cands) {
@@ -880,11 +1116,11 @@
           if (!name) continue;
           const hit = HOSTED_FONTS.find((f) => f.match.test(name));
           if (!hit) continue;
-          state.bodyFont = hit.body;
-          if (!(state.fontImports || []).some((i) => i.indexOf(hit.url) !== -1))
-            state.fontImports = ["@import url('" + hit.url + "');"].concat(state.fontImports || []);
+          t.bodyFont = hit.body;
+          if (!(t.fontImports || []).some((i) => i.indexOf(hit.url) !== -1))
+            t.fontImports = ["@import url('" + hit.url + "');"].concat(t.fontImports || []);
           if (hit.heading && state.vars.some((v) => v.name === "--smc-font2"))
-            state.values["--smc-font2"] = hit.heading;
+            t.values["--smc-font2"] = hit.heading;
           return hit;
         }
         return null;
@@ -1073,6 +1309,7 @@
         values: {},
         fontImports: [],
         bodyFont: "",
+        extraCss: "", // extra rules appended to the output (set by the Rendered method: button/headline case, tracking)
         base: null,
         activeTheme: null,
       };
@@ -1142,6 +1379,7 @@
               values: state.values,
               fontImports: state.fontImports,
               bodyFont: state.bodyFont,
+              extraCss: "",
             }),
           );
           // NOTE: we intentionally do NOT restore any previous per-template brand values from
@@ -1152,6 +1390,14 @@
         renderEditor();
         setupPreview();
         applyAll();
+
+        // Compare-methods switch — remembered per browser
+        try {
+          compareMode = localStorage.getItem("smc_compare_methods") === "1";
+        } catch (e) {}
+        const ct = document.getElementById("cmpToggle");
+        if (ct) ct.checked = compareMode;
+        if (compareMode && state.hasSource) document.getElementById("cmpPanel").hidden = false;
       }
 
       /* ───────── detect this overlay's own variables ───────── */
@@ -1642,7 +1888,7 @@
         }
       }
 
-      function buildIframeSrcdoc() {
+      function buildIframeSrcdoc(cssOverride) {
         const a = state.asset;
         const fonts = (state.fontImports || []).join("\n");
         // Show the one <smc-option> this overlay uses in production (its "Type" in the overlay
@@ -1686,7 +1932,7 @@
           PAGE_STYLES +
           "</style>" +
           "<style>" +
-          replaceTokens(cssText()) +
+          replaceTokens(cssOverride != null ? cssOverride : cssText()) +
           "</style>" +
           "<style>" +
           preview +
@@ -1714,26 +1960,34 @@
           if (cssEditor) cssEditor.setValue(out.textContent);
           return;
         }
+        const text = buildCss(state);
+        out.textContent = text;
+        if (cssEditor) cssEditor.setValue(text);
+      }
+
+      // Paste-ready CSS for a set of brand values ({values, bodyFont, fontImports, extraCss}) —
+      // the live state or a Compare candidate.
+      function buildCss(src) {
         let css = state.asset.css;
         // drop the overlay's existing @import lines (we re-add the current ones at the top).
         // Consume the whole url()/string — css2 font URLs contain semicolons, so a naive
         // /@import[^;]+;/ truncates them and leaves orphaned garbage that breaks the CSS.
         css = css.replace(/@import\s+(?:url\([^)]*\)|"[^"]*"|'[^']*')[^;]*;[ \t]*\r?\n?/gi, "");
         // swap the smc-bg body font-family
-        css = css.replace(/(smc-bg\s*\*\s*\{[^}]*font-family:\s*)([^;}]+)/i, (m, p1) => p1 + state.bodyFont);
+        css = css.replace(/(smc-bg\s*\*\s*\{[^}]*font-family:\s*)([^;}]+)/i, (m, p1) => p1 + src.bodyFont);
         // swap each declared variable's value (declarations only — var(--x) usages are untouched).
         // Match the value up to the next ; OR } and leave that terminator in place: some templates
         // omit the trailing ; on the last property in a block, and a greedy [^;]+; would then
         // swallow everything up to the next ; in a later rule (dropping real CSS in between).
         state.vars.forEach((v) => {
           const re = new RegExp("(" + v.name.replace(/[-]/g, "\\-") + "\\s*:\\s*)[^;}]+");
-          css = css.replace(re, "$1" + (state.values[v.name] || ""));
+          css = css.replace(re, "$1" + (src.values[v.name] || ""));
         });
         css = css.replace(/^\s+/, "");
-        const imports = (state.fontImports || []).join("\n");
-        const text = (imports ? imports + "\n" : "") + css;
-        out.textContent = text;
-        if (cssEditor) cssEditor.setValue(text);
+        // @import must precede every other rule, so imports go first, then any @font-face blocks
+        const fi = src.fontImports || [];
+        const imports = fi.filter((l) => /^\s*@import/i.test(l)).concat(fi.filter((l) => !/^\s*@import/i.test(l))).join("\n");
+        return (imports ? imports + "\n" : "") + css + (src.extraCss ? "\n" + src.extraCss.trim() + "\n" : "");
       }
 
       /* ───────── extract via Claude ───────── */
@@ -1745,76 +1999,17 @@
           openKeyModal();
           return;
         }
+        if (compareMode) return extractCompare(url);
         const btn = document.getElementById("extractBtn");
         btn.disabled = true;
-        setStatus("info", '<span class="spinner"></span>Reading ' + shortUrl(url) + "'s stylesheets…");
         try {
-          const scrapeRes = await scrapeSite(url); // server-side: real HTML + linked CSS tokens
-          const scraped = scrapeRes.data;
-          // The scrape endpoint itself gateway-timed-out: don't spend another 60s on Claude web
-          // tools (which would 504 too) — say plainly what happened.
-          if (!scraped && [502, 503, 504].includes(scrapeRes.status)) {
-            setStatus(
-              "err",
-              "⚠ Couldn't read " +
-                shortUrl(url) +
-                " in time — the site was too slow to respond, or it's blocking automated access. Set the brand values by hand below, and paste product details in the Preview product panel.",
-            );
-            return;
-          }
-          // A bot-block/challenge page (Cloudflare etc.) is NOT the real site, and web_fetch can't
-          // get past it either — so short-circuit with a clear message instead of a doomed Claude
-          // call that hits the serverless timeout and surfaces as a cryptic "HTTP 504".
-          if (scraped && scraped.blocked) {
-            setStatus(
-              "err",
-              "⚠ " +
-                shortUrl(url) +
-                " uses bot protection (e.g. Cloudflare) that blocks automated access, so its styles and product couldn't be read. Set the brand colours/fonts by hand below, and paste product details in the Preview product panel.",
-            );
-            return;
-          }
-          // Skip web tools only when the scrape has strong COLOUR signal (a theme colour, a real
-          // @font-face, or a colour custom property). A lone font — or nothing — isn't enough, so
-          // we keep web browsing on to actually find the brand's colours.
-          const hasColour = (v) => /^\s*#|^\s*(rgb|hsl)/i.test(String(v));
-          const usable = scraped; // present and not bot-blocked at this point
+          const r = await runCurrentMethod(url, state, (msg) => setStatus("info", '<span class="spinner"></span>' + msg));
+          if (r.error) return setStatus("err", r.error);
           // Prefill the preview product from the page's structured data (if any).
-          if (usable && usable.product) prefillProduct(usable.product);
-          if (usable && usable.product2) prefillProduct2(usable.product2);
-          // We can map locally (no slow web browsing) whenever the scrape gave us usable content:
-          // colour tokens, a real font, OR the raw CSS sample to read rules from. Only browse when
-          // the scrape returned essentially nothing (bot-blocked / fully JS-rendered).
-          const canMapLocally = !!(
-            usable &&
-            (usable.themeColor ||
-              (usable.fontFaces && usable.fontFaces.length) ||
-              Object.values(usable.cssVars || {}).some(hasColour) ||
-              (usable.cssSample && usable.cssSample.length > 200))
-          );
-          setStatus("info", '<span class="spinner"></span>Mapping ' + shortUrl(url) + " to the overlay…");
-          const raw = await callClaude(buildPrompt(url, usable), !canMapLocally);
-          const parsed = parseJson(raw);
-          if (!parsed) throw new Error("Could not read a valid response. Try again.");
-          if (parsed.vars && typeof parsed.vars === "object") {
-            state.vars.forEach((v) => {
-              if (typeof parsed.vars[v.name] === "string" && parsed.vars[v.name].trim())
-                state.values[v.name] = parsed.vars[v.name].trim();
-            });
-          }
-          if (typeof parsed.bodyFont === "string" && parsed.bodyFont.trim()) state.bodyFont = parsed.bodyFont.trim();
-          if (Array.isArray(parsed.fontImports)) state.fontImports = parsed.fontImports;
-          // If the brand's font is one we self-host on the intent.ly CDN, load it and use the
-          // hosted family names (covers fonts that aren't on Google Fonts, e.g. Centrale).
-          applyHostedFont(usable);
-          state.activeTheme = null; // brand values now supersede any starting theme
-          renderEditor();
-          applyAll();
-          saveState();
-          const ev =
-            typeof parsed.evidence === "string" && parsed.evidence.trim()
-              ? "<span class='evidence'>" + escHtml(parsed.evidence.trim()) + "</span>"
-              : "";
+          if (r.product) prefillProduct(r.product);
+          if (r.product2) prefillProduct2(r.product2);
+          loadSnapshot(r.snap);
+          const ev = r.evidence ? "<span class='evidence'>" + escHtml(r.evidence) + "</span>" : "";
           setStatus("ok", "✓ Brand styles extracted. Fine-tune anything below." + ev);
         } catch (e) {
           setStatus("err", "✗ " + (e.message || "Extraction failed."));
@@ -1822,6 +2017,505 @@
           btn.disabled = false;
         }
       }
+
+      // Put a set of brand values ({values, bodyFont, fontImports, extraCss}) into the editor.
+      function loadSnapshot(snap) {
+        state.values = Object.assign({}, snap.values);
+        state.bodyFont = snap.bodyFont;
+        state.fontImports = (snap.fontImports || []).slice();
+        state.extraCss = snap.extraCss || "";
+        state.activeTheme = null; // brand values now supersede any starting theme
+        renderEditor();
+        applyAll();
+        saveState();
+      }
+      function snapshotOf(src) {
+        return {
+          values: Object.assign({}, src.values),
+          bodyFont: src.bodyFont,
+          fontImports: (src.fontImports || []).slice(),
+          extraCss: src.extraCss || "",
+        };
+      }
+
+      // CURRENT method: server-side stylesheet scrape → Claude maps tokens onto the overlay.
+      // Returns { snap, evidence, product, product2 } or { error } — never touches the editor.
+      async function runCurrentMethod(url, from, progress) {
+        const say = progress || function () {};
+        say("Reading " + shortUrl(url) + "'s stylesheets…");
+        const scrapeRes = await scrapeSite(url); // server-side: real HTML + linked CSS tokens
+        const scraped = scrapeRes.data;
+        // The scrape endpoint itself gateway-timed-out: don't spend another 60s on Claude web
+        // tools (which would 504 too) — say plainly what happened.
+        if (!scraped && [502, 503, 504].includes(scrapeRes.status)) {
+          return {
+            error:
+              "⚠ Couldn't read " +
+              shortUrl(url) +
+              " in time — the site was too slow to respond, or it's blocking automated access. Set the brand values by hand below, and paste product details in the Preview product panel.",
+          };
+        }
+        // A bot-block/challenge page (Cloudflare etc.) is NOT the real site, and web_fetch can't
+        // get past it either — so short-circuit with a clear message instead of a doomed Claude
+        // call that hits the serverless timeout and surfaces as a cryptic "HTTP 504".
+        if (scraped && scraped.blocked) {
+          return {
+            error:
+              "⚠ " +
+              shortUrl(url) +
+              " uses bot protection (e.g. Cloudflare) that blocks automated access, so its styles and product couldn't be read. Set the brand colours/fonts by hand below, and paste product details in the Preview product panel.",
+          };
+        }
+        // Skip web tools only when the scrape has strong COLOUR signal (a theme colour, a real
+        // @font-face, or a colour custom property). A lone font — or nothing — isn't enough, so
+        // we keep web browsing on to actually find the brand's colours.
+        const hasColour = (v) => /^\s*#|^\s*(rgb|hsl)/i.test(String(v));
+        const usable = scraped; // present and not bot-blocked at this point
+        const out = { product: usable && usable.product, product2: usable && usable.product2 };
+        // We can map locally (no slow web browsing) whenever the scrape gave us usable content:
+        // colour tokens, a real font, OR the raw CSS sample to read rules from. Only browse when
+        // the scrape returned essentially nothing (bot-blocked / fully JS-rendered).
+        const canMapLocally = !!(
+          usable &&
+          (usable.themeColor ||
+            (usable.fontFaces && usable.fontFaces.length) ||
+            Object.values(usable.cssVars || {}).some(hasColour) ||
+            (usable.cssSample && usable.cssSample.length > 200))
+        );
+        say("Mapping " + shortUrl(url) + " to the overlay…");
+        const raw = await callClaude(buildPrompt(url, usable), !canMapLocally);
+        const parsed = parseJson(raw);
+        if (!parsed) throw new Error("Could not read a valid response. Try again.");
+        const snap = snapshotOf(from);
+        if (parsed.vars && typeof parsed.vars === "object") {
+          state.vars.forEach((v) => {
+            if (typeof parsed.vars[v.name] === "string" && parsed.vars[v.name].trim())
+              snap.values[v.name] = parsed.vars[v.name].trim();
+          });
+        }
+        if (typeof parsed.bodyFont === "string" && parsed.bodyFont.trim()) snap.bodyFont = parsed.bodyFont.trim();
+        if (Array.isArray(parsed.fontImports)) snap.fontImports = parsed.fontImports;
+        // If the brand's font is one we self-host on the intent.ly CDN, load it and use the
+        // hosted family names (covers fonts that aren't on Google Fonts, e.g. Centrale).
+        applyHostedFont(usable, snap);
+        out.snap = snap;
+        out.evidence = typeof parsed.evidence === "string" ? parsed.evidence.trim() : "";
+        return out;
+      }
+
+      // RENDERED method: /api/render-scrape loads the page in a real browser (Firecrawl) and
+      // measures the painted styles; mapRendered() turns those into overlay values with no model call.
+      async function runRenderedMethod(url, from) {
+        const res = await fetch("/api/render-scrape?url=" + encodeURIComponent(url), {
+          headers: { "x-brand-passphrase": state.pass },
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error((data.error && data.error.message) || "HTTP " + res.status);
+        const m = mapRendered(data, snapshotOf(from), state.vars);
+        applyHostedFont({ fontFaces: m.families || [] }, m.snap);
+        m.credits = data.credits;
+        m.keyless = data.keyless;
+        return m;
+      }
+
+      /* ───────── Compare methods ───────── */
+      let compareMode = false;
+      const cmp = { a: null, b: null, chosen: null };
+      const CMP_LABEL = { a: "Current", b: "Rendered" };
+
+      function onCompareToggle(on) {
+        compareMode = !!on;
+        try {
+          localStorage.setItem("smc_compare_methods", compareMode ? "1" : "0");
+        } catch (e) {}
+        document.getElementById("cmpPanel").hidden = !compareMode;
+        if (compareMode) {
+          ["a", "b"].forEach(fitCompareFrame);
+          if (!cmp.a && !cmp.b) setStatus("info", "Compare is on — Extract will run both methods side by side.");
+        }
+      }
+
+      function setCardMsg(k, text, isErr) {
+        const m = document.getElementById("cmpMsg_" + k);
+        m.innerHTML = text;
+        m.className = "cmp-msg" + (isErr ? " err" : "");
+        m.hidden = false;
+      }
+
+      async function extractCompare(url) {
+        const btn = document.getElementById("extractBtn");
+        btn.disabled = true;
+        cmp.a = cmp.b = cmp.chosen = null;
+        document.getElementById("cmpPanel").hidden = false;
+        document.getElementById("cmpDiff").hidden = true;
+        document.getElementById("cmpSummary").textContent = "";
+        ["a", "b"].forEach((k) => {
+          document.getElementById("cmpCard_" + k).classList.remove("chosen");
+          document.getElementById("cmpUse_" + k).disabled = true;
+          document.getElementById("cmpUse_" + k).textContent = "Use this";
+          document.getElementById("cmpEv_" + k).innerHTML = "";
+          document.getElementById("cmpMeta_" + k).textContent = "";
+        });
+        setCardMsg("a", '<span class="spinner"></span>Reading stylesheets, then asking Claude…');
+        setCardMsg("b", '<span class="spinner"></span>Loading the page in a real browser…');
+        setStatus("info", '<span class="spinner"></span>Running both methods on ' + escHtml(shortUrl(url)) + "…");
+
+        // Both start from the template's own defaults, so neither inherits the other's edits.
+        const from = state.base;
+        const t0 = performance.now();
+        const wrap = (p) =>
+          p.then(
+            (r) => Object.assign({ ok: !r.error }, r, { ms: performance.now() - t0 }),
+            (e) => ({ ok: false, error: e.message || "Extraction failed.", ms: performance.now() - t0 }),
+          );
+        const pa = wrap(runCurrentMethod(url, from));
+        const pb = wrap(runRenderedMethod(url, from));
+        pa.then((r) => { cmp.a = r; renderCandidate("a"); renderCompareDiff(); });
+        pb.then((r) => { cmp.b = r; renderCandidate("b"); renderCompareDiff(); });
+        const [ra, rb] = await Promise.all([pa, pb]);
+
+        // One preview product for both. The rendered method reads Product data from a real product
+        // page (it hops to one if needed), so it wins; else fall back to the stylesheet scrape's.
+        const good = (p) => p && p.name && (p.image || p.price);
+        const prod = good(rb.product) ? Object.assign({}, rb.product, { price: rb.product.price || (ra.product && ra.product.price) || "" }) : ra.product;
+        if (prod) prefillProduct(prod);
+        if (ra.product2) prefillProduct2(ra.product2);
+        if (prod || ra.product2) ["a", "b"].forEach(renderCandidate);
+
+        btn.disabled = false;
+        if (!ra.ok && !rb.ok) setStatus("err", "✗ Neither method could read " + escHtml(shortUrl(url)) + ". Details are on each preview.");
+        else
+          setStatus(
+            "ok",
+            "✓ Both methods finished. Compare the previews on the right, then click <b>Use this</b> on the one you prefer to load it into the editor.",
+          );
+      }
+
+      function renderCandidate(k) {
+        const r = cmp[k];
+        if (!r) return;
+        const meta = document.getElementById("cmpMeta_" + k);
+        meta.textContent =
+          (r.ms / 1000).toFixed(1) + "s" + (r.credits ? " · " + r.credits + " Firecrawl credit" + (r.credits > 1 ? "s" : "") : "");
+        const ev = document.getElementById("cmpEv_" + k);
+        const use = document.getElementById("cmpUse_" + k);
+        if (!r.ok) {
+          setCardMsg(k, escHtml(String(r.error).replace(/^[⚠✗]\s*/, "")), true);
+          ev.innerHTML = "";
+          use.disabled = true;
+          return;
+        }
+        document.getElementById("cmpFrame_" + k).srcdoc = buildIframeSrcdoc(buildCss(r.snap));
+        document.getElementById("cmpMsg_" + k).hidden = true;
+        use.disabled = false;
+        if (r.notes && r.notes.length) {
+          ev.innerHTML = "<b>How it got these values</b><ul>" + r.notes.map((n) => "<li>" + escHtml(n) + "</li>").join("") + "</ul>";
+        } else if (r.evidence) {
+          ev.innerHTML = "<b>Claude's evidence</b><br>" + escHtml(r.evidence);
+        } else ev.innerHTML = "";
+        fitCompareFrame(k);
+      }
+
+      // The previews render at desktop size (760×620) and are scaled down to fit their column.
+      function fitCompareFrame(k) {
+        const stage = document.getElementById("cmpStage_" + k);
+        const frame = document.getElementById("cmpFrame_" + k);
+        if (!stage || !frame || !stage.clientWidth) return;
+        const sc = Math.min(1, stage.clientWidth / 760);
+        frame.style.transform = "scale(" + sc + ")";
+        stage.style.height = Math.round(620 * sc) + "px";
+      }
+      window.addEventListener("resize", () => ["a", "b"].forEach(fitCompareFrame));
+
+      function useCandidate(k) {
+        const r = cmp[k];
+        if (!r || !r.ok) return;
+        loadSnapshot(r.snap);
+        cmp.chosen = k;
+        ["a", "b"].forEach((x) => {
+          document.getElementById("cmpCard_" + x).classList.toggle("chosen", x === k);
+          const b = document.getElementById("cmpUse_" + x);
+          b.textContent = x === k ? "✓ In the editor" : "Use this";
+        });
+        setStatus("ok", "✓ Loaded the " + CMP_LABEL[k] + " result into the editor. Fine-tune anything below.");
+      }
+
+      function cmpCell(v) {
+        if (v == null || v === "") return "—";
+        const t = String(v);
+        const sw = isColor(t.trim()) ? '<span class="cmp-sw" style="background:' + escAttr(t.trim()) + '"></span>' : "";
+        return sw + escHtml(t);
+      }
+      function summarizeFonts(list) {
+        return (list || [])
+          .map((l) => {
+            const fam = l.match(/font-family:\s*["']?([^"';]+)/i);
+            const w = l.match(/font-weight:\s*([^;]+)/i);
+            if (fam) return "@font-face " + fam[1] + (w ? " " + w[1].trim() : "");
+            const g = l.match(/family=([^&:'")]+)/i);
+            if (g) return "@import " + decodeURIComponent(g[1]).replace(/\+/g, " ");
+            const u = l.match(/url\(\s*["']?([^"')]+)/i);
+            return u ? "@import " + u[1].replace(/^https?:\/\//, "") : l;
+          })
+          .join("\n");
+      }
+      function renderCompareDiff() {
+        const a = cmp.a && cmp.a.ok ? cmp.a.snap : null;
+        const b = cmp.b && cmp.b.ok ? cmp.b.snap : null;
+        const box = document.getElementById("cmpDiff");
+        if (!a && !b) {
+          box.hidden = true;
+          return;
+        }
+        const rows = [
+          ["Body font", a && a.bodyFont, b && b.bodyFont],
+          ["Font files", a && summarizeFonts(a.fontImports), b && summarizeFonts(b.fontImports)],
+        ];
+        state.vars.forEach((v) => rows.push([v.name, a && a.values[v.name], b && b.values[v.name]]));
+        rows.push(["Extra rules", a && (a.extraCss || ""), b && (b.extraCss || "")]);
+        const norm = (x) => String(x == null ? "" : x).replace(/\s+/g, " ").trim().toLowerCase();
+        const showAll = document.getElementById("cmpShowAll").checked;
+        let differ = 0;
+        const html = rows
+          .map((r) => {
+            const same = a && b && norm(r[1]) === norm(r[2]);
+            if (!same) differ++;
+            if (same && !showAll) return "";
+            const cls = same ? ' class="same"' : "";
+            const fmt = (v) => (r[0] === "Extra rules" || r[0] === "Font files" ? escHtml(v || "—").replace(/\n/g, "<br>") : cmpCell(v));
+            return "<tr><th scope=\"row\" class=\"var-name\">" + escHtml(r[0]) + "</th><td" + cls + ">" + fmt(r[1]) + "</td><td" + cls + ">" + fmt(r[2]) + "</td></tr>";
+          })
+          .join("");
+        document.getElementById("cmpDiffBody").innerHTML =
+          html || '<tr><td colspan="3" class="same">Both methods produced the same values.</td></tr>';
+        document.getElementById("cmpDiffTitle").textContent =
+          a && b ? differ + " of " + rows.length + " values differ" : "Values (" + (a ? "Current" : "Rendered") + " only)";
+        document.getElementById("cmpSummary").textContent =
+          a && b ? "Same start point: the template's defaults" : "";
+        box.hidden = false;
+      }
+
+      /* RENDER-MAP START — measured page styles → overlay values (pure functions, no DOM) */
+      function rmRgb(c) {
+        c = String(c || "").trim();
+        let m = c.match(/^#([0-9a-f]{6})/i);
+        if (m) return [0, 2, 4].map((i) => parseInt(m[1].substr(i, 2), 16));
+        m = c.match(/^#([0-9a-f]{3})\b/i);
+        if (m) return m[1].split("").map((x) => parseInt(x + x, 16));
+        m = c.match(/rgba?\(([^)]+)\)/i);
+        if (m) {
+          const p = m[1].split(/[ ,/]+/).filter(Boolean).map(Number);
+          if (p.length > 3 && p[3] < 0.5) return null; // mostly transparent — not a usable colour
+          return [p[0], p[1], p[2]].map(Math.round);
+        }
+        return null;
+      }
+      function rmHex(t) {
+        return "#" + t.map((x) => Math.max(0, Math.min(255, x)).toString(16).padStart(2, "0")).join("");
+      }
+      function rmLum(t) {
+        const ch = (v) => ((v /= 255) <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4));
+        return 0.2126 * ch(t[0]) + 0.7152 * ch(t[1]) + 0.0722 * ch(t[2]);
+      }
+      function rmContrast(a, b) {
+        const x = rmLum(a), y = rmLum(b);
+        return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05);
+      }
+      function rmMix(a, b, t) {
+        return a.map((v, i) => Math.round(v * (1 - t) + b[i] * t));
+      }
+      const RM_W = [255, 255, 255], RM_K = [0, 0, 0];
+      function rmReadable(fg, bg) {
+        if (fg && rmContrast(fg, bg) >= 4.5) return { c: fg, swapped: false };
+        return { c: rmContrast(RM_K, bg) >= rmContrast(RM_W, bg) ? RM_K : RM_W, swapped: true };
+      }
+      function rmStack(fam, generic) {
+        fam = String(fam || "").trim();
+        if (!fam) return "";
+        return /(sans-serif|serif|system-ui|monospace)\s*$/i.test(fam) ? fam : fam + ", " + (generic || "sans-serif");
+      }
+      function rmFirst(fam) {
+        return String(fam || "").split(",")[0].replace(/["']/g, "").trim();
+      }
+      function rmPx(v) {
+        const n = parseFloat(v);
+        return isFinite(n) ? n : null;
+      }
+
+      // data = /api/render-scrape response; from = starting snapshot (template defaults); vars = overlay's declared vars.
+      // Returns { ok, snap, notes, product, families }. Only canonical --smc-* slots are written; anything
+      // else keeps its template value.
+      function mapRendered(data, from, vars) {
+        const pages = (data && data.pages) || [];
+        if (!pages.length) throw new Error("The rendered scrape returned no page data.");
+        const entry = pages[0].probe || {};
+        const pdp = (pages[1] && pages[1].probe) || entry;
+        const host = (String(pdp.href || entry.href || "").match(/^https?:\/\/([^/]+)/) || [])[1] || "the site";
+        if (pdp.challenge || (pdp.textLength || 0) < 80)
+          throw new Error("The page came back as a bot check or an empty page, so there was nothing to measure.");
+        const cta = pdp.cta || entry.cta;
+        if (!cta) throw new Error("No button was found on the page to measure. Try a product page URL.");
+        const notes = [];
+        const snap = from;
+        const v = snap.values;
+        const has = (n) => vars.some((x) => x.name === n);
+        const set = (n, val) => {
+          if (has(n) && val != null && val !== "") v[n] = val;
+        };
+        if (pages[1]) notes.push("No add-to-cart on the URL given, so it also measured a product page: " + pdp.href);
+
+        // Button — straight from the measured CTA
+        const btnBkg = rmRgb(cta.backgroundColor) || [0, 0, 0];
+        const bt = rmReadable(rmRgb(cta.color), btnBkg);
+        const hover = rmLum(btnBkg) < 0.2 ? rmMix(btnBkg, RM_W, 0.16) : rmMix(btnBkg, RM_K, 0.14);
+        const r = rmPx(cta.borderTopLeftRadius) || 0;
+        const fs = rmPx(cta.fontSize) || 14;
+        let padY = rmPx(cta.paddingTop) || 0;
+        const h = rmPx(cta.height);
+        if (h) padY = Math.max(padY, Math.round((h - fs * 1.25) / 2)); // fixed-height buttons report tiny padding
+        padY = Math.min(Math.max(padY, 8), 20);
+        const padX = Math.min(Math.max(rmPx(cta.paddingRight) || 0, Math.round(padY * 1.5)), 40);
+        set("--smc-btnBkg", rmHex(btnBkg));
+        set("--smc-btnText", rmHex(bt.c));
+        set("--smc-btnBkgHover", rmHex(hover));
+        const bw = rmPx(cta.borderTopWidth) || 0;
+        const bc = rmRgb(cta.borderTopColor);
+        set("--smc-btnBorder", bw > 0 && bc ? Math.round(bw) + "px solid " + rmHex(bc) : "1px solid " + rmHex(btnBkg));
+        set("--smc-btnBorderRadius", r >= 200 ? "999px" : Math.round(r) + "px");
+        set("--smc-btnFontSize", Math.round(fs) + "px");
+        set("--smc-btnPadding", padY + "px " + padX + "px");
+        set("--smc-btnFontWeight", String(cta.fontWeight || ""));
+        set("--smc-accent", rmHex(btnBkg));
+        notes.push(
+          "Button: " + (cta.source || "button") + ' "' + (cta.text || "") + '" — ' + rmHex(btnBkg) + ", " +
+            (r >= 200 ? "pill" : Math.round(r) + "px corners") + ", " + Math.round(fs) + "px " + (cta.fontWeight || "") +
+            (cta.textTransform && cta.textTransform !== "none" ? " " + cta.textTransform : "") + ".",
+        );
+        if (bt.swapped) notes.push("Button text was below 4.5:1 contrast, so it was switched to " + rmHex(bt.c) + ".");
+        notes.push("Hover colour derived from the button colour (hover can't be measured remotely).");
+
+        // Background surface: the page's own tint, else the largest tinted (non-image) panel
+        const nearW = (t) => Math.min.apply(null, t) > 247, nearK = (t) => Math.max.apply(null, t) < 20;
+        let surface = null, surfSrc = "";
+        const pbg = rmRgb(pdp.pageBg || entry.pageBg);
+        if (pbg && !nearW(pbg) && !nearK(pbg)) {
+          surface = pbg;
+          surfSrc = "the page background";
+        } else {
+          const all = (entry.surfaces || []).concat(pages[1] ? pdp.surfaces || [] : []);
+          for (const s0 of all) {
+            const t = rmRgb(s0.color);
+            if (t && !nearW(t) && !nearK(t) && s0.area >= 20000 && rmLum(t) > 0.35) {
+              surface = t;
+              surfSrc = "the largest tinted panel on the page";
+              break;
+            }
+          }
+        }
+        if (!surface) {
+          surface = [245, 245, 245];
+          surfSrc = "a light neutral (the site uses white only)";
+        }
+        set("--smc-mainBkg", rmHex(surface));
+        const gradVars = vars.filter((x) => /^--smc-gradient\d$/.test(x.name));
+        if (gradVars.length && gradVars.every((x) => isOpaqueColor(v[x.name] || x.value))) {
+          set("--smc-gradient1", rmHex(surface));
+          set("--smc-gradient2", rmHex(rmMix(surface, RM_W, 0.45)));
+        }
+        notes.push("Background " + rmHex(surface) + " from " + surfSrc + ".");
+
+        // Text colours
+        const texts = ((pdp.text && pdp.text.length ? pdp.text : entry.text) || []).filter((t) => {
+          const c = rmRgb(t.color);
+          return c && !nearW(c);
+        });
+        const hd = pdp.heading || entry.heading;
+        const headC = rmRgb(hd && hd.color) || (texts[0] && rmRgb(texts[0].color)) || [26, 26, 26];
+        const txt = rmReadable(headC, surface).c;
+        set("--smc-textColour", rmHex(txt));
+        const cols = texts.map((t) => rmRgb(t.color));
+        const darkest = cols.slice().sort((x, y) => rmLum(x) - rmLum(y))[0] || txt;
+        set("--smc-cardText", rmHex(rmReadable(darkest, RM_W).c));
+        const muted = cols
+          .filter((c) => rmContrast(c, surface) >= 4.5 && rmHex(c) !== rmHex(txt))
+          .sort((x, y) => rmLum(y) - rmLum(x))[0];
+        set("--smc-textColour2", rmHex(muted || txt));
+
+        // Corners: measured card/panel radii; a square-cornered brand (0px button, no rounded cards) stays square
+        const radii = (pdp.radii || []).concat(entry.radii || []).map(rmPx).filter((x) => x != null);
+        if (radii.length) {
+          set("--smc-frameBorderRadius", Math.round(Math.max.apply(null, radii)) + "px");
+          set("--smc-cardBorderRadius", Math.round(Math.min.apply(null, radii)) + "px");
+        } else if (r === 0) {
+          set("--smc-frameBorderRadius", "0px");
+          set("--smc-cardBorderRadius", "0px");
+          notes.push("Square corners everywhere, matching the square button.");
+        }
+
+        // Fonts: only faces the browser actually loaded, with their real files
+        const body = texts[0] || (entry.text || [])[0] || {};
+        snap.bodyFont = rmStack(body.fontFamily) || snap.bodyFont;
+        if (hd && hd.fontFamily) set("--smc-font2", rmStack(hd.fontFamily));
+        const fams = [rmFirst(body.fontFamily), rmFirst(hd && hd.fontFamily), rmFirst(cta.fontFamily)].filter(Boolean);
+        const uniq = fams.filter((f, i) => fams.findIndex((g) => g.toLowerCase() === f.toLowerCase()) === i);
+        const faces = [].concat.apply([], pages.map((p) => (p.probe && p.probe.faces) || []));
+        const lines = [];
+        const missing = [];
+        uniq.forEach((f) => {
+          const seen = {};
+          const mine = faces.filter((x) => x.family.toLowerCase() === f.toLowerCase() && /normal/.test(x.style || "normal") && !/^url\("data:/.test(x.src));
+          mine.forEach((x) => {
+            if (seen[x.weight] || Object.keys(seen).length >= 6) return;
+            seen[x.weight] = 1;
+            lines.push('@font-face { font-family: "' + x.family + '"; src: ' + x.src.replace(/\s+/g, " ").trim() + "; font-weight: " + x.weight + "; font-style: normal; font-display: swap; }");
+          });
+          if (!mine.length) missing.push(f);
+        });
+        snap.fontImports = lines;
+        notes.push(
+          "Fonts: " + uniq.join(", ") + " — the faces the browser actually loaded" + (lines.length ? ", using the site's own font files." : "."),
+        );
+        const ownHost = lines.some((l) => l.indexOf("//" + host + "/") !== -1);
+        if (ownHost)
+          notes.push(
+            "Some font files live on " + host + " itself: they load on the live site, but this preview may show a fallback font if the site blocks other domains from using them.",
+          );
+        if (missing.length)
+          notes.push("No readable @font-face for " + missing.join(", ") + " (it may come from a protected stylesheet) — add it by hand or onboard it via smc-font-css.");
+
+        // Typography the variable set can't express: button + headline case, tracking, weight
+        const btnRule = [];
+        if (rmFirst(cta.fontFamily).toLowerCase() !== rmFirst(body.fontFamily).toLowerCase())
+          btnRule.push("font-family: " + rmStack(cta.fontFamily));
+        if (!has("--smc-btnFontWeight") && cta.fontWeight) btnRule.push("font-weight: " + cta.fontWeight);
+        if (cta.textTransform && cta.textTransform !== "none") btnRule.push("text-transform: " + cta.textTransform);
+        if (cta.letterSpacing && cta.letterSpacing !== "normal") btnRule.push("letter-spacing: " + cta.letterSpacing);
+        const hRule = [];
+        if (hd) {
+          if (hd.fontWeight) hRule.push("font-weight: " + hd.fontWeight);
+          if (hd.textTransform && hd.textTransform !== "none") hRule.push("text-transform: " + hd.textTransform);
+          if (hd.letterSpacing && hd.letterSpacing !== "normal") hRule.push("letter-spacing: " + hd.letterSpacing);
+        }
+        let extra = "";
+        if (btnRule.length || hRule.length) {
+          extra = "/* Brand typography — measured from " + host + " */\n";
+          if (btnRule.length) extra += "smc-bg .smc-button {\n  " + btnRule.join(";\n  ") + ";\n}\n";
+          if (hRule.length) extra += "smc-bg .smc-text1 {\n  " + hRule.join(";\n  ") + ";\n}\n";
+        }
+        snap.extraCss = extra;
+
+        // Readability report
+        const chk = [
+          ["button text on button", rmContrast(bt.c, btnBkg)],
+          ["headline on background", rmContrast(txt, surface)],
+        ];
+        notes.push("Contrast: " + chk.map((c) => c[0] + " " + c[1].toFixed(1) + ":1").join(" · ") + ".");
+
+        let product = pdp.product || entry.product || null;
+        if (product && product.image) product.image = String(product.image).replace(/^http:\/\//, "https://");
+        return { ok: true, snap, notes, product, families: uniq };
+      }
+      /* RENDER-MAP END */
 
       // Server-side scrape: pulls real design tokens from the page + its linked stylesheets
       // (what web_fetch can't reach). Returns { status, data }: data is null on failure/empty so
@@ -2148,6 +2842,7 @@
         state.values = JSON.parse(JSON.stringify(state.base.values));
         state.fontImports = state.base.fontImports.slice();
         state.bodyFont = state.base.bodyFont;
+        state.extraCss = state.base.extraCss || "";
         state.activeTheme = null;
         renderEditor();
         applyAll();
