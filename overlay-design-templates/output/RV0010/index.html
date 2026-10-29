@@ -1,0 +1,43 @@
+<!-- Overlay V4 Template -->
+<smc-bg class="smc-animated smc-fadeIn">
+  <smc-overlay-outer class="smc-animated smc-fadeInDown smc-animDelay2">
+    <smc-overlay-inner class="smc_clearfix" data-bgtheme="light" data-changes="smc-overlay-inner|width,background-color" data-edits="content6">
+      <!-- Heading -->
+      <smc-wrap>
+        <smc-text-outer>
+          <smc-text class="smc-text1" data-edits="text1" data-engage-text="{text3}">{text1}</smc-text>
+        </smc-text-outer>
+        <smc-text-outer>
+          <smc-text class="smc-text2" data-edits="text2" data-engage-text="{text4}">{text2}</smc-text>
+        </smc-text-outer>
+      </smc-wrap>
+
+      <!-- Click To Reveal Option -->
+      <smc-option class="smc-clickToReveal">
+        <smc-reveal class="smc-animated smc-bounceInUp smc-animDelay4">
+          <smc-cover data-edits="text8" data-changes=".smc-clickToReveal smc-cover|font-size,background-color,color">{text8}</smc-cover>
+          <smc-code data-engage-class="smc-eng">{vc}</smc-code>
+          <smc-cp data-clipboard-text="{vc-cp}">COPY</smc-cp>
+          <smc-cp-msg>"{vc}" has been copied to the clipboard</smc-cp-msg>
+        </smc-reveal>
+
+        <!-- Closers (Both Need) -->
+        <smc-long-close class="smc-animated smc-fadeInUp smc-animDelay2" data-engage-class="smc-engaged">
+          <a data-close-type="long_close" class="smc-link smc-closer" href="#rdl" data-engage-text="{text11}" data-edits="text7,text11" data-changes="smc-long-close a.smc-link|font-size,color,margin-top,margin-bottom">{text7}</a>
+          <!-- Note - Redirect Link gets automatically rewritten, once clicked on the data-engage text and classes are applied -->
+        </smc-long-close>
+      </smc-option>
+
+      <smc-text class="smc-text5" data-edits="text5">{text5}</smc-text>
+
+      <smc-close class="smc-closer">
+        <a data-close-type="x_close" class="smc-link" href="#rdl" aria-label="Close">✕</a>
+      </smc-close>
+    </smc-overlay-inner>
+  </smc-overlay-outer>
+
+  <!-- Safe close - Used when Autoscaling is turned on -->
+  <smc-close-safe class="smc-closer">
+    <a data-close-type="x_close" class="smc-link" href="#rdl">[close]</a>
+  </smc-close-safe>
+</smc-bg>

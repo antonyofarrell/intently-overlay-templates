@@ -1,0 +1,300 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap");
+
+smc-bg * {
+  font-family: "Inter", sans-serif;
+}
+
+/* ── Hide empty elements ──────────────────────────────────── */
+smc-text-outer:not(:has(smc-text:not(:empty))),
+smc-option:empty,
+smc-text:empty,
+smc-product-desc,
+smc-product-oldprice {
+  display: none;
+}
+
+smc-bg {
+  top: auto;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0);
+  pointer-events: none;
+}
+smc-overlay-outer {
+  position: absolute;
+  bottom: 10px;
+  left: auto;
+  right: 10px;
+}
+
+/* ── Frame ────────────────────────────────────────────────── */
+smc-overlay-inner {
+  --smc-mainBkg: #fff;
+  --smc-cardBkg: #eff0f5;
+  --smc-textColour: #1b2333;
+  --smc-textColour2: #4b5563;
+  --smc-accent: #0b1c35;
+  --smc-borderColour: #dcdfe4;
+  --smc-codeBorderColour: #5b6573;
+  --smc-closeColour: #4a5568;
+  --smc-btnBkg: #0b1c35;
+  --smc-btnBkgHover: #1d2f57;
+  --smc-btnText: #fff;
+  --smc-btnBorderRadius: 4px;
+  --smc-btnFontSize: 19px;
+  --smc-btnFontWeight: 600;
+  --smc-frameBorderRadius: 4px;
+  --smc-fontSm: 12px;
+  --smc-fontRg: 15px;
+  --smc-fontLg: 26px;
+  --smc-font2: "Oswald", "Inter", sans-serif;
+  --smc-caretLeft: 56px;
+
+  display: flex;
+  flex-direction: column;
+  width: 470px;
+  height: auto;
+  min-height: 0;
+  margin: auto;
+  padding: 22px 26px 18px;
+  background-color: var(--smc-mainBkg);
+  border: 1px solid var(--smc-borderColour);
+  border-radius: var(--smc-frameBorderRadius);
+  box-shadow: 0 6px 24px rgba(15, 29, 58, 0.18);
+  pointer-events: all;
+}
+
+/* Caret pointing up to the header cart */
+smc-overlay-inner::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: var(--smc-caretLeft);
+  width: 14px;
+  height: 14px;
+  background-color: var(--smc-mainBkg);
+  border-top: 1px solid var(--smc-borderColour);
+  border-left: 1px solid var(--smc-borderColour);
+  transform: rotate(45deg);
+}
+
+/* ── Heading ──────────────────────────────────────────────── */
+smc-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  margin: 0;
+}
+smc-text-outer {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+}
+smc-overlay-inner smc-text {
+  text-align: left;
+}
+.smc-text1 {
+  margin: 0;
+  padding-right: 30px;
+  font-family: var(--smc-font2);
+  font-size: var(--smc-fontLg);
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--smc-textColour);
+}
+.smc-text2 {
+  margin: 0;
+  font-size: var(--smc-fontRg);
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--smc-textColour);
+}
+smc-overlay-inner smc-text.smc-text5 {
+  display: block;
+  margin-top: 12px;
+  font-size: var(--smc-fontSm);
+  line-height: 1.4;
+  text-align: center;
+  color: var(--smc-textColour2);
+}
+
+/* ── Reveal code ──────────────────────────────────────────── */
+smc-option {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 46px 0 0;
+}
+smc-reveal {
+  height: 54px;
+  min-height: 54px;
+  margin: 0;
+}
+smc-cover {
+  inset: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 16px;
+  border-radius: var(--smc-btnBorderRadius);
+  font-family: var(--smc-font2);
+  font-size: var(--smc-btnFontSize);
+  font-weight: var(--smc-btnFontWeight);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background-color: var(--smc-btnBkg);
+}
+/* Tag icon */
+smc-cover::before {
+  content: "";
+  flex: 0 0 18px;
+  width: 18px;
+  height: 18px;
+  background: center / contain no-repeat url("https://cdn.smct.io/123026-579.svg");
+}
+smc-cover:hover {
+  background-color: var(--smc-btnBkgHover);
+}
+
+smc-code {
+  inset: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 90px 0 18px;
+  border: 1px dashed var(--smc-codeBorderColour);
+  border-radius: var(--smc-btnBorderRadius);
+  background-color: var(--smc-cardBkg);
+  font-family: var(--smc-font2);
+  font-size: var(--smc-fontLg);
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-align: left;
+  color: var(--smc-accent);
+  opacity: 0;
+}
+smc-code.smc-eng {
+  opacity: 1;
+}
+
+/* Copy button – only once the code is revealed */
+smc-cp {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  left: auto;
+  width: auto;
+  height: auto;
+  padding: 8px 15px;
+  transform: translateY(-50%);
+  z-index: 3;
+  background: var(--smc-mainBkg);
+  border: 1px solid var(--smc-borderColour);
+  border-radius: var(--smc-btnBorderRadius);
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  font-weight: var(--smc-btnFontWeight);
+  line-height: 1;
+  color: var(--smc-textColour);
+  cursor: pointer;
+  opacity: 1;
+}
+smc-cp:hover {
+  background: #f6f7f9;
+}
+
+/* ── Long close (Add to cart) – engaged only ──────────────── */
+smc-long-close {
+  display: none;
+}
+smc-long-close.smc-engaged {
+  position: relative;
+  display: block;
+  top: auto;
+  bottom: auto;
+  width: 100%;
+  max-width: none;
+  margin: 16px 0 0;
+}
+smc-long-close.smc-engaged > a.smc-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 54px;
+  margin: 0;
+  padding: 0 16px;
+  border-radius: var(--smc-btnBorderRadius);
+  font-family: var(--smc-font2);
+  font-size: var(--smc-btnFontSize);
+  font-weight: var(--smc-btnFontWeight);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  background-color: var(--smc-btnBkg);
+  color: var(--smc-btnText);
+}
+smc-long-close.smc-engaged > a.smc-link:hover {
+  background-color: var(--smc-btnBkgHover);
+}
+
+/* ── Engaged state ────────────────────────────────────────── */
+smc-overlay-inner:has(smc-code.smc-eng) smc-option {
+  margin-top: 18px;
+}
+smc-overlay-inner:has(smc-code.smc-eng) smc-cover {
+  display: none;
+}
+smc-overlay-inner:has(smc-code.smc-eng) smc-cp {
+  display: block;
+}
+smc-overlay-inner:has(smc-code.smc-eng) smc-text.smc-text5 {
+  display: none;
+}
+
+/* ── Copied message ───────────────────────────────────────── */
+smc-cp-msg {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  padding: 6px 10px;
+  border-radius: 4px;
+  background: #222;
+  color: #fff;
+  font-size: var(--smc-fontSm);
+  line-height: 1.2;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* Arrow pointing down at the copy element */
+smc-cp-msg::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: #222;
+}
+
+/* ── Close ────────────────────────────────────────────────── */
+smc-close {
+  top: 18px;
+  right: 20px;
+  z-index: 4;
+}
+smc-close a.smc-link {
+  font-size: 20px;
+  line-height: 1;
+  color: var(--smc-closeColour);
+  text-decoration: none;
+}
+smc-close a.smc-link:hover {
+  color: var(--smc-textColour);
+}
