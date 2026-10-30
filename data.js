@@ -325,6 +325,16 @@ const TEMPLATES = [
     upvotes: 0,
     downvotes: 0,
   },
+  {
+    ref: "DB0022",
+    cat: "db",
+    desc: "Split panel basket reminder — product on the right, photo panel with reveal CTA on the left, scrolling USP marquee below",
+    url: "https://admin.intent.ly/my-account/overlay-manager/#204609",
+    img: "images/thumbs/DB0022.jpg",
+    notes: null,
+    upvotes: 0,
+    downvotes: 0,
+  },
 
   /* ── Recomminder ─────────────────────────────── */
   {

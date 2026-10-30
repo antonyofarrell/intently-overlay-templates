@@ -75,6 +75,7 @@ function optionFor(css, html, title) {
 // Per-ref option overrides for templates whose title doesn't map cleanly to a Type.
 // Set from the actual "Type" in the overlay manager (production).
 const OPTION_OVERRIDES = {
+  DB0022: "smc-clickToReveal", // "Dynamic Basket" title, but the CSS only styles the reveal flow
   MS0004: "smc-email", // "Email to Redirect" in the title, but it's an Email Voucher
   MS0007: "smc-email", // "Basket Backup / Opt In" in the title, but it's an Email Voucher
   MS0013: "", // gamified quiz: the hero is the quiz screens, not any single smc-option
