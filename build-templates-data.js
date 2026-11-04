@@ -79,6 +79,8 @@ const OPTION_OVERRIDES = {
   MS0004: "smc-email", // "Email to Redirect" in the title, but it's an Email Voucher
   MS0007: "smc-email", // "Basket Backup / Opt In" in the title, but it's an Email Voucher
   MS0013: "", // gamified quiz: the hero is the quiz screens, not any single smc-option
+  PR0012: "", // recomminder: the CTA is an smc-product-link per tile, not an smc-option
+  PR0013: "", // recomminder: the CTA is an smc-product-link per tile, not an smc-option
 };
 
 const cand = {};
